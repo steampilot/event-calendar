@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/steampilot/eventcalender.png?label=ready&title=Ready)](https://waffle.io/steampilot/eventcalender)
 EventCalender
 =============
 
