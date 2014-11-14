@@ -1,15 +1,16 @@
 <?php
+
 /**
  * UserFixture
  *
  */
 class UserFixture extends CakeTestFixture {
 
-/**
- * Fields
- *
- * @var array
- */
+	/**
+	 * Fields
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'title' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8mb4_unicode_ci', 'charset' => 'utf8mb4'),
@@ -26,17 +27,27 @@ class UserFixture extends CakeTestFixture {
 		'tableParameters' => array('charset' => 'utf8mb4', 'collate' => 'utf8mb4_unicode_ci', 'engine' => 'InnoDB')
 	);
 
-/**
- * Records
- *
- * @var array
- */
+	/**
+	 * Records
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array(
 			'id' => 1,
-			'title' => 'Lorem ipsum dolor sit amet',
-			'username' => 'Lorem ipsum dolor sit amet',
-			'password' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Administrator',
+			'username' => 'info@steampilot.ch',
+			'password' => 'login',
+			'created' => '2014-11-14 14:50:36',
+			'created_by' => 1,
+			'modified' => '2014-11-14 14:50:36',
+			'modified_by' => 1
+		),
+		array(
+			'id' => 2,
+			'title' => 'Jérôme Röthlisberger',
+			'username' => 'jerome.roethlisberger@gibmit.ch',
+			'password' => 'login',
 			'created' => '2014-11-14 14:50:36',
 			'created_by' => 1,
 			'modified' => '2014-11-14 14:50:36',
