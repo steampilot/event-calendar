@@ -1,23 +1,31 @@
 <?php
 App::uses('AppModel', 'Model');
+
 /**
  * User Model
  *
  */
 class User extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
+	/**
+	 * Display field
+	 *
+	 * @var string
+	 */
 	public $displayField = 'title';
 
-/**
- * Validation rules
- *
- * @var array
- */
+	/**
+	 * Default order field
+	 *
+	 * @var string
+	 */
+	public $order = "title";
+
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'id' => array(
 			'notEmpty' => array(
