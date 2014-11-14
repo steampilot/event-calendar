@@ -1,0 +1,36 @@
+{
+	"name": "steampilot/event-calendar",
+	"description": "GIBM School Project",
+	"type": "project",
+	"license": "CC0-1.0",
+	"authors": [
+		{
+			"name": "Steampilot Jérôme Röthlisberger",
+			"email": "info@steampilot.ch",
+			"homepage": "http://www.steampilot.ch/demo"
+		}
+	],
+	"homepage": "https://github.com/steampilot/event-calendar",
+	"support": {
+		"issues": "https://github.com/steampilot/event-calendar/issues",
+		"email": "info@steampilot.ch",
+		"source": "https://github.com/steampilot/event-calendar"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"require": {
+		"php": ">=5.3.0",
+		"ceeram/clear_cache": "1.0.0",
+		"cakephp/debug_kit": "2.2.4",
+		"cakedc/migrations": "2.3.5",
+		"ravage84/cakephp-multi-column-uniqueness": "0.3.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.38",
+		"phploc/phploc": "2.0.6",
+		"pdepend/pdepend": "2.0.3",
+		"phpmd/phpmd": "2.1.3",
+		"sebastian/phpcpd": "2.0.1",
+		"cakephp/cakephp-codesniffer": "*"
+	}
+}
