@@ -18,6 +18,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+// Include the Composer autoloader
+// This does not use `App::import()` because `App::build()`
+// is called *after* `core.php` has been loaded
+include (APP . DS . 'vendor' . DS . 'autoload.php');
+// Remove and re-prepend CakePHP's autoloader as composer thinks it is the most important.
+// See https://github.com/composer/composer/commit/c80cb76b9b5082ecc3e5b53b1050f76bb27b127b
+spl_autoload_unregister(['App', 'load']);
+spl_autoload_register(['App', 'load'], true, true);
+
 /**
  * CakePHP Debug Level:
  *
