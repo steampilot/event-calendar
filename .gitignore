@@ -27,3 +27,5 @@ Icon?
 ehthumbs.db
 Thumbs.db
 /documentation/*.bak
+composer.phar
+/app/Vendor
