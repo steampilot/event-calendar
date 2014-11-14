@@ -22,7 +22,15 @@ class User extends AppModel {
 		'id' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Feld muss ausgefüllt sein',
+				//'message' => 'Feld muss ausgefüllt sein',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'naturalNumber' => array(
+				'rule' => array('naturalNumber'),
+				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
