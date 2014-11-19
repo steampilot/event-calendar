@@ -12,22 +12,22 @@ $(function () {
 	getProfession();
 
 	// when something has changed
-	$('#profession').on('change', function(){
+	$('#profession').on('change', function () {
 		var professionId;
 		professionId = $('#profession').val();
-		if(professionId == 0) {
+		if (professionId == 0) {
 			$('#school_class').hide('slow');
 		} else {
 			getSchoolClassByProfessionId(professionId);
 		}
 	});
-	$('#school_class').on('change', function(){
+	$('#school_class').on('change', function () {
 		var week = 12;
 		var year = 2013;
 		var classId = $('#school_class').val();
 		console.log(classId);
 		//classId = 1481221;
-		getBoard(classId,week,year);
+		getBoard(classId, week, year);
 	});
 
 	// when something has been clicked
@@ -62,17 +62,17 @@ function getSchoolClassByProfessionId(professionId) {
 	$.ajax({
 		type: 'POST',
 		url: 'http://home.gibm.ch/interfaces/133/klassen.php?beruf_id=' + professionId
-	}).done(function (response){
+	}).done(function (response) {
 		displaySchoolClass(response);
 		$('#school_class').show('slow');
 	});
 }
-function getBoard(classId,week,year){
-	var url = 'http://home.gibm.ch/interfaces/133/tafel.php' + '?klasse_id=' + classId + '&woche='+week+'-'+year;
-		$.ajax({
+function getBoard(classId, week, year) {
+	var url = 'http://home.gibm.ch/interfaces/133/tafel.php' + '?klasse_id=' + classId + '&woche=' + week + '-' + year;
+	$.ajax({
 		type: 'POST',
 		url: url
-	}).done(function (response){
+	}).done(function (response) {
 		displayBoard(response);
 	});
 }
@@ -92,15 +92,15 @@ function displayProfession(profession) {
 	}
 	$('#profession').html(options);
 }
-function displaySchoolClass(schoolClass){
+function displaySchoolClass(schoolClass) {
 	var options = '<option value="0">** Bitte wählen Sie eine Klasse aus</option>';
 	for (var i in schoolClass) {
 		var row = schoolClass[i];
 		options +=
 			'<option value="' +
-				gh(row.klasse_id) + '">' +
-				gh(row.klasse_name) + ' - ' +
-				gh(row.klasse_longname) +
+			gh(row.klasse_id) + '">' +
+			gh(row.klasse_name) + ' - ' +
+			gh(row.klasse_longname) +
 			'</option>';
 	}
 	$('#school_class').html(options);
@@ -166,11 +166,11 @@ function gh(value) {
 	return $('<div/>').text(value).html();
 }
 function gu(value) {
-	return '<a href="'+value+'">'+value+'</a>';
+	return '<a href="' + value + '">' + value + '</a>';
 }
 
 function getWeekDayName(id) {
-	var weekdayName  = [
+	var weekdayName = [
 		'Sontag',
 		'Montag',
 		'Dienstag',
