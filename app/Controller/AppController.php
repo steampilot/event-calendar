@@ -155,4 +155,213 @@ class AppController extends Controller {
 		return ClassRegistry::init($strModel);
 	}
 
+	/**
+	 * Append assets to layout
+	 *
+	 * @return void
+	 */
+	public function setAssets() {
+		// append css and js
+		$arrAssets = array();
+		$arrAssets['js'] = $this->getJs();
+		$arrAssets['css'] = $this->getCss();
+
+		if (!empty($this->arrAssets['css'])) {
+			foreach ($this->arrAssets['css'] as $arrFile) {
+				$arrAssets['css'][] = $arrFile;
+			}
+		}
+
+		if (!empty($this->arrAssets['js'])) {
+			foreach ($this->arrAssets['js'] as $arrFile) {
+				$arrAssets['js'][] = $arrFile;
+			}
+		}
+
+		$this->set('arrAssets', $arrAssets);
+		$this->set('strLogo', $this->getLogo());
+		$this->set('strFavicon', $this->getFavicon());
+		$this->set('strActiveNavbar', $this->strActiveNavbar);
+
+		// navigation
+		$this->set('strNavbar', 'navbar');
+
+		// CI
+		$this->set('ci', $this->getCi());
+
+		// elements
+		// $arrElements = array();
+		// $arrElements[] = array('name' => $page);
+		// $this->set('arrElements', $arrElements);
+	}
+
+	/**
+	 * Returns current CI from subdomain
+	 *
+	 * @return string
+	 */
+	public function getCi() {
+		$strCi = 'default';
+		return $strCi;
+	}
+
+	/**
+	 * Returns true if CI is valid
+	 *
+	 * @param string $strCi ci name (bvb or blt)
+	 * @return boolean
+	 */
+	public function isValidCi($strCi) {
+		if ($strCi == 'default') {
+			$boolReturn = true;
+		} else {
+			$boolReturn = false;
+		}
+		return $boolReturn;
+	}
+
+	/**
+	 * Add assets to page
+	 *
+	 * @param array $arrAssets array of assets
+	 * @return void
+	 */
+	public function addAssets($arrAssets) {
+		foreach ($arrAssets as $strKey => $arrAssetItems) {
+			foreach ($arrAssetItems as $arrItem) {
+				$this->arrAssets[$strKey][] = $arrItem;
+			}
+		}
+	}
+
+	/**
+	 * Add asset to page
+	 *
+	 * @param array $arrAsset asset
+	 * @return void
+	 */
+	public function addAsset($arrAsset) {
+		$strKey = key($arrAsset);
+		$this->arrAssets[$strKey][] = $arrAsset[$strKey];
+	}
+
+	/**
+	 * Returns assets for page action
+	 *
+	 * @param string $strAction action name
+	 * @return array
+	 */
+	public function getPageFiles($strAction) {
+		return null;
+	}
+
+	/**
+	 * Returns global CSS files for view
+	 *
+	 * @return array
+	 */
+	public function getCss() {
+		$arrReturn = array();
+		$strCi = $this->getCi();
+
+		// allways load layout.css
+		$arrReturn[] = array(
+			'path' => 'default/layout',
+			'options' => array('inline' => false)
+		);
+
+		// append ci layout.css and login.css
+		if ($this->isValidCi($strCi)) {
+
+			$arrReturn[] = array(
+				'path' => $strCi . '/layout',
+				'options' => array('inline' => false)
+			);
+		}
+
+		$arrReturn[] = array(
+			'path' => 'notifit',
+			'options' => array('inline' => false)
+		);
+
+		return $arrReturn;
+	}
+
+	/**
+	 * Returns global JS files for view
+	 *
+	 * @return array
+	 */
+	public function getJs() {
+		$arrReturn = array();
+
+		$arrReturn[] = array(
+			'path' => 'd',
+			'options' => array(
+				'block' => 'script',
+				'inline' => true
+			)
+		);
+
+		$arrReturn[] = array(
+			'path' => 'app',
+			'options' => array(
+				'block' => 'script',
+				'inline' => true
+			)
+		);
+
+		$arrReturn[] = array(
+			'path' => 'notifit',
+			'options' => array(
+				'block' => 'script',
+				'inline' => true
+			)
+		);
+
+		$arrReturn[] = array(
+			'path' => 'pages/layout/layout',
+			'options' => array(
+				'block' => 'script',
+				'inline' => true
+			)
+		);
+
+		// add global text translations
+		$strTextJs = $this->_getTextJs($this->_getTextGlobal());
+		if (!empty($strTextJs)) {
+			$arrReturn[] = array(
+				'content' => $strTextJs,
+				'options' => array(
+					'block' => 'script',
+					'inline' => true
+				)
+			);
+		}
+
+		// add text translations
+		$strTextJs = $this->_getTextJs($this->getText());
+		if (!empty($strTextJs)) {
+			$arrReturn[] = array(
+				'content' => $strTextJs,
+				'options' => array(
+					'block' => 'script',
+					'inline' => true
+				)
+			);
+		}
+
+		// https://github.com/twbs/bootlint
+		// https://raw.githubusercontent.com/twbs/bootlint/master/dist/browser/bootlint.js
+		/* $arrReturn[] = array(
+		  'path' => 'bootlint',
+		  'options' => array(
+		  'block' => 'script',
+		  'inline' => true
+		  )
+		  ); */
+
+		return $arrReturn;
+	}
+
 }
