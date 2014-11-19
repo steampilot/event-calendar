@@ -46,25 +46,25 @@ class TestToolbarComponent extends ToolbarComponent {
  */
 class ToolbarComponentTestCase extends CakeTestCase {
 
-/**
- * fixtures
- *
- * @var array
- */
+	/**
+	 * fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.article');
 
-/**
- * url for test
- *
- * @var string
- */
+	/**
+	 * url for test
+	 *
+	 * @var string
+	 */
 	public $url;
 
-/**
- * Start test callback
- *
- * @return void
- */
+	/**
+	 * Start test callback
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -81,11 +81,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->url = '/';
 	}
 
-/**
- * endTest
- *
- * @return void
- */
+	/**
+	 * endTest
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		$_SERVER = $this->_server;
 		$_GET = $this->_get;
@@ -111,12 +111,12 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		Router::reload();
 	}
 
-/**
- * loading test controller
- *
- * @param array $settings
- * @return Controller
- */
+	/**
+	 * loading test controller
+	 *
+	 * @param array $settings
+	 * @return Controller
+	 */
 	protected function _loadController($settings = array()) {
 		$request = new CakeRequest($this->url);
 		$request->addParams(Router::parse($this->url));
@@ -128,11 +128,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		return $this->Controller;
 	}
 
-/**
- * test Loading of panel classes
- *
- * @return void
- */
+	/**
+	 * test Loading of panel classes
+	 *
+	 * @return void
+	 */
 	public function testLoadPanels() {
 		$this->_loadController();
 
@@ -144,21 +144,21 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertEquals($this->Controller->Toolbar->panels['history']->history, 10);
 	}
 
-/**
- * Test exceptions on bad panel names
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
+	/**
+	 * Test exceptions on bad panel names
+	 *
+	 * @expectedException PHPUnit_Framework_Error
+	 * @return void
+	 */
 	public function testLoadPanelsError() {
 		$this->Controller->Toolbar->loadPanels(array('randomNonExisting', 'request'));
 	}
 
-/**
- * test Loading of panel classes from a plugin
- *
- * @return void
- */
+	/**
+	 * test Loading of panel classes from a plugin
+	 *
+	 * @return void
+	 */
 	public function testLoadPluginPanels() {
 		$debugKitPath = App::pluginPath('DebugKit');
 		$noDir = (empty($debugKitPath) || !file_exists($debugKitPath));
@@ -179,11 +179,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		);
 	}
 
-/**
- * test loading of vendor panels from test_app folder
- *
- * @return void
- */
+	/**
+	 * test loading of vendor panels from test_app folder
+	 *
+	 * @return void
+	 */
 	public function testLibPanels() {
 		$debugKitPath = App::pluginPath('DebugKit');
 		$noDir = (empty($debugKitPath) || !file_exists($debugKitPath));
@@ -202,11 +202,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertInstanceOf('TestPanel', $this->Controller->Toolbar->panels['test']);
 	}
 
-/**
- * test construct
- *
- * @return void
- */
+	/**
+	 * test construct
+	 *
+	 * @return void
+	 */
 	public function testConstruct() {
 		$this->_loadController();
 
@@ -226,11 +226,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertNotEmpty($events->listeners('View.afterLayout'));
 	}
 
-/**
- * test initialize w/ custom panels and defaults
- *
- * @return void
- */
+	/**
+	 * test initialize w/ custom panels and defaults
+	 *
+	 * @return void
+	 */
 	public function testInitializeCustomPanelsWithDefaults() {
 		$this->_loadController(array(
 			'panels' => array('test'),
@@ -243,11 +243,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertEquals($expected, array_keys($this->Controller->Toolbar->panels));
 	}
 
-/**
- * test syntax for removing panels
- *
- * @return void
- */
+	/**
+	 * test syntax for removing panels
+	 *
+	 * @return void
+	 */
 	public function testInitializeRemovingPanels() {
 		$this->_loadController(array(
 			'panels' => array(
@@ -260,11 +260,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertEquals($expected, array_keys($this->Controller->Toolbar->panels));
 	}
 
-/**
- * ensure that Toolbar is not enabled when debug == 0 on initialize
- *
- * @return void
- */
+	/**
+	 * ensure that Toolbar is not enabled when debug == 0 on initialize
+	 *
+	 * @return void
+	 */
 	public function testDebugDisableOnInitialize() {
 		$_debug = Configure::read('debug');
 		Configure::write('debug', 0);
@@ -274,11 +274,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertFalse($this->Controller->Components->enabled('Toolbar'));
 	}
 
-/**
- * test that passing in forceEnable will enable the toolbar even if debug = 0
- *
- * @return void
- */
+	/**
+	 * test that passing in forceEnable will enable the toolbar even if debug = 0
+	 *
+	 * @return void
+	 */
 	public function testForceEnable() {
 		$_debug = Configure::read('debug');
 		Configure::write('debug', 0);
@@ -290,11 +290,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertTrue($this->Controller->Components->enabled('Toolbar'));
 	}
 
-/**
- * Test disabling autoRunning of toolbar
- *
- * @return void
- */
+	/**
+	 * Test disabling autoRunning of toolbar
+	 *
+	 * @return void
+	 */
 	public function testAutoRunSettingFalse() {
 		$this->_loadController(array(
 			'autoRun' => false,
@@ -302,11 +302,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertFalse($this->Controller->Components->enabled('Toolbar'));
 	}
 
-/**
- * test autorun = false with query string param
- *
- * @return void
- */
+	/**
+	 * test autorun = false with query string param
+	 *
+	 * @return void
+	 */
 	public function testAutoRunSettingWithQueryString() {
 		$this->url = '/?debug=1';
 		$_GET['debug'] = 1;
@@ -316,11 +316,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertTrue($this->Controller->Components->enabled('Toolbar'));
 	}
 
-/**
- * test startup
- *
- * @return void
- */
+	/**
+	 * test startup
+	 *
+	 * @return void
+	 */
 	public function testStartup() {
 		$this->_loadController(array(
 			'panels' => array('timer'),
@@ -337,11 +337,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertTrue(isset($memory['Controller action start']));
 	}
 
-/**
- * Test that cache config generation works.
- *
- * @return void
- */
+	/**
+	 * Test that cache config generation works.
+	 *
+	 * @return void
+	 */
 	public function testCacheConfigGeneration() {
 		$this->_loadController();
 		$this->Controller->Components->trigger('startup', array($this->Controller));
@@ -350,11 +350,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertTrue(is_array($results));
 	}
 
-/**
- * test state saving of toolbar
- *
- * @return void
- */
+	/**
+	 * test state saving of toolbar
+	 *
+	 * @return void
+	 */
 	public function testStateSaving() {
 		$this->_loadController();
 		$configName = 'debug_kit';
@@ -369,11 +369,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		Cache::delete('toolbar_history', $configName);
 	}
 
-/**
- * Test Before Render callback
- *
- * @return void
- */
+	/**
+	 * Test Before Render callback
+	 *
+	 * @return void
+	 */
 	public function testBeforeRender() {
 		$this->_loadController(array(
 			'panels' => array('timer', 'session'),
@@ -404,11 +404,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertTrue(isset($memory['Controller render start']));
 	}
 
-/**
- * test that vars are gathered and state is saved on beforeRedirect
- *
- * @return void
- */
+	/**
+	 * test that vars are gathered and state is saved on beforeRedirect
+	 *
+	 * @return void
+	 */
 	public function testBeforeRedirect() {
 		$this->_loadController(array(
 			'panels' => array('session', 'history'),
@@ -432,11 +432,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertTrue(isset($timers['controllerAction']));
 	}
 
-/**
- * test that loading state (accessing cache) works.
- *
- * @return void
- */
+	/**
+	 * test that loading state (accessing cache) works.
+	 *
+	 * @return void
+	 */
 	public function testLoadState() {
 		$this->_loadController();
 		$this->Controller->Toolbar->cacheKey = 'toolbar_history';
@@ -447,12 +447,12 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertEquals($result, $data[0]);
 	}
 
-/**
- * Test that history state urls set prefix = null and admin = null so generated urls do not
- * adopt these params.
- *
- * @return void
- */
+	/**
+	 * Test that history state urls set prefix = null and admin = null so generated urls do not
+	 * adopt these params.
+	 *
+	 * @return void
+	 */
 	public function testHistoryUrlGenerationWithPrefixes() {
 		$this->url = '/debugkit_url_with_prefixes_test';
 		Router::connect($this->url, array(
@@ -479,11 +479,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		Cache::delete('url_test', 'debug_kit');
 	}
 
-/**
- * Test that the FireCake toolbar is used on AJAX requests
- *
- * @return void
- */
+	/**
+	 * Test that the FireCake toolbar is used on AJAX requests
+	 *
+	 * @return void
+	 */
 	public function testAjaxToolbar() {
 		$_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
 		$this->_loadController();
@@ -492,11 +492,11 @@ class ToolbarComponentTestCase extends CakeTestCase {
 		$this->assertEquals($this->Controller->helpers['DebugKit.Toolbar']['output'], 'DebugKit.FirePhpToolbar');
 	}
 
-/**
- * Test that the toolbar does not interfere with requestAction
- *
- * @return void
- */
+	/**
+	 * Test that the toolbar does not interfere with requestAction
+	 *
+	 * @return void
+	 */
 	public function testNoRequestActionInterference() {
 		$debugKitPath = App::pluginPath('DebugKit');
 		$noDir = (empty($debugKitPath) || !file_exists($debugKitPath));

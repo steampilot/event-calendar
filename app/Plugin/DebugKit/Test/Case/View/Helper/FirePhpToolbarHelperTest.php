@@ -34,11 +34,11 @@ require_once $path . 'Test' . DS . 'Case' . DS . 'TestFireCake.php';
  */
 class FirePhpToolbarHelperTestCase extends CakeTestCase {
 
-/**
- * setUp
- *
- * @return void
- **/
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 **/
 	public function setUp() {
 		parent::setUp();
 
@@ -55,57 +55,57 @@ class FirePhpToolbarHelperTestCase extends CakeTestCase {
 		TestFireCake::reset();
 	}
 
-/**
- * Start test - switch view paths
- *
- * @return void
- **/
+	/**
+	 * Start test - switch view paths
+	 *
+	 * @return void
+	 **/
 	public static function setupBeforeClass() {
 		App::build(array(
 			'View' => array(
 				CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Test' . DS . 'test_app' . DS . 'View' . DS,
 				APP . 'Plugin' . DS . 'DebugKit' . DS . 'View' . DS,
 				CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'View' . DS
-		)), true);
+			)), true);
 	}
 
-/**
- * End Test
- *
- * @return void
- */
+	/**
+	 * End Test
+	 *
+	 * @return void
+	 */
 	public static function tearDownAfterClass() {
 		App::build();
 	}
 
-/**
- * TearDown
- *
- * @return void
- */
+	/**
+	 * TearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Toolbar, $this->Controller);
 		TestFireCake::reset();
 	}
 
-/**
- * Test neat array (dump)creation
- *
- * @return void
- */
+	/**
+	 * Test neat array (dump)creation
+	 *
+	 * @return void
+	 */
 	public function testMakeNeatArray() {
-		$this->Toolbar->makeNeatArray(array(1,2,3));
+		$this->Toolbar->makeNeatArray(array(1, 2, 3));
 		$result = $this->firecake->sentHeaders;
 		$this->assertTrue(isset($result['X-Wf-1-1-1-1']));
 		$this->assertRegexp('/\[1,2,3\]/', $result['X-Wf-1-1-1-1']);
 	}
 
-/**
- * Test afterlayout element rendering
- *
- * @return void
- */
+	/**
+	 * Test afterlayout element rendering
+	 *
+	 * @return void
+	 */
 	public function testAfterLayout() {
 		$this->Controller->viewPath = 'Posts';
 		$request = new CakeRequest('/posts/index');
@@ -128,22 +128,22 @@ class FirePhpToolbarHelperTestCase extends CakeTestCase {
 		$this->assertTrue(is_array($result));
 	}
 
-/**
- * test starting a panel
- *
- * @return void
- **/
+	/**
+	 * test starting a panel
+	 *
+	 * @return void
+	 **/
 	public function testPanelStart() {
 		$this->Toolbar->panelStart('My Panel', 'my_panel');
 		$result = $this->firecake->sentHeaders;
 		$this->assertPattern('/GROUP_START.+My Panel/', $result['X-Wf-1-1-1-1']);
 	}
 
-/**
- * test ending a panel
- *
- * @return void
- **/
+	/**
+	 * test ending a panel
+	 *
+	 * @return void
+	 **/
 	public function testPanelEnd() {
 		$this->Toolbar->panelEnd();
 		$result = $this->firecake->sentHeaders;

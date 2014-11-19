@@ -25,29 +25,29 @@ App::uses('DebugKitDebugger', 'DebugKit.Lib');
  */
 class TimedBehaviorTestCase extends CakeTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
+	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.article');
 
-/**
- * Start Test callback
- *
- * @return void
- */
+	/**
+	 * Start Test callback
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Article = ClassRegistry::init('Article');
 		$this->Article->Behaviors->attach('DebugKit.Timed');
 	}
 
-/**
- * End a test
- *
- * @return void
- */
+	/**
+	 * End a test
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Article);
@@ -55,11 +55,11 @@ class TimedBehaviorTestCase extends CakeTestCase {
 		DebugKitDebugger::clearTimers();
 	}
 
-/**
- * Test find timers
- *
- * @return void
- */
+	/**
+	 * Test find timers
+	 *
+	 * @return void
+	 */
 	public function testFindTimers() {
 		$timers = DebugKitDebugger::getTimers(false);
 		$this->assertEquals(count($timers), 1);
@@ -73,11 +73,11 @@ class TimedBehaviorTestCase extends CakeTestCase {
 		$this->assertEquals(count($result), 3);
 	}
 
-/**
- * Test save timers
- *
- * @return void
- */
+	/**
+	 * Test save timers
+	 *
+	 * @return void
+	 */
 	public function testSaveTimers() {
 		$timers = DebugKitDebugger::getTimers(false);
 		$this->assertEquals(count($timers), 1);

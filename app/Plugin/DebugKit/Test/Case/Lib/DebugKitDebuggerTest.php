@@ -26,11 +26,11 @@ require_once CakePlugin::path('DebugKit') . 'Test' . DS . 'Case' . DS . 'TestFir
  */
 class DebugKitDebuggerTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('log', false);
@@ -38,11 +38,11 @@ class DebugKitDebuggerTest extends CakeTestCase {
 		TestFireCake::reset();
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('log', true);
@@ -50,11 +50,11 @@ class DebugKitDebuggerTest extends CakeTestCase {
 		TestFireCake::reset();
 	}
 
-/**
- * test output switch to firePHP
- *
- * @return void
- */
+	/**
+	 * test output switch to firePHP
+	 *
+	 * @return void
+	 */
 	public function testOutput() {
 		Debugger::getInstance('DebugKitDebugger');
 		Debugger::addFormat('fb', array('callback' => 'DebugKitDebugger::fireError'));

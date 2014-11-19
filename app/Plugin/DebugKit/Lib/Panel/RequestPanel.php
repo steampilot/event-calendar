@@ -19,12 +19,12 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class RequestPanel extends DebugPanel {
 
-/**
- * beforeRender callback - grabs request params
- *
- * @param Controller $controller
- * @return array
- */
+	/**
+	 * beforeRender callback - grabs request params
+	 *
+	 * @param Controller $controller
+	 * @return array
+	 */
 	public function beforeRender(Controller $controller) {
 		$out = array();
 		$out['params'] = $controller->request->params;

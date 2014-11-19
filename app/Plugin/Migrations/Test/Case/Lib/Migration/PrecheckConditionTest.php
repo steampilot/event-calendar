@@ -18,16 +18,16 @@ App::uses('CakeMigration', 'Migrations.Lib');
  */
 class TestPrecheckCakeMigration extends CakeMigration {
 
-/**
- * Connection used
- *
- * @var string
- */
+	/**
+	 * Connection used
+	 *
+	 * @var string
+	 */
 	public $connection = 'test';
 
-/**
- * Initialize db connection
- */
+	/**
+	 * Initialize db connection
+	 */
 	public function initDb() {
 		$this->db = ConnectionManager::getDataSource($this->connection);
 		$this->db->cacheSources = false;
@@ -37,32 +37,32 @@ class TestPrecheckCakeMigration extends CakeMigration {
 
 class PrecheckConditionTest extends CakeTestCase {
 
-/**
- * Fixtures property
- *
- * @var array
- */
+	/**
+	 * Fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.user',
 		'core.post');
 
-/**
- * AutoFixtures property
- *
- * @var array
- */
+	/**
+	 * AutoFixtures property
+	 *
+	 * @var array
+	 */
 	public $autoFixtures = false;
 
-/**
- * @var DboSource
- */
+	/**
+	 * @var DboSource
+	 */
 	public $db;
 
-/**
- * Tables property
- *
- * @var array
- */
+	/**
+	 * Tables property
+	 *
+	 * @var array
+	 */
 	public $tables = array(
 		'users' => array(
 			'id' => array('type' => 'integer', 'key' => 'primary'),
@@ -82,11 +82,11 @@ class PrecheckConditionTest extends CakeTestCase {
 		)
 	);
 
-/**
- * TestCreateTable method
- *
- * @return void
- */
+	/**
+	 * TestCreateTable method
+	 *
+	 * @return void
+	 */
 	public function testCreateDropTable() {
 		$Migration = new TestPrecheckCakeMigration(array(
 			'up' => array('create_table' => array(
@@ -127,11 +127,11 @@ class PrecheckConditionTest extends CakeTestCase {
 		$this->assertFalse(in_array($this->db->fullTableName('migration_posts', false, false), $sources));
 	}
 
-/**
- * TestRenameTable method
- *
- * @return void
- */
+	/**
+	 * TestRenameTable method
+	 *
+	 * @return void
+	 */
 	public function testRenameTable() {
 		$this->loadFixtures('User', 'Post');
 
@@ -189,11 +189,11 @@ class PrecheckConditionTest extends CakeTestCase {
 		$this->assertFalse(in_array($this->db->fullTableName('renamed_posts', false, false), $sources));
 	}
 
-/**
- * TestCreateDropField method
- *
- * @return void
- */
+	/**
+	 * TestCreateDropField method
+	 *
+	 * @return void
+	 */
 	public function testCreateDropField() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -253,10 +253,10 @@ class PrecheckConditionTest extends CakeTestCase {
 		}
 	}
 
-/**
- * TestAlterField method
- * @return void
- */
+	/**
+	 * TestAlterField method
+	 * @return void
+	 */
 	public function testAlterField() {
 		$this->loadFixtures('User', 'Post');
 		$Model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -296,11 +296,11 @@ class PrecheckConditionTest extends CakeTestCase {
 		$this->assertEquals($fields['published']['default'], 'N');
 	}
 
-/**
- * TestRenameField method
- *
- * @return void
- */
+	/**
+	 * TestRenameField method
+	 *
+	 * @return void
+	 */
 	public function testRenameField() {
 		$this->loadFixtures('User', 'Post');
 		$Model = new Model(array('table' => 'posts', 'ds' => 'test'));

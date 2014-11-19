@@ -19,20 +19,20 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class SqlLogPanel extends DebugPanel {
 
-/**
- * Minimum number of Rows Per Millisecond that must be returned by a query before an explain
- * is done.
- *
- * @var integer
- */
+	/**
+	 * Minimum number of Rows Per Millisecond that must be returned by a query before an explain
+	 * is done.
+	 *
+	 * @var integer
+	 */
 	public $slowRate = 20;
 
-/**
- * Gets the connection names that should have logs + dumps generated.
- *
- * @param \Controller|string $controller
- * @return array
- */
+	/**
+	 * Gets the connection names that should have logs + dumps generated.
+	 *
+	 * @param \Controller|string $controller
+	 * @return array
+	 */
 	public function beforeRender(Controller $controller) {
 		if (!class_exists('ConnectionManager')) {
 			return array();

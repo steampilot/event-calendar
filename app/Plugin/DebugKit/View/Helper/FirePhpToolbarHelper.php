@@ -23,54 +23,54 @@ App::uses('FireCake', 'DebugKit.Lib');
  */
 class FirePhpToolbarHelper extends ToolbarHelper {
 
-/**
- * settings property
- *
- * @var array
- */
+	/**
+	 * settings property
+	 *
+	 * @var array
+	 */
 	public $settings = array('format' => 'firePHP', 'forceEnable' => false);
 
-/**
- * send method
- *
- * @return void
- */
+	/**
+	 * send method
+	 *
+	 * @return void
+	 */
 	public function send() {
 		$view = $this->_View;
 		$view->element('debug_toolbar', array('disableTimer' => true), array('plugin' => 'DebugKit'));
 	}
 
-/**
- * makeNeatArray.
- *
- * wraps FireCake::dump() allowing panel elements to continue functioning
- *
- * @param string $values
- * @return void
- */
+	/**
+	 * makeNeatArray.
+	 *
+	 * wraps FireCake::dump() allowing panel elements to continue functioning
+	 *
+	 * @param string $values
+	 * @return void
+	 */
 	public function makeNeatArray($values) {
 		FireCake::info($values);
 	}
 
-/**
- * Create a simple message
- *
- * @param string $label Label of message
- * @param string $message Message content
- * @return void
- */
+	/**
+	 * Create a simple message
+	 *
+	 * @param string $label Label of message
+	 * @param string $message Message content
+	 * @return void
+	 */
 	public function message($label, $message) {
 		FireCake::log($message, $label);
 	}
 
-/**
- * Generate a table with FireCake
- *
- * @param array $rows Rows to print
- * @param array $headers Headers for table
- * @param array $options Additional options and params
- * @return void
- */
+	/**
+	 * Generate a table with FireCake
+	 *
+	 * @param array $rows Rows to print
+	 * @param array $headers Headers for table
+	 * @param array $options Additional options and params
+	 * @return void
+	 */
 	public function table($rows, $headers, $options = array()) {
 		$title = $headers[0];
 		if (isset($options['title'])) {
@@ -83,22 +83,22 @@ class FirePhpToolbarHelper extends ToolbarHelper {
 		FireCake::table($title, $rows);
 	}
 
-/**
- * Start a panel which is a 'Group' in FirePHP
- *
- * @param $title
- * @param $anchor
- * @return void
- */
+	/**
+	 * Start a panel which is a 'Group' in FirePHP
+	 *
+	 * @param $title
+	 * @param $anchor
+	 * @return void
+	 */
 	public function panelStart($title, $anchor) {
 		FireCake::group($title);
 	}
 
-/**
- * End a panel (Group)
- *
- * @return void
- */
+	/**
+	 * End a panel (Group)
+	 *
+	 * @return void
+	 */
 	public function panelEnd() {
 		FireCake::groupEnd();
 	}

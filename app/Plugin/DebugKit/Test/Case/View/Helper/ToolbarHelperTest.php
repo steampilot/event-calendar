@@ -36,18 +36,18 @@ class MockBackendHelper extends Helper {
  */
 class ToolbarHelperTestCase extends CakeTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
+	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.post');
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$db = ConnectionManager::getDatasource('test');
@@ -72,36 +72,36 @@ class ToolbarHelperTestCase extends CakeTestCase {
 				CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Test' . DS . 'test_app' . DS . 'View' . DS,
 				APP . 'Plugin' . DS . 'DebugKit' . DS . 'View' . DS,
 				CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'View' . DS
-		)), true);
+			)), true);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Cache::delete('debug_kit_toolbar_test_case', 'default');
 		unset($this->Toolbar, $this->Controller);
 	}
 
-/**
- * test cache writing for views.
- *
- * @return void
- */
+	/**
+	 * test cache writing for views.
+	 *
+	 * @return void
+	 */
 	public function testCacheWrite() {
 		$result = $this->Toolbar->writeCache('test', array('stuff', 'to', 'cache'));
 		$this->assertTrue($result);
 	}
 
-/**
- * Ensure that the cache writing only affects the
- * top most level of the history stack. As this is where the current request is stored.
- *
- * @return void
- */
+	/**
+	 * Ensure that the cache writing only affects the
+	 * top most level of the history stack. As this is where the current request is stored.
+	 *
+	 * @return void
+	 */
 	public function testOnlyWritingToFirstElement() {
 		$values = array(
 			array('test' => array('content' => array('first', 'values'))),
@@ -117,11 +117,11 @@ class ToolbarHelperTestCase extends CakeTestCase {
 		$this->assertEquals($result, array('second', 'values'));
 	}
 
-/**
- * test cache reading for views
- *
- * @return void
- */
+	/**
+	 * test cache reading for views
+	 *
+	 * @return void
+	 */
 	public function testCacheRead() {
 		$result = $this->Toolbar->writeCache('test', array('stuff', 'to', 'cache'));
 		$this->assertTrue($result, 'Cache write failed %s');
@@ -136,11 +136,11 @@ class ToolbarHelperTestCase extends CakeTestCase {
 		$this->assertEquals($result, array('new', 'stuff'), 'Cache value is wrong %s');
 	}
 
-/**
- * Test that reading/writing doesn't work with no cache config.
- *
- * @return void
- */
+	/**
+	 * Test that reading/writing doesn't work with no cache config.
+	 *
+	 * @return void
+	 */
 	public function testNoCacheConfigPresent() {
 		$this->Toolbar = new ToolbarHelper($this->View, array('output' => 'MockBackendHelper'));
 
@@ -151,12 +151,12 @@ class ToolbarHelperTestCase extends CakeTestCase {
 		$this->assertFalse($result, 'Reading cache succeeded with no cache config %s');
 	}
 
-/**
- * ensure that getQueryLogs works and writes to the cache so the history panel will
- * work.
- *
- * @return void
- */
+	/**
+	 * ensure that getQueryLogs works and writes to the cache so the history panel will
+	 * work.
+	 *
+	 * @return void
+	 */
 	public function testGetQueryLogs() {
 		$model = new CakeTestModel(array('table' => 'posts', 'alias' => 'Post'));
 		$model->find('all');

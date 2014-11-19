@@ -96,7 +96,7 @@ DEBUGKIT.sqlLog = function () {
 	var $ = DEBUGKIT.$;
 
 	return {
-		init : function () {
+		init: function () {
 			var sqlPanel = $('#sql_log-tab');
 			var buttons = sqlPanel.find('input');
 
@@ -112,10 +112,10 @@ DEBUGKIT.sqlLog = function () {
 					url: this.form.action,
 					data: data,
 					type: 'POST',
-					success : function (response) {
+					success: function (response) {
 						$('#sql-log-explain-' + dbName).html(response);
 					},
-					error : function () {
+					error: function () {
 						alert('Could not fetch EXPLAIN for query.');
 					}
 				});
@@ -369,7 +369,8 @@ DEBUGKIT.Util.Event = function () {
 				listener = _listeners[i];
 				try {
 					this.removeEvent(listener.element, listener.type, listener.handler);
-				} catch (e) {}
+				} catch (e) {
+				}
 				delete _listeners[i];
 			}
 			delete _listeners;
@@ -474,12 +475,15 @@ DEBUGKIT.Util.isArray = function (test) {
 // Simple wrapper for XmlHttpRequest objects.
 DEBUGKIT.Util.Request = function (options) {
 	var _defaults = {
-		onComplete : function () {},
-		onRequest : function () {},
-		onFail : function () {},
-		method : 'GET',
-		async : true,
-		headers : {
+		onComplete: function () {
+		},
+		onRequest: function () {
+		},
+		onFail: function () {
+		},
+		method: 'GET',
+		async: true,
+		headers: {
 			'X-Requested-With': 'XMLHttpRequest',
 			'Accept': 'text/javascript, text/html, application/xml, text/xml, */*'
 		}
@@ -618,11 +622,11 @@ DEBUGKIT.toolbar = function () {
 		addPanel: function (tab) {
 			var button, content, _this = this;
 			var panel = {
-				id : false,
-				element : tab,
-				button : undefined,
-				content : undefined,
-				active : false
+				id: false,
+				element: tab,
+				button: undefined,
+				content: undefined,
+				active: false
 			};
 			tab = $(tab);
 			button = tab.children('a');
@@ -865,7 +869,7 @@ DEBUGKIT.historyPanel = function () {
 	}
 
 	return {
-		init : function () {
+		init: function () {
 			if (toolbar.panels.history === undefined) {
 				return;
 			}

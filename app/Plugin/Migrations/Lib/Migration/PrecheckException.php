@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Copyright 2009 - 2014, Cake Development Corporation (http://cakedc.com)
  *
@@ -13,13 +13,13 @@ App::uses('PrecheckBase', 'Migrations.Lib/Migration');
 
 class PrecheckException extends PrecheckBase {
 
-/**
- * Check that table exists.
- *
- * @param string $table
- * @throws MigrationException
- * @return bool
- */
+	/**
+	 * Check that table exists.
+	 *
+	 * @param string $table
+	 * @throws MigrationException
+	 * @return bool
+	 */
 	public function checkDropTable($table) {
 		if (!$this->tableExists($table)) {
 			throw new MigrationException($this->_migration,
@@ -29,13 +29,13 @@ class PrecheckException extends PrecheckBase {
 		return true;
 	}
 
-/**
- * Check that table exists.
- *
- * @param string $table
- * @throws MigrationException
- * @return bool
- */
+	/**
+	 * Check that table exists.
+	 *
+	 * @param string $table
+	 * @throws MigrationException
+	 * @return bool
+	 */
 	public function checkCreateTable($table) {
 		if ($this->tableExists($table)) {
 			throw new MigrationException($this->_migration,
@@ -45,14 +45,14 @@ class PrecheckException extends PrecheckBase {
 		return true;
 	}
 
-/**
- * Perform check before field drop.
- *
- * @param string $table
- * @param string $field
- * @throws MigrationException
- * @return bool
- */
+	/**
+	 * Perform check before field drop.
+	 *
+	 * @param string $table
+	 * @param string $field
+	 * @throws MigrationException
+	 * @return bool
+	 */
 	public function checkDropField($table, $field) {
 		if ($this->tableExists($table) && !$this->fieldExists($table, $field)) {
 			throw new MigrationException($this->_migration, sprintf(
@@ -62,14 +62,14 @@ class PrecheckException extends PrecheckBase {
 		return true;
 	}
 
-/**
- * Perform check before field create.
- *
- * @param string $table
- * @param string $field
- * @throws MigrationException
- * @return bool
- */
+	/**
+	 * Perform check before field create.
+	 *
+	 * @param string $table
+	 * @param string $field
+	 * @throws MigrationException
+	 * @return bool
+	 */
 	public function checkAddField($table, $field) {
 		if ($this->tableExists($table) && $this->fieldExists($table, $field)) {
 			throw new MigrationException($this->_migration, sprintf(

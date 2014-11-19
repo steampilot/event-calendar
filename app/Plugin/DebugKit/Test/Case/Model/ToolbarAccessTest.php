@@ -25,38 +25,38 @@ App::uses('ToolbarAccess', 'DebugKit.Model');
  */
 class ToolbarAccessTestCase extends CakeTestCase {
 
-/**
- * Included fixtures
- *
- * @var array
- */
+	/**
+	 * Included fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.post');
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Model = new ToolbarAccess();
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Model);
 	}
 
-/**
- * test that explain query returns arrays of query information.
- *
- * @return void
- */
+	/**
+	 * test that explain query returns arrays of query information.
+	 *
+	 * @return void
+	 */
 	public function testExplainQuery() {
 		$Post = new CakeTestModel(array('table' => 'posts', 'alias' => 'Post'));
 		$db = $Post->getDataSource();

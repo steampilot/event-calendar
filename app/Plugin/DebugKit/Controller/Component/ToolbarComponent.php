@@ -28,40 +28,40 @@ App::uses('CakeEventListener', 'Event');
  */
 class ToolbarComponent extends Component implements CakeEventListener {
 
-/**
- * Settings for the Component
- *
- * - forceEnable - Force the toolbar to display even if debug == 0. Default = false
- * - autoRun - Automatically display the toolbar. If set to false, toolbar display can be triggered by adding
- *    `?debug=true` to your URL.
- *
- * @var array
- */
+	/**
+	 * Settings for the Component
+	 *
+	 * - forceEnable - Force the toolbar to display even if debug == 0. Default = false
+	 * - autoRun - Automatically display the toolbar. If set to false, toolbar display can be triggered by adding
+	 *    `?debug=true` to your URL.
+	 *
+	 * @var array
+	 */
 	public $settings = array(
 		'forceEnable' => false,
 		'autoRun' => true
 	);
 
-/**
- * Controller instance reference
- *
- * @var object
- */
+	/**
+	 * Controller instance reference
+	 *
+	 * @var object
+	 */
 	public $controller;
 
-/**
- * Components used by DebugToolbar
- *
- * @var array
- */
+	/**
+	 * Components used by DebugToolbar
+	 *
+	 * @var array
+	 */
 	public $components = array('RequestHandler', 'Session');
 
-/**
- * The default panels the toolbar uses.
- * which panels are used can be configured when attaching the component
- *
- * @var array
- */
+	/**
+	 * The default panels the toolbar uses.
+	 * which panels are used can be configured when attaching the component
+	 *
+	 * @var array
+	 */
 	protected $_defaultPanels = array(
 		'DebugKit.History',
 		'DebugKit.Session',
@@ -74,60 +74,60 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		'DebugKit.Include'
 	);
 
-/**
- * Loaded panel objects.
- *
- * @var array
- */
+	/**
+	 * Loaded panel objects.
+	 *
+	 * @var array
+	 */
 	public $panels = array();
 
-/**
- * javascript files component will be using
- *
- * @var array
- */
+	/**
+	 * javascript files component will be using
+	 *
+	 * @var array
+	 */
 	public $javascript = array(
 		'libs' => 'DebugKit./js/js_debug_toolbar'
 	);
 
-/**
- * CSS files component will be using
- *
- * @var array
- */
+	/**
+	 * CSS files component will be using
+	 *
+	 * @var array
+	 */
 	public $css = array('DebugKit./css/debug_toolbar.css');
 
-/**
- * CacheKey used for the cache file.
- *
- * @var string
- */
+	/**
+	 * CacheKey used for the cache file.
+	 *
+	 * @var string
+	 */
 	public $cacheKey = 'toolbar_cache';
 
-/**
- * Duration of the debug kit history cache
- *
- * @var string
- */
+	/**
+	 * Duration of the debug kit history cache
+	 *
+	 * @var string
+	 */
 	public $cacheDuration = '+4 hours';
 
-/**
- * Status whether component is enable or disable
- *
- * @var boolean
- */
+	/**
+	 * Status whether component is enable or disable
+	 *
+	 * @var boolean
+	 */
 	public $enabled = true;
 
-/**
- * Constructor
- *
- * If debug is off the component will be disabled and not do any further time tracking
- * or load the toolbar helper.
- *
- * @param ComponentCollection $collection
- * @param array $settings
- * @return \ToolbarComponent
- */
+	/**
+	 * Constructor
+	 *
+	 * If debug is off the component will be disabled and not do any further time tracking
+	 * or load the toolbar helper.
+	 *
+	 * @param ComponentCollection $collection
+	 * @param array $settings
+	 * @return \ToolbarComponent
+	 */
 	public function __construct(ComponentCollection $collection, $settings = array()) {
 		$settings = array_merge((array)Configure::read('DebugKit'), $settings);
 		$panels = $this->_defaultPanels;
@@ -170,11 +170,11 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		return false;
 	}
 
-/**
- * Register all the timing handlers for core events.
- *
- * @return array
- */
+	/**
+	 * Register all the timing handlers for core events.
+	 *
+	 * @return array
+	 */
 	public function implementedEvents() {
 		$before = function ($name) {
 			return function () use ($name) {
@@ -223,25 +223,25 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		);
 	}
 
-/**
- * Initialize callback.
- * If automatically disabled, tell component collection about the state.
- *
- * @param Controller $controller
- * @return boolean
- */
+	/**
+	 * Initialize callback.
+	 * If automatically disabled, tell component collection about the state.
+	 *
+	 * @param Controller $controller
+	 * @return boolean
+	 */
 	public function initialize(Controller $controller) {
 		if (!$this->enabled) {
 			$this->_Collection->disable('Toolbar');
 		}
 	}
 
-/**
- * Go through user panels and remove default panels as indicated.
- *
- * @param array $userPanels The list of panels ther user has added removed.
- * @return array Array of panels to use.
- */
+	/**
+	 * Go through user panels and remove default panels as indicated.
+	 *
+	 * @param array $userPanels The list of panels ther user has added removed.
+	 * @return array Array of panels to use.
+	 */
 	protected function _makePanelList($userPanels) {
 		$panels = $this->_defaultPanels;
 		foreach ($userPanels as $key => $value) {
@@ -265,12 +265,12 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		return $panels;
 	}
 
-/**
- * Component Startup
- *
- * @param Controller $controller
- * @return boolean
- */
+	/**
+	 * Component Startup
+	 *
+	 * @param Controller $controller
+	 * @return boolean
+	 */
 	public function startup(Controller $controller) {
 		$panels = array_keys($this->panels);
 		foreach ($panels as $panelName) {
@@ -285,15 +285,15 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		);
 	}
 
-/**
- * beforeRedirect callback
- *
- * @param Controller $controller
- * @param $url
- * @param null $status
- * @param boolean $exit
- * @return void
- */
+	/**
+	 * beforeRedirect callback
+	 *
+	 * @param Controller $controller
+	 * @param $url
+	 * @param null $status
+	 * @param boolean $exit
+	 * @return void
+	 */
 	public function beforeRedirect(Controller $controller, $url, $status = null, $exit = true) {
 		if (!class_exists('DebugTimer')) {
 			return null;
@@ -308,14 +308,14 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		DebugTimer::stop('processToolbar');
 	}
 
-/**
- * beforeRender callback
- *
- * Calls beforeRender on all the panels and set the aggregate to the controller.
- *
- * @param Controller $controller
- * @return void
- */
+	/**
+	 * beforeRender callback
+	 *
+	 * Calls beforeRender on all the panels and set the aggregate to the controller.
+	 *
+	 * @param Controller $controller
+	 * @return void
+	 */
 	public function beforeRender(Controller $controller) {
 		if (!class_exists('DebugTimer')) {
 			return null;
@@ -362,12 +362,12 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		DebugMemory::record(__d('debug_kit', 'Controller render start'));
 	}
 
-/**
- * Load a toolbar state from cache
- *
- * @param integer $key
- * @return array
- */
+	/**
+	 * Load a toolbar state from cache
+	 *
+	 * @param integer $key
+	 * @return array
+	 */
 	public function loadState($key) {
 		$history = Cache::read($this->cacheKey, 'debug_kit');
 		if (isset($history[$key])) {
@@ -376,19 +376,19 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		return array();
 	}
 
-/**
- * Create the cache config for the history
- *
- * @return void
- */
+	/**
+	 * Create the cache config for the history
+	 *
+	 * @return void
+	 */
 	protected function _createCacheConfig() {
 		if (Configure::read('Cache.disable') === true || Cache::config('debug_kit')) {
 			return;
 		}
 		$cache = array(
-		    'duration' => $this->cacheDuration,
-		    'engine' => 'File',
-		    'path' => CACHE
+			'duration' => $this->cacheDuration,
+			'engine' => 'File',
+			'path' => CACHE
 		);
 		if (isset($this->settings['cache'])) {
 			$cache = array_merge($cache, $this->settings['cache']);
@@ -396,12 +396,12 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		Cache::config('debug_kit', $cache);
 	}
 
-/**
- * collects the panel contents
- *
- * @param Controller $controller
- * @return array Array of all panel beforeRender()
- */
+	/**
+	 * collects the panel contents
+	 *
+	 * @param Controller $controller
+	 * @return array Array of all panel beforeRender()
+	 */
 	protected function _gatherVars(Controller $controller) {
 		$vars = array('javascript' => array(), 'css' => array());
 		$panels = array_keys($this->panels);
@@ -429,13 +429,13 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		return $vars;
 	}
 
-/**
- * Load Panels used in the debug toolbar
- *
- * @param $panels
- * @param $settings
- * @return void
- */
+	/**
+	 * Load Panels used in the debug toolbar
+	 *
+	 * @param $panels
+	 * @param $settings
+	 * @return void
+	 */
 	protected function _loadPanels($panels, $settings) {
 		foreach ($panels as $panel) {
 			$className = ucfirst($panel) . 'Panel';
@@ -454,13 +454,13 @@ class ToolbarComponent extends Component implements CakeEventListener {
 		}
 	}
 
-/**
- * Save the current state of the toolbar varibles to the cache file.
- *
- * @param \Controller|object $controller Controller instance
- * @param array $vars Vars to save.
- * @return void
- */
+	/**
+	 * Save the current state of the toolbar varibles to the cache file.
+	 *
+	 * @param \Controller|object $controller Controller instance
+	 * @param array $vars Vars to save.
+	 * @return void
+	 */
 	protected function _saveState(Controller $controller, $vars) {
 		$config = Cache::config('debug_kit');
 		if (empty($config) || !isset($this->panels['history'])) {

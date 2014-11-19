@@ -22,55 +22,55 @@ App::uses('ClassRegistry', 'Utility');
  */
 class MigrationShell extends AppShell {
 
-/**
- * Connection used for the migration_schema table of the migration versions
- *
- * @var null|string
- */
+	/**
+	 * Connection used for the migration_schema table of the migration versions
+	 *
+	 * @var null|string
+	 */
 	public $connection = null;
 
-/**
- * Connection used for the migration
- *
- * This can be used to override the connection of migration file
- *
- * @var null|string
- */
+	/**
+	 * Connection used for the migration
+	 *
+	 * This can be used to override the connection of migration file
+	 *
+	 * @var null|string
+	 */
 	public $migrationConnection = null;
 
-/**
- * Current path to load and save migrations
- *
- * @var string
- */
+	/**
+	 * Current path to load and save migrations
+	 *
+	 * @var string
+	 */
 	public $path;
 
-/**
- * Type of migration, can be 'app' or a plugin name
- *
- * @var string
- */
+	/**
+	 * Type of migration, can be 'app' or a plugin name
+	 *
+	 * @var string
+	 */
 	public $type = 'app';
 
-/**
- * MigrationVersion instance
- *
- * @var MigrationVersion
- */
+	/**
+	 * MigrationVersion instance
+	 *
+	 * @var MigrationVersion
+	 */
 	public $Version;
 
-/**
- * Messages used to display action being performed
- *
- * @var array
- */
+	/**
+	 * Messages used to display action being performed
+	 *
+	 * @var array
+	 */
 	protected $_messages = array();
 
-/**
- * Override startup
- *
- * @return void
- */
+	/**
+	 * Override startup
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		$this->out(__d('migrations', 'Cake Migration Shell'));
 		$this->hr();
@@ -117,16 +117,16 @@ class MigrationShell extends AppShell {
 		);
 	}
 
-/**
- * Get the option parser.
- *
- * @return void
- */
+	/**
+	 * Get the option parser.
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(
-				'The Migration shell.' .
-				'')
+			'The Migration shell.' .
+			'')
 			->addOption('plugin', array(
 				'short' => 'p',
 				'help' => __('Plugin name to be used')))
@@ -169,20 +169,20 @@ class MigrationShell extends AppShell {
 				'help' => __('Generates a migration file.')));
 	}
 
-/**
- * Override main
- *
- * @return void
- */
+	/**
+	 * Override main
+	 *
+	 * @return void
+	 */
 	public function main() {
 		$this->out($this->getOptionParser()->help());
 	}
 
-/**
- * Run the migrations
- *
- * @return void
- */
+	/**
+	 * Run the migrations
+	 *
+	 * @return void
+	 */
 	public function run() {
 		try {
 			$mapping = $this->Version->getMapping($this->type);
@@ -275,12 +275,12 @@ class MigrationShell extends AppShell {
 		return $result;
 	}
 
-/**
- * Output the SQL log in dry mode
- *
- * @param $log array
- * @return void
- */
+	/**
+	 * Output the SQL log in dry mode
+	 *
+	 * @param $log array
+	 * @return void
+	 */
 	protected function _outputLog($log) {
 		foreach ($log as $migrationName => $queries) {
 			if (empty($queries)) {
@@ -356,11 +356,11 @@ class MigrationShell extends AppShell {
 		return compact('direction') + $options;
 	}
 
-/**
- * Generate a new migration file
- *
- * @return void
- */
+	/**
+	 * Generate a new migration file
+	 *
+	 * @return void
+	 */
 	public function generate() {
 		$fromSchema = false;
 		$this->Schema = $this->_getSchema();
@@ -404,13 +404,13 @@ class MigrationShell extends AppShell {
 		}
 	}
 
-/**
- * generate a migration by comparing schema.php with the database.
- * @param array $migration reference to variable of the same name in generate() method
- * @param array $oldSchema reference to variable of the same name in generate() method
- * @param array $comparison reference to variable of the same name in generate() method
- * @return void (The variables passed by reference are changed; nothing is returned)
- */
+	/**
+	 * generate a migration by comparing schema.php with the database.
+	 * @param array $migration reference to variable of the same name in generate() method
+	 * @param array $oldSchema reference to variable of the same name in generate() method
+	 * @param array $comparison reference to variable of the same name in generate() method
+	 * @return void (The variables passed by reference are changed; nothing is returned)
+	 */
 	protected function _generateFromComparison(&$migration, &$oldSchema, &$comparison) {
 		$this->hr();
 		$this->out(__d('migrations', 'Comparing schema.php to the database...'));
@@ -423,13 +423,13 @@ class MigrationShell extends AppShell {
 		$migration = $this->_fromComparison($migration, $comparison, $oldSchema->tables, $newSchema['tables']);
 	}
 
-/**
- * generate a migration from arguments passed in at the command line
- * @param array $migration reference to variable of the same name in generate() method
- * @param array $migrationName reference to variable of the same name in generate() method
- * @param array $comparison reference to variable of the same name in generate() method
- * @return void (The variables passed by reference are changed; nothing is returned)
- */
+	/**
+	 * generate a migration from arguments passed in at the command line
+	 * @param array $migration reference to variable of the same name in generate() method
+	 * @param array $migrationName reference to variable of the same name in generate() method
+	 * @param array $comparison reference to variable of the same name in generate() method
+	 * @return void (The variables passed by reference are changed; nothing is returned)
+	 */
 	protected function _generateFromCliArgs(&$migration, &$migrationName, &$comparison) {
 		$this->hr();
 		$this->out(__d('migrations', 'Generating migration from commandline arguments...'));
@@ -474,11 +474,11 @@ class MigrationShell extends AppShell {
 		return $fieldNames;
 	}
 
-/**
- * Generate a dump of the current database.
- * @param array $migration reference to variable of the same name in generate() method
- * @return void (The variables passed by reference are changed; nothing is returned)
- */
+	/**
+	 * Generate a dump of the current database.
+	 * @param array $migration reference to variable of the same name in generate() method
+	 * @return void (The variables passed by reference are changed; nothing is returned)
+	 */
 	protected function _generateDump(&$migration) {
 		$this->hr();
 		$this->out(__d('migrations', 'Generating dump from current database...'));
@@ -493,14 +493,14 @@ class MigrationShell extends AppShell {
 		}
 	}
 
-/**
- * Finalizes the generated migration - offers to preview it,
- * prompts for a name, writes the file, and updates db version if needed.
- * @param array $migration reference to variable of the same name in generate() method
- * @param array $migrationName reference to variable of the same name in generate() method
- * @param  bool $fromSchema reference to variable of the same name in generate() method
- * @return void
- */
+	/**
+	 * Finalizes the generated migration - offers to preview it,
+	 * prompts for a name, writes the file, and updates db version if needed.
+	 * @param array $migration reference to variable of the same name in generate() method
+	 * @param array $migrationName reference to variable of the same name in generate() method
+	 * @param  bool $fromSchema reference to variable of the same name in generate() method
+	 * @return void
+	 */
 	protected function _finalizeGeneratedMigration(&$migration, &$migrationName, &$fromSchema) {
 		$response = $this->in(__d('migrations', 'Do you want to preview the file before generation?'), array('y', 'n'), 'y');
 		if (strtolower($response) === 'y') {
@@ -524,13 +524,13 @@ class MigrationShell extends AppShell {
 		$this->out(__d('migrations', 'Done.'));
 	}
 
-/**
- * Prompt the user for a name for their new migration.
- * @return string
- */
+	/**
+	 * Prompt the user for a name for their new migration.
+	 * @return string
+	 */
 	protected function _promptForMigrationName() {
 		while (true) {
-				$name = $this->in(__d('migrations', 'Please enter the descriptive name of the migration to generate:'));
+			$name = $this->in(__d('migrations', 'Please enter the descriptive name of the migration to generate:'));
 			if (!preg_match('/^([A-Za-z0-9_]+|\s)+$/', $name) || is_numeric($name[0])) {
 				$this->out('');
 				$this->err(__d('migrations', 'Migration name (%s) is invalid. It must only contain alphanumeric characters and start with a letter.', $name));
@@ -545,11 +545,11 @@ class MigrationShell extends AppShell {
 		return $name;
 	}
 
-/**
- * Displays a status of all plugin and app migrations
- *
- * @return void
- */
+	/**
+	 * Displays a status of all plugin and app migrations
+	 *
+	 * @return void
+	 */
 	public function status() {
 		$types = CakePlugin::loaded();
 		ksort($types);
@@ -589,13 +589,13 @@ class MigrationShell extends AppShell {
 		}
 	}
 
-/**
- * Shows a list of available migrations
- *
- * @param array $mapping Migration mapping
- * @param string $type Can be 'app' or a plugin name
- * @return void
- */
+	/**
+	 * Shows a list of available migrations
+	 *
+	 * @param array $mapping Migration mapping
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return void
+	 */
 	protected function _showInfo($mapping, $type = null) {
 		if ($type === null) {
 			$type = $this->type;
@@ -622,15 +622,15 @@ class MigrationShell extends AppShell {
 		}
 	}
 
-/**
- * Generate a migration string using comparison
- *
- * @param array $migration Migration instructions array
- * @param array $comparison Result from CakeSchema::compare()
- * @param array $oldTables List of tables on schema.php file
- * @param array $currentTables List of current tables on database
- * @return array
- */
+	/**
+	 * Generate a migration string using comparison
+	 *
+	 * @param array $migration Migration instructions array
+	 * @param array $comparison Result from CakeSchema::compare()
+	 * @param array $oldTables List of tables on schema.php file
+	 * @param array $currentTables List of current tables on database
+	 * @return array
+	 */
 	protected function _fromComparison($migration, $comparison, $oldTables, $currentTables) {
 		foreach ($comparison as $table => $actions) {
 			if (!isset($oldTables[$table])) {
@@ -685,13 +685,13 @@ class MigrationShell extends AppShell {
 		return $migration;
 	}
 
-/**
- * Gets the schema class name
- *
- * @param string $name Can be 'app' or a plugin name
- * @param boolean Return the class name with or without the "Schema" suffix, default is true
- * @return string Returns the schema class name
- */
+	/**
+	 * Gets the schema class name
+	 *
+	 * @param string $name Can be 'app' or a plugin name
+	 * @param boolean Return the class name with or without the "Schema" suffix, default is true
+	 * @return string Returns the schema class name
+	 */
 	protected function _getSchemaClassName($name = null, $suffix = true) {
 		if (empty($name)) {
 			$name = $this->type;
@@ -709,12 +709,12 @@ class MigrationShell extends AppShell {
 		return $name;
 	}
 
-/**
- * Load and construct the schema class if exists
- *
- * @param string $type Can be 'app' or a plugin name
- * @return mixed False in case of no file found, schema object
- */
+	/**
+	 * Load and construct the schema class if exists
+	 *
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return mixed False in case of no file found, schema object
+	 */
 	protected function _getSchema($type = null) {
 		if ($type === null) {
 			$plugin = ($this->type === 'app') ? null : $this->type;
@@ -738,11 +738,11 @@ class MigrationShell extends AppShell {
 		return $schema;
 	}
 
-/**
- * Reads the schema data
- *
- * @return array
- */
+	/**
+	 * Reads the schema data
+	 *
+	 * @return array
+	 */
 	protected function _readSchema() {
 		$read = $this->Schema->read(array('models' => !$this->params['force']));
 		if ($this->type !== 'migrations') {
@@ -751,11 +751,11 @@ class MigrationShell extends AppShell {
 		return $read;
 	}
 
-/**
- * Update the schema, making a call to schema shell
- *
- * @return void
- */
+	/**
+	 * Update the schema, making a call to schema shell
+	 *
+	 * @return void
+	 */
 	protected function _updateSchema() {
 		$command = 'schema generate --connection ' . $this->connection;
 		if (!empty($this->params['plugin'])) {
@@ -768,12 +768,12 @@ class MigrationShell extends AppShell {
 		$this->dispatchShell($command);
 	}
 
-/**
- * Parse fields from the command line for use with generating new migration files
- *
- * @param string $name Name of migration
- * @return array
- */
+	/**
+	 * Parse fields from the command line for use with generating new migration files
+	 *
+	 * @param string $name Name of migration
+	 * @return array
+	 */
 	protected function _parseCommandLineFields($name) {
 		$connection = $this->connection;
 		if (empty($connection)) {
@@ -812,13 +812,13 @@ class MigrationShell extends AppShell {
 		return compact('action', 'table', 'tables', 'fields');
 	}
 
-/**
- * Parse a single argument from the command line into the fields array
- * @param  array $fields reference to variable of same name in _parseCommandLineFields()
- * @param  string $field a single command line argument - eg. 'id:primary_key' or 'name:string'
- * @param  array $validTypes valid data types for the relevant database - eg. string, integer, biginteger, etc.
- * @return [type]         [description]
- */
+	/**
+	 * Parse a single argument from the command line into the fields array
+	 * @param  array $fields reference to variable of same name in _parseCommandLineFields()
+	 * @param  string $field a single command line argument - eg. 'id:primary_key' or 'name:string'
+	 * @param  array $validTypes valid data types for the relevant database - eg. string, integer, biginteger, etc.
+	 * @return [type]         [description]
+	 */
 	protected function _parseSingleCommandLineField(&$fields, &$indexes, $field, $validTypes) {
 		if (preg_match('/^(\w*)(?::(\w*))?(?::(\w*))?(?::(\w*))?/', $field, $matches)) {
 			$field = $matches[1];
@@ -890,14 +890,14 @@ class MigrationShell extends AppShell {
 		return $type;
 	}
 
-/**
- * Generate a migration
- *
- * @param string $name Name of migration
- * @param string $class Class name of migration
- * @param array $migration Migration instructions array
- * @return string
- */
+	/**
+	 * Generate a migration
+	 *
+	 * @param string $name Name of migration
+	 * @param string $class Class name of migration
+	 * @param array $migration Migration instructions array
+	 * @return string
+	 */
 	protected function _generateMigration($name, $class, $migration) {
 		$content = '';
 		foreach ($migration as $direction => $actions) {
@@ -957,14 +957,14 @@ class MigrationShell extends AppShell {
 		return $content;
 	}
 
-/**
- * Write a migration with given name
- *
- * @param string $name Name of migration
- * @param integer $version The version number (timestamp)
- * @param array $migration Migration instructions array
- * @return bool
- */
+	/**
+	 * Write a migration with given name
+	 *
+	 * @param string $name Name of migration
+	 * @param integer $version The version number (timestamp)
+	 * @param array $migration Migration instructions array
+	 * @return bool
+	 */
 	protected function _writeMigration($name, $version, $migration) {
 		$content = '';
 		$content = $this->_generateMigration($name, Inflector::camelize($name), $migration);
@@ -972,12 +972,12 @@ class MigrationShell extends AppShell {
 		return $File->write($content);
 	}
 
-/**
- * Format a array/string into a one-line syntax
- *
- * @param array $values Array to be converted
- * @return string
- */
+	/**
+	 * Format a array/string into a one-line syntax
+	 *
+	 * @param array $values Array to be converted
+	 * @return string
+	 */
 	protected function _values($values) {
 		$_values = array();
 		if (is_array($values)) {
@@ -993,13 +993,13 @@ class MigrationShell extends AppShell {
 		return $_values;
 	}
 
-/**
- * Include and generate a template string based on a template file
- *
- * @param string $template Template file name
- * @param array $vars List of variables to be used on tempalte
- * @return string
- */
+	/**
+	 * Include and generate a template string based on a template file
+	 *
+	 * @param string $template Template file name
+	 * @param array $vars List of variables to be used on tempalte
+	 * @return string
+	 */
 	protected function _generateTemplate($template, $vars) {
 		extract($vars);
 		ob_start();
@@ -1010,12 +1010,12 @@ class MigrationShell extends AppShell {
 		return $content;
 	}
 
-/**
- * Return the path used
- *
- * @param string $type Can be 'app' or a plugin name
- * @return string Path used
- */
+	/**
+	 * Return the path used
+	 *
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return string Path used
+	 */
 	protected function _getPath($type = null) {
 		if ($type === null) {
 			$type = $this->type;
@@ -1026,36 +1026,36 @@ class MigrationShell extends AppShell {
 		return APP;
 	}
 
-/**
- * Callback used to display what migration is being runned
- *
- * @param CakeMigration $Migration Migration being performed
- * @param string $direction Direction being runned
- * @return void
- */
+	/**
+	 * Callback used to display what migration is being runned
+	 *
+	 * @param CakeMigration $Migration Migration being performed
+	 * @param string $direction Direction being runned
+	 * @return void
+	 */
 	public function beforeMigration(&$Migration, $direction) {
 		$this->out('  [' . number_format($Migration->info['version'] / 100, 2, '', '') . '] ' . $Migration->info['name']);
 	}
 
-/**
- * Callback used to create a new line after the migration
- *
- * @param CakeMigration $Migration Migration being performed
- * @param string $direction Direction being runned
- * @return void
- */
+	/**
+	 * Callback used to create a new line after the migration
+	 *
+	 * @param CakeMigration $Migration Migration being performed
+	 * @param string $direction Direction being runned
+	 * @return void
+	 */
 	public function afterMigration(&$Migration, $direction) {
 		$this->out('');
 	}
 
-/**
- * Callback used to display actions being performed
- *
- * @param CakeMigration $Migration Migration being performed
- * @param string $type Type of action. i.e: create_table, drop_table, etc.
- * @param array $data Data to send to the callback
- * @return void
- */
+	/**
+	 * Callback used to display actions being performed
+	 *
+	 * @param CakeMigration $Migration Migration being performed
+	 * @param string $type Type of action. i.e: create_table, drop_table, etc.
+	 * @param array $data Data to send to the callback
+	 * @return void
+	 */
 	public function beforeAction(&$Migration, $type, $data) {
 		if (isset($this->_messages[$type])) {
 			$message = String::insert($this->_messages[$type], $data);

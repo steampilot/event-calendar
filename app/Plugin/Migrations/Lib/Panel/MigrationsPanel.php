@@ -26,40 +26,40 @@ App::import('Lib', 'Migrations.MigrationVersion');
  */
 class MigrationsPanel extends DebugPanel {
 
-/**
- * Title
- *
- * @var string
- */
+	/**
+	 * Title
+	 *
+	 * @var string
+	 */
 	public $title = 'Migrations';
 
-/**
- * Element name
- *
- * @var string
- */
+	/**
+	 * Element name
+	 *
+	 * @var string
+	 */
 	public $elementName = 'migrations_panel';
 
-/**
- * Plugin name
- *
- * @var string
- */
+	/**
+	 * Plugin name
+	 *
+	 * @var string
+	 */
 	public $plugin = 'migrations';
 
-/**
- * Output buffer
- *
- * @var string
- */
+	/**
+	 * Output buffer
+	 *
+	 * @var string
+	 */
 	public $output = '';
 
-/**
- * BeforeRender Callback
- *
- * @param Controller $controller
- * @return array
- */
+	/**
+	 * BeforeRender Callback
+	 *
+	 * @param Controller $controller
+	 * @return array
+	 */
 	public function beforeRender(Controller $controller) {
 		$v = new MigrationVersion();
 		$map = $migrations = array();

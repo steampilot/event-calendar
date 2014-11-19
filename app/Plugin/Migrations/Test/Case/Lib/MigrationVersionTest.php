@@ -15,25 +15,25 @@ App::uses('MigrationVersion', 'Migrations.Lib');
 
 class MigrationVersionTest extends CakeTestCase {
 
-/**
- * Fixtures property
- *
- * @var array
- */
+	/**
+	 * Fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('plugin.migrations.schema_migrations');
 
-/**
- * MigrationVersion instance
- *
- * @var MigrationVersion
- */
+	/**
+	 * MigrationVersion instance
+	 *
+	 * @var MigrationVersion
+	 */
 	public $Version;
 
-/**
- * Start test
- *
- * @return void
- */
+	/**
+	 * Start test
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -46,22 +46,22 @@ class MigrationVersionTest extends CakeTestCase {
 		Configure::write('Config.language', 'en');
 	}
 
-/**
- * TearDown method
- *
- * @return void
- */
+	/**
+	 * TearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->Version, $this->plugins);
 
 		parent::tearDown();
 	}
 
-/**
- * Test __construct method with no existing migrations table
- *
- * @return void
- */
+	/**
+	 * Test __construct method with no existing migrations table
+	 *
+	 * @return void
+	 */
 	public function testInitialTableCreation() {
 		$db = ConnectionManager::getDataSource('test');
 		$db->cacheSources = false;
@@ -75,11 +75,11 @@ class MigrationVersionTest extends CakeTestCase {
 		$this->assertTrue(in_array($db->fullTableName('schema_migrations', false, false), $db->listSources()));
 	}
 
-/**
- * TestGetMapping method
- *
- * @return void
- */
+	/**
+	 * TestGetMapping method
+	 *
+	 * @return void
+	 */
 	public function testGetMapping() {
 		CakePlugin::load('TestMigrationPlugin');
 		$result = $this->Version->getMapping('test_migration_plugin');
@@ -118,21 +118,21 @@ class MigrationVersionTest extends CakeTestCase {
 				'migrated' => '2011-11-18 13:53:32'
 			),
 			3 => array(
-					'version' => 3,
-					'name' => '003_increase_class_name_length',
-					'class' => 'IncreaseClassNameLength',
-					'type' => 'Migrations',
-					'migrated' => null
+				'version' => 3,
+				'name' => '003_increase_class_name_length',
+				'class' => 'IncreaseClassNameLength',
+				'type' => 'Migrations',
+				'migrated' => null
 			)
 		);
 		$this->assertEquals($result, $expected);
 	}
 
-/**
- * TestGetMigration method
- *
- * @return void
- */
+	/**
+	 * TestGetMigration method
+	 *
+	 * @return void
+	 */
 	public function testGetMigration() {
 		try {
 			$this->Version->getMigration('inexistent_migration', 'InexistentMigration', 'test_migration_plugin');
@@ -158,11 +158,11 @@ class MigrationVersionTest extends CakeTestCase {
 		$this->assertEquals($result->description, 'Version 001 (schema dump) of TestMigrationPlugin');
 	}
 
-/**
- * TestSetGetVersion method
- *
- * @return void
- */
+	/**
+	 * TestSetGetVersion method
+	 *
+	 * @return void
+	 */
 	public function testSetGetVersion() {
 		$this->Version = $this->getMock('MigrationVersion', array('getMapping'), array(array('connection' => 'test')));
 
@@ -200,11 +200,11 @@ class MigrationVersionTest extends CakeTestCase {
 		$this->assertEquals($result, $expected);
 	}
 
-/**
- * TestRun method
- *
- * @return void
- */
+	/**
+	 * TestRun method
+	 *
+	 * @return void
+	 */
 	public function testRun() {
 		$options = array(
 			'connection' => 'test',
@@ -307,13 +307,13 @@ class MigrationVersionTest extends CakeTestCase {
 		$this->assertTrue($Version->run(array('version' => 0, 'type' => 'mocks')));
 	}
 
-/**
- * _mapping method
- *
- * @param integer $start
- * @param integer $end
- * @return array
- */
+	/**
+	 * _mapping method
+	 *
+	 * @param integer $start
+	 * @param integer $end
+	 * @return array
+	 */
 	protected function _mapping($start = 0, $end = 0) {
 		$mapping = array();
 		for ($i = 1; $i <= 10; $i++) {

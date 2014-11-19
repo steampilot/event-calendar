@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2009 - 2014, Cake Development Corporation (http://cakedc.com)
  *
@@ -8,14 +9,13 @@
  * @copyright Copyright 2009 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
 class AllMigrationsPluginTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * Suite define the tests for this suite
- *
- * @return void
- */
+	/**
+	 * Suite define the tests for this suite
+	 *
+	 * @return void
+	 */
 	public static function suite() {
 		$suite = new PHPUnit_Framework_TestSuite('All Migrations Plugin Tests');
 
