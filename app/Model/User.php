@@ -22,6 +22,84 @@ class User extends AppModel {
 	public $order = "title";
 
 	/**
+	 * User login
+	 *
+	 * @param string $strUsername
+	 * @param string $strPassword
+	 * @return bool
+	 */
+	public function login($strUsername, $strPassword) {
+		// user lookup in user table
+		$arrUser = $this->getUserByLogin($strUsername, $strPassword);
+
+		if (empty($arrUser)) {
+			return false;
+		}
+
+		$numUserId = $arrUser['id'];
+		$strTitle = $arrUser['title'];
+
+		CakeSession::write('Auth.User.id', $numUserId);
+		CakeSession::write('Auth.User.username', $strUsername);
+		CakeSession::write('Auth.User.title', $strTitle);
+
+		return true;
+	}
+
+	/**
+	 * Logout user. Clear user session
+	 *
+	 * @return void
+	 */
+	public function logout() {
+		CakeSession::write('Auth.User.id', null);
+		CakeSession::write('Auth.User.username', null);
+		CakeSession::write('Auth.User.title', null);
+		CakeSession::write('Auth.User', array());
+		CakeSession::destroy();
+	}
+
+	/**
+	 * Returns user by login (username, password)
+	 *
+	 * @param string $strUsername
+	 * @param string $strPassword
+	 * @return array
+	 */
+	public function getUserByLogin($strUsername, $strPassword) {
+		$arrConditions = array('AND' => array(
+			'username' => $strUsername,
+		));
+		$arrReturn = $this->queryFindRow('all', array(
+			'conditions' => $arrConditions,
+		));
+		$strHash = $arrReturn['password'];
+		$boolStatus = $this->verifyHash($strPassword, $strHash);
+		if (!$boolStatus) {
+			$arrReturn = null;
+		}
+		return $arrReturn;
+	}
+
+	/**
+	 * Returns true if password and hash is valid
+	 *
+	 * @param string $strPassword
+	 * @param string $strHash
+	 * @return bool
+	 */
+	function verifyHash($strPassword, $strHash) {
+		if (function_exists('password_verify')) {
+			// php >= 5.5
+			$boolReturn = password_verify($strPassword, $strHash);
+		} else {
+			$strHash2 = crypt($strPassword, $strHash);
+			$boolReturn = $strHash == $strHash2;
+		}
+		return $boolReturn;
+	}
+
+	/**
 	 * Validation rules
 	 *
 	 * @var array
