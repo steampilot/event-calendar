@@ -17,33 +17,33 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 /*
  *
  * Using the Schema command line utility
  * cake schema run create Sessions
  *
  */
+
 class SessionsSchema extends CakeSchema {
 
 	public $name = 'Sessions';
 
-/**
- * Before callback.
- *
- * @param array $event Schema object properties
- * @return bool Should process continue
- */
+	/**
+	 * Before callback.
+	 *
+	 * @param array $event Schema object properties
+	 * @return bool Should process continue
+	 */
 	public function before($event = array()) {
 		return true;
 	}
 
-/**
- * After callback.
- *
- * @param array $event Schema object properties
- * @return void
- */
+	/**
+	 * After callback.
+	 *
+	 * @param array $event Schema object properties
+	 * @return void
+	 */
 	public function after($event = array()) {
 	}
 
