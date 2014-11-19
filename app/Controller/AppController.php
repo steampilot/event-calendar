@@ -42,6 +42,12 @@ class AppController extends Controller {
 		)
 	);
 
+	protected $arrAssets = array();
+
+	/* Current active navbar */
+	public $strActiveNavbar = null;
+
+
 	/**
 	 * Callback beforeFilter
 	 *
@@ -221,6 +227,46 @@ class AppController extends Controller {
 	}
 
 	/**
+	 * Returns CI favicon
+	 *
+	 * @param string $strCi ci name (bvb or blt)
+	 * @return string
+	 */
+	public function getFavicon($strCi = 'default') {
+		$strReturn = sprintf('favicon.ico', $strCi);
+		return $strReturn;
+	}
+
+	/**
+	 * Returns CI favicon
+	 *
+	 * @param string $strCi ci name (bvb or blt)
+	 * @return string
+	 */
+	public function getLogo($strCi = 'default') {
+		$strReturn = sprintf('img/%s/logo.png', $strCi);
+		return $strReturn;
+	}
+
+	/**
+	 * Generate random background image for login screen.
+	 * From 00-04 o'clock return sleeping man background image.
+	 *
+	 * @param string $strCi ci name
+	 * @return string
+	 */
+	public function getBackgroundImage($strCi = 'default') {
+		$numNumber = rand(1, 4);
+		$strReturn = sprintf('img/%s/login%s.jpg', $strCi, $numNumber);
+		$numHour = date('H');
+		if ($numHour >= 0 && $numHour <= 4) {
+			// show maintenance image
+			$strReturn = 'img/login-sleep.jpg';
+		}
+		return $strReturn;
+	}
+
+	/**
 	 * Add assets to page
 	 *
 	 * @param array $arrAssets array of assets
@@ -326,30 +372,6 @@ class AppController extends Controller {
 				'inline' => true
 			)
 		);
-
-		// add global text translations
-		$strTextJs = $this->_getTextJs($this->_getTextGlobal());
-		if (!empty($strTextJs)) {
-			$arrReturn[] = array(
-				'content' => $strTextJs,
-				'options' => array(
-					'block' => 'script',
-					'inline' => true
-				)
-			);
-		}
-
-		// add text translations
-		$strTextJs = $this->_getTextJs($this->getText());
-		if (!empty($strTextJs)) {
-			$arrReturn[] = array(
-				'content' => $strTextJs,
-				'options' => array(
-					'block' => 'script',
-					'inline' => true
-				)
-			);
-		}
 
 		// https://github.com/twbs/bootlint
 		// https://raw.githubusercontent.com/twbs/bootlint/master/dist/browser/bootlint.js

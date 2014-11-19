@@ -401,9 +401,13 @@ require_once APPLIBS . 'odan/utils.php';
 require_once APPLIBS . 'odan/autoload.php';
 
 
+// app version
+Configure::write('App.version', '0.1.0 (Boing)');
+
 /**
  * Overwrite default config settings by environment specific local settings
  */
 if (file_exists(APP . DS . 'Config' . DS . 'core.local.php')) {
 	require APP . DS . 'Config' . DS . 'core.local.php';
 }
+

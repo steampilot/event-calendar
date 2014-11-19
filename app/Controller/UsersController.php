@@ -28,8 +28,8 @@ class UsersController extends AppController {
 		$user->logout();
 
 		// append css and js
-		//$this->setAssetsLogin();
-		//$this->setAssets();
+		$this->setAssetsLogin();
+		$this->setAssets();
 
 		if (!$this->request->is('post')) {
 			return;
@@ -63,6 +63,56 @@ class UsersController extends AppController {
 		//$strUrl = $this->Auth->logout();
 		$strUrl = $this->Auth->redirect();
 		$this->redirect($strUrl);
+	}
+
+	/**
+	 * Returns assets for page action
+	 *
+	 * @return array
+	 */
+	public function setAssetsLogin() {
+		$arrAssets = array();
+
+		$strCi = $this->getCi();
+
+		// append ci login.css
+		$strBackgroundImg = '';
+		if ($this->isValidCi($strCi)) {
+			$strBackgroundImg = $this->getBackgroundImage($strCi);
+		}
+
+		$arrAssets['js'][] = array(
+			'path' => 'login',
+			'options' => array(
+				'block' => 'script',
+				'inline' => true,
+				'id' => 'js_login',
+				'data-img' => $strBackgroundImg)
+		);
+
+		$arrAssets['css'][] = array(
+			'path' => 'default/login',
+			'options' => array('inline' => false)
+		);
+
+		// if ($this->isValidCi($strCi)) {
+		//	$arrReturn['css'][] = array(
+		//		'path' => $strCi . '/login',
+		//		'options' => array('inline' => false)
+		//	);
+		// }
+
+		$this->addAssets($arrAssets);
+	}
+
+	/**
+	 * Append assets to layout
+	 *
+	 * @return void
+	 */
+	public function setAssets() {
+		parent::setAssets();
+		$this->set('strNavbar', 'navbar_empty');
 	}
 
 }

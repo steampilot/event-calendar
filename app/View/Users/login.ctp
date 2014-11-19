@@ -19,11 +19,6 @@
 					</div>
 					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
 
-					<div>
-						<label>
-							<a href="#"><?php wh(__('forgot password')); ?></a>
-						</label>
-					</div>
 				</fieldset>
 				</form>
 			</div>
