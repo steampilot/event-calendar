@@ -26,22 +26,22 @@ App::uses('MailTransport', 'Network/Email');
  */
 class MailTransportTest extends CakeTestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->MailTransport = $this->getMock('MailTransport', array('_mail'));
 		$this->MailTransport->config(array('additionalParameters' => '-f'));
 	}
 
-/**
- * testSend method
- *
- * @return void
- */
+	/**
+	 * testSend method
+	 *
+	 * @return void
+	 */
 	public function testSendData() {
 		$email = $this->getMock('CakeEmail', array('message'), array());
 		$email->from('noreply@cakephp.org', 'CakePHP Test');

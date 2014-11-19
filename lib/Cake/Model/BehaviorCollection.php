@@ -30,34 +30,34 @@ App::uses('CakeEventListener', 'Event');
  */
 class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 
-/**
- * Stores a reference to the attached name
- *
- * @var string
- */
+	/**
+	 * Stores a reference to the attached name
+	 *
+	 * @var string
+	 */
 	public $modelName = null;
 
-/**
- * Keeps a list of all methods of attached behaviors
- *
- * @var array
- */
+	/**
+	 * Keeps a list of all methods of attached behaviors
+	 *
+	 * @var array
+	 */
 	protected $_methods = array();
 
-/**
- * Keeps a list of all methods which have been mapped with regular expressions
- *
- * @var array
- */
+	/**
+	 * Keeps a list of all methods which have been mapped with regular expressions
+	 *
+	 * @var array
+	 */
 	protected $_mappedMethods = array();
 
-/**
- * Attaches a model object and loads a list of behaviors
- *
- * @param string $modelName Model name.
- * @param array $behaviors Behaviors list.
- * @return void
- */
+	/**
+	 * Attaches a model object and loads a list of behaviors
+	 *
+	 * @param string $modelName Model name.
+	 * @param array $behaviors Behaviors list.
+	 * @return void
+	 */
 	public function init($modelName, $behaviors = array()) {
 		$this->modelName = $modelName;
 
@@ -68,38 +68,38 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 		}
 	}
 
-/**
- * Backwards compatible alias for load()
- *
- * @param string $behavior Behavior name.
- * @param array $config Configuration options.
- * @return void
- * @deprecated 3.0.0 Will be removed in 3.0. Replaced with load().
- */
+	/**
+	 * Backwards compatible alias for load()
+	 *
+	 * @param string $behavior Behavior name.
+	 * @param array $config Configuration options.
+	 * @return void
+	 * @deprecated 3.0.0 Will be removed in 3.0. Replaced with load().
+	 */
 	public function attach($behavior, $config = array()) {
 		return $this->load($behavior, $config);
 	}
 
-/**
- * Loads a behavior into the collection. You can use use `$config['enabled'] = false`
- * to load a behavior with callbacks disabled. By default callbacks are enabled. Disable behaviors
- * can still be used as normal.
- *
- * You can alias your behavior as an existing behavior by setting the 'className' key, i.e.,
- * {{{
- * public $actsAs = array(
- *   'Tree' => array(
- *     'className' => 'AliasedTree'
- *   );
- * );
- * }}}
- * All calls to the `Tree` behavior would use `AliasedTree` instead.
- *
- * @param string $behavior CamelCased name of the behavior to load
- * @param array $config Behavior configuration parameters
- * @return bool True on success, false on failure
- * @throws MissingBehaviorException when a behavior could not be found.
- */
+	/**
+	 * Loads a behavior into the collection. You can use use `$config['enabled'] = false`
+	 * to load a behavior with callbacks disabled. By default callbacks are enabled. Disable behaviors
+	 * can still be used as normal.
+	 *
+	 * You can alias your behavior as an existing behavior by setting the 'className' key, i.e.,
+	 * {{{
+	 * public $actsAs = array(
+	 *   'Tree' => array(
+	 *     'className' => 'AliasedTree'
+	 *   );
+	 * );
+	 * }}}
+	 * All calls to the `Tree` behavior would use `AliasedTree` instead.
+	 *
+	 * @param string $behavior CamelCased name of the behavior to load
+	 * @param array $config Behavior configuration parameters
+	 * @return bool True on success, false on failure
+	 * @throws MissingBehaviorException when a behavior could not be found.
+	 */
 	public function load($behavior, $config = array()) {
 		if (isset($config['className'])) {
 			$alias = $behavior;
@@ -177,12 +177,12 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 		return true;
 	}
 
-/**
- * Detaches a behavior from a model
- *
- * @param string $name CamelCased name of the behavior to unload
- * @return void
- */
+	/**
+	 * Detaches a behavior from a model
+	 *
+	 * @param string $name CamelCased name of the behavior to unload
+	 * @return void
+	 */
 	public function unload($name) {
 		list(, $name) = pluginSplit($name);
 		if (isset($this->_loaded[$name])) {
@@ -196,29 +196,29 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 		}
 	}
 
-/**
- * Backwards compatible alias for unload()
- *
- * @param string $name Name of behavior
- * @return void
- * @deprecated 3.0.0 Will be removed in 3.0. Use unload instead.
- */
+	/**
+	 * Backwards compatible alias for unload()
+	 *
+	 * @param string $name Name of behavior
+	 * @return void
+	 * @deprecated 3.0.0 Will be removed in 3.0. Use unload instead.
+	 */
 	public function detach($name) {
 		return $this->unload($name);
 	}
 
-/**
- * Dispatches a behavior method. Will call either normal methods or mapped methods.
- *
- * If a method is not handled by the BehaviorCollection, and $strict is false, a
- * special return of `array('unhandled')` will be returned to signal the method was not found.
- *
- * @param Model $model The model the method was originally called on.
- * @param string $method The method called.
- * @param array $params Parameters for the called method.
- * @param bool $strict If methods are not found, trigger an error.
- * @return array All methods for all behaviors attached to this object
- */
+	/**
+	 * Dispatches a behavior method. Will call either normal methods or mapped methods.
+	 *
+	 * If a method is not handled by the BehaviorCollection, and $strict is false, a
+	 * special return of `array('unhandled')` will be returned to signal the method was not found.
+	 *
+	 * @param Model $model The model the method was originally called on.
+	 * @param string $method The method called.
+	 * @param array $params Parameters for the called method.
+	 * @param bool $strict If methods are not found, trigger an error.
+	 * @return array All methods for all behaviors attached to this object
+	 */
 	public function dispatchMethod($model, $method, $params = array(), $strict = false) {
 		$method = $this->hasMethod($method, true);
 
@@ -239,25 +239,25 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 		);
 	}
 
-/**
- * Gets the method list for attached behaviors, i.e. all public, non-callback methods.
- * This does not include mappedMethods.
- *
- * @return array All public methods for all behaviors attached to this collection
- */
+	/**
+	 * Gets the method list for attached behaviors, i.e. all public, non-callback methods.
+	 * This does not include mappedMethods.
+	 *
+	 * @return array All public methods for all behaviors attached to this collection
+	 */
 	public function methods() {
 		return $this->_methods;
 	}
 
-/**
- * Check to see if a behavior in this collection implements the provided method. Will
- * also check mappedMethods.
- *
- * @param string $method The method to find.
- * @param bool $callback Return the callback for the method.
- * @return mixed If $callback is false, a boolean will be returned, if its true, an array
- *   containing callback information will be returned. For mapped methods the array will have 3 elements.
- */
+	/**
+	 * Check to see if a behavior in this collection implements the provided method. Will
+	 * also check mappedMethods.
+	 *
+	 * @param string $method The method to find.
+	 * @param bool $callback Return the callback for the method.
+	 * @return mixed If $callback is false, a boolean will be returned, if its true, an array
+	 *   containing callback information will be returned. For mapped methods the array will have 3 elements.
+	 */
 	public function hasMethod($method, $callback = false) {
 		if (isset($this->_methods[$method])) {
 			return $callback ? $this->_methods[$method] : true;
@@ -274,12 +274,12 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 		return false;
 	}
 
-/**
- * Returns the implemented events that will get routed to the trigger function
- * in order to dispatch them separately on each behavior
- *
- * @return array
- */
+	/**
+	 * Returns the implemented events that will get routed to the trigger function
+	 * in order to dispatch them separately on each behavior
+	 *
+	 * @return array
+	 */
 	public function implementedEvents() {
 		return array(
 			'Model.beforeFind' => 'trigger',

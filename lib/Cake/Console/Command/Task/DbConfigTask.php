@@ -24,18 +24,18 @@ App::uses('AppShell', 'Console/Command');
  */
 class DbConfigTask extends AppShell {
 
-/**
- * path to CONFIG directory
- *
- * @var string
- */
+	/**
+	 * path to CONFIG directory
+	 *
+	 * @var string
+	 */
 	public $path = null;
 
-/**
- * Default configuration settings to use
- *
- * @var array
- */
+	/**
+	 * Default configuration settings to use
+	 *
+	 * @var array
+	 */
 	protected $_defaultConfig = array(
 		'name' => 'default',
 		'datasource' => 'Database/Mysql',
@@ -50,28 +50,28 @@ class DbConfigTask extends AppShell {
 		'port' => null
 	);
 
-/**
- * String name of the database config class name.
- * Used for testing.
- *
- * @var string
- */
+	/**
+	 * String name of the database config class name.
+	 * Used for testing.
+	 *
+	 * @var string
+	 */
 	public $databaseClassName = 'DATABASE_CONFIG';
 
-/**
- * initialization callback
- *
- * @return void
- */
+	/**
+	 * initialization callback
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->path = APP . 'Config' . DS;
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		if (empty($this->args)) {
 			$this->_interactive();
@@ -79,11 +79,11 @@ class DbConfigTask extends AppShell {
 		}
 	}
 
-/**
- * Interactive interface
- *
- * @return void
- */
+	/**
+	 * Interactive interface
+	 *
+	 * @return void
+	 */
 	protected function _interactive() {
 		$this->hr();
 		$this->out(__d('cake_console', 'Database Configuration:'));
@@ -196,12 +196,12 @@ class DbConfigTask extends AppShell {
 		return true;
 	}
 
-/**
- * Output verification message and bake if it looks good
- *
- * @param array $config The config data.
- * @return bool True if user says it looks good, false otherwise
- */
+	/**
+	 * Output verification message and bake if it looks good
+	 *
+	 * @param array $config The config data.
+	 * @return bool True if user says it looks good, false otherwise
+	 */
 	protected function _verify($config) {
 		$config += $this->_defaultConfig;
 		extract($config);
@@ -243,12 +243,12 @@ class DbConfigTask extends AppShell {
 		return false;
 	}
 
-/**
- * Assembles and writes database.php
- *
- * @param array $configs Configuration settings to use
- * @return bool Success
- */
+	/**
+	 * Assembles and writes database.php
+	 *
+	 * @param array $configs Configuration settings to use
+	 * @return bool Success
+	 */
 	public function bake($configs) {
 		if (!is_dir($this->path)) {
 			$this->err(__d('cake_console', '%s not found', $this->path));
@@ -346,11 +346,11 @@ class DbConfigTask extends AppShell {
 		return $this->createFile($filename, $out);
 	}
 
-/**
- * Get a user specified Connection name
- *
- * @return void
- */
+	/**
+	 * Get a user specified Connection name
+	 *
+	 * @return void
+	 */
 	public function getConfig() {
 		App::uses('ConnectionManager', 'Model');
 		$configs = ConnectionManager::enumConnectionObjects();
@@ -367,11 +367,11 @@ class DbConfigTask extends AppShell {
 		return $useDbConfig;
 	}
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Gets the option parser instance and configures it.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 

@@ -14,7 +14,7 @@
 #################################
 atlassian-ide-plugin.xml
 /nbproject
-.idea
+.idea/*
 
 # OS generated files #
 ######################
@@ -29,3 +29,4 @@ Thumbs.db
 /documentation/*.bak
 composer.phar
 /app/Vendor
+

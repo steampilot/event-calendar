@@ -24,11 +24,11 @@
  */
 class AdFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'campaign_id' => array('type' => 'integer'),
@@ -38,11 +38,11 @@ class AdFixture extends CakeTestFixture {
 		'name' => array('type' => 'string', 'length' => 255, 'null' => false)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('parent_id' => null, 'lft' => 1, 'rght' => 2, 'campaign_id' => 1, 'name' => 'Nordover'),
 		array('parent_id' => null, 'lft' => 3, 'rght' => 4, 'campaign_id' => 1, 'name' => 'Statbergen'),

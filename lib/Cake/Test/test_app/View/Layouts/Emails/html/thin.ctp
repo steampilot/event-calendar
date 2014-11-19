@@ -6,8 +6,8 @@
 </head>
 
 <body>
-	<?php echo $this->fetch('content'); ?>
+<?php echo $this->fetch('content'); ?>
 
-	<p>This email was sent using the CakePHP Framework</p>
+<p>This email was sent using the CakePHP Framework</p>
 </body>
 </html>

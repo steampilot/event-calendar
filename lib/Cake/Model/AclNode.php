@@ -23,24 +23,24 @@ App::uses('Model', 'Model');
  */
 class AclNode extends Model {
 
-/**
- * Explicitly disable in-memory query caching for ACL models
- *
- * @var bool
- */
+	/**
+	 * Explicitly disable in-memory query caching for ACL models
+	 *
+	 * @var bool
+	 */
 	public $cacheQueries = false;
 
-/**
- * ACL models use the Tree behavior
- *
- * @var array
- */
+	/**
+	 * ACL models use the Tree behavior
+	 *
+	 * @var array
+	 */
 	public $actsAs = array('Tree' => array('type' => 'nested'));
 
-/**
- * Constructor
- *
- */
+	/**
+	 * Constructor
+	 *
+	 */
 	public function __construct() {
 		$config = Configure::read('Acl.database');
 		if (isset($config)) {
@@ -49,13 +49,13 @@ class AclNode extends Model {
 		parent::__construct();
 	}
 
-/**
- * Retrieves the Aro/Aco node for this model
- *
- * @param string|array|Model $ref Array with 'model' and 'foreign_key', model object, or string value
- * @return array Node found in database
- * @throws CakeException when binding to a model that doesn't exist.
- */
+	/**
+	 * Retrieves the Aro/Aco node for this model
+	 *
+	 * @param string|array|Model $ref Array with 'model' and 'foreign_key', model object, or string value
+	 * @return array Node found in database
+	 * @throws CakeException when binding to a model that doesn't exist.
+	 */
 	public function node($ref = null) {
 		$db = $this->getDataSource();
 		$type = $this->alias;

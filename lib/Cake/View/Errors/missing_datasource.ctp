@@ -20,7 +20,7 @@ $pluginDot = empty($plugin) ? null : $plugin . '.';
 <p class="error">
 	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
 	<?php echo __d('cake_dev', 'Datasource class %s could not be found.', '<em>' . h($pluginDot . $class) . '</em>'); ?>
-	<?php if (isset($message)):  ?>
+	<?php if (isset($message)): ?>
 		<?php echo h($message); ?>
 	<?php endif; ?>
 </p>

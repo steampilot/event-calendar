@@ -21,11 +21,11 @@
  */
 class CakeTestSuiteTest extends CakeTestCase {
 
-/**
- * testAddTestDirectory
- *
- * @return void
- */
+	/**
+	 * testAddTestDirectory
+	 *
+	 * @return void
+	 */
 	public function testAddTestDirectory() {
 		$testFolder = CORE_TEST_CASES . DS . 'TestSuite';
 		$count = count(glob($testFolder . DS . '*Test.php'));
@@ -38,11 +38,11 @@ class CakeTestSuiteTest extends CakeTestCase {
 		$suite->addTestDirectory($testFolder);
 	}
 
-/**
- * testAddTestDirectoryRecursive
- *
- * @return void
- */
+	/**
+	 * testAddTestDirectoryRecursive
+	 *
+	 * @return void
+	 */
 	public function testAddTestDirectoryRecursive() {
 		$testFolder = CORE_TEST_CASES . DS . 'Cache';
 		$count = count(glob($testFolder . DS . '*Test.php'));
@@ -56,11 +56,11 @@ class CakeTestSuiteTest extends CakeTestCase {
 		$suite->addTestDirectoryRecursive($testFolder);
 	}
 
-/**
- * testAddTestDirectoryRecursiveWithHidden
- *
- * @return void
- */
+	/**
+	 * testAddTestDirectoryRecursiveWithHidden
+	 *
+	 * @return void
+	 */
 	public function testAddTestDirectoryRecursiveWithHidden() {
 		$this->skipIf(!is_writable(TMP), 'Cant addTestDirectoryRecursiveWithHidden unless the tmp folder is writable.');
 
@@ -80,11 +80,11 @@ class CakeTestSuiteTest extends CakeTestCase {
 		$Folder->delete();
 	}
 
-/**
- * testAddTestDirectoryRecursiveWithNonPhp
- *
- * @return void
- */
+	/**
+	 * testAddTestDirectoryRecursiveWithNonPhp
+	 *
+	 * @return void
+	 */
 	public function testAddTestDirectoryRecursiveWithNonPhp() {
 		$this->skipIf(!is_writable(TMP), 'Cant addTestDirectoryRecursiveWithNonPhp unless the tmp folder is writable.');
 

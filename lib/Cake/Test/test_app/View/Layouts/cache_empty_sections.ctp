@@ -5,9 +5,9 @@
 	<!--nocache--><?php $x = 1; ?><!--/nocache-->
 </head>
 <body>
-	<!--nocache--><?php $x++; ?><!--/nocache-->
-	<!--nocache--><?php $x++; ?><!--/nocache-->
-	<?php echo $this->fetch('content'); ?>
-	<!--nocache--><?php echo 'cached count is: ' . $x; ?><!--/nocache-->
+<!--nocache--><?php $x++; ?><!--/nocache-->
+<!--nocache--><?php $x++; ?><!--/nocache-->
+<?php echo $this->fetch('content'); ?>
+<!--nocache--><?php echo 'cached count is: ' . $x; ?><!--/nocache-->
 </body>
 </html>

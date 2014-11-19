@@ -46,11 +46,11 @@ class TestCompletionStringOutput extends ConsoleOutput {
  */
 class CompletionShellTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		App::build(array(
@@ -79,22 +79,22 @@ class CompletionShellTest extends CakeTestCase {
 		);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Shell);
 		CakePlugin::unload();
 	}
 
-/**
- * test that the startup method supresses the shell header
- *
- * @return void
- */
+	/**
+	 * test that the startup method supresses the shell header
+	 *
+	 * @return void
+	 */
 	public function testStartup() {
 		$this->Shell->runCommand('main', array());
 		$output = $this->Shell->stdout->output;
@@ -103,11 +103,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertTextNotContains($needle, $output);
 	}
 
-/**
- * test that main displays a warning
- *
- * @return void
- */
+	/**
+	 * test that main displays a warning
+	 *
+	 * @return void
+	 */
 	public function testMain() {
 		$this->Shell->runCommand('main', array());
 		$output = $this->Shell->stdout->output;
@@ -116,11 +116,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertRegExp($expected, $output);
 	}
 
-/**
- * test commands method that list all available commands
- *
- * @return void
- */
+	/**
+	 * test commands method that list all available commands
+	 *
+	 * @return void
+	 */
 	public function testCommands() {
 		$this->Shell->runCommand('commands', array());
 		$output = $this->Shell->stdout->output;
@@ -129,11 +129,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that options without argument returns the default options
- *
- * @return void
- */
+	/**
+	 * test that options without argument returns the default options
+	 *
+	 * @return void
+	 */
 	public function testOptionsNoArguments() {
 		$this->Shell->runCommand('options', array());
 		$output = $this->Shell->stdout->output;
@@ -142,11 +142,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that options with a nonexisting command returns the default options
- *
- * @return void
- */
+	/**
+	 * test that options with a nonexisting command returns the default options
+	 *
+	 * @return void
+	 */
 	public function testOptionsNonExistingCommand() {
 		$this->Shell->runCommand('options', array('options', 'foo'));
 		$output = $this->Shell->stdout->output;
@@ -155,11 +155,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that options with a existing command returns the proper options
- *
- * @return void
- */
+	/**
+	 * test that options with a existing command returns the proper options
+	 *
+	 * @return void
+	 */
 	public function testOptions() {
 		$this->Shell->runCommand('options', array('options', 'bake'));
 		$output = $this->Shell->stdout->output;
@@ -168,11 +168,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that subCommands with a existing CORE command returns the proper sub commands
- *
- * @return void
- */
+	/**
+	 * test that subCommands with a existing CORE command returns the proper sub commands
+	 *
+	 * @return void
+	 */
 	public function testSubCommandsCorePlugin() {
 		$this->Shell->runCommand('subCommands', array('subCommands', 'CORE.bake'));
 		$output = $this->Shell->stdout->output;
@@ -181,11 +181,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that subCommands with a existing APP command returns the proper sub commands (in this case none)
- *
- * @return void
- */
+	/**
+	 * test that subCommands with a existing APP command returns the proper sub commands (in this case none)
+	 *
+	 * @return void
+	 */
 	public function testSubCommandsAppPlugin() {
 		$this->Shell->runCommand('subCommands', array('subCommands', 'app.sample'));
 		$output = $this->Shell->stdout->output;
@@ -194,11 +194,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that subCommands with a existing plugin command returns the proper sub commands
- *
- * @return void
- */
+	/**
+	 * test that subCommands with a existing plugin command returns the proper sub commands
+	 *
+	 * @return void
+	 */
 	public function testSubCommandsPlugin() {
 		$this->Shell->runCommand('subCommands', array('subCommands', 'TestPluginTwo.welcome'));
 		$output = $this->Shell->stdout->output;
@@ -207,11 +207,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that subcommands without arguments returns nothing
- *
- * @return void
- */
+	/**
+	 * test that subcommands without arguments returns nothing
+	 *
+	 * @return void
+	 */
 	public function testSubCommandsNoArguments() {
 		$this->Shell->runCommand('subCommands', array());
 		$output = $this->Shell->stdout->output;
@@ -220,11 +220,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that subcommands with a nonexisting command returns nothing
- *
- * @return void
- */
+	/**
+	 * test that subcommands with a nonexisting command returns nothing
+	 *
+	 * @return void
+	 */
 	public function testSubCommandsNonExistingCommand() {
 		$this->Shell->runCommand('subCommands', array('subCommands', 'foo'));
 		$output = $this->Shell->stdout->output;
@@ -233,11 +233,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that subcommands returns the available subcommands for the given command
- *
- * @return void
- */
+	/**
+	 * test that subcommands returns the available subcommands for the given command
+	 *
+	 * @return void
+	 */
 	public function testSubCommands() {
 		$this->Shell->runCommand('subCommands', array('subCommands', 'bake'));
 		$output = $this->Shell->stdout->output;
@@ -246,11 +246,11 @@ class CompletionShellTest extends CakeTestCase {
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * test that fuzzy returns nothing
- *
- * @return void
- */
+	/**
+	 * test that fuzzy returns nothing
+	 *
+	 * @return void
+	 */
 	public function testFuzzy() {
 		$this->Shell->runCommand('fuzzy', array());
 		$output = $this->Shell->stdout->output;

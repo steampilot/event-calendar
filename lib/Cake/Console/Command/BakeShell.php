@@ -34,25 +34,25 @@ App::uses('Model', 'Model');
  */
 class BakeShell extends AppShell {
 
-/**
- * Contains tasks to load and instantiate
- *
- * @var array
- */
+	/**
+	 * Contains tasks to load and instantiate
+	 *
+	 * @var array
+	 */
 	public $tasks = array('Project', 'DbConfig', 'Model', 'Controller', 'View', 'Plugin', 'Fixture', 'Test');
 
-/**
- * The connection being used.
- *
- * @var string
- */
+	/**
+	 * The connection being used.
+	 *
+	 * @var string
+	 */
 	public $connection = 'default';
 
-/**
- * Assign $this->connection to the active task if a connection param is set.
- *
- * @return void
- */
+	/**
+	 * Assign $this->connection to the active task if a connection param is set.
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		parent::startup();
 		Configure::write('debug', 2);
@@ -69,11 +69,11 @@ class BakeShell extends AppShell {
 		}
 	}
 
-/**
- * Override main() to handle action
- *
- * @return mixed
- */
+	/**
+	 * Override main() to handle action
+	 *
+	 * @return mixed
+	 */
 	public function main() {
 		if (!is_dir($this->DbConfig->path)) {
 			$path = $this->Project->execute();
@@ -132,11 +132,11 @@ class BakeShell extends AppShell {
 		$this->main();
 	}
 
-/**
- * Quickly bake the MVC
- *
- * @return void
- */
+	/**
+	 * Quickly bake the MVC
+	 *
+	 * @return void
+	 */
 	public function all() {
 		$this->out('Bake All');
 		$this->hr();
@@ -202,18 +202,18 @@ class BakeShell extends AppShell {
 		return $this->_stop();
 	}
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Gets the option parser instance and configures it.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 
 		$parser->description(
-			__d('cake_console',	'The Bake script generates controllers, views and models for your application.' .
-			' If run with no command line arguments, Bake guides the user through the class creation process.' .
-			' You can customize the generation process by telling Bake where different parts of your application are using command line arguments.')
+			__d('cake_console', 'The Bake script generates controllers, views and models for your application.' .
+				' If run with no command line arguments, Bake guides the user through the class creation process.' .
+				' You can customize the generation process by telling Bake where different parts of your application are using command line arguments.')
 		)->addSubcommand('all', array(
 			'help' => __d('cake_console', 'Bake a complete MVC. optional <name> of a Model')
 		))->addSubcommand('project', array(

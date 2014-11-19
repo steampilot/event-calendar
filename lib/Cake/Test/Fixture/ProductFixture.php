@@ -23,11 +23,11 @@
  */
 class ProductFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'name' => array('type' => 'string', 'length' => 255, 'null' => false),
@@ -35,11 +35,11 @@ class ProductFixture extends CakeTestFixture {
 		'price' => array('type' => 'integer', 'null' => false)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('name' => 'Park\'s Great Hits', 'type' => 'Music', 'price' => 19),
 		array('name' => 'Silly Puddy', 'type' => 'Toy', 'price' => 3),

@@ -25,26 +25,26 @@ App::uses('String', 'Utility');
  */
 class Security {
 
-/**
- * Default hash method
- *
- * @var string
- */
+	/**
+	 * Default hash method
+	 *
+	 * @var string
+	 */
 	public static $hashType = null;
 
-/**
- * Default cost
- *
- * @var string
- */
+	/**
+	 * Default cost
+	 *
+	 * @var string
+	 */
 	public static $hashCost = '10';
 
-/**
- * Get allowed minutes of inactivity based on security level.
- *
- * @deprecated 3.0.0 Exists for backwards compatibility only, not used by the core
- * @return int Allowed inactivity in minutes
- */
+	/**
+	 * Get allowed minutes of inactivity based on security level.
+	 *
+	 * @deprecated 3.0.0 Exists for backwards compatibility only, not used by the core
+	 * @return int Allowed inactivity in minutes
+	 */
 	public static function inactiveMins() {
 		switch (Configure::read('Security.level')) {
 			case 'high':
@@ -57,52 +57,52 @@ class Security {
 		}
 	}
 
-/**
- * Generate authorization hash.
- *
- * @return string Hash
- */
+	/**
+	 * Generate authorization hash.
+	 *
+	 * @return string Hash
+	 */
 	public static function generateAuthKey() {
 		return Security::hash(String::uuid());
 	}
 
-/**
- * Validate authorization hash.
- *
- * @param string $authKey Authorization hash
- * @return bool Success
- */
+	/**
+	 * Validate authorization hash.
+	 *
+	 * @param string $authKey Authorization hash
+	 * @return bool Success
+	 */
 	public static function validateAuthKey($authKey) {
 		return true;
 	}
 
-/**
- * Create a hash from string using given method or fallback on next available method.
- *
- * #### Using Blowfish
- *
- * - Creating Hashes: *Do not supply a salt*. Cake handles salt creation for
- * you ensuring that each hashed password will have a *unique* salt.
- * - Comparing Hashes: Simply pass the originally hashed password as the salt.
- * The salt is prepended to the hash and php handles the parsing automagically.
- * For convenience the `BlowfishPasswordHasher` class is available for use with
- * the AuthComponent.
- * - Do NOT use a constant salt for blowfish!
- *
- * Creating a blowfish/bcrypt hash:
- *
- * {{{
- * 	$hash = Security::hash($password, 'blowfish');
- * }}}
- *
- * @param string $string String to hash
- * @param string $type Method to use (sha1/sha256/md5/blowfish)
- * @param mixed $salt If true, automatically prepends the application's salt
- *     value to $string (Security.salt). If you are using blowfish the salt
- *     must be false or a previously generated salt.
- * @return string Hash
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/security.html#Security::hash
- */
+	/**
+	 * Create a hash from string using given method or fallback on next available method.
+	 *
+	 * #### Using Blowfish
+	 *
+	 * - Creating Hashes: *Do not supply a salt*. Cake handles salt creation for
+	 * you ensuring that each hashed password will have a *unique* salt.
+	 * - Comparing Hashes: Simply pass the originally hashed password as the salt.
+	 * The salt is prepended to the hash and php handles the parsing automagically.
+	 * For convenience the `BlowfishPasswordHasher` class is available for use with
+	 * the AuthComponent.
+	 * - Do NOT use a constant salt for blowfish!
+	 *
+	 * Creating a blowfish/bcrypt hash:
+	 *
+	 * {{{
+	 *    $hash = Security::hash($password, 'blowfish');
+	 * }}}
+	 *
+	 * @param string $string String to hash
+	 * @param string $type Method to use (sha1/sha256/md5/blowfish)
+	 * @param mixed $salt If true, automatically prepends the application's salt
+	 *     value to $string (Security.salt). If you are using blowfish the salt
+	 *     must be false or a previously generated salt.
+	 * @return string Hash
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/security.html#Security::hash
+	 */
 	public static function hash($string, $type = null, $salt = false) {
 		if (empty($type)) {
 			$type = self::$hashType;
@@ -136,24 +136,24 @@ class Security {
 		return md5($string);
 	}
 
-/**
- * Sets the default hash method for the Security object. This affects all objects using
- * Security::hash().
- *
- * @param string $hash Method to use (sha1/sha256/md5/blowfish)
- * @return void
- * @see Security::hash()
- */
+	/**
+	 * Sets the default hash method for the Security object. This affects all objects using
+	 * Security::hash().
+	 *
+	 * @param string $hash Method to use (sha1/sha256/md5/blowfish)
+	 * @return void
+	 * @see Security::hash()
+	 */
 	public static function setHash($hash) {
 		self::$hashType = $hash;
 	}
 
-/**
- * Sets the cost for they blowfish hash method.
- *
- * @param int $cost Valid values are 4-31
- * @return void
- */
+	/**
+	 * Sets the cost for they blowfish hash method.
+	 *
+	 * @param int $cost Valid values are 4-31
+	 * @return void
+	 */
 	public static function setCost($cost) {
 		if ($cost < 4 || $cost > 31) {
 			trigger_error(__d(
@@ -166,21 +166,21 @@ class Security {
 		self::$hashCost = $cost;
 	}
 
-/**
- * Runs $text through a XOR cipher.
- *
- * *Note* This is not a cryptographically strong method and should not be used
- * for sensitive data. Additionally this method does *not* work in environments
- * where suhosin is enabled.
- *
- * Instead you should use Security::rijndael() when you need strong
- * encryption.
- *
- * @param string $text Encrypted string to decrypt, normal string to encrypt
- * @param string $key Key to use
- * @return string Encrypted/Decrypted string
- * @deprecated 3.0.0 Will be removed in 3.0.
- */
+	/**
+	 * Runs $text through a XOR cipher.
+	 *
+	 * *Note* This is not a cryptographically strong method and should not be used
+	 * for sensitive data. Additionally this method does *not* work in environments
+	 * where suhosin is enabled.
+	 *
+	 * Instead you should use Security::rijndael() when you need strong
+	 * encryption.
+	 *
+	 * @param string $text Encrypted string to decrypt, normal string to encrypt
+	 * @param string $key Key to use
+	 * @return string Encrypted/Decrypted string
+	 * @deprecated 3.0.0 Will be removed in 3.0.
+	 */
 	public static function cipher($text, $key) {
 		if (empty($key)) {
 			trigger_error(__d('cake_dev', 'You cannot use an empty key for %s', 'Security::cipher()'), E_USER_WARNING);
@@ -202,18 +202,18 @@ class Security {
 		return $out;
 	}
 
-/**
- * Encrypts/Decrypts a text using the given key using rijndael method.
- *
- * Prior to 2.3.1, a fixed initialization vector was used. This was not
- * secure. This method now uses a random iv, and will silently upgrade values when
- * they are re-encrypted.
- *
- * @param string $text Encrypted string to decrypt, normal string to encrypt
- * @param string $key Key to use as the encryption key for encrypted data.
- * @param string $operation Operation to perform, encrypt or decrypt
- * @return string Encrypted/Decrypted string
- */
+	/**
+	 * Encrypts/Decrypts a text using the given key using rijndael method.
+	 *
+	 * Prior to 2.3.1, a fixed initialization vector was used. This was not
+	 * secure. This method now uses a random iv, and will silently upgrade values when
+	 * they are re-encrypted.
+	 *
+	 * @param string $text Encrypted string to decrypt, normal string to encrypt
+	 * @param string $key Key to use as the encryption key for encrypted data.
+	 * @param string $operation Operation to perform, encrypt or decrypt
+	 * @return string Encrypted/Decrypted string
+	 */
 	public static function rijndael($text, $key, $operation) {
 		if (empty($key)) {
 			trigger_error(__d('cake_dev', 'You cannot use an empty key for %s', 'Security::rijndael()'), E_USER_WARNING);
@@ -247,14 +247,14 @@ class Security {
 		return rtrim(mcrypt_decrypt($algorithm, $cryptKey, $text, $mode, $iv), "\0");
 	}
 
-/**
- * Generates a pseudo random salt suitable for use with php's crypt() function.
- * The salt length should not exceed 27. The salt will be composed of
- * [./0-9A-Za-z]{$length}.
- *
- * @param int $length The length of the returned salt
- * @return string The generated salt
- */
+	/**
+	 * Generates a pseudo random salt suitable for use with php's crypt() function.
+	 * The salt length should not exceed 27. The salt will be composed of
+	 * [./0-9A-Za-z]{$length}.
+	 *
+	 * @param int $length The length of the returned salt
+	 * @return string The generated salt
+	 */
 	protected static function _salt($length = 22) {
 		$salt = str_replace(
 			array('+', '='),
@@ -264,13 +264,13 @@ class Security {
 		return substr($salt, 0, $length);
 	}
 
-/**
- * One way encryption using php's crypt() function. To use blowfish hashing see ``Security::hash()``
- *
- * @param string $password The string to be encrypted.
- * @param mixed $salt false to generate a new salt or an existing salt.
- * @return string The hashed string or an empty string on error.
- */
+	/**
+	 * One way encryption using php's crypt() function. To use blowfish hashing see ``Security::hash()``
+	 *
+	 * @param string $password The string to be encrypted.
+	 * @param mixed $salt false to generate a new salt or an existing salt.
+	 * @return string The hashed string or an empty string on error.
+	 */
 	protected static function _crypt($password, $salt = false) {
 		if ($salt === false) {
 			$salt = self::_salt(22);
@@ -293,19 +293,19 @@ class Security {
 		return crypt($password, $salt);
 	}
 
-/**
- * Encrypt a value using AES-256.
- *
- * *Caveat* You cannot properly encrypt/decrypt data with trailing null bytes.
- * Any trailing null bytes will be removed on decryption due to how PHP pads messages
- * with nulls prior to encryption.
- *
- * @param string $plain The value to encrypt.
- * @param string $key The 256 bit/32 byte key to use as a cipher key.
- * @param string $hmacSalt The salt to use for the HMAC process. Leave null to use Security.salt.
- * @return string Encrypted data.
- * @throws CakeException On invalid data or key.
- */
+	/**
+	 * Encrypt a value using AES-256.
+	 *
+	 * *Caveat* You cannot properly encrypt/decrypt data with trailing null bytes.
+	 * Any trailing null bytes will be removed on decryption due to how PHP pads messages
+	 * with nulls prior to encryption.
+	 *
+	 * @param string $plain The value to encrypt.
+	 * @param string $key The 256 bit/32 byte key to use as a cipher key.
+	 * @param string $hmacSalt The salt to use for the HMAC process. Leave null to use Security.salt.
+	 * @return string Encrypted data.
+	 * @throws CakeException On invalid data or key.
+	 */
 	public static function encrypt($plain, $key, $hmacSalt = null) {
 		self::_checkKey($key, 'encrypt()');
 
@@ -326,29 +326,29 @@ class Security {
 		return $hmac . $ciphertext;
 	}
 
-/**
- * Check the encryption key for proper length.
- *
- * @param string $key Key to check.
- * @param string $method The method the key is being checked for.
- * @return void
- * @throws CakeException When key length is not 256 bit/32 bytes
- */
+	/**
+	 * Check the encryption key for proper length.
+	 *
+	 * @param string $key Key to check.
+	 * @param string $method The method the key is being checked for.
+	 * @return void
+	 * @throws CakeException When key length is not 256 bit/32 bytes
+	 */
 	protected static function _checkKey($key, $method) {
 		if (strlen($key) < 32) {
 			throw new CakeException(__d('cake_dev', 'Invalid key for %s, key must be at least 256 bits (32 bytes) long.', $method));
 		}
 	}
 
-/**
- * Decrypt a value using AES-256.
- *
- * @param string $cipher The ciphertext to decrypt.
- * @param string $key The 256 bit/32 byte key to use as a cipher key.
- * @param string $hmacSalt The salt to use for the HMAC process. Leave null to use Security.salt.
- * @return string Decrypted data. Any trailing null bytes will be removed.
- * @throws CakeException On invalid data or key.
- */
+	/**
+	 * Decrypt a value using AES-256.
+	 *
+	 * @param string $cipher The ciphertext to decrypt.
+	 * @param string $key The 256 bit/32 byte key to use as a cipher key.
+	 * @param string $hmacSalt The salt to use for the HMAC process. Leave null to use Security.salt.
+	 * @return string Decrypted data. Any trailing null bytes will be removed.
+	 * @throws CakeException On invalid data or key.
+	 */
 	public static function decrypt($cipher, $key, $hmacSalt = null) {
 		self::_checkKey($key, 'decrypt()');
 		if (empty($cipher)) {

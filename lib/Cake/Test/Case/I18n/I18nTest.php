@@ -26,11 +26,11 @@ App::uses('CakeSession', 'Model/Datasource');
  */
 class I18nTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -42,11 +42,11 @@ class I18nTest extends CakeTestCase {
 		CakePlugin::load(array('TestPlugin'));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 
@@ -55,11 +55,11 @@ class I18nTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * testTranslationCaching method
- *
- * @return void
- */
+	/**
+	 * testTranslationCaching method
+	 *
+	 * @return void
+	 */
 	public function testTranslationCaching() {
 		Configure::write('Config.language', 'cache_test_po');
 
@@ -101,11 +101,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals('FOO', I18n::translate('dom1.foo', false, 'dom1'));
 	}
 
-/**
- * testDefaultStrings method
- *
- * @return void
- */
+	/**
+	 * testDefaultStrings method
+	 *
+	 * @return void
+	 */
 	public function testDefaultStrings() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 1', $singular);
@@ -170,31 +170,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 = 0 or > 1 (from core)', $corePlurals));
 	}
 
-/**
- * testPoRulesZero method
- *
- * @return void
- */
+	/**
+	 * testPoRulesZero method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesZero() {
 		Configure::write('Config.language', 'rule_0_po');
 		$this->assertRulesZero();
 	}
 
-/**
- * testMoRulesZero method
- *
- * @return void
- */
+	/**
+	 * testMoRulesZero method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesZero() {
 		Configure::write('Config.language', 'rule_0_mo');
 		$this->assertRulesZero();
 	}
 
-/**
- * Assertions for rules zero.
- *
- * @return void
- */
+	/**
+	 * Assertions for rules zero.
+	 *
+	 * @return void
+	 */
 	public function assertRulesZero() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 0 (translated)', $singular);
@@ -259,31 +259,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 ends with any # (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesOne method
- *
- * @return void
- */
+	/**
+	 * testPoRulesOne method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesOne() {
 		Configure::write('Config.language', 'rule_1_po');
 		$this->assertRulesOne();
 	}
 
-/**
- * testMoRulesOne method
- *
- * @return void
- */
+	/**
+	 * testMoRulesOne method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesOne() {
 		Configure::write('Config.language', 'rule_1_mo');
 		$this->assertRulesOne();
 	}
 
-/**
- * Assertions for plural rule one
- *
- * @return void
- */
+	/**
+	 * Assertions for plural rule one
+	 *
+	 * @return void
+	 */
 	public function assertRulesOne() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 1 (translated)', $singular);
@@ -348,31 +348,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 = 0 or > 1 (from core translated)', $corePlurals));
 	}
 
-/**
- * testMoRulesTwo method
- *
- * @return void
- */
+	/**
+	 * testMoRulesTwo method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesTwo() {
 		Configure::write('Config.language', 'rule_2_mo');
 		$this->assertRulesTwo();
 	}
 
-/**
- * testPoRulesTwo method
- *
- * @return void
- */
+	/**
+	 * testPoRulesTwo method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesTwo() {
 		Configure::write('Config.language', 'rule_2_po');
 		$this->assertRulesTwo();
 	}
 
-/**
- * Assertions for rules Two
- *
- * @return void
- */
+	/**
+	 * Assertions for rules Two
+	 *
+	 * @return void
+	 */
 	public function assertRulesTwo() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 2 (translated)', $singular);
@@ -437,31 +437,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 > 1 (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesThree method
- *
- * @return void
- */
+	/**
+	 * testPoRulesThree method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesThree() {
 		Configure::write('Config.language', 'rule_3_po');
 		$this->assertRulesThree();
 	}
 
-/**
- * testMoRulesThree method
- *
- * @return void
- */
+	/**
+	 * testMoRulesThree method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesThree() {
 		Configure::write('Config.language', 'rule_3_mo');
 		$this->assertRulesThree();
 	}
 
-/**
- * Assert rules for plural three.
- *
- * @return void
- */
+	/**
+	 * Assert rules for plural three.
+	 *
+	 * @return void
+	 */
 	public function assertRulesThree() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 3 (translated)', $singular);
@@ -526,31 +526,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesFour method
- *
- * @return void
- */
+	/**
+	 * testPoRulesFour method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesFour() {
 		Configure::write('Config.language', 'rule_4_po');
 		$this->assertRulesFour();
 	}
 
-/**
- * testMoRulesFour method
- *
- * @return void
- */
+	/**
+	 * testMoRulesFour method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesFour() {
 		Configure::write('Config.language', 'rule_4_mo');
 		$this->assertRulesFour();
 	}
 
-/**
- * Run the assertions for Rule 4 plurals.
- *
- * @return void
- */
+	/**
+	 * Run the assertions for Rule 4 plurals.
+	 *
+	 * @return void
+	 */
 	public function assertRulesFour() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 4 (translated)', $singular);
@@ -615,31 +615,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesFive method
- *
- * @return void
- */
+	/**
+	 * testPoRulesFive method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesFive() {
 		Configure::write('Config.language', 'rule_5_po');
 		$this->assertRulesFive();
 	}
 
-/**
- * testMoRulesFive method
- *
- * @return void
- */
+	/**
+	 * testMoRulesFive method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesFive() {
 		Configure::write('Config.language', 'rule_5_mo');
 		$this->assertRulesFive();
 	}
 
-/**
- * Run the assertions for rule 5 plurals
- *
- * @return void
- */
+	/**
+	 * Run the assertions for rule 5 plurals
+	 *
+	 * @return void
+	 */
 	public function assertRulesFive() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 5 (translated)', $singular);
@@ -706,31 +706,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesSix method
- *
- * @return void
- */
+	/**
+	 * testPoRulesSix method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesSix() {
 		Configure::write('Config.language', 'rule_6_po');
 		$this->assertRulesSix();
 	}
 
-/**
- * testMoRulesSix method
- *
- * @return void
- */
+	/**
+	 * testMoRulesSix method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesSix() {
 		Configure::write('Config.language', 'rule_6_mo');
 		$this->assertRulesSix();
 	}
 
-/**
- * Assertions for the sixth plural rules.
- *
- * @return void
- */
+	/**
+	 * Assertions for the sixth plural rules.
+	 *
+	 * @return void
+	 */
 	public function assertRulesSix() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 6 (translated)', $singular);
@@ -795,31 +795,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesSeven method
- *
- * @return void
- */
+	/**
+	 * testPoRulesSeven method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesSeven() {
 		Configure::write('Config.language', 'rule_7_po');
 		$this->assertRulesSeven();
 	}
 
-/**
- * testMoRulesSeven method
- *
- * @return void
- */
+	/**
+	 * testMoRulesSeven method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesSeven() {
 		Configure::write('Config.language', 'rule_7_mo');
 		$this->assertRulesSeven();
 	}
 
-/**
- * Run assertions for seventh plural rules
- *
- * @return void
- */
+	/**
+	 * Run assertions for seventh plural rules
+	 *
+	 * @return void
+	 */
 	public function assertRulesSeven() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 7 (translated)', $singular);
@@ -884,31 +884,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesEight method
- *
- * @return void
- */
+	/**
+	 * testPoRulesEight method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesEight() {
 		Configure::write('Config.language', 'rule_8_po');
 		$this->assertRulesEight();
 	}
 
-/**
- * testMoRulesEight method
- *
- * @return void
- */
+	/**
+	 * testMoRulesEight method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesEight() {
 		Configure::write('Config.language', 'rule_8_mo');
 		$this->assertRulesEight();
 	}
 
-/**
- * Run assertions for the eighth plural rule.
- *
- * @return void
- */
+	/**
+	 * Run assertions for the eighth plural rule.
+	 *
+	 * @return void
+	 */
 	public function assertRulesEight() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 8 (translated)', $singular);
@@ -973,31 +973,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesNine method
- *
- * @return void
- */
+	/**
+	 * testPoRulesNine method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesNine() {
 		Configure::write('Config.language', 'rule_9_po');
 		$this->assertRulesNine();
 	}
 
-/**
- * testMoRulesNine method
- *
- * @return void
- */
+	/**
+	 * testMoRulesNine method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesNine() {
 		Configure::write('Config.language', 'rule_9_mo');
 		$this->assertRulesNine();
 	}
 
-/**
- * Assert plural rules nine
- *
- * @return void
- */
+	/**
+	 * Assert plural rules nine
+	 *
+	 * @return void
+	 */
 	public function assertRulesNine() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 9 (translated)', $singular);
@@ -1065,31 +1065,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesTen method
- *
- * @return void
- */
+	/**
+	 * testPoRulesTen method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesTen() {
 		Configure::write('Config.language', 'rule_10_po');
 		$this->assertRulesTen();
 	}
 
-/**
- * testMoRulesTen method
- *
- * @return void
- */
+	/**
+	 * testMoRulesTen method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesTen() {
 		Configure::write('Config.language', 'rule_10_mo');
 		$this->assertRulesTen();
 	}
 
-/**
- * Assertions for plural rules 10
- *
- * @return void
- */
+	/**
+	 * Assertions for plural rules 10
+	 *
+	 * @return void
+	 */
 	public function assertRulesTen() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 10 (translated)', $singular);
@@ -1156,31 +1156,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesEleven method
- *
- * @return void
- */
+	/**
+	 * testPoRulesEleven method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesEleven() {
 		Configure::write('Config.language', 'rule_11_po');
 		$this->assertRulesEleven();
 	}
 
-/**
- * testMoRulesEleven method
- *
- * @return void
- */
+	/**
+	 * testMoRulesEleven method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesEleven() {
 		Configure::write('Config.language', 'rule_11_mo');
 		$this->assertRulesEleven();
 	}
 
-/**
- * Assertions for plural rules eleven
- *
- * @return void
- */
+	/**
+	 * Assertions for plural rules eleven
+	 *
+	 * @return void
+	 */
 	public function assertRulesEleven() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 11 (translated)', $singular);
@@ -1245,31 +1245,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPoRulesTwelve method
- *
- * @return void
- */
+	/**
+	 * testPoRulesTwelve method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesTwelve() {
 		Configure::write('Config.language', 'rule_12_po');
 		$this->assertRulesTwelve();
 	}
 
-/**
- * testMoRulesTwelve method
- *
- * @return void
- */
+	/**
+	 * testMoRulesTwelve method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesTwelve() {
 		Configure::write('Config.language', 'rule_12_mo');
 		$this->assertRulesTwelve();
 	}
 
-/**
- * Assertions for plural rules twelve
- *
- * @return void
- */
+	/**
+	 * Assertions for plural rules twelve
+	 *
+	 * @return void
+	 */
 	public function assertRulesTwelve() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 12 (translated)', $singular);
@@ -1334,31 +1334,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testMoRulesThirteen method
- *
- * @return void
- */
+	/**
+	 * testMoRulesThirteen method
+	 *
+	 * @return void
+	 */
 	public function testmoRulesThirteen() {
 		Configure::write('Config.language', 'rule_13_mo');
 		$this->assertRulesThirteen();
 	}
 
-/**
- * testPoRulesThirteen method
- *
- * @return void
- */
+	/**
+	 * testPoRulesThirteen method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesThirteen() {
 		Configure::write('Config.language', 'rule_13_po');
 		$this->assertRulesThirteen();
 	}
 
-/**
- * Assertions for plural rules thirteen
- *
- * @return void
- */
+	/**
+	 * Assertions for plural rules thirteen
+	 *
+	 * @return void
+	 */
 	public function assertRulesThirteen() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 13 (translated)', $singular);
@@ -1423,31 +1423,31 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testMoRulesFourteen method
- *
- * @return void
- */
+	/**
+	 * testMoRulesFourteen method
+	 *
+	 * @return void
+	 */
 	public function testMoRulesFourteen() {
 		Configure::write('Config.language', 'rule_14_mo');
 		$this->assertRulesFourteen();
 	}
 
-/**
- * testPoRulesFourteen method
- *
- * @return void
- */
+	/**
+	 * testPoRulesFourteen method
+	 *
+	 * @return void
+	 */
 	public function testPoRulesFourteen() {
 		Configure::write('Config.language', 'rule_14_po');
 		$this->assertRulesFourteen();
 	}
 
-/**
- * Assertions for plural rules fourteen
- *
- * @return void
- */
+	/**
+	 * Assertions for plural rules fourteen
+	 *
+	 * @return void
+	 */
 	public function assertRulesFourteen() {
 		$singular = $this->_singular();
 		$this->assertEquals('Plural Rule 14 (translated)', $singular);
@@ -1512,11 +1512,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testSetLanguageWithSession method
- *
- * @return void
- */
+	/**
+	 * testSetLanguageWithSession method
+	 *
+	 * @return void
+	 */
 	public function testSetLanguageWithSession() {
 		CakeSession::write('Config.language', 'po');
 		$singular = $this->_singular();
@@ -1552,11 +1552,11 @@ class I18nTest extends CakeTestCase {
 		CakeSession::delete('Config.language');
 	}
 
-/**
- * testNoCoreTranslation method
- *
- * @return void
- */
+	/**
+	 * testNoCoreTranslation method
+	 *
+	 * @return void
+	 */
 	public function testNoCoreTranslation() {
 		Configure::write('Config.language', 'po');
 		$singular = $this->_singular();
@@ -1594,11 +1594,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertFalse(in_array('25 everything else (from core translated)', $corePlurals));
 	}
 
-/**
- * testPluginTranslation method
- *
- * @return void
- */
+	/**
+	 * testPluginTranslation method
+	 *
+	 * @return void
+	 */
 	public function testPluginTranslation() {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
@@ -1637,11 +1637,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('25 = 0 or > 1 (from plugin)', $plurals));
 	}
 
-/**
- * testPoMultipleLineTranslation method
- *
- * @return void
- */
+	/**
+	 * testPoMultipleLineTranslation method
+	 *
+	 * @return void
+	 */
 	public function testPoMultipleLineTranslation() {
 		Configure::write('Config.language', 'po');
 
@@ -1710,33 +1710,33 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testPoNoTranslationNeeded method
- *
- * @return void
- */
+	/**
+	 * testPoNoTranslationNeeded method
+	 *
+	 * @return void
+	 */
 	public function testPoNoTranslationNeeded() {
 		Configure::write('Config.language', 'po');
 		$result = __('No Translation needed');
 		$this->assertEquals('No Translation needed', $result);
 	}
 
-/**
- * testPoQuotedString method
- *
- * @return void
- */
+	/**
+	 * testPoQuotedString method
+	 *
+	 * @return void
+	 */
 	public function testPoQuotedString() {
 		Configure::write('Config.language', 'po');
 		$expected = 'this is a "quoted string" (translated)';
 		$this->assertEquals($expected, __('this is a "quoted string"'));
 	}
 
-/**
- * testFloatValue method
- *
- * @return void
- */
+	/**
+	 * testFloatValue method
+	 *
+	 * @return void
+	 */
 	public function testFloatValue() {
 		Configure::write('Config.language', 'rule_9_po');
 
@@ -1753,11 +1753,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testCategory method
- *
- * @return void
- */
+	/**
+	 * testCategory method
+	 *
+	 * @return void
+	 */
 	public function testCategory() {
 		Configure::write('Config.language', 'po');
 		// Test with default (I18n constant) category.
@@ -1768,11 +1768,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals('Monetary Po (translated)', $category);
 	}
 
-/**
- * testPluginCategory method
- *
- * @return void
- */
+	/**
+	 * testPluginCategory method
+	 *
+	 * @return void
+	 */
 	public function testPluginCategory() {
 		Configure::write('Config.language', 'po');
 
@@ -1784,11 +1784,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('Monetary 1 = 1 (from plugin)', $plurals));
 	}
 
-/**
- * testCategoryThenSingular method
- *
- * @return void
- */
+	/**
+	 * testCategoryThenSingular method
+	 *
+	 * @return void
+	 */
 	public function testCategoryThenSingular() {
 		Configure::write('Config.language', 'po');
 		$category = $this->_category();
@@ -1798,11 +1798,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals('Po (translated)', $singular);
 	}
 
-/**
- * testTimeDefinition method
- *
- * @return void
- */
+	/**
+	 * testTimeDefinition method
+	 *
+	 * @return void
+	 */
 	public function testTimeDefinition() {
 		Configure::write('Config.language', 'po');
 		$result = __c('d_fmt', 5);
@@ -1818,11 +1818,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testTimeDefinitionJapanese method
- *
- * @return void
- */
+	/**
+	 * testTimeDefinitionJapanese method
+	 *
+	 * @return void
+	 */
 	public function testTimeDefinitionJapanese() {
 		Configure::write('Config.language', 'ja_jp');
 		$result = __c('d_fmt', 5);
@@ -1840,11 +1840,11 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testTranslateLanguageParam method
- *
- * @return void
- */
+	/**
+	 * testTranslateLanguageParam method
+	 *
+	 * @return void
+	 */
 	public function testTranslateLanguageParam() {
 		Configure::write('Config.language', 'rule_0_po');
 
@@ -1857,21 +1857,21 @@ class I18nTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that the '' domain causes exceptions.
- *
- * @expectedException CakeException
- * @return void
- */
+	/**
+	 * Test that the '' domain causes exceptions.
+	 *
+	 * @expectedException CakeException
+	 * @return void
+	 */
 	public function testTranslateEmptyDomain() {
 		I18n::translate('Plural Rule 1', null, '');
 	}
 
-/**
- * testLoadLocaleDefinition method
- *
- * @return void
- */
+	/**
+	 * testLoadLocaleDefinition method
+	 *
+	 * @return void
+	 */
 	public function testLoadLocaleDefinition() {
 		$path = current(App::path('locales'));
 		$result = I18n::loadLocaleDefinition($path . 'nld' . DS . 'LC_TIME');
@@ -1879,21 +1879,21 @@ class I18nTest extends CakeTestCase {
 		$this->assertSame($expected, $result['day']);
 	}
 
-/**
- * Singular method
- *
- * @return void
- */
+	/**
+	 * Singular method
+	 *
+	 * @return void
+	 */
 	protected function _domainCategorySingular($domain = 'test_plugin', $category = 3) {
 		$singular = __dc($domain, 'Plural Rule 1', $category);
 		return $singular;
 	}
 
-/**
- * Plural method
- *
- * @return void
- */
+	/**
+	 * Plural method
+	 *
+	 * @return void
+	 */
 	protected function _domainCategoryPlural($domain = 'test_plugin', $category = 3) {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {
@@ -1902,21 +1902,21 @@ class I18nTest extends CakeTestCase {
 		return $plurals;
 	}
 
-/**
- * Singular method
- *
- * @return void
- */
+	/**
+	 * Singular method
+	 *
+	 * @return void
+	 */
 	protected function _domainSingular($domain = 'test_plugin') {
 		$singular = __d($domain, 'Plural Rule 1');
 		return $singular;
 	}
 
-/**
- * Plural method
- *
- * @return void
- */
+	/**
+	 * Plural method
+	 *
+	 * @return void
+	 */
 	protected function _domainPlural($domain = 'test_plugin') {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {
@@ -1925,31 +1925,31 @@ class I18nTest extends CakeTestCase {
 		return $plurals;
 	}
 
-/**
- * category method
- *
- * @return void
- */
+	/**
+	 * category method
+	 *
+	 * @return void
+	 */
 	protected function _category($category = I18n::LC_MONETARY) {
 		$singular = __c('Plural Rule 1', $category);
 		return $singular;
 	}
 
-/**
- * Singular method
- *
- * @return void
- */
+	/**
+	 * Singular method
+	 *
+	 * @return void
+	 */
 	protected function _singular() {
 		$singular = __('Plural Rule 1');
 		return $singular;
 	}
 
-/**
- * Plural method
- *
- * @return void
- */
+	/**
+	 * Plural method
+	 *
+	 * @return void
+	 */
 	protected function _plural() {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {
@@ -1958,21 +1958,21 @@ class I18nTest extends CakeTestCase {
 		return $plurals;
 	}
 
-/**
- * singularFromCore method
- *
- * @return void
- */
+	/**
+	 * singularFromCore method
+	 *
+	 * @return void
+	 */
 	protected function _singularFromCore() {
 		$singular = __('Plural Rule 1 (from core)');
 		return $singular;
 	}
 
-/**
- * pluralFromCore method
- *
- * @return void
- */
+	/**
+	 * pluralFromCore method
+	 *
+	 * @return void
+	 */
 	protected function _pluralFromCore() {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {

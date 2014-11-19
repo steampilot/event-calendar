@@ -23,17 +23,17 @@ App::uses('AclNode', 'Model');
  */
 class Aco extends AclNode {
 
-/**
- * Model name
- *
- * @var string
- */
+	/**
+	 * Model name
+	 *
+	 * @var string
+	 */
 	public $name = 'Aco';
 
-/**
- * Binds to ARO nodes through permissions settings
- *
- * @var array
- */
+	/**
+	 * Binds to ARO nodes through permissions settings
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array('Aro' => array('with' => 'Permission'));
 }

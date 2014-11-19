@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AllTests file
  *
@@ -15,14 +16,13 @@
  * @since         CakePHP(tm) v 2.5
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 class AllTestsTest extends CakeTestSuite {
 
-/**
- * Get the suite object.
- *
- * @return CakeTestSuite Suite class instance.
- */
+	/**
+	 * Get the suite object.
+	 *
+	 * @return CakeTestSuite Suite class instance.
+	 */
 	public static function suite() {
 		$suite = new CakeTestSuite('All application tests');
 		$suite->addTestDirectoryRecursive(TESTS . 'Case');

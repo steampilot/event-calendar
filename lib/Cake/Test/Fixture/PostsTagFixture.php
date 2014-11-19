@@ -23,22 +23,22 @@
  */
 class PostsTagFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'post_id' => array('type' => 'integer', 'null' => false),
 		'tag_id' => array('type' => 'string', 'null' => false),
 		'indexes' => array('posts_tag' => array('column' => array('tag_id', 'post_id'), 'unique' => 1))
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('post_id' => 1, 'tag_id' => 'tag1'),
 		array('post_id' => 1, 'tag_id' => 'tag2'),

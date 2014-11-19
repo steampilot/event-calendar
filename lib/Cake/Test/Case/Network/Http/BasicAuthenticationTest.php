@@ -26,11 +26,11 @@ App::uses('BasicAuthentication', 'Network/Http');
  */
 class BasicAuthenticationTest extends CakeTestCase {
 
-/**
- * testAuthentication method
- *
- * @return void
- */
+	/**
+	 * testAuthentication method
+	 *
+	 * @return void
+	 */
 	public function testAuthentication() {
 		$http = new HttpSocket();
 		$auth = array(
@@ -43,11 +43,11 @@ class BasicAuthenticationTest extends CakeTestCase {
 		$this->assertEquals('Basic bWFyazpzZWNyZXQ=', $http->request['header']['Authorization']);
 	}
 
-/**
- * testProxyAuthentication method
- *
- * @return void
- */
+	/**
+	 * testProxyAuthentication method
+	 *
+	 * @return void
+	 */
 	public function testProxyAuthentication() {
 		$http = new HttpSocket();
 		$proxy = array(

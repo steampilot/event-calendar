@@ -30,39 +30,39 @@ App::uses('Hash', 'Utility');
  */
 class AclShell extends AppShell {
 
-/**
- * Contains instance of AclComponent
- *
- * @var AclComponent
- */
+	/**
+	 * Contains instance of AclComponent
+	 *
+	 * @var AclComponent
+	 */
 	public $Acl;
 
-/**
- * Contains arguments parsed from the command line.
- *
- * @var array
- */
+	/**
+	 * Contains arguments parsed from the command line.
+	 *
+	 * @var array
+	 */
 	public $args;
 
-/**
- * Contains database source to use
- *
- * @var string
- */
+	/**
+	 * Contains database source to use
+	 *
+	 * @var string
+	 */
 	public $connection = 'default';
 
-/**
- * Contains tasks to load and instantiate
- *
- * @var array
- */
+	/**
+	 * Contains tasks to load and instantiate
+	 *
+	 * @var array
+	 */
 	public $tasks = array('DbConfig');
 
-/**
- * Override startup of the Shell
- *
- * @return void
- */
+	/**
+	 * Override startup of the Shell
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		parent::startup();
 		if (isset($this->params['connection'])) {
@@ -100,20 +100,20 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Override main() for help message hook
- *
- * @return void
- */
+	/**
+	 * Override main() for help message hook
+	 *
+	 * @return void
+	 */
 	public function main() {
 		$this->out($this->OptionParser->help());
 	}
 
-/**
- * Creates an ARO/ACO node
- *
- * @return void
- */
+	/**
+	 * Creates an ARO/ACO node
+	 *
+	 * @return void
+	 */
 	public function create() {
 		extract($this->_dataVars());
 
@@ -142,12 +142,12 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Delete an ARO/ACO node. Note there may be (as a result of poor configuration)
- * multiple records with the same logical identifier. All are deleted.
- *
- * @return void
- */
+	/**
+	 * Delete an ARO/ACO node. Note there may be (as a result of poor configuration)
+	 * multiple records with the same logical identifier. All are deleted.
+	 *
+	 * @return void
+	 */
 	public function delete() {
 		extract($this->_dataVars());
 
@@ -166,11 +166,11 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Set parent for an ARO/ACO node.
- *
- * @return void
- */
+	/**
+	 * Set parent for an ARO/ACO node.
+	 *
+	 * @return void
+	 */
 	public function setParent() {
 		extract($this->_dataVars());
 		$target = $this->parseIdentifier($this->args[1]);
@@ -190,11 +190,11 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Get path to specified ARO/ACO node.
- *
- * @return void
- */
+	/**
+	 * Get path to specified ARO/ACO node.
+	 *
+	 * @return void
+	 */
 	public function getPath() {
 		extract($this->_dataVars());
 		$identifier = $this->parseIdentifier($this->args[1]);
@@ -215,14 +215,14 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Outputs a single node, Either using the alias or Model.key
- *
- * @param string $class Class name that is being used.
- * @param array $node Array of node information.
- * @param int $indent indent level.
- * @return void
- */
+	/**
+	 * Outputs a single node, Either using the alias or Model.key
+	 *
+	 * @param string $class Class name that is being used.
+	 * @param array $node Array of node information.
+	 * @param int $indent indent level.
+	 * @return void
+	 */
 	protected function _outputNode($class, $node, $indent) {
 		$indent = str_repeat('  ', $indent);
 		$data = $node[$class];
@@ -233,11 +233,11 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Check permission for a given ARO to a given ACO.
- *
- * @return void
- */
+	/**
+	 * Check permission for a given ARO to a given ACO.
+	 *
+	 * @return void
+	 */
 	public function check() {
 		extract($this->_getParams());
 
@@ -248,11 +248,11 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Grant permission for a given ARO to a given ACO.
- *
- * @return void
- */
+	/**
+	 * Grant permission for a given ARO to a given ACO.
+	 *
+	 * @return void
+	 */
 	public function grant() {
 		extract($this->_getParams());
 
@@ -263,11 +263,11 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Deny access for an ARO to an ACO.
- *
- * @return void
- */
+	/**
+	 * Deny access for an ARO to an ACO.
+	 *
+	 * @return void
+	 */
 	public function deny() {
 		extract($this->_getParams());
 
@@ -278,11 +278,11 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Set an ARO to inherit permission to an ACO.
- *
- * @return void
- */
+	/**
+	 * Set an ARO to inherit permission to an ACO.
+	 *
+	 * @return void
+	 */
 	public function inherit() {
 		extract($this->_getParams());
 
@@ -293,11 +293,11 @@ class AclShell extends AppShell {
 		}
 	}
 
-/**
- * Show a specific ARO/ACO node.
- *
- * @return void
- */
+	/**
+	 * Show a specific ARO/ACO node.
+	 *
+	 * @return void
+	 */
 	public function view() {
 		extract($this->_dataVars());
 
@@ -353,20 +353,20 @@ class AclShell extends AppShell {
 		$this->hr();
 	}
 
-/**
- * Initialize ACL database.
- *
- * @return mixed
- */
+	/**
+	 * Initialize ACL database.
+	 *
+	 * @return mixed
+	 */
 	public function initdb() {
 		return $this->dispatchShell('schema create DbAcl');
 	}
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Gets the option parser instance and configures it.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 
@@ -516,11 +516,11 @@ class AclShell extends AppShell {
 		return $parser;
 	}
 
-/**
- * Checks that given node exists
- *
- * @return bool Success
- */
+	/**
+	 * Checks that given node exists
+	 *
+	 * @return bool Success
+	 */
 	public function nodeExists() {
 		if (!isset($this->args[0]) || !isset($this->args[1])) {
 			return false;
@@ -536,13 +536,13 @@ class AclShell extends AppShell {
 		return $possibility;
 	}
 
-/**
- * Parse an identifier into Model.foreignKey or an alias.
- * Takes an identifier determines its type and returns the result as used by other methods.
- *
- * @param string $identifier Identifier to parse
- * @return mixed a string for aliases, and an array for model.foreignKey
- */
+	/**
+	 * Parse an identifier into Model.foreignKey or an alias.
+	 * Takes an identifier determines its type and returns the result as used by other methods.
+	 *
+	 * @param string $identifier Identifier to parse
+	 * @return mixed a string for aliases, and an array for model.foreignKey
+	 */
 	public function parseIdentifier($identifier) {
 		if (preg_match('/^([\w]+)\.(.*)$/', $identifier, $matches)) {
 			return array(
@@ -553,14 +553,14 @@ class AclShell extends AppShell {
 		return $identifier;
 	}
 
-/**
- * Get the node for a given identifier. $identifier can either be a string alias
- * or an array of properties to use in AcoNode::node()
- *
- * @param string $class Class type you want (Aro/Aco)
- * @param string|array $identifier A mixed identifier for finding the node.
- * @return int Integer of NodeId. Will trigger an error if nothing is found.
- */
+	/**
+	 * Get the node for a given identifier. $identifier can either be a string alias
+	 * or an array of properties to use in AcoNode::node()
+	 *
+	 * @param string $class Class type you want (Aro/Aco)
+	 * @param string|array $identifier A mixed identifier for finding the node.
+	 * @return int Integer of NodeId. Will trigger an error if nothing is found.
+	 */
 	protected function _getNodeId($class, $identifier) {
 		$node = $this->Acl->{$class}->node($identifier);
 		if (empty($node)) {
@@ -573,11 +573,11 @@ class AclShell extends AppShell {
 		return Hash::get($node, "0.{$class}.id");
 	}
 
-/**
- * get params for standard Acl methods
- *
- * @return array aro, aco, action
- */
+	/**
+	 * get params for standard Acl methods
+	 *
+	 * @return array aro, aco, action
+	 */
 	protected function _getParams() {
 		$aro = is_numeric($this->args[0]) ? (int)$this->args[0] : $this->args[0];
 		$aco = is_numeric($this->args[1]) ? (int)$this->args[1] : $this->args[1];
@@ -597,12 +597,12 @@ class AclShell extends AppShell {
 		return compact('aro', 'aco', 'action', 'aroName', 'acoName');
 	}
 
-/**
- * Build data parameters based on node type
- *
- * @param string $type Node type  (ARO/ACO)
- * @return array Variables
- */
+	/**
+	 * Build data parameters based on node type
+	 *
+	 * @param string $type Node type  (ARO/ACO)
+	 * @return array Variables
+	 */
 	protected function _dataVars($type = null) {
 		if (!$type) {
 			$type = $this->args[0];

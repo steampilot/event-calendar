@@ -23,11 +23,11 @@
  */
 class DomainsSiteFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'domain_id' => array('type' => 'integer', 'null' => false),
@@ -37,11 +37,11 @@ class DomainsSiteFixture extends CakeTestFixture {
 		'updated' => 'datetime',
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('site_id' => 1, 'domain_id' => 1, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
 		array('site_id' => 1, 'domain_id' => 2, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),

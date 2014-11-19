@@ -29,11 +29,11 @@ class ErrorHandlerTest extends CakeTestCase {
 
 	protected $_restoreError = false;
 
-/**
- * setup create a request object to get out of router later.
- *
- * @return void
- */
+	/**
+	 * setup create a request object to get out of router later.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		App::build(array(
@@ -52,11 +52,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		CakeLog::disable('stderr');
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		if ($this->_restoreError) {
@@ -66,11 +66,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		CakeLog::enable('stderr');
 	}
 
-/**
- * test error handling when debug is on, an error should be printed from Debugger.
- *
- * @return void
- */
+	/**
+	 * test error handling when debug is on, an error should be printed from Debugger.
+	 *
+	 * @return void
+	 */
 	public function testHandleErrorDebugOn() {
 		set_error_handler('ErrorHandler::handleError');
 		$this->_restoreError = true;
@@ -84,11 +84,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		$this->assertRegExp('/variable:\s+wrong/', $result);
 	}
 
-/**
- * provides errors for mapping tests.
- *
- * @return void
- */
+	/**
+	 * provides errors for mapping tests.
+	 *
+	 * @return void
+	 */
 	public static function errorProvider() {
 		return array(
 			array(E_USER_NOTICE, 'Notice'),
@@ -96,12 +96,12 @@ class ErrorHandlerTest extends CakeTestCase {
 		);
 	}
 
-/**
- * test error mappings
- *
- * @dataProvider errorProvider
- * @return void
- */
+	/**
+	 * test error mappings
+	 *
+	 * @dataProvider errorProvider
+	 * @return void
+	 */
 	public function testErrorMapping($error, $expected) {
 		set_error_handler('ErrorHandler::handleError');
 		$this->_restoreError = true;
@@ -113,11 +113,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		$this->assertRegExp('/<b>' . $expected . '<\/b>/', $result);
 	}
 
-/**
- * test error prepended by @
- *
- * @return void
- */
+	/**
+	 * test error prepended by @
+	 *
+	 * @return void
+	 */
 	public function testErrorSuppressed() {
 		set_error_handler('ErrorHandler::handleError');
 		$this->_restoreError = true;
@@ -130,11 +130,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		$this->assertTrue(empty($result));
 	}
 
-/**
- * Test that errors go into CakeLog when debug = 0.
- *
- * @return void
- */
+	/**
+	 * Test that errors go into CakeLog when debug = 0.
+	 *
+	 * @return void
+	 */
 	public function testHandleErrorDebugOff() {
 		Configure::write('debug', 0);
 		Configure::write('Error.trace', false);
@@ -158,11 +158,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		}
 	}
 
-/**
- * Test that errors going into CakeLog include traces.
- *
- * @return void
- */
+	/**
+	 * Test that errors going into CakeLog include traces.
+	 *
+	 * @return void
+	 */
 	public function testHandleErrorLoggingTrace() {
 		Configure::write('debug', 0);
 		Configure::write('Error.trace', true);
@@ -187,11 +187,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test handleException generating a page.
- *
- * @return void
- */
+	/**
+	 * test handleException generating a page.
+	 *
+	 * @return void
+	 */
 	public function testHandleException() {
 		$error = new NotFoundException('Kaboom!');
 		ob_start();
@@ -200,11 +200,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		$this->assertRegExp('/Kaboom!/', $result, 'message missing.');
 	}
 
-/**
- * test handleException generating log.
- *
- * @return void
- */
+	/**
+	 * test handleException generating log.
+	 *
+	 * @return void
+	 */
 	public function testHandleExceptionLog() {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');
@@ -222,11 +222,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		$this->assertContains('ErrorHandlerTest->testHandleExceptionLog', $log[2], 'Stack trace missing.');
 	}
 
-/**
- * test handleException generating log.
- *
- * @return void
- */
+	/**
+	 * test handleException generating log.
+	 *
+	 * @return void
+	 */
 	public function testHandleExceptionLogSkipping() {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');
@@ -251,11 +251,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		$this->assertContains('[ForbiddenException] Fooled you!', $log[0], 'message missing.');
 	}
 
-/**
- * tests it is possible to load a plugin exception renderer
- *
- * @return void
- */
+	/**
+	 * tests it is possible to load a plugin exception renderer
+	 *
+	 * @return void
+	 */
 	public function testLoadPluginHandler() {
 		App::build(array(
 			'Plugin' => array(
@@ -272,13 +272,13 @@ class ErrorHandlerTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * test handleFatalError generating a page.
- *
- * These tests start two buffers as handleFatalError blows the outer one up.
- *
- * @return void
- */
+	/**
+	 * test handleFatalError generating a page.
+	 *
+	 * These tests start two buffers as handleFatalError blows the outer one up.
+	 *
+	 * @return void
+	 */
 	public function testHandleFatalErrorPage() {
 		$line = __LINE__;
 
@@ -301,11 +301,11 @@ class ErrorHandlerTest extends CakeTestCase {
 		$this->assertContains('An Internal Error Has Occurred', $result);
 	}
 
-/**
- * test handleException generating log.
- *
- * @return void
- */
+	/**
+	 * test handleException generating log.
+	 *
+	 * @return void
+	 */
 	public function testHandleFatalErrorLog() {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');

@@ -25,10 +25,10 @@ require_once dirname(__FILE__) . DS . 'ModelTestBase.php';
  */
 class ModelReadTest extends BaseModelTest {
 
-/**
- * testExists function
- * @return void
- */
+	/**
+	 * testExists function
+	 * @return void
+	 */
 	public function testExists() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -44,17 +44,17 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertFalse($TestModel->exists(2));
 	}
 
-/**
- * testFetchingNonUniqueFKJoinTableRecords()
- *
- * Tests if the results are properly returned in the case there are non-unique FK's
- * in the join table but another fields value is different. For example:
- * something_id | something_else_id | doomed = 1
- * something_id | something_else_id | doomed = 0
- * Should return both records and not just one.
- *
- * @return void
- */
+	/**
+	 * testFetchingNonUniqueFKJoinTableRecords()
+	 *
+	 * Tests if the results are properly returned in the case there are non-unique FK's
+	 * in the join table but another fields value is different. For example:
+	 * something_id | something_else_id | doomed = 1
+	 * something_id | something_else_id | doomed = 0
+	 * Should return both records and not just one.
+	 *
+	 * @return void
+	 */
 	public function testFetchingNonUniqueFKJoinTableRecords() {
 		$this->loadFixtures('Something', 'SomethingElse', 'JoinThing');
 		$Something = new Something();
@@ -86,14 +86,14 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(in_array(false, $doomed));
 	}
 
-/**
- * testGroupBy method
- *
- * These tests will never pass with Postgres or Oracle as all fields in a select must be
- * part of an aggregate function or in the GROUP BY statement.
- *
- * @return void
- */
+	/**
+	 * testGroupBy method
+	 *
+	 * These tests will never pass with Postgres or Oracle as all fields in a select must be
+	 * part of an aggregate function or in the GROUP BY statement.
+	 *
+	 * @return void
+	 */
 	public function testGroupBy() {
 		$isStrictGroupBy = $this->db instanceof Postgres || $this->db instanceof Sqlite || $this->db instanceof Oracle || $this->db instanceof Sqlserver;
 		$message = 'Postgres, Oracle, SQLite and SQL Server have strict GROUP BY and are incompatible with this test.';
@@ -125,7 +125,7 @@ class ModelReadTest extends BaseModelTest {
 						'id' => 1,
 						'thread_id' => 1,
 						'name' => 'Thread 1, Message 1'
-			))),
+					))),
 			array(
 				'Thread' => array(
 					'id' => 3,
@@ -141,7 +141,7 @@ class ModelReadTest extends BaseModelTest {
 						'id' => 3,
 						'thread_id' => 3,
 						'name' => 'Thread 3, Message 1'
-		))));
+					))));
 		$this->assertEquals($expected, $result);
 
 		$rows = $Thread->find('all', array(
@@ -193,7 +193,7 @@ class ModelReadTest extends BaseModelTest {
 						'id' => 1,
 						'thread_id' => 1,
 						'name' => 'Thread 1, Message 1'
-		))));
+					))));
 		$this->assertEquals($expected, $result);
 
 		$result = $Thread->find('all', array(
@@ -236,7 +236,7 @@ class ModelReadTest extends BaseModelTest {
 			'fields' => array('Product.type', 'MIN(Product.price) as price'),
 			'group' => 'Product.type',
 			'order' => 'Product.type ASC'
-			));
+		));
 		$this->assertEquals($expected, $result);
 
 		$result = $Product->find('all', array(
@@ -246,11 +246,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testOldQuery method
- *
- * @return void
- */
+	/**
+	 * testOldQuery method
+	 *
+	 * @return void
+	 */
 	public function testOldQuery() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag', 'Comment', 'Attachment');
 		$Article = new Article();
@@ -282,11 +282,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(is_array($results));
 	}
 
-/**
- * testPreparedQuery method
- *
- * @return void
- */
+	/**
+	 * testPreparedQuery method
+	 *
+	 * @return void
+	 */
 	public function testPreparedQuery() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
 		$Article = new Article();
@@ -302,7 +302,7 @@ class ModelReadTest extends BaseModelTest {
 			'0' => array(
 				$this->db->fullTableName('articles', false, false) => array(
 					'title' => 'First Article', 'published' => 'Y')
-		));
+			));
 
 		if (isset($result[0][0])) {
 			$expected[0][0] = $expected[0][$this->db->fullTableName('articles', false, false)];
@@ -349,12 +349,12 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertFalse($result === false);
 	}
 
-/**
- * testParameterMismatch method
- *
- * @expectedException PDOException
- * @return void
- */
+	/**
+	 * testParameterMismatch method
+	 *
+	 * @expectedException PDOException
+	 * @return void
+	 */
 	public function testParameterMismatch() {
 		$this->skipIf($this->db instanceof Sqlite, 'Sqlite does not accept real prepared statements, no way to check this');
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
@@ -368,12 +368,12 @@ class ModelReadTest extends BaseModelTest {
 		$Article->query($query, $params);
 	}
 
-/**
- * testVeryStrangeUseCase method
- *
- * @expectedException PDOException
- * @return void
- */
+	/**
+	 * testVeryStrangeUseCase method
+	 *
+	 * @expectedException PDOException
+	 * @return void
+	 */
 	public function testVeryStrangeUseCase() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
 		$Article = new Article();
@@ -388,11 +388,11 @@ class ModelReadTest extends BaseModelTest {
 		$Article->query($query, $param);
 	}
 
-/**
- * testRecursiveUnbind method
- *
- * @return void
- */
+	/**
+	 * testRecursiveUnbind method
+	 *
+	 * @return void
+	 */
 	public function testRecursiveUnbind() {
 		$this->skipIf($this->db instanceof Sqlserver, 'The test of testRecursiveUnbind test is not compatible with SQL Server, because it check for time columns.');
 
@@ -467,23 +467,39 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-					))),
-					'Sample' => array(
-						'id' => '',
-						'apple_id' => '',
-						'name' => ''
-					),
-					'Child' => array(
-						array(
+						))),
+				'Sample' => array(
+					'id' => '',
+					'apple_id' => '',
+					'name' => ''
+				),
+				'Child' => array(
+					array(
+						'id' => 2,
+						'apple_id' => 1,
+						'color' => 'Bright Red 1',
+						'name' => 'Bright Red Apple',
+						'created' => '2006-11-22 10:43:13',
+						'date' => '2014-01-01',
+						'modified' => '2006-11-30 18:38:10',
+						'mytime' => '22:57:17',
+						'Parent' => array(
+							'id' => 1,
+							'apple_id' => 2,
+							'color' => 'Red 1',
+							'name' => 'Red Apple 1',
+							'created' => '2006-11-22 10:38:58',
+							'date' => '1951-01-04',
+							'modified' => '2006-12-01 13:31:26',
+							'mytime' => '22:57:17'
+						),
+						'Sample' => array(
 							'id' => 2,
-							'apple_id' => 1,
-							'color' => 'Bright Red 1',
-							'name' => 'Bright Red Apple',
-							'created' => '2006-11-22 10:43:13',
-							'date' => '2014-01-01',
-							'modified' => '2006-11-30 18:38:10',
-							'mytime' => '22:57:17',
-							'Parent' => array(
+							'apple_id' => 2,
+							'name' => 'sample2'
+						),
+						'Child' => array(
+							array(
 								'id' => 1,
 								'apple_id' => 2,
 								'color' => 'Red 1',
@@ -493,42 +509,26 @@ class ModelReadTest extends BaseModelTest {
 								'modified' => '2006-12-01 13:31:26',
 								'mytime' => '22:57:17'
 							),
-							'Sample' => array(
-								'id' => 2,
+							array(
+								'id' => 3,
 								'apple_id' => 2,
-								'name' => 'sample2'
+								'color' => 'blue green',
+								'name' => 'green blue',
+								'created' => '2006-12-25 05:13:36',
+								'date' => '2006-12-25',
+								'modified' => '2006-12-25 05:23:24',
+								'mytime' => '22:57:17'
 							),
-							'Child' => array(
-								array(
-									'id' => 1,
-									'apple_id' => 2,
-									'color' => 'Red 1',
-									'name' => 'Red Apple 1',
-									'created' => '2006-11-22 10:38:58',
-									'date' => '1951-01-04',
-									'modified' => '2006-12-01 13:31:26',
-									'mytime' => '22:57:17'
-								),
-								array(
-									'id' => 3,
-									'apple_id' => 2,
-									'color' => 'blue green',
-									'name' => 'green blue',
-									'created' => '2006-12-25 05:13:36',
-									'date' => '2006-12-25',
-									'modified' => '2006-12-25 05:23:24',
-									'mytime' => '22:57:17'
-								),
-								array(
-									'id' => 4,
-									'apple_id' => 2,
-									'color' => 'Blue Green',
-									'name' => 'Test Name',
-									'created' => '2006-12-25 05:23:36',
-									'date' => '2006-12-25',
-									'modified' => '2006-12-25 05:23:36',
-									'mytime' => '22:57:17'
-			))))),
+							array(
+								'id' => 4,
+								'apple_id' => 2,
+								'color' => 'Blue Green',
+								'name' => 'Test Name',
+								'created' => '2006-12-25 05:23:36',
+								'date' => '2006-12-25',
+								'modified' => '2006-12-25 05:23:36',
+								'mytime' => '22:57:17'
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 2,
@@ -541,6 +541,52 @@ class ModelReadTest extends BaseModelTest {
 					'mytime' => '22:57:17'
 				),
 				'Parent' => array(
+					'id' => 1,
+					'apple_id' => 2,
+					'color' => 'Red 1',
+					'name' => 'Red Apple 1',
+					'created' => '2006-11-22 10:38:58',
+					'date' => '1951-01-04',
+					'modified' => '2006-12-01 13:31:26',
+					'mytime' => '22:57:17',
+					'Parent' => array(
+						'id' => 2,
+						'apple_id' => 1,
+						'color' => 'Bright Red 1',
+						'name' => 'Bright Red Apple',
+						'created' => '2006-11-22 10:43:13',
+						'date' => '2014-01-01',
+						'modified' => '2006-11-30 18:38:10',
+						'mytime' => '22:57:17'
+					),
+					'Sample' => array(),
+					'Child' => array(
+						array(
+							'id' => 2,
+							'apple_id' => 1,
+							'color' => 'Bright Red 1',
+							'name' => 'Bright Red Apple',
+							'created' => '2006-11-22 10:43:13',
+							'date' => '2014-01-01',
+							'modified' => '2006-11-30 18:38:10',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => 2,
+					'apple_id' => 2,
+					'name' => 'sample2',
+					'Apple' => array(
+						'id' => 2,
+						'apple_id' => 1,
+						'color' => 'Bright Red 1',
+						'name' => 'Bright Red Apple',
+						'created' => '2006-11-22 10:43:13',
+						'date' => '2014-01-01',
+						'modified' => '2006-11-30 18:38:10',
+						'mytime' => '22:57:17'
+					)),
+				'Child' => array(
+					array(
 						'id' => 1,
 						'apple_id' => 2,
 						'color' => 'Red 1',
@@ -570,12 +616,17 @@ class ModelReadTest extends BaseModelTest {
 								'date' => '2014-01-01',
 								'modified' => '2006-11-30 18:38:10',
 								'mytime' => '22:57:17'
-					))),
-					'Sample' => array(
-						'id' => 2,
+							))),
+					array(
+						'id' => 3,
 						'apple_id' => 2,
-						'name' => 'sample2',
-						'Apple' => array(
+						'color' => 'blue green',
+						'name' => 'green blue',
+						'created' => '2006-12-25 05:13:36',
+						'date' => '2006-12-25',
+						'modified' => '2006-12-25 05:23:24',
+						'mytime' => '22:57:17',
+						'Parent' => array(
 							'id' => 2,
 							'apple_id' => 1,
 							'color' => 'Bright Red 1',
@@ -584,98 +635,47 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2014-01-01',
 							'modified' => '2006-11-30 18:38:10',
 							'mytime' => '22:57:17'
-					)),
-					'Child' => array(
-						array(
+						),
+						'Sample' => array(
 							'id' => 1,
-							'apple_id' => 2,
-							'color' => 'Red 1',
-							'name' => 'Red Apple 1',
-							'created' => '2006-11-22 10:38:58',
-							'date' => '1951-01-04',
-							'modified' => '2006-12-01 13:31:26',
-							'mytime' => '22:57:17',
-							'Parent' => array(
-								'id' => 2,
-								'apple_id' => 1,
-								'color' => 'Bright Red 1',
-								'name' => 'Bright Red Apple',
-								'created' => '2006-11-22 10:43:13',
-								'date' => '2014-01-01',
-								'modified' => '2006-11-30 18:38:10',
-								'mytime' => '22:57:17'
-							),
-							'Sample' => array(),
-							'Child' => array(
-								array(
-									'id' => 2,
-									'apple_id' => 1,
-									'color' => 'Bright Red 1',
-									'name' => 'Bright Red Apple',
-									'created' => '2006-11-22 10:43:13',
-									'date' => '2014-01-01',
-									'modified' => '2006-11-30 18:38:10',
-									'mytime' => '22:57:17'
-						))),
-						array(
-							'id' => 3,
-							'apple_id' => 2,
-							'color' => 'blue green',
-							'name' => 'green blue',
-							'created' => '2006-12-25 05:13:36',
-							'date' => '2006-12-25',
-							'modified' => '2006-12-25 05:23:24',
-							'mytime' => '22:57:17',
-							'Parent' => array(
-								'id' => 2,
-								'apple_id' => 1,
-								'color' => 'Bright Red 1',
-								'name' => 'Bright Red Apple',
-								'created' => '2006-11-22 10:43:13',
-								'date' => '2014-01-01',
-								'modified' => '2006-11-30 18:38:10',
-								'mytime' => '22:57:17'
-							),
-							'Sample' => array(
-								'id' => 1,
-								'apple_id' => 3,
-								'name' => 'sample1'
+							'apple_id' => 3,
+							'name' => 'sample1'
 						)),
-						array(
-							'id' => 4,
-							'apple_id' => 2,
-							'color' => 'Blue Green',
-							'name' => 'Test Name',
-							'created' => '2006-12-25 05:23:36',
-							'date' => '2006-12-25',
-							'modified' => '2006-12-25 05:23:36',
-							'mytime' => '22:57:17',
-							'Parent' => array(
-								'id' => 2,
-								'apple_id' => 1,
-								'color' => 'Bright Red 1',
-								'name' => 'Bright Red Apple',
-								'created' => '2006-11-22 10:43:13',
-								'date' => '2014-01-01',
-								'modified' => '2006-11-30 18:38:10',
-								'mytime' => '22:57:17'
-							),
-							'Sample' => array(
-								'id' => 3,
+					array(
+						'id' => 4,
+						'apple_id' => 2,
+						'color' => 'Blue Green',
+						'name' => 'Test Name',
+						'created' => '2006-12-25 05:23:36',
+						'date' => '2006-12-25',
+						'modified' => '2006-12-25 05:23:36',
+						'mytime' => '22:57:17',
+						'Parent' => array(
+							'id' => 2,
+							'apple_id' => 1,
+							'color' => 'Bright Red 1',
+							'name' => 'Bright Red Apple',
+							'created' => '2006-11-22 10:43:13',
+							'date' => '2014-01-01',
+							'modified' => '2006-11-30 18:38:10',
+							'mytime' => '22:57:17'
+						),
+						'Sample' => array(
+							'id' => 3,
+							'apple_id' => 4,
+							'name' => 'sample3'
+						),
+						'Child' => array(
+							array(
+								'id' => 6,
 								'apple_id' => 4,
-								'name' => 'sample3'
-							),
-							'Child' => array(
-								array(
-									'id' => 6,
-									'apple_id' => 4,
-									'color' => 'My new appleOrange',
-									'name' => 'My new apple',
-									'created' => '2006-12-25 05:29:39',
-									'date' => '2006-12-25',
-									'modified' => '2006-12-25 05:29:39',
-									'mytime' => '22:57:17'
-			))))),
+								'color' => 'My new appleOrange',
+								'name' => 'My new apple',
+								'created' => '2006-12-25 05:29:39',
+								'date' => '2006-12-25',
+								'modified' => '2006-12-25 05:29:39',
+								'mytime' => '22:57:17'
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 3,
@@ -741,7 +741,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 1,
 					'apple_id' => 3,
@@ -755,7 +755,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:24',
 						'mytime' => '22:57:17'
-				)),
+					)),
 				'Child' => array()
 			),
 			array(
@@ -786,38 +786,38 @@ class ModelReadTest extends BaseModelTest {
 						'created' => '2006-11-22 10:38:58',
 						'date' => '1951-01-04',
 						'modified' => '2006-12-01 13:31:26', 'mytime' => '22:57:17'),
-						'Sample' => array('id' => 2, 'apple_id' => 2, 'name' => 'sample2'),
-						'Child' => array(
-							array(
-								'id' => 1,
-								'apple_id' => 2,
-								'color' => 'Red 1',
-								'name' => 'Red Apple 1',
-								'created' => '2006-11-22 10:38:58',
-								'date' => '1951-01-04',
-								'modified' => '2006-12-01 13:31:26',
-								'mytime' => '22:57:17'
-							),
-							array(
-								'id' => 3,
-								'apple_id' => 2,
-								'color' => 'blue green',
-								'name' => 'green blue',
-								'created' => '2006-12-25 05:13:36',
-								'date' => '2006-12-25',
-								'modified' => '2006-12-25 05:23:24',
-								'mytime' => '22:57:17'
-							),
-							array(
-								'id' => 4,
-								'apple_id' => 2,
-								'color' => 'Blue Green',
-								'name' => 'Test Name',
-								'created' => '2006-12-25 05:23:36',
-								'date' => '2006-12-25',
-								'modified' => '2006-12-25 05:23:36',
-								'mytime' => '22:57:17'
-				))),
+					'Sample' => array('id' => 2, 'apple_id' => 2, 'name' => 'sample2'),
+					'Child' => array(
+						array(
+							'id' => 1,
+							'apple_id' => 2,
+							'color' => 'Red 1',
+							'name' => 'Red Apple 1',
+							'created' => '2006-11-22 10:38:58',
+							'date' => '1951-01-04',
+							'modified' => '2006-12-01 13:31:26',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 3,
+							'apple_id' => 2,
+							'color' => 'blue green',
+							'name' => 'green blue',
+							'created' => '2006-12-25 05:13:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:24',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 4,
+							'apple_id' => 2,
+							'color' => 'Blue Green',
+							'name' => 'Test Name',
+							'created' => '2006-12-25 05:23:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:36',
+							'mytime' => '22:57:17'
+						))),
 				'Sample' => array(
 					'id' => 3,
 					'apple_id' => 4,
@@ -831,7 +831,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:36',
 						'mytime' => '22:57:17'
-				)),
+					)),
 				'Child' => array(
 					array(
 						'id' => 6,
@@ -863,7 +863,7 @@ class ModelReadTest extends BaseModelTest {
 								'date' => '2006-12-25',
 								'modified' => '2006-12-25 05:34:21',
 								'mytime' => '22:57:17'
-			))))),
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 5,
@@ -909,7 +909,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:16',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 4,
 					'apple_id' => 5,
@@ -924,8 +924,17 @@ class ModelReadTest extends BaseModelTest {
 						'modified' => '2006-12-25 05:29:16',
 						'mytime' => '22:57:17'
 					)),
-					'Child' => array(
-						array(
+				'Child' => array(
+					array(
+						'id' => 5,
+						'apple_id' => 5,
+						'color' => 'Green',
+						'name' => 'Blue Green',
+						'created' => '2006-12-25 05:24:06',
+						'date' => '2006-12-25',
+						'modified' => '2006-12-25 05:29:16',
+						'mytime' => '22:57:17',
+						'Parent' => array(
 							'id' => 5,
 							'apple_id' => 5,
 							'color' => 'Green',
@@ -933,8 +942,15 @@ class ModelReadTest extends BaseModelTest {
 							'created' => '2006-12-25 05:24:06',
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:16',
-							'mytime' => '22:57:17',
-							'Parent' => array(
+							'mytime' => '22:57:17'
+						),
+						'Sample' => array(
+							'id' => 4,
+							'apple_id' => 5,
+							'name' => 'sample4'
+						),
+						'Child' => array(
+							array(
 								'id' => 5,
 								'apple_id' => 5,
 								'color' => 'Green',
@@ -943,23 +959,7 @@ class ModelReadTest extends BaseModelTest {
 								'date' => '2006-12-25',
 								'modified' => '2006-12-25 05:29:16',
 								'mytime' => '22:57:17'
-							),
-							'Sample' => array(
-								'id' => 4,
-								'apple_id' => 5,
-								'name' => 'sample4'
-							),
-							'Child' => array(
-								array(
-									'id' => 5,
-									'apple_id' => 5,
-									'color' => 'Green',
-									'name' => 'Blue Green',
-									'created' => '2006-12-25 05:24:06',
-									'date' => '2006-12-25',
-									'modified' => '2006-12-25 05:29:16',
-									'mytime' => '22:57:17'
-			))))),
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 6,
@@ -1005,7 +1005,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:39',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
@@ -1032,13 +1032,13 @@ class ModelReadTest extends BaseModelTest {
 							'mytime' => '22:57:17'
 						),
 						'Sample' => array()
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => 7,
 					'apple_id' => 6,
 					'color' =>
-					'Some wierd color',
+						'Some wierd color',
 					'name' => 'Some odd color',
 					'created' => '2006-12-25 05:34:21',
 					'date' => '2006-12-25',
@@ -1075,7 +1075,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:34:21',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
@@ -1099,7 +1099,63 @@ class ModelReadTest extends BaseModelTest {
 					'date' => '1951-01-04',
 					'modified' => '2006-12-01 13:31:26',
 					'mytime' => '22:57:17'),
+				'Parent' => array(
+					'id' => 2,
+					'apple_id' => 1,
+					'color' => 'Bright Red 1',
+					'name' => 'Bright Red Apple',
+					'created' => '2006-11-22 10:43:13',
+					'date' => '2014-01-01',
+					'modified' => '2006-11-30 18:38:10',
+					'mytime' => '22:57:17',
 					'Parent' => array(
+						'id' => 1,
+						'apple_id' => 2,
+						'color' => 'Red 1',
+						'name' => 'Red Apple 1',
+						'created' => '2006-11-22 10:38:58',
+						'date' => '1951-01-04',
+						'modified' => '2006-12-01 13:31:26',
+						'mytime' => '22:57:17'
+					),
+					'Child' => array(
+						array(
+							'id' => 1,
+							'apple_id' => 2,
+							'color' => 'Red 1',
+							'name' => 'Red Apple 1',
+							'created' => '2006-11-22 10:38:58',
+							'date' => '1951-01-04',
+							'modified' => '2006-12-01 13:31:26',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 3,
+							'apple_id' => 2,
+							'color' => 'blue green',
+							'name' => 'green blue',
+							'created' => '2006-12-25 05:13:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:24',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 4,
+							'apple_id' => 2,
+							'color' => 'Blue Green',
+							'name' => 'Test Name',
+							'created' => '2006-12-25 05:23:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:36',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => '',
+					'apple_id' => '',
+					'name' => ''
+				),
+				'Child' => array(
+					array(
 						'id' => 2,
 						'apple_id' => 1,
 						'color' => 'Bright Red 1',
@@ -1117,6 +1173,11 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '1951-01-04',
 							'modified' => '2006-12-01 13:31:26',
 							'mytime' => '22:57:17'
+						),
+						'Sample' => array(
+							'id' => 2,
+							'apple_id' => 2,
+							'name' => 'sample2'
 						),
 						'Child' => array(
 							array(
@@ -1148,68 +1209,7 @@ class ModelReadTest extends BaseModelTest {
 								'date' => '2006-12-25',
 								'modified' => '2006-12-25 05:23:36',
 								'mytime' => '22:57:17'
-					))),
-					'Sample' => array(
-						'id' => '',
-						'apple_id' => '',
-						'name' => ''
-					),
-					'Child' => array(
-						array(
-							'id' => 2,
-							'apple_id' => 1,
-							'color' => 'Bright Red 1',
-							'name' => 'Bright Red Apple',
-							'created' => '2006-11-22 10:43:13',
-							'date' => '2014-01-01',
-							'modified' => '2006-11-30 18:38:10',
-							'mytime' => '22:57:17',
-							'Parent' => array(
-								'id' => 1,
-								'apple_id' => 2,
-								'color' => 'Red 1',
-								'name' => 'Red Apple 1',
-								'created' => '2006-11-22 10:38:58',
-								'date' => '1951-01-04',
-								'modified' => '2006-12-01 13:31:26',
-								'mytime' => '22:57:17'
-							),
-							'Sample' => array(
-								'id' => 2,
-								'apple_id' => 2,
-								'name' => 'sample2'
-							),
-							'Child' => array(
-								array(
-									'id' => 1,
-									'apple_id' => 2,
-									'color' => 'Red 1',
-									'name' => 'Red Apple 1',
-									'created' => '2006-11-22 10:38:58',
-									'date' => '1951-01-04',
-									'modified' => '2006-12-01 13:31:26',
-									'mytime' => '22:57:17'
-								),
-								array(
-									'id' => 3,
-									'apple_id' => 2,
-									'color' => 'blue green',
-									'name' => 'green blue',
-									'created' => '2006-12-25 05:13:36',
-									'date' => '2006-12-25',
-									'modified' => '2006-12-25 05:23:24',
-									'mytime' => '22:57:17'
-								),
-								array(
-									'id' => 4,
-									'apple_id' => 2,
-									'color' => 'Blue Green',
-									'name' => 'Test Name',
-									'created' => '2006-12-25 05:23:36',
-									'date' => '2006-12-25',
-									'modified' => '2006-12-25 05:23:36',
-									'mytime' => '22:57:17'
-			))))),
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 2,
@@ -1250,7 +1250,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2014-01-01',
 							'modified' => '2006-11-30 18:38:10',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 2,
 					'apple_id' => 2,
@@ -1264,7 +1264,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2014-01-01',
 						'modified' => '2006-11-30 18:38:10',
 						'mytime' => '22:57:17'
-				)),
+					)),
 				'Child' => array(
 					array(
 						'id' => 1,
@@ -1296,7 +1296,7 @@ class ModelReadTest extends BaseModelTest {
 								'date' => '2014-01-01', 'modified' =>
 								'2006-11-30 18:38:10',
 								'mytime' => '22:57:17'
-					))),
+							))),
 					array(
 						'id' => 3,
 						'apple_id' => 2,
@@ -1320,7 +1320,7 @@ class ModelReadTest extends BaseModelTest {
 							'id' => 1,
 							'apple_id' => 3,
 							'name' => 'sample1'
-					)),
+						)),
 					array(
 						'id' => 4,
 						'apple_id' => 2,
@@ -1355,7 +1355,7 @@ class ModelReadTest extends BaseModelTest {
 								'date' => '2006-12-25',
 								'modified' => '2006-12-25 05:29:39',
 								'mytime' => '22:57:17'
-			))))),
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 3,
@@ -1416,7 +1416,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 1,
 					'apple_id' => 3,
@@ -1430,7 +1430,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:24',
 						'mytime' => '22:57:17'
-				)),
+					)),
 				'Child' => array()
 			),
 			array(
@@ -1493,7 +1493,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 3,
 					'apple_id' => 4,
@@ -1507,7 +1507,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:36',
 						'mytime' => '22:57:17'
-				)),
+					)),
 				'Child' => array(
 					array(
 						'id' => 6,
@@ -1529,17 +1529,17 @@ class ModelReadTest extends BaseModelTest {
 							'mytime' => '22:57:17'
 						),
 						'Sample' => array(),
-							'Child' => array(
-								array(
-									'id' => 7,
-									'apple_id' => 6,
-									'color' => 'Some wierd color',
-									'name' => 'Some odd color',
-									'created' => '2006-12-25 05:34:21',
-									'date' => '2006-12-25',
-									'modified' => '2006-12-25 05:34:21',
-									'mytime' => '22:57:17'
-			))))),
+						'Child' => array(
+							array(
+								'id' => 7,
+								'apple_id' => 6,
+								'color' => 'Some wierd color',
+								'name' => 'Some odd color',
+								'created' => '2006-12-25 05:34:21',
+								'date' => '2006-12-25',
+								'modified' => '2006-12-25 05:34:21',
+								'mytime' => '22:57:17'
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 5,
@@ -1580,7 +1580,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:16',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 4,
 					'apple_id' => 5,
@@ -1594,7 +1594,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:29:16',
 						'mytime' => '22:57:17'
-				)),
+					)),
 				'Child' => array(
 					array(
 						'id' => 5,
@@ -1630,7 +1630,7 @@ class ModelReadTest extends BaseModelTest {
 								'date' => '2006-12-25',
 								'modified' => '2006-12-25 05:29:16',
 								'mytime' => '22:57:17'
-			))))),
+							))))),
 			array(
 				'Apple' => array(
 					'id' => 6,
@@ -1671,7 +1671,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:39',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
@@ -1698,7 +1698,7 @@ class ModelReadTest extends BaseModelTest {
 							'mytime' => '22:57:17'
 						),
 						'Sample' => array()
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => 7,
@@ -1739,14 +1739,14 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:34:21',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
 					'name' => ''
 				),
 				'Child' => array()
-		));
+			));
 
 		$this->assertEquals($expected, $result);
 
@@ -1818,12 +1818,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
 					'name' => ''
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 2,
@@ -1864,7 +1864,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2014-01-01',
 							'modified' => '2006-11-30 18:38:10',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 2,
 					'apple_id' => 2,
@@ -1878,72 +1878,8 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2014-01-01',
 						'modified' => '2006-11-30 18:38:10',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
-				'Apple' => array(
-				'id' => 3,
-				'apple_id' => 2,
-				'color' => 'blue green',
-				'name' => 'green blue',
-				'created' => '2006-12-25 05:13:36',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:23:24',
-				'mytime' => '22:57:17'
-			),
-			'Parent' => array(
-				'id' => 2,
-				'apple_id' => 1,
-				'color' => 'Bright Red 1',
-				'name' => 'Bright Red Apple',
-				'created' => '2006-11-22 10:43:13',
-				'date' => '2014-01-01',
-				'modified' => '2006-11-30 18:38:10',
-				'mytime' => '22:57:17',
-				'Parent' => array(
-					'id' => 1,
-					'apple_id' => 2,
-					'color' => 'Red 1',
-					'name' => 'Red Apple 1',
-					'created' => '2006-11-22 10:38:58',
-					'date' => '1951-01-04',
-					'modified' => '2006-12-01 13:31:26',
-					'mytime' => '22:57:17'
-				),
-				'Child' => array(
-					array(
-						'id' => 1,
-						'apple_id' => 2,
-						'color' => 'Red 1',
-						'name' => 'Red Apple 1',
-						'created' => '2006-11-22 10:38:58',
-						'date' => '1951-01-04',
-						'modified' => '2006-12-01 13:31:26',
-						'mytime' => '22:57:17'
-					),
-					array(
-						'id' => 3,
-						'apple_id' => 2,
-						'color' => 'blue green',
-						'name' => 'green blue',
-						'created' => '2006-12-25 05:13:36',
-						'date' => '2006-12-25',
-						'modified' => '2006-12-25 05:23:24',
-						'mytime' => '22:57:17'
-					),
-					array(
-						'id' => 4,
-						'apple_id' => 2,
-						'color' => 'Blue Green',
-						'name' => 'Test Name',
-						'created' => '2006-12-25 05:23:36',
-						'date' => '2006-12-25',
-						'modified' => '2006-12-25 05:23:36',
-						'mytime' => '22:57:17'
-			))),
-			'Sample' => array(
-				'id' => 1,
-				'apple_id' => 3,
-				'name' => 'sample1',
 				'Apple' => array(
 					'id' => 3,
 					'apple_id' => 2,
@@ -1953,39 +1889,17 @@ class ModelReadTest extends BaseModelTest {
 					'date' => '2006-12-25',
 					'modified' => '2006-12-25 05:23:24',
 					'mytime' => '22:57:17'
-		))),
-		array(
-			'Apple' => array(
-				'id' => 4,
-				'apple_id' => 2,
-				'color' => 'Blue Green',
-				'name' => 'Test Name',
-				'created' => '2006-12-25 05:23:36',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:23:36',
-				'mytime' => '22:57:17'
-			),
-			'Parent' => array(
-				'id' => 2,
-				'apple_id' => 1,
-				'color' => 'Bright Red 1',
-				'name' => 'Bright Red Apple',
-				'created' => '2006-11-22 10:43:13',
-				'date' => '2014-01-01',
-				'modified' => '2006-11-30 18:38:10',
-				'mytime' => '22:57:17',
-				'Parent' => array(
-					'id' => 1,
-					'apple_id' => 2,
-					'color' => 'Red 1',
-					'name' => 'Red Apple 1',
-					'created' => '2006-11-22 10:38:58',
-					'date' => '1951-01-04',
-					'modified' => '2006-12-01 13:31:26',
-					'mytime' => '22:57:17'
 				),
-				'Child' => array(
-					array(
+				'Parent' => array(
+					'id' => 2,
+					'apple_id' => 1,
+					'color' => 'Bright Red 1',
+					'name' => 'Bright Red Apple',
+					'created' => '2006-11-22 10:43:13',
+					'date' => '2014-01-01',
+					'modified' => '2006-11-30 18:38:10',
+					'mytime' => '22:57:17',
+					'Parent' => array(
 						'id' => 1,
 						'apple_id' => 2,
 						'color' => 'Red 1',
@@ -1995,7 +1909,42 @@ class ModelReadTest extends BaseModelTest {
 						'modified' => '2006-12-01 13:31:26',
 						'mytime' => '22:57:17'
 					),
-					array(
+					'Child' => array(
+						array(
+							'id' => 1,
+							'apple_id' => 2,
+							'color' => 'Red 1',
+							'name' => 'Red Apple 1',
+							'created' => '2006-11-22 10:38:58',
+							'date' => '1951-01-04',
+							'modified' => '2006-12-01 13:31:26',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 3,
+							'apple_id' => 2,
+							'color' => 'blue green',
+							'name' => 'green blue',
+							'created' => '2006-12-25 05:13:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:24',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 4,
+							'apple_id' => 2,
+							'color' => 'Blue Green',
+							'name' => 'Test Name',
+							'created' => '2006-12-25 05:23:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:36',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => 1,
+					'apple_id' => 3,
+					'name' => 'sample1',
+					'Apple' => array(
 						'id' => 3,
 						'apple_id' => 2,
 						'color' => 'blue green',
@@ -2004,21 +1953,8 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:24',
 						'mytime' => '22:57:17'
-					),
-					array(
-						'id' => 4,
-						'apple_id' => 2,
-						'color' => 'Blue Green',
-						'name' => 'Test Name',
-						'created' => '2006-12-25 05:23:36',
-						'date' => '2006-12-25',
-						'modified' => '2006-12-25 05:23:36',
-						'mytime' => '22:57:17'
-			))),
-			'Sample' => array(
-				'id' => 3,
-				'apple_id' => 4,
-				'name' => 'sample3',
+					))),
+			array(
 				'Apple' => array(
 					'id' => 4,
 					'apple_id' => 2,
@@ -2028,82 +1964,7 @@ class ModelReadTest extends BaseModelTest {
 					'date' => '2006-12-25',
 					'modified' => '2006-12-25 05:23:36',
 					'mytime' => '22:57:17'
-		))),
-		array(
-			'Apple' => array(
-				'id' => 5,
-				'apple_id' => 5,
-				'color' => 'Green',
-				'name' => 'Blue Green',
-				'created' => '2006-12-25 05:24:06',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:29:16',
-				'mytime' => '22:57:17'
-			),
-			'Parent' => array(
-				'id' => 5,
-				'apple_id' => 5,
-				'color' => 'Green',
-				'name' => 'Blue Green',
-				'created' => '2006-12-25 05:24:06',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:29:16',
-				'mytime' => '22:57:17',
-				'Parent' => array(
-					'id' => 5,
-					'apple_id' => 5,
-					'color' => 'Green',
-					'name' => 'Blue Green',
-					'created' => '2006-12-25 05:24:06',
-					'date' => '2006-12-25',
-					'modified' => '2006-12-25 05:29:16',
-					'mytime' => '22:57:17'
 				),
-				'Child' => array(
-					array(
-						'id' => 5,
-						'apple_id' => 5,
-						'color' => 'Green',
-						'name' => 'Blue Green',
-						'created' => '2006-12-25 05:24:06',
-						'date' => '2006-12-25',
-						'modified' => '2006-12-25 05:29:16',
-						'mytime' => '22:57:17'
-			))),
-			'Sample' => array(
-				'id' => 4,
-				'apple_id' => 5,
-				'name' => 'sample4',
-				'Apple' => array(
-					'id' => 5,
-					'apple_id' => 5,
-					'color' => 'Green',
-					'name' => 'Blue Green',
-					'created' => '2006-12-25 05:24:06',
-					'date' => '2006-12-25',
-					'modified' => '2006-12-25 05:29:16',
-					'mytime' => '22:57:17'
-		))),
-		array(
-			'Apple' => array(
-				'id' => 6,
-				'apple_id' => 4,
-				'color' => 'My new appleOrange',
-				'name' => 'My new apple',
-				'created' => '2006-12-25 05:29:39',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:29:39',
-				'mytime' => '22:57:17'
-			),
-			'Parent' => array(
-				'id' => 4,
-				'apple_id' => 2,
-				'color' => 'Blue Green',
-				'name' => 'Test Name',
-				'created' => '2006-12-25 05:23:36',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:23:36',
-				'mytime' => '22:57:17',
 				'Parent' => array(
 					'id' => 2,
 					'apple_id' => 1,
@@ -2112,44 +1973,128 @@ class ModelReadTest extends BaseModelTest {
 					'created' => '2006-11-22 10:43:13',
 					'date' => '2014-01-01',
 					'modified' => '2006-11-30 18:38:10',
+					'mytime' => '22:57:17',
+					'Parent' => array(
+						'id' => 1,
+						'apple_id' => 2,
+						'color' => 'Red 1',
+						'name' => 'Red Apple 1',
+						'created' => '2006-11-22 10:38:58',
+						'date' => '1951-01-04',
+						'modified' => '2006-12-01 13:31:26',
+						'mytime' => '22:57:17'
+					),
+					'Child' => array(
+						array(
+							'id' => 1,
+							'apple_id' => 2,
+							'color' => 'Red 1',
+							'name' => 'Red Apple 1',
+							'created' => '2006-11-22 10:38:58',
+							'date' => '1951-01-04',
+							'modified' => '2006-12-01 13:31:26',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 3,
+							'apple_id' => 2,
+							'color' => 'blue green',
+							'name' => 'green blue',
+							'created' => '2006-12-25 05:13:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:24',
+							'mytime' => '22:57:17'
+						),
+						array(
+							'id' => 4,
+							'apple_id' => 2,
+							'color' => 'Blue Green',
+							'name' => 'Test Name',
+							'created' => '2006-12-25 05:23:36',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:23:36',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => 3,
+					'apple_id' => 4,
+					'name' => 'sample3',
+					'Apple' => array(
+						'id' => 4,
+						'apple_id' => 2,
+						'color' => 'Blue Green',
+						'name' => 'Test Name',
+						'created' => '2006-12-25 05:23:36',
+						'date' => '2006-12-25',
+						'modified' => '2006-12-25 05:23:36',
+						'mytime' => '22:57:17'
+					))),
+			array(
+				'Apple' => array(
+					'id' => 5,
+					'apple_id' => 5,
+					'color' => 'Green',
+					'name' => 'Blue Green',
+					'created' => '2006-12-25 05:24:06',
+					'date' => '2006-12-25',
+					'modified' => '2006-12-25 05:29:16',
 					'mytime' => '22:57:17'
 				),
-				'Child' => array(
-					array(
-						'id' => 6,
-						'apple_id' => 4,
-						'color' => 'My new appleOrange',
-						'name' => 'My new apple',
-						'created' => '2006-12-25 05:29:39',
+				'Parent' => array(
+					'id' => 5,
+					'apple_id' => 5,
+					'color' => 'Green',
+					'name' => 'Blue Green',
+					'created' => '2006-12-25 05:24:06',
+					'date' => '2006-12-25',
+					'modified' => '2006-12-25 05:29:16',
+					'mytime' => '22:57:17',
+					'Parent' => array(
+						'id' => 5,
+						'apple_id' => 5,
+						'color' => 'Green',
+						'name' => 'Blue Green',
+						'created' => '2006-12-25 05:24:06',
 						'date' => '2006-12-25',
-						'modified' => '2006-12-25 05:29:39',
+						'modified' => '2006-12-25 05:29:16',
 						'mytime' => '22:57:17'
-			))),
-			'Sample' => array(
-				'id' => '',
-				'apple_id' => '',
-				'name' => ''
-		)),
-		array(
-			'Apple' => array(
-				'id' => 7,
-				'apple_id' => 6,
-				'color' => 'Some wierd color',
-				'name' => 'Some odd color',
-				'created' => '2006-12-25 05:34:21',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:34:21',
-				'mytime' => '22:57:17'
-			),
-			'Parent' => array(
-				'id' => 6,
-				'apple_id' => 4,
-				'color' => 'My new appleOrange',
-				'name' => 'My new apple',
-				'created' => '2006-12-25 05:29:39',
-				'date' => '2006-12-25',
-				'modified' => '2006-12-25 05:29:39',
-				'mytime' => '22:57:17',
+					),
+					'Child' => array(
+						array(
+							'id' => 5,
+							'apple_id' => 5,
+							'color' => 'Green',
+							'name' => 'Blue Green',
+							'created' => '2006-12-25 05:24:06',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:29:16',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => 4,
+					'apple_id' => 5,
+					'name' => 'sample4',
+					'Apple' => array(
+						'id' => 5,
+						'apple_id' => 5,
+						'color' => 'Green',
+						'name' => 'Blue Green',
+						'created' => '2006-12-25 05:24:06',
+						'date' => '2006-12-25',
+						'modified' => '2006-12-25 05:29:16',
+						'mytime' => '22:57:17'
+					))),
+			array(
+				'Apple' => array(
+					'id' => 6,
+					'apple_id' => 4,
+					'color' => 'My new appleOrange',
+					'name' => 'My new apple',
+					'created' => '2006-12-25 05:29:39',
+					'date' => '2006-12-25',
+					'modified' => '2006-12-25 05:29:39',
+					'mytime' => '22:57:17'
+				),
 				'Parent' => array(
 					'id' => 4,
 					'apple_id' => 2,
@@ -2158,24 +2103,79 @@ class ModelReadTest extends BaseModelTest {
 					'created' => '2006-12-25 05:23:36',
 					'date' => '2006-12-25',
 					'modified' => '2006-12-25 05:23:36',
+					'mytime' => '22:57:17',
+					'Parent' => array(
+						'id' => 2,
+						'apple_id' => 1,
+						'color' => 'Bright Red 1',
+						'name' => 'Bright Red Apple',
+						'created' => '2006-11-22 10:43:13',
+						'date' => '2014-01-01',
+						'modified' => '2006-11-30 18:38:10',
+						'mytime' => '22:57:17'
+					),
+					'Child' => array(
+						array(
+							'id' => 6,
+							'apple_id' => 4,
+							'color' => 'My new appleOrange',
+							'name' => 'My new apple',
+							'created' => '2006-12-25 05:29:39',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:29:39',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => '',
+					'apple_id' => '',
+					'name' => ''
+				)),
+			array(
+				'Apple' => array(
+					'id' => 7,
+					'apple_id' => 6,
+					'color' => 'Some wierd color',
+					'name' => 'Some odd color',
+					'created' => '2006-12-25 05:34:21',
+					'date' => '2006-12-25',
+					'modified' => '2006-12-25 05:34:21',
 					'mytime' => '22:57:17'
 				),
-				'Child' => array(
-					array(
-						'id' => 7,
-						'apple_id' => 6,
-						'color' => 'Some wierd color',
-						'name' => 'Some odd color',
-						'created' => '2006-12-25 05:34:21',
+				'Parent' => array(
+					'id' => 6,
+					'apple_id' => 4,
+					'color' => 'My new appleOrange',
+					'name' => 'My new apple',
+					'created' => '2006-12-25 05:29:39',
+					'date' => '2006-12-25',
+					'modified' => '2006-12-25 05:29:39',
+					'mytime' => '22:57:17',
+					'Parent' => array(
+						'id' => 4,
+						'apple_id' => 2,
+						'color' => 'Blue Green',
+						'name' => 'Test Name',
+						'created' => '2006-12-25 05:23:36',
 						'date' => '2006-12-25',
-						'modified' => '2006-12-25 05:34:21',
+						'modified' => '2006-12-25 05:23:36',
 						'mytime' => '22:57:17'
-			))),
-			'Sample' => array(
-				'id' => '',
-				'apple_id' => '',
-				'name' => ''
-		)));
+					),
+					'Child' => array(
+						array(
+							'id' => 7,
+							'apple_id' => 6,
+							'color' => 'Some wierd color',
+							'name' => 'Some odd color',
+							'created' => '2006-12-25 05:34:21',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:34:21',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => '',
+					'apple_id' => '',
+					'name' => ''
+				)));
 
 		$this->assertEquals($expected, $result);
 
@@ -2252,12 +2252,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
 					'name' => ''
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 2,
@@ -2299,12 +2299,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2014-01-01',
 							'modified' => '2006-11-30 18:38:10',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 2,
 					'apple_id' => 2,
 					'name' => 'sample2'
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 3,
@@ -2370,12 +2370,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 1,
 					'apple_id' => 3,
 					'name' => 'sample1'
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 4,
@@ -2441,12 +2441,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 3,
 					'apple_id' => 4,
 					'name' => 'sample3'
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 5,
@@ -2492,12 +2492,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:16',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 4,
 					'apple_id' => 5,
 					'name' => 'sample4'
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 6,
@@ -2543,12 +2543,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:39',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
 					'name' => ''
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 7,
@@ -2590,12 +2590,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:34:21',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
 					'name' => ''
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->Parent->unbindModel(array('belongsTo' => array('Parent')));
@@ -2661,12 +2661,12 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
 					'name' => ''
-			)),
+				)),
 			array(
 				'Apple' => array(
 					'id' => 2,
@@ -2688,17 +2688,17 @@ class ModelReadTest extends BaseModelTest {
 					'modified' => '2006-12-01 13:31:26',
 					'mytime' => '22:57:17',
 					'Sample' => array(),
-						'Child' => array(
-							array(
-								'id' => 2,
-								'apple_id' => 1,
-								'color' => 'Bright Red 1',
-								'name' => 'Bright Red Apple',
-								'created' => '2006-11-22 10:43:13',
-								'date' => '2014-01-01',
-								'modified' => '2006-11-30 18:38:10',
-								'mytime' => '22:57:17'
-				))),
+					'Child' => array(
+						array(
+							'id' => 2,
+							'apple_id' => 1,
+							'color' => 'Bright Red 1',
+							'name' => 'Bright Red Apple',
+							'created' => '2006-11-22 10:43:13',
+							'date' => '2014-01-01',
+							'modified' => '2006-11-30 18:38:10',
+							'mytime' => '22:57:17'
+						))),
 				'Sample' => array(
 					'id' => 2,
 					'apple_id' => 2,
@@ -2712,7 +2712,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2014-01-01',
 						'modified' => '2006-11-30 18:38:10',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => 3,
@@ -2768,7 +2768,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 1,
 					'apple_id' => 3,
@@ -2782,7 +2782,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:24',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => 4,
@@ -2838,7 +2838,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:23:36',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 3,
 					'apple_id' => 4,
@@ -2852,7 +2852,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:36',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => 5,
@@ -2862,7 +2862,7 @@ class ModelReadTest extends BaseModelTest {
 					'created' => '2006-12-25 05:24:06',
 					'date' => '2006-12-25',
 					'modified' =>
-					'2006-12-25 05:29:16',
+						'2006-12-25 05:29:16',
 					'mytime' => '22:57:17'
 				),
 				'Parent' => array(
@@ -2889,7 +2889,7 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25',
 							'modified' => '2006-12-25 05:29:16',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => 4,
 					'apple_id' => 5,
@@ -2903,7 +2903,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:29:16',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => 6,
@@ -2914,36 +2914,36 @@ class ModelReadTest extends BaseModelTest {
 					'date' => '2006-12-25',
 					'modified' => '2006-12-25 05:29:39',
 					'mytime' => '22:57:17'),
-					'Parent' => array(
-						'id' => 4,
-						'apple_id' => 2,
-						'color' => 'Blue Green',
-						'name' => 'Test Name',
-						'created' => '2006-12-25 05:23:36',
-						'date' => '2006-12-25',
-						'modified' => '2006-12-25 05:23:36',
-						'mytime' => '22:57:17',
-						'Sample' => array(
-							'id' => 3,
-							'apple_id' => 4,
-							'name' => 'sample3'
-						),
-						'Child' => array(
-							array(
-								'id' => 6,
-								'apple_id' => 4,
-								'color' => 'My new appleOrange',
-								'name' => 'My new apple',
-								'created' => '2006-12-25 05:29:39',
-								'date' => '2006-12-25',
-								'modified' => '2006-12-25 05:29:39',
-								'mytime' => '22:57:17'
-					))),
+				'Parent' => array(
+					'id' => 4,
+					'apple_id' => 2,
+					'color' => 'Blue Green',
+					'name' => 'Test Name',
+					'created' => '2006-12-25 05:23:36',
+					'date' => '2006-12-25',
+					'modified' => '2006-12-25 05:23:36',
+					'mytime' => '22:57:17',
 					'Sample' => array(
-						'id' => '',
-						'apple_id' => '',
-						'name' => ''
-			)),
+						'id' => 3,
+						'apple_id' => 4,
+						'name' => 'sample3'
+					),
+					'Child' => array(
+						array(
+							'id' => 6,
+							'apple_id' => 4,
+							'color' => 'My new appleOrange',
+							'name' => 'My new apple',
+							'created' => '2006-12-25 05:29:39',
+							'date' => '2006-12-25',
+							'modified' => '2006-12-25 05:29:39',
+							'mytime' => '22:57:17'
+						))),
+				'Sample' => array(
+					'id' => '',
+					'apple_id' => '',
+					'name' => ''
+				)),
 			array(
 				'Apple' => array(
 					'id' => 7,
@@ -2975,20 +2975,20 @@ class ModelReadTest extends BaseModelTest {
 							'date' => '2006-12-25', 'modified' =>
 							'2006-12-25 05:34:21',
 							'mytime' => '22:57:17'
-				))),
+						))),
 				'Sample' => array(
 					'id' => '',
 					'apple_id' => '',
 					'name' => ''
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSelfAssociationAfterFind method
- *
- * @return void
- */
+	/**
+	 * testSelfAssociationAfterFind method
+	 *
+	 * @return void
+	 */
 	public function testSelfAssociationAfterFind() {
 		$this->loadFixtures('Apple', 'Sample');
 		$afterFindModel = new NodeAfterFind();
@@ -3006,11 +3006,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($afterFindData, $noAfterFindData);
 	}
 
-/**
- * Test that afterFind can completely unset data.
- *
- * @return void
- */
+	/**
+	 * Test that afterFind can completely unset data.
+	 *
+	 * @return void
+	 */
 	public function testAfterFindUnset() {
 		$this->loadFixtures('Article', 'Comment', 'User');
 		$model = new CustomArticle();
@@ -3030,11 +3030,11 @@ class ModelReadTest extends BaseModelTest {
 		);
 	}
 
-/**
- * testFindThreadedNoParent method
- *
- * @return void
- */
+	/**
+	 * testFindThreadedNoParent method
+	 *
+	 * @return void
+	 */
 	public function testFindThreadedNoParent() {
 		$this->loadFixtures('Apple', 'Sample');
 		$Apple = new Apple();
@@ -3044,11 +3044,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindThreaded method
- *
- * @return void
- */
+	/**
+	 * testFindThreaded method
+	 *
+	 * @return void
+	 */
 	public function testFindThreaded() {
 		$this->loadFixtures('Person');
 		$Model = new Person();
@@ -3130,11 +3130,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllThreaded method
- *
- * @return void
- */
+	/**
+	 * testFindAllThreaded method
+	 *
+	 * @return void
+	 */
 	public function testFindAllThreaded() {
 		$this->loadFixtures('Category');
 		$TestModel = new Category();
@@ -3455,28 +3455,28 @@ class ModelReadTest extends BaseModelTest {
 			'conditions' => array('Category.name LIKE' => 'Category 1.1%')
 		));
 		$expected = array(
-				array('Category' =>
-					array(
-						'id' => '2',
-						'parent_id' => '1',
-						'name' => 'Category 1.1',
+			array('Category' =>
+				array(
+					'id' => '2',
+					'parent_id' => '1',
+					'name' => 'Category 1.1',
+					'created' => '2007-03-18 15:30:23',
+					'updated' => '2007-03-18 15:32:31'),
+				'children' => array(
+					array('Category' => array(
+						'id' => '7',
+						'parent_id' => '2',
+						'name' => 'Category 1.1.1',
 						'created' => '2007-03-18 15:30:23',
 						'updated' => '2007-03-18 15:32:31'),
-						'children' => array(
-							array('Category' => array(
-								'id' => '7',
-								'parent_id' => '2',
-								'name' => 'Category 1.1.1',
-								'created' => '2007-03-18 15:30:23',
-								'updated' => '2007-03-18 15:32:31'),
-								'children' => array()),
-							array('Category' => array(
-								'id' => '8',
-								'parent_id' => '2',
-								'name' => 'Category 1.1.2',
-								'created' => '2007-03-18 15:30:23',
-								'updated' => '2007-03-18 15:32:31'),
-								'children' => array()))));
+						'children' => array()),
+					array('Category' => array(
+						'id' => '8',
+						'parent_id' => '2',
+						'name' => 'Category 1.1.2',
+						'created' => '2007-03-18 15:30:23',
+						'updated' => '2007-03-18 15:32:31'),
+						'children' => array()))));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('threaded', array(
@@ -3568,7 +3568,7 @@ class ModelReadTest extends BaseModelTest {
 				'id' => '8',
 				'name' => 'Category 1.1.2',
 				'parent_id' => '2'
-		)));
+			)));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('threaded', array(
@@ -3606,11 +3606,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test find('neighbors')
- *
- * @return void
- */
+	/**
+	 * test find('neighbors')
+	 *
+	 * @return void
+	 */
 	public function testFindNeighbors() {
 		$this->loadFixtures('User', 'Article', 'Comment', 'Tag', 'ArticlesTag', 'Attachment');
 		$TestModel = new Article();
@@ -3633,11 +3633,11 @@ class ModelReadTest extends BaseModelTest {
 			'prev' => array(
 				'Article' => array(
 					'id' => 1
-			)),
+				)),
 			'next' => array(
 				'Article' => array(
 					'id' => 3
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$TestModel->id = 3;
@@ -3760,11 +3760,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test find(neighbors) with missing fields so no neighbors are found.
- *
- * @return void
- */
+	/**
+	 * Test find(neighbors) with missing fields so no neighbors are found.
+	 *
+	 * @return void
+	 */
 	public function testFindNeighborsNoPrev() {
 		$this->loadFixtures('User', 'Article', 'Comment', 'Tag', 'ArticlesTag', 'Attachment');
 		$Article = new Article();
@@ -3785,11 +3785,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindCombinedRelations method
- *
- * @return void
- */
+	/**
+	 * testFindCombinedRelations method
+	 *
+	 * @return void
+	 */
 	public function testFindCombinedRelations() {
 		$this->skipIf($this->db instanceof Sqlserver, 'The test of testRecursiveUnbind test is not compatible with SQL Server, because it check for time columns.');
 
@@ -3835,7 +3835,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2014-01-01',
 						'modified' => '2006-11-30 18:38:10',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => '2',
@@ -3892,7 +3892,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:23:36',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => '3',
@@ -3957,7 +3957,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:29:39',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => '5',
@@ -3994,7 +3994,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:29:16',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => '6',
@@ -4031,7 +4031,7 @@ class ModelReadTest extends BaseModelTest {
 						'date' => '2006-12-25',
 						'modified' => '2006-12-25 05:34:21',
 						'mytime' => '22:57:17'
-			))),
+					))),
 			array(
 				'Apple' => array(
 					'id' => '7',
@@ -4059,15 +4059,15 @@ class ModelReadTest extends BaseModelTest {
 					'name' => null
 				),
 				'Child' => array()
-		));
+			));
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSaveEmpty method
- *
- * @return void
- */
+	/**
+	 * testSaveEmpty method
+	 *
+	 * @return void
+	 */
 	public function testSaveEmpty() {
 		$this->loadFixtures('Thread');
 		$TestModel = new Thread();
@@ -4076,11 +4076,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertFalse($expected);
 	}
 
-/**
- * testFindAllWithConditionInChildQuery
- *
- * @return void
- */
+	/**
+	 * testFindAllWithConditionInChildQuery
+	 *
+	 * @return void
+	 */
 	public function testFindAllWithConditionInChildQuery() {
 		$this->loadFixtures('Basket', 'FilmFile');
 
@@ -4119,11 +4119,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllWithConditionsHavingMixedDataTypes method
- *
- * @return void
- */
+	/**
+	 * testFindAllWithConditionsHavingMixedDataTypes method
+	 *
+	 * @return void
+	 */
 	public function testFindAllWithConditionsHavingMixedDataTypes() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
 		$TestModel = new Article();
@@ -4200,11 +4200,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testBindUnbind method
- *
- * @return void
- */
+	/**
+	 * testBindUnbind method
+	 *
+	 * @return void
+	 */
 	public function testBindUnbind() {
 		$this->loadFixtures(
 			'User',
@@ -4263,7 +4263,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:53:23',
 						'updated' => '2007-03-18 10:55:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -4287,7 +4287,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:55:23',
 						'updated' => '2007-03-18 10:57:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -4309,7 +4309,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:47:23',
 						'updated' => '2007-03-18 10:49:31'
-		))));
+					))));
 
 		$this->assertEquals($expected, $result);
 
@@ -4358,7 +4358,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:53:23',
 						'updated' => '2007-03-18 10:55:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -4382,7 +4382,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:55:23',
 						'updated' => '2007-03-18 10:57:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -4404,7 +4404,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:47:23',
 						'updated' => '2007-03-18 10:49:31'
-		))));
+					))));
 
 		$this->assertEquals($expected, $result);
 
@@ -4422,7 +4422,7 @@ class ModelReadTest extends BaseModelTest {
 				'exclusive' => null,
 				'finderQuery' => null,
 				'counterQuery' => null
-		));
+			));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->unbindModel(array('hasMany' => array('Comment')));
@@ -4480,7 +4480,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:53:23',
 						'updated' => '2007-03-18 10:55:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -4504,7 +4504,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:55:23',
 						'updated' => '2007-03-18 10:57:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -4523,11 +4523,11 @@ class ModelReadTest extends BaseModelTest {
 						'article_id' => '1',
 						'user_id' => '4',
 						'comment' =>
-						'Second Comment for First Article',
+							'Second Comment for First Article',
 						'published' => 'Y',
 						'created' => '2007-03-18 10:47:23',
 						'updated' => '2007-03-18 10:49:31'
-		))));
+					))));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->unbindModel(array('hasMany' => array('Comment')), false);
@@ -4581,7 +4581,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:53:23',
 						'updated' => '2007-03-18 10:55:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -4605,7 +4605,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:55:23',
 						'updated' => '2007-03-18 10:57:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -4627,7 +4627,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:47:23',
 						'updated' => '2007-03-18 10:49:31'
-		))));
+					))));
 
 		$this->assertEquals($expected, $result);
 
@@ -4693,11 +4693,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(is_object($TestModel2->NewFeatureSet));
 	}
 
-/**
- * testBindMultipleTimes method
- *
- * @return void
- */
+	/**
+	 * testBindMultipleTimes method
+	 *
+	 * @return void
+	 */
 	public function testBindMultipleTimes() {
 		$this->loadFixtures('User', 'Comment', 'Article', 'Tag', 'ArticlesTag');
 		$TestModel = new User();
@@ -4709,7 +4709,7 @@ class ModelReadTest extends BaseModelTest {
 		$result = $TestModel->bindModel(array(
 			'hasMany' => array(
 				'Items' => array('className' => 'Comment')
-		)));
+			)));
 		$this->assertTrue($result);
 
 		$result = $TestModel->find('all', array(
@@ -4749,7 +4749,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:53:23',
 						'updated' => '2007-03-18 10:55:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -4773,7 +4773,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:55:23',
 						'updated' => '2007-03-18 10:57:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -4786,22 +4786,22 @@ class ModelReadTest extends BaseModelTest {
 					'id' => '4',
 					'user' => 'garrett'
 				),
-					'Items' => array(
-						array(
-							'id' => '2',
-							'article_id' => '1',
-							'user_id' => '4',
-							'comment' => 'Second Comment for First Article',
-							'published' => 'Y',
-							'created' => '2007-03-18 10:47:23',
-							'updated' => '2007-03-18 10:49:31'
-		))));
+				'Items' => array(
+					array(
+						'id' => '2',
+						'article_id' => '1',
+						'user_id' => '4',
+						'comment' => 'Second Comment for First Article',
+						'published' => 'Y',
+						'created' => '2007-03-18 10:47:23',
+						'updated' => '2007-03-18 10:49:31'
+					))));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->bindModel(array(
 			'hasMany' => array(
 				'Items' => array('className' => 'Article')
-		)));
+			)));
 		$this->assertTrue($result);
 
 		$result = $TestModel->find('all', array(
@@ -4831,7 +4831,7 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:43:23',
 						'updated' => '2007-03-18 10:45:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -4853,23 +4853,23 @@ class ModelReadTest extends BaseModelTest {
 						'published' => 'Y',
 						'created' => '2007-03-18 10:41:23',
 						'updated' => '2007-03-18 10:43:31'
-			))),
+					))),
 			array(
 				'User' => array(
 					'id' => '4',
 					'user' => 'garrett'
 				),
 				'Items' => array()
-		));
+			));
 
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that multiple reset = true calls to bindModel() result in the original associations.
- *
- * @return void
- */
+	/**
+	 * test that multiple reset = true calls to bindModel() result in the original associations.
+	 *
+	 * @return void
+	 */
 	public function testBindModelMultipleTimesResetCorrectly() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new User();
@@ -4881,11 +4881,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertFalse(isset($TestModel->hasMany['Comment']), 'Association left behind');
 	}
 
-/**
- * testBindMultipleTimes method with different reset settings
- *
- * @return void
- */
+	/**
+	 * testBindMultipleTimes method with different reset settings
+	 *
+	 * @return void
+	 */
 	public function testBindMultipleTimesWithDifferentResetSettings() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new User();
@@ -4915,11 +4915,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that bindModel behaves with Custom primary Key associations
- *
- * @return void
- */
+	/**
+	 * test that bindModel behaves with Custom primary Key associations
+	 *
+	 * @return void
+	 */
 	public function testBindWithCustomPrimaryKey() {
 		$this->loadFixtures('Story', 'StoriesTag', 'Tag');
 		$Model = ClassRegistry::init('StoriesTag');
@@ -4928,18 +4928,18 @@ class ModelReadTest extends BaseModelTest {
 				'Tag' => array(
 					'className' => 'Tag',
 					'foreignKey' => 'story'
-		))));
+				))));
 
 		$result = $Model->find('all');
 		$this->assertFalse(empty($result));
 	}
 
-/**
- * test that calling unbindModel() with reset == true multiple times
- * leaves associations in the correct state.
- *
- * @return void
- */
+	/**
+	 * test that calling unbindModel() with reset == true multiple times
+	 * leaves associations in the correct state.
+	 *
+	 * @return void
+	 */
 	public function testUnbindMultipleTimesResetCorrectly() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new Article10();
@@ -4951,11 +4951,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(isset($TestModel->hasMany['Comment']), 'Association permanently removed');
 	}
 
-/**
- * testBindMultipleTimes method with different reset settings
- *
- * @return void
- */
+	/**
+	 * testBindMultipleTimes method with different reset settings
+	 *
+	 * @return void
+	 */
 	public function testUnBindMultipleTimesWithDifferentResetSettings() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new Comment();
@@ -4985,11 +4985,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAssociationAfterFind method
- *
- * @return void
- */
+	/**
+	 * testAssociationAfterFind method
+	 *
+	 * @return void
+	 */
 	public function testAssociationAfterFind() {
 		$this->loadFixtures('Post', 'Author', 'Comment');
 		$TestModel = new Post();
@@ -5014,7 +5014,7 @@ class ModelReadTest extends BaseModelTest {
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31',
 					'test' => 'working'
-			)),
+				)),
 			array(
 				'Post' => array(
 					'id' => '2',
@@ -5032,7 +5032,7 @@ class ModelReadTest extends BaseModelTest {
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31',
 					'test' => 'working'
-			)),
+				)),
 			array(
 				'Post' => array(
 					'id' => '3',
@@ -5050,7 +5050,7 @@ class ModelReadTest extends BaseModelTest {
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31',
 					'test' => 'working'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 		unset($TestModel);
 
@@ -5061,7 +5061,7 @@ class ModelReadTest extends BaseModelTest {
 					'className' => 'ModifiedComment',
 					'foreignKey' => 'article_id',
 				)
-		)));
+			)));
 		$result = $Author->find('all', array(
 			'conditions' => array('Author.id' => 1),
 			'order' => array('Author.id' => 'ASC'),
@@ -5080,11 +5080,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result[0]['Post'][0]['Comment'][0]);
 	}
 
-/**
- * testDeeperAssociationAfterFind method
- *
- * @return void
- */
+	/**
+	 * testDeeperAssociationAfterFind method
+	 *
+	 * @return void
+	 */
 	public function testDeeperAssociationAfterFind() {
 		$this->loadFixtures('Post', 'Author', 'Comment', 'Attachment', 'Article');
 
@@ -5095,13 +5095,13 @@ class ModelReadTest extends BaseModelTest {
 					'className' => 'ModifiedComment',
 					'foreignKey' => 'article_id',
 				)
-		)));
+			)));
 		$Post->Comment->bindModel(array(
 			'hasOne' => array(
 				'Attachment' => array(
 					'className' => 'ModifiedAttachment',
 				)
-		)));
+			)));
 
 		$result = $Post->find('first', array(
 			'conditions' => array('Post.id' => 2),
@@ -5113,11 +5113,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals('Fired', $result['Comment'][0]['Attachment']['callback']);
 	}
 
-/**
- * Tests that callbacks can be properly disabled
- *
- * @return void
- */
+	/**
+	 * Tests that callbacks can be properly disabled
+	 *
+	 * @return void
+	 */
 	public function testCallbackDisabling() {
 		$this->loadFixtures('Author');
 		$TestModel = new ModifiedAuthor();
@@ -5139,11 +5139,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAssociationAfterFindCallbacksDisabled method
- *
- * @return void
- */
+	/**
+	 * testAssociationAfterFindCallbacksDisabled method
+	 *
+	 * @return void
+	 */
 	public function testAssociationAfterFindCalbacksDisabled() {
 		$this->loadFixtures('Post', 'Author', 'Comment');
 		$TestModel = new Post();
@@ -5168,7 +5168,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31'
-			)),
+				)),
 			array(
 				'Post' => array(
 					'id' => '2',
@@ -5185,7 +5185,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-			)),
+				)),
 			array(
 				'Post' => array(
 					'id' => '3',
@@ -5202,7 +5202,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 		unset($TestModel);
 
@@ -5213,7 +5213,7 @@ class ModelReadTest extends BaseModelTest {
 					'className' => 'ModifiedComment',
 					'foreignKey' => 'article_id',
 				)
-		)));
+			)));
 		$result = $Author->find('all', array(
 			'conditions' => array('Author.id' => 1),
 			'recursive' => 2,
@@ -5232,35 +5232,35 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result[0]['Post'][0]['Comment'][0]);
 	}
 
-/**
- * Tests that the database configuration assigned to the model can be changed using
- * (before|after)Find callbacks
- *
- * @return void
- */
+	/**
+	 * Tests that the database configuration assigned to the model can be changed using
+	 * (before|after)Find callbacks
+	 *
+	 * @return void
+	 */
 	public function testCallbackSourceChange() {
 		$this->loadFixtures('Post');
 		$TestModel = new Post();
 		$this->assertEquals(3, count($TestModel->find('all')));
 	}
 
-/**
- * testCallbackSourceChangeUnknownDatasource method
- *
- * @expectedException MissingDatasourceConfigException
- * @return void
- */
+	/**
+	 * testCallbackSourceChangeUnknownDatasource method
+	 *
+	 * @expectedException MissingDatasourceConfigException
+	 * @return void
+	 */
 	public function testCallbackSourceChangeUnknownDatasource() {
 		$this->loadFixtures('Post', 'Author');
 		$TestModel = new Post();
 		$this->assertFalse($TestModel->find('all', array('connection' => 'foo')));
 	}
 
-/**
- * testMultipleBelongsToWithSameClass method
- *
- * @return void
- */
+	/**
+	 * testMultipleBelongsToWithSameClass method
+	 *
+	 * @return void
+	 */
 	public function testMultipleBelongsToWithSameClass() {
 		$this->loadFixtures(
 			'DeviceType',
@@ -5296,7 +5296,7 @@ class ModelReadTest extends BaseModelTest {
 				'DocumentDirectory' => array(
 					'id' => 1,
 					'name' => 'DocumentDirectory 1'
-			)),
+				)),
 			'Extra1' => array(
 				'id' => 1,
 				'document_directory_id' => 1,
@@ -5304,7 +5304,7 @@ class ModelReadTest extends BaseModelTest {
 				'DocumentDirectory' => array(
 					'id' => 1,
 					'name' => 'DocumentDirectory 1'
-			)),
+				)),
 			'Extra2' => array(
 				'id' => 1,
 				'document_directory_id' => 1,
@@ -5312,7 +5312,7 @@ class ModelReadTest extends BaseModelTest {
 				'DocumentDirectory' => array(
 					'id' => 1,
 					'name' => 'DocumentDirectory 1'
-			)),
+				)),
 			'DeviceTypeCategory' => array(
 				'id' => 1,
 				'name' => 'DeviceTypeCategory 1'
@@ -5330,7 +5330,7 @@ class ModelReadTest extends BaseModelTest {
 					'device_type_id' => 1,
 					'name' => 'Device 1',
 					'typ' => 1
-			)),
+				)),
 			'Device' => array(
 				array(
 					'id' => 1,
@@ -5349,16 +5349,16 @@ class ModelReadTest extends BaseModelTest {
 					'device_type_id' => 1,
 					'name' => 'Device 3',
 					'typ' => 2
-		)));
+				)));
 
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHabtmRecursiveBelongsTo method
- *
- * @return void
- */
+	/**
+	 * testHabtmRecursiveBelongsTo method
+	 *
+	 * @return void
+	 */
 	public function testHabtmRecursiveBelongsTo() {
 		$this->loadFixtures('Portfolio', 'Item', 'ItemsPortfolio', 'Syfile', 'Image');
 		$Portfolio = new Portfolio();
@@ -5390,7 +5390,7 @@ class ModelReadTest extends BaseModelTest {
 							'id' => 2,
 							'name' => 'Image 2'
 						)
-				)),
+					)),
 				array(
 					'id' => 6,
 					'syfile_id' => 6,
@@ -5407,16 +5407,16 @@ class ModelReadTest extends BaseModelTest {
 						'name' => 'Syfile 6',
 						'item_count' => null,
 						'Image' => array()
-		))));
+					))));
 
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testNonNumericHabtmJoinKey method
- *
- * @return void
- */
+	/**
+	 * testNonNumericHabtmJoinKey method
+	 *
+	 * @return void
+	 */
 	public function testNonNumericHabtmJoinKey() {
 		$this->loadFixtures('Post', 'Tag', 'PostsTag', 'Author');
 		$Post = new Post();
@@ -5459,7 +5459,7 @@ class ModelReadTest extends BaseModelTest {
 						'tag' => 'tag2',
 						'created' => '2007-03-18 12:24:23',
 						'updated' => '2007-03-18 12:26:31'
-			))),
+					))),
 			array(
 				'Post' => array(
 					'id' => '2',
@@ -5484,13 +5484,13 @@ class ModelReadTest extends BaseModelTest {
 						'tag' => 'tag1',
 						'created' => '2007-03-18 12:22:23',
 						'updated' => '2007-03-18 12:24:31'
-						),
+					),
 					array(
 						'id' => '3',
 						'tag' => 'tag3',
 						'created' => '2007-03-18 12:26:23',
 						'updated' => '2007-03-18 12:28:31'
-			))),
+					))),
 			array(
 				'Post' => array(
 					'id' => '3',
@@ -5510,15 +5510,15 @@ class ModelReadTest extends BaseModelTest {
 					'test' => 'working'
 				),
 				'Tag' => array()
-		));
+			));
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHabtmFinderQuery method
- *
- * @return void
- */
+	/**
+	 * testHabtmFinderQuery method
+	 *
+	 * @return void
+	 */
 	public function testHabtmFinderQuery() {
 		$this->loadFixtures('Article', 'Tag', 'ArticlesTag');
 		$Article = new Article();
@@ -5557,16 +5557,16 @@ class ModelReadTest extends BaseModelTest {
 			array(
 				'id' => '2',
 				'tag' => 'tag2'
-		));
+			));
 
 		$this->assertEquals($expected, $result['Tag']);
 	}
 
-/**
- * testHabtmLimitOptimization method
- *
- * @return void
- */
+	/**
+	 * testHabtmLimitOptimization method
+	 *
+	 * @return void
+	 */
 	public function testHabtmLimitOptimization() {
 		$this->loadFixtures('Article', 'User', 'Comment', 'Tag', 'ArticlesTag');
 		$TestModel = new Article();
@@ -5608,7 +5608,7 @@ class ModelReadTest extends BaseModelTest {
 					'published' => 'Y',
 					'created' => '2007-03-18 10:55:23',
 					'updated' => '2007-03-18 10:57:31'
-			)),
+				)),
 			'Tag' => array(
 				array(
 					'id' => '1',
@@ -5621,7 +5621,7 @@ class ModelReadTest extends BaseModelTest {
 					'tag' => 'tag3',
 					'created' => '2007-03-18 12:26:23',
 					'updated' => '2007-03-18 12:28:31'
-		)));
+				)));
 
 		$this->assertEquals($expected, $result);
 
@@ -5632,11 +5632,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHasManyLimitOptimization method
- *
- * @return void
- */
+	/**
+	 * testHasManyLimitOptimization method
+	 *
+	 * @return void
+	 */
 	public function testHasManyLimitOptimization() {
 		$this->loadFixtures('Project', 'Thread', 'Message', 'Bid');
 		$Project = new Project();
@@ -5669,7 +5669,7 @@ class ModelReadTest extends BaseModelTest {
 									'id' => 2,
 									'project_id' => 1,
 									'name' => 'Project 1, Thread 2'
-						))),
+								))),
 						'Message' => array(
 							array(
 								'id' => 1,
@@ -5679,7 +5679,7 @@ class ModelReadTest extends BaseModelTest {
 									'id' => 1,
 									'message_id' => 1,
 									'name' => 'Bid 1.1'
-					)))),
+								)))),
 					array(
 						'id' => 2,
 						'project_id' => 1,
@@ -5697,7 +5697,7 @@ class ModelReadTest extends BaseModelTest {
 									'id' => 2,
 									'project_id' => 1,
 									'name' => 'Project 1, Thread 2'
-						))),
+								))),
 						'Message' => array(
 							array(
 								'id' => 2,
@@ -5707,7 +5707,7 @@ class ModelReadTest extends BaseModelTest {
 									'id' => 4,
 									'message_id' => 2,
 									'name' => 'Bid 2.1'
-			)))))),
+								)))))),
 			array(
 				'Project' => array(
 					'id' => 2,
@@ -5726,7 +5726,7 @@ class ModelReadTest extends BaseModelTest {
 									'id' => 3,
 									'project_id' => 2,
 									'name' => 'Project 2, Thread 1'
-						))),
+								))),
 						'Message' => array(
 							array(
 								'id' => 3,
@@ -5736,23 +5736,23 @@ class ModelReadTest extends BaseModelTest {
 									'id' => 3,
 									'message_id' => 3,
 									'name' => 'Bid 3.1'
-			)))))),
+								)))))),
 			array(
 				'Project' => array(
 					'id' => 3,
 					'name' => 'Project 3'
 				),
 				'Thread' => array()
-		));
+			));
 
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllRecursiveSelfJoin method
- *
- * @return void
- */
+	/**
+	 * testFindAllRecursiveSelfJoin method
+	 *
+	 * @return void
+	 */
 	public function testFindAllRecursiveSelfJoin() {
 		$this->loadFixtures('Home', 'AnotherArticle', 'Advertisement');
 		$TestModel = new Home();
@@ -5784,7 +5784,7 @@ class ModelReadTest extends BaseModelTest {
 							'title' => 'First Home',
 							'created' => '2007-03-18 10:39:23',
 							'updated' => '2007-03-18 10:41:31'
-				))),
+						))),
 				'Advertisement' => array(
 					'id' => '1',
 					'title' => 'First Ad',
@@ -5806,7 +5806,7 @@ class ModelReadTest extends BaseModelTest {
 							'title' => 'Second Home',
 							'created' => '2007-03-18 10:41:23',
 							'updated' => '2007-03-18 10:43:31'
-			)))),
+						)))),
 			array(
 				'Home' => array(
 					'id' => '2',
@@ -5829,7 +5829,7 @@ class ModelReadTest extends BaseModelTest {
 							'title' => 'Second Home',
 							'created' => '2007-03-18 10:41:23',
 							'updated' => '2007-03-18 10:43:31'
-				))),
+						))),
 				'Advertisement' => array(
 					'id' => '1',
 					'title' => 'First Ad',
@@ -5851,16 +5851,16 @@ class ModelReadTest extends BaseModelTest {
 							'title' => 'Second Home',
 							'created' => '2007-03-18 10:41:23',
 							'updated' => '2007-03-18 10:43:31'
-		)))));
+						)))));
 
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllRecursiveWithHabtm method
- *
- * @return void
- */
+	/**
+	 * testFindAllRecursiveWithHabtm method
+	 *
+	 * @return void
+	 */
 	public function testFindAllRecursiveWithHabtm() {
 		$this->loadFixtures(
 			'MyCategoriesMyUsers',
@@ -5887,7 +5887,7 @@ class ModelReadTest extends BaseModelTest {
 							array(
 								'id' => '1',
 								'name' => 'book'
-					))),
+							))),
 					array(
 						'id' => '3',
 						'name' => 'C',
@@ -5895,7 +5895,7 @@ class ModelReadTest extends BaseModelTest {
 							array(
 								'id' => '2',
 								'name' => 'computer'
-			))))),
+							))))),
 			array(
 				'MyUser' => array(
 					'id' => '2',
@@ -5909,7 +5909,7 @@ class ModelReadTest extends BaseModelTest {
 							array(
 								'id' => '1',
 								'name' => 'book'
-					))),
+							))),
 					array(
 						'id' => '2',
 						'name' => 'B',
@@ -5921,16 +5921,16 @@ class ModelReadTest extends BaseModelTest {
 							array(
 								'id' => '2',
 								'name' => 'computer'
-		))))));
+							))))));
 
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testReadFakeThread method
- *
- * @return void
- */
+	/**
+	 * testReadFakeThread method
+	 *
+	 * @return void
+	 */
 	public function testReadFakeThread() {
 		$this->loadFixtures('CategoryThread');
 		$TestModel = new CategoryThread();
@@ -5984,17 +5984,17 @@ class ModelReadTest extends BaseModelTest {
 									'name' => 'Category 1',
 									'created' => '2007-03-18 15:30:23',
 									'updated' => '2007-03-18 15:32:31'
-		)))))));
+								)))))));
 
 		$this->db->fullDebug = $fullDebug;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindFakeThread method
- *
- * @return void
- */
+	/**
+	 * testFindFakeThread method
+	 *
+	 * @return void
+	 */
 	public function testFindFakeThread() {
 		$this->loadFixtures('CategoryThread');
 		$TestModel = new CategoryThread();
@@ -6048,17 +6048,17 @@ class ModelReadTest extends BaseModelTest {
 									'name' => 'Category 1',
 									'created' => '2007-03-18 15:30:23',
 									'updated' => '2007-03-18 15:32:31'
-		)))))));
+								)))))));
 
 		$this->db->fullDebug = $fullDebug;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllFakeThread method
- *
- * @return void
- */
+	/**
+	 * testFindAllFakeThread method
+	 *
+	 * @return void
+	 */
 	public function testFindAllFakeThread() {
 		$this->loadFixtures('CategoryThread');
 		$TestModel = new CategoryThread();
@@ -6070,11 +6070,11 @@ class ModelReadTest extends BaseModelTest {
 		$expected = array(
 			array(
 				'CategoryThread' => array(
-				'id' => 1,
-				'parent_id' => 0,
-				'name' => 'Category 1',
-				'created' => '2007-03-18 15:30:23',
-				'updated' => '2007-03-18 15:32:31'
+					'id' => 1,
+					'parent_id' => 0,
+					'name' => 'Category 1',
+					'created' => '2007-03-18 15:30:23',
+					'updated' => '2007-03-18 15:32:31'
 				),
 				'ParentCategory' => array(
 					'id' => null,
@@ -6083,7 +6083,7 @@ class ModelReadTest extends BaseModelTest {
 					'created' => null,
 					'updated' => null,
 					'ParentCategory' => array()
-			)),
+				)),
 			array(
 				'CategoryThread' => array(
 					'id' => 2,
@@ -6121,7 +6121,7 @@ class ModelReadTest extends BaseModelTest {
 						'created' => '2007-03-18 15:30:23',
 						'updated' => '2007-03-18 15:32:31',
 						'ParentCategory' => array()
-			))),
+					))),
 			array(
 				'CategoryThread' => array(
 					'id' => 4,
@@ -6149,7 +6149,7 @@ class ModelReadTest extends BaseModelTest {
 							'created' => '2007-03-18 15:30:23',
 							'updated' => '2007-03-18 15:32:31',
 							'ParentCategory' => array()
-			)))),
+						)))),
 			array(
 				'CategoryThread' => array(
 					'id' => 5,
@@ -6183,7 +6183,7 @@ class ModelReadTest extends BaseModelTest {
 								'created' => '2007-03-18 15:30:23',
 								'updated' => '2007-03-18 15:32:31',
 								'ParentCategory' => array()
-			))))),
+							))))),
 			array(
 				'CategoryThread' => array(
 					'id' => 6,
@@ -6223,7 +6223,7 @@ class ModelReadTest extends BaseModelTest {
 									'created' => '2007-03-18 15:30:23',
 									'updated' => '2007-03-18 15:32:31',
 									'ParentCategory' => array()
-			)))))),
+								)))))),
 			array(
 				'CategoryThread' => array(
 					'id' => 7,
@@ -6256,29 +6256,29 @@ class ModelReadTest extends BaseModelTest {
 								'name' => 'Category 1.1.1',
 								'created' => '2007-03-18 15:30:23',
 								'updated' => '2007-03-18 15:32:31',
-							'ParentCategory' => array(
-								'id' => 2,
-								'parent_id' => 1,
-								'name' => 'Category 1.1',
-								'created' => '2007-03-18 15:30:23',
-								'updated' => '2007-03-18 15:32:31',
 								'ParentCategory' => array(
-									'id' => 1,
-									'parent_id' => 0,
-									'name' => 'Category 1',
+									'id' => 2,
+									'parent_id' => 1,
+									'name' => 'Category 1.1',
 									'created' => '2007-03-18 15:30:23',
-									'updated' => '2007-03-18 15:32:31'
-		))))))));
+									'updated' => '2007-03-18 15:32:31',
+									'ParentCategory' => array(
+										'id' => 1,
+										'parent_id' => 0,
+										'name' => 'Category 1',
+										'created' => '2007-03-18 15:30:23',
+										'updated' => '2007-03-18 15:32:31'
+									))))))));
 
 		$this->db->fullDebug = $fullDebug;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testConditionalNumerics method
- *
- * @return void
- */
+	/**
+	 * testConditionalNumerics method
+	 *
+	 * @return void
+	 */
 	public function testConditionalNumerics() {
 		$this->loadFixtures('NumericArticle');
 		$NumericArticle = new NumericArticle();
@@ -6291,11 +6291,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(empty($result));
 	}
 
-/**
- * test buildQuery()
- *
- * @return void
- */
+	/**
+	 * test buildQuery()
+	 *
+	 * @return void
+	 */
 	public function testBuildQuery() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6321,11 +6321,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test find('all') method
- *
- * @return void
- */
+	/**
+	 * test find('all') method
+	 *
+	 * @return void
+	 */
 	public function testFindAll() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6340,7 +6340,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -6348,7 +6348,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:18:23',
 					'updated' => '2007-03-17 01:20:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -6356,7 +6356,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '4',
@@ -6364,7 +6364,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:22:23',
 					'updated' => '2007-03-17 01:24:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('all', array('conditions' => 'User.id > 2'));
@@ -6376,7 +6376,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '4',
@@ -6384,7 +6384,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:22:23',
 					'updated' => '2007-03-17 01:24:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('all', array(
@@ -6398,7 +6398,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '4',
@@ -6406,7 +6406,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:22:23',
 					'updated' => '2007-03-17 01:24:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('all', array('conditions' => array('User.id' => '0')));
@@ -6415,7 +6415,7 @@ class ModelReadTest extends BaseModelTest {
 
 		$result = $TestModel->find('all', array(
 			'conditions' => array('or' => array('User.id' => '0', 'User.user LIKE' => '%a%')
-		)));
+			)));
 
 		$expected = array(
 			array(
@@ -6425,7 +6425,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -6433,7 +6433,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:18:23',
 					'updated' => '2007-03-17 01:20:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -6441,7 +6441,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '4',
@@ -6449,31 +6449,31 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:22:23',
 					'updated' => '2007-03-17 01:24:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('all', array('fields' => 'User.id, User.user'));
 		$expected = array(
-				array('User' => array('id' => '1', 'user' => 'mariano')),
-				array('User' => array('id' => '2', 'user' => 'nate')),
-				array('User' => array('id' => '3', 'user' => 'larry')),
-				array('User' => array('id' => '4', 'user' => 'garrett')));
+			array('User' => array('id' => '1', 'user' => 'mariano')),
+			array('User' => array('id' => '2', 'user' => 'nate')),
+			array('User' => array('id' => '3', 'user' => 'larry')),
+			array('User' => array('id' => '4', 'user' => 'garrett')));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('all', array('fields' => 'User.user', 'order' => 'User.user ASC'));
 		$expected = array(
-				array('User' => array('user' => 'garrett')),
-				array('User' => array('user' => 'larry')),
-				array('User' => array('user' => 'mariano')),
-				array('User' => array('user' => 'nate')));
+			array('User' => array('user' => 'garrett')),
+			array('User' => array('user' => 'larry')),
+			array('User' => array('user' => 'mariano')),
+			array('User' => array('user' => 'nate')));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('all', array('fields' => 'User.user', 'order' => 'User.user DESC'));
 		$expected = array(
-				array('User' => array('user' => 'nate')),
-				array('User' => array('user' => 'mariano')),
-				array('User' => array('user' => 'larry')),
-				array('User' => array('user' => 'garrett')));
+			array('User' => array('user' => 'nate')),
+			array('User' => array('user' => 'mariano')),
+			array('User' => array('user' => 'larry')),
+			array('User' => array('user' => 'garrett')));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->find('all', array('limit' => 3, 'page' => 1));
@@ -6486,7 +6486,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '2',
@@ -6494,7 +6494,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:18:23',
 					'updated' => '2007-03-17 01:20:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -6502,7 +6502,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$ids = array(4 => 1, 5 => 3);
@@ -6518,7 +6518,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:16:23',
 					'updated' => '2007-03-17 01:18:31'
-			)),
+				)),
 			array(
 				'User' => array(
 					'id' => '3',
@@ -6526,7 +6526,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		// These tests are expected to fail on SQL Server since the LIMIT/OFFSET
@@ -6541,7 +6541,7 @@ class ModelReadTest extends BaseModelTest {
 						'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 						'created' => '2007-03-17 01:22:23',
 						'updated' => '2007-03-17 01:24:31'
-			)));
+					)));
 			$this->assertEquals($expected, $result);
 
 			$result = $TestModel->find('all', array('limit' => 3, 'page' => 3));
@@ -6550,11 +6550,11 @@ class ModelReadTest extends BaseModelTest {
 		}
 	}
 
-/**
- * Test that find() with array conditions works when there is only one element.
- *
- * @return void
- */
+	/**
+	 * Test that find() with array conditions works when there is only one element.
+	 *
+	 * @return void
+	 */
 	public function testFindAllArrayConditions() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6571,7 +6571,7 @@ class ModelReadTest extends BaseModelTest {
 					'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 					'created' => '2007-03-17 01:20:23',
 					'updated' => '2007-03-17 01:22:31'
-			))
+				))
 		);
 		$this->assertEquals($expected, $result);
 
@@ -6581,11 +6581,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test find('list') method
- *
- * @return void
- */
+	/**
+	 * test find('list') method
+	 *
+	 * @return void
+	 */
 	public function testFindList() {
 		$this->loadFixtures('Article', 'Apple', 'Post', 'Author', 'User', 'Comment');
 
@@ -6663,7 +6663,7 @@ class ModelReadTest extends BaseModelTest {
 				'published' => 'Y',
 				'created' => '2007-03-18 10:43:23',
 				'updated' => '2007-03-18 10:45:31'
-		));
+			));
 
 		$this->assertEquals($expected, $result);
 
@@ -6702,7 +6702,7 @@ class ModelReadTest extends BaseModelTest {
 					'published' => 'Y',
 					'created' => '2007-03-18 10:41:23',
 					'updated' => '2007-03-18 10:43:31'
-		)));
+				)));
 
 		$this->assertEquals($expected, $result);
 
@@ -6721,7 +6721,7 @@ class ModelReadTest extends BaseModelTest {
 			),
 			3 => array(
 				2 => 'Second Article'
-		));
+			));
 		$this->assertEquals($expected, $result);
 
 		$TestModel = new Apple();
@@ -6816,7 +6816,7 @@ class ModelReadTest extends BaseModelTest {
 			),
 			'larry' => array(
 				2 => 'Second Post'
-		));
+			));
 		$this->assertEquals($expected, $result);
 
 		$TestModel = new User();
@@ -6856,11 +6856,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that find(list) works with array conditions that have only one element.
- *
- * @return void
- */
+	/**
+	 * Test that find(list) works with array conditions that have only one element.
+	 *
+	 * @return void
+	 */
 	public function testFindListArrayCondition() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6882,11 +6882,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindField method
- *
- * @return void
- */
+	/**
+	 * testFindField method
+	 *
+	 * @return void
+	 */
 	public function testFindField() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6911,11 +6911,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals(4, $result);
 	}
 
-/**
- * testFindUnique method
- *
- * @return void
- */
+	/**
+	 * testFindUnique method
+	 *
+	 * @return void
+	 */
 	public function testFindUnique() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6933,11 +6933,11 @@ class ModelReadTest extends BaseModelTest {
 		)));
 	}
 
-/**
- * test find('count') method
- *
- * @return void
- */
+	/**
+	 * test find('count') method
+	 *
+	 * @return void
+	 */
 	public function testFindCount() {
 		$this->loadFixtures('User', 'Article', 'Comment', 'Tag', 'ArticlesTag');
 
@@ -6962,16 +6962,16 @@ class ModelReadTest extends BaseModelTest {
 		$Article->order = null;
 		$Article->recursive = -1;
 		$expected = count($Article->find('all', array(
-			'fields' => array('Article.user_id'),
-			'group' => 'Article.user_id')
+				'fields' => array('Article.user_id'),
+				'group' => 'Article.user_id')
 		));
 		$result = $Article->find('count', array('group' => array('Article.user_id')));
 		$this->assertEquals($expected, $result);
 
 		$expected = count($Article->find('all', array(
-			'fields' => array('Article.user_id'),
-			'conditions' => array('Article.user_id' => 1),
-			'group' => 'Article.user_id')
+				'fields' => array('Article.user_id'),
+				'conditions' => array('Article.user_id' => 1),
+				'group' => 'Article.user_id')
 		));
 		$result = $Article->find('count', array(
 			'conditions' => array('Article.user_id' => 1),
@@ -6980,11 +6980,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that find('first') does not use the id set to the object.
- *
- * @return void
- */
+	/**
+	 * Test that find('first') does not use the id set to the object.
+	 *
+	 * @return void
+	 */
 	public function testFindFirstNoIdUsed() {
 		$this->loadFixtures('Project');
 
@@ -6995,11 +6995,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals('Project 1', $result['Project']['name'], 'Wrong record retrieved');
 	}
 
-/**
- * test find with COUNT(DISTINCT field)
- *
- * @return void
- */
+	/**
+	 * test find with COUNT(DISTINCT field)
+	 *
+	 * @return void
+	 */
 	public function testFindCountDistinct() {
 		$this->skipIf($this->db instanceof Sqlite, 'SELECT COUNT(DISTINCT field) is not compatible with SQLite.');
 		$this->skipIf($this->db instanceof Sqlserver, 'This test is not compatible with SQL Server.');
@@ -7014,11 +7014,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals(4, $result);
 	}
 
-/**
- * Test find(count) with Db::expression
- *
- * @return void
- */
+	/**
+	 * Test find(count) with Db::expression
+	 *
+	 * @return void
+	 */
 	public function testFindCountWithDbExpressions() {
 		$this->skipIf($this->db instanceof Postgres, 'testFindCountWithDbExpressions is not compatible with Postgres.');
 
@@ -7037,11 +7037,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals(1, $result);
 	}
 
-/**
- * testFindMagic method
- *
- * @return void
- */
+	/**
+	 * testFindMagic method
+	 *
+	 * @return void
+	 */
 	public function testFindMagic() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -7054,7 +7054,7 @@ class ModelReadTest extends BaseModelTest {
 				'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 				'created' => '2007-03-17 01:16:23',
 				'updated' => '2007-03-17 01:18:31'
-		));
+			));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->findByPassword('5f4dcc3b5aa765d61d8327deb882cf99');
@@ -7068,11 +7068,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRead method
- *
- * @return void
- */
+	/**
+	 * testRead method
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$this->loadFixtures('User', 'Article');
 		$TestModel = new User();
@@ -7089,7 +7089,7 @@ class ModelReadTest extends BaseModelTest {
 				'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 				'created' => '2007-03-17 01:18:23',
 				'updated' => '2007-03-17 01:20:31'
-		));
+			));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->read(null, 2);
@@ -7100,7 +7100,7 @@ class ModelReadTest extends BaseModelTest {
 				'password' => '5f4dcc3b5aa765d61d8327deb882cf99',
 				'created' => '2007-03-17 01:18:23',
 				'updated' => '2007-03-17 01:20:31'
-		));
+			));
 		$this->assertEquals($expected, $result);
 
 		$TestModel->id = 2;
@@ -7113,7 +7113,7 @@ class ModelReadTest extends BaseModelTest {
 			'User' => array(
 				'id' => '2',
 				'user' => 'nate'
-		));
+			));
 		$this->assertEquals($expected, $result);
 
 		$result = $TestModel->bindModel(array('hasMany' => array('Article')));
@@ -7144,15 +7144,15 @@ class ModelReadTest extends BaseModelTest {
 					'published' => 'Y',
 					'created' => '2007-03-18 10:43:23',
 					'updated' => '2007-03-18 10:45:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecursiveRead method
- *
- * @return void
- */
+	/**
+	 * testRecursiveRead method
+	 *
+	 * @return void
+	 */
 	public function testRecursiveRead() {
 		$this->loadFixtures(
 			'User',
@@ -7200,7 +7200,7 @@ class ModelReadTest extends BaseModelTest {
 					'published' => 'Y',
 					'created' => '2007-03-18 10:43:23',
 					'updated' => '2007-03-18 10:45:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 
 		$TestModel->recursive = 2;
@@ -7244,7 +7244,7 @@ class ModelReadTest extends BaseModelTest {
 							'published' => 'Y',
 							'created' => '2007-03-18 10:55:23',
 							'updated' => '2007-03-18 10:57:31'
-					)),
+						)),
 					'Tag' => array(
 						array(
 							'id' => '1',
@@ -7257,7 +7257,7 @@ class ModelReadTest extends BaseModelTest {
 							'tag' => 'tag3',
 							'created' => '2007-03-18 12:26:23',
 							'updated' => '2007-03-18 12:28:31'
-		)))));
+						)))));
 		$this->assertEquals($expected, $result);
 	}
 
@@ -7345,7 +7345,7 @@ class ModelReadTest extends BaseModelTest {
 						'tag' => 'tag2',
 						'created' => '2007-03-18 12:24:23',
 						'updated' => '2007-03-18 12:26:31'
-			))),
+					))),
 			array(
 				'Article' => array(
 					'id' => '3',
@@ -7465,7 +7465,7 @@ class ModelReadTest extends BaseModelTest {
 						'tag' => 'tag3',
 						'created' => '2007-03-18 12:26:23',
 						'updated' => '2007-03-18 12:28:31'
-		))));
+					))));
 
 		$this->assertEquals($expected, $result);
 
@@ -7482,8 +7482,8 @@ class ModelReadTest extends BaseModelTest {
 		));
 
 		$Featured->ArticleFeatured->unbindModel(array(
-			'hasMany' => array('Attachment', 'Comment'),
-			'hasAndBelongsToMany' => array('Tag'))
+				'hasMany' => array('Attachment', 'Comment'),
+				'hasAndBelongsToMany' => array('Tag'))
 		);
 
 		$orderBy = 'ArticleFeatured.id ASC';
@@ -7523,7 +7523,7 @@ class ModelReadTest extends BaseModelTest {
 						'end_date' => '2007-05-15 10:39:23',
 						'created' => '2007-03-18 10:39:23',
 						'updated' => '2007-03-18 10:41:31'
-				)),
+					)),
 				'Category' => array(
 					'id' => '1',
 					'parent_id' => '0',
@@ -7562,22 +7562,22 @@ class ModelReadTest extends BaseModelTest {
 						'end_date' => '2007-05-15 10:39:23',
 						'created' => '2007-03-18 10:39:23',
 						'updated' => '2007-03-18 10:41:31'
-				)),
+					)),
 				'Category' => array(
 					'id' => '1',
 					'parent_id' => '0',
 					'name' => 'Category 1',
 					'created' => '2007-03-18 15:30:23',
 					'updated' => '2007-03-18 15:32:31'
-		)));
+				)));
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecursiveFindAllWithLimit method
- *
- * @return void
- */
+	/**
+	 * testRecursiveFindAllWithLimit method
+	 *
+	 * @return void
+	 */
 	public function testRecursiveFindAllWithLimit() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag', 'Comment', 'Attachment');
 		$TestModel = new Article();
@@ -7637,7 +7637,7 @@ class ModelReadTest extends BaseModelTest {
 						'tag' => 'tag2',
 						'created' => '2007-03-18 12:24:23',
 						'updated' => '2007-03-18 12:26:31'
-			))),
+					))),
 			array(
 				'Article' => array(
 					'id' => '3',
@@ -7739,11 +7739,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Testing availability of $this->findQueryType in Model callbacks
- *
- * @return void
- */
+	/**
+	 * Testing availability of $this->findQueryType in Model callbacks
+	 *
+	 * @return void
+	 */
 	public function testFindQueryTypeInCallbacks() {
 		$this->loadFixtures('Comment');
 		$Comment = new AgainModifiedComment();
@@ -7753,14 +7753,14 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals('first', $comments['Comment']['querytype']);
 	}
 
-/**
- * testVirtualFields()
- *
- * Test correct fetching of virtual fields
- * currently is not possible to do Relation.virtualField
- *
- * @return void
- */
+	/**
+	 * testVirtualFields()
+	 *
+	 * Test correct fetching of virtual fields
+	 * currently is not possible to do Relation.virtualField
+	 *
+	 * @return void
+	 */
 	public function testVirtualFields() {
 		$this->loadFixtures('Post', 'Author');
 		$Post = ClassRegistry::init('Post');
@@ -7836,13 +7836,13 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals(4, $result);
 	}
 
-/**
- * testVirtualFieldsOrder()
- *
- * Test correct order on virtual fields
- *
- * @return void
- */
+	/**
+	 * testVirtualFieldsOrder()
+	 *
+	 * Test correct order on virtual fields
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsOrder() {
 		$this->loadFixtures('Post', 'Author');
 		$Post = ClassRegistry::init('Post');
@@ -7882,14 +7882,14 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testVirtualFieldsMysql()
- *
- * Test correct fetching of virtual fields
- * currently is not possible to do Relation.virtualField
- *
- * @return void
- */
+	/**
+	 * testVirtualFieldsMysql()
+	 *
+	 * Test correct fetching of virtual fields
+	 * currently is not possible to do Relation.virtualField
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsMysql() {
 		$this->skipIf(!($this->db instanceof Mysql), 'The rest of virtualFields test only compatible with Mysql.');
 
@@ -7936,11 +7936,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(isset($result['Author']['full_name']));
 	}
 
-/**
- * test that virtual fields work when they don't contain functions.
- *
- * @return void
- */
+	/**
+	 * test that virtual fields work when they don't contain functions.
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldAsAString() {
 		$this->loadFixtures('Post', 'Author');
 		$Post = new Post();
@@ -7951,11 +7951,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(isset($result['Post']['writer']), 'virtual field not fetched %s');
 	}
 
-/**
- * test that isVirtualField will accept both aliased and non aliased fieldnames
- *
- * @return void
- */
+	/**
+	 * test that isVirtualField will accept both aliased and non aliased fieldnames
+	 *
+	 * @return void
+	 */
 	public function testIsVirtualField() {
 		$this->loadFixtures('Post');
 		$Post = ClassRegistry::init('Post');
@@ -7969,11 +7969,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertFalse($Post->isVirtualField(array()));
 	}
 
-/**
- * test that getting virtual fields works with and without model alias attached
- *
- * @return void
- */
+	/**
+	 * test that getting virtual fields works with and without model alias attached
+	 *
+	 * @return void
+	 */
 	public function testGetVirtualField() {
 		$this->loadFixtures('Post');
 		$Post = ClassRegistry::init('Post');
@@ -7983,11 +7983,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($Post->getVirtualField('Post.other_field'), $Post->virtualFields['other_field']);
 	}
 
-/**
- * test that checks for error when NOT condition passed in key and a 1 element array value
- *
- * @return void
- */
+	/**
+	 * test that checks for error when NOT condition passed in key and a 1 element array value
+	 *
+	 * @return void
+	 */
 	public function testNotInArrayWithOneValue() {
 		$this->loadFixtures('Article');
 		$Article = new Article();
@@ -8004,11 +8004,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(is_array($result) && !empty($result));
 	}
 
-/**
- * test to assert that != in key together with a single element array will work
- *
- * @return void
- */
+	/**
+	 * test to assert that != in key together with a single element array will work
+	 *
+	 * @return void
+	 */
 	public function testNotEqualsInArrayWithOneValue() {
 		$this->loadFixtures('Article');
 		$Article = new Article();
@@ -8025,11 +8025,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertTrue(is_array($result) && !empty($result));
 	}
 
-/**
- * test custom find method
- *
- * @return void
- */
+	/**
+	 * test custom find method
+	 *
+	 * @return void
+	 */
 	public function testfindCustom() {
 		$this->loadFixtures('Article');
 		$Article = new CustomArticle();
@@ -8045,11 +8045,11 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals(1, count($result));
 	}
 
-/**
- * test after find callback on related model
- * 
- * @return void 
- */
+	/**
+	 * test after find callback on related model
+	 *
+	 * @return void
+	 */
 	public function testRelatedAfterFindCallback() {
 		$this->loadFixtures('Something', 'SomethingElse', 'JoinThing');
 		$Something = new Something();

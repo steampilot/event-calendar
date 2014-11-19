@@ -28,13 +28,13 @@ App::uses('View', 'View');
  */
 class ScaffoldView extends View {
 
-/**
- * Override _getViewFileName Appends special scaffolding views in.
- *
- * @param string $name name of the view file to get.
- * @return string action
- * @throws MissingViewException
- */
+	/**
+	 * Override _getViewFileName Appends special scaffolding views in.
+	 *
+	 * @param string $name name of the view file to get.
+	 * @return string action
+	 * @throws MissingViewException
+	 */
 	protected function _getViewFileName($name = null) {
 		if ($name === null) {
 			$name = $this->action;

@@ -25,29 +25,29 @@ App::uses('Cache', 'Cache');
  */
 class FileEngineTest extends CakeTestCase {
 
-/**
- * config property
- *
- * @var array
- */
+	/**
+	 * config property
+	 *
+	 * @var array
+	 */
 	public $config = array();
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Cache.disable', false);
 		Cache::config('file_test', array('engine' => 'File', 'path' => CACHE));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		// Cache::clear(false, 'file_test');
@@ -57,11 +57,11 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('file_groups3');
 	}
 
-/**
- * testCacheDirChange method
- *
- * @return void
- */
+	/**
+	 * testCacheDirChange method
+	 *
+	 * @return void
+	 */
 	public function testCacheDirChange() {
 		$result = Cache::config('sessions', array('engine' => 'File', 'path' => TMP . 'sessions'));
 		$this->assertEquals(Cache::settings('sessions'), $result['settings']);
@@ -71,11 +71,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertNotEquals(Cache::settings('default'), $result['settings']);
 	}
 
-/**
- * testReadAndWriteCache method
- *
- * @return void
- */
+	/**
+	 * testReadAndWriteCache method
+	 *
+	 * @return void
+	 */
 	public function testReadAndWriteCache() {
 		Cache::config('default');
 
@@ -99,11 +99,11 @@ class FileEngineTest extends CakeTestCase {
 		Cache::delete('test', 'file_test');
 	}
 
-/**
- * Test read/write on the same cache key. Ensures file handles are re-wound.
- *
- * @return void
- */
+	/**
+	 * Test read/write on the same cache key. Ensures file handles are re-wound.
+	 *
+	 * @return void
+	 */
 	public function testConsecutiveReadWrite() {
 		Cache::write('rw', 'first write', 'file_test');
 		$result = Cache::read('rw', 'file_test');
@@ -116,11 +116,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertEquals('second write', $resultB);
 	}
 
-/**
- * testExpiry method
- *
- * @return void
- */
+	/**
+	 * testExpiry method
+	 *
+	 * @return void
+	 */
 	public function testExpiry() {
 		Cache::set(array('duration' => 1), 'file_test');
 
@@ -146,11 +146,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testDeleteCache method
- *
- * @return void
- */
+	/**
+	 * testDeleteCache method
+	 *
+	 * @return void
+	 */
 	public function testDeleteCache() {
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('delete_test', $data, 'file_test');
@@ -164,11 +164,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testSerialize method
- *
- * @return void
- */
+	/**
+	 * testSerialize method
+	 *
+	 * @return void
+	 */
 	public function testSerialize() {
 		Cache::config('file_test', array('engine' => 'File', 'serialize' => true));
 		$data = 'this is a test of the emergency broadcasting system';
@@ -187,11 +187,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertSame(unserialize($newread), $data);
 	}
 
-/**
- * testClear method
- *
- * @return void
- */
+	/**
+	 * testClear method
+	 *
+	 * @return void
+	 */
 	public function testClear() {
 		Cache::config('file_test', array('engine' => 'File', 'duration' => 1));
 
@@ -224,11 +224,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse(file_exists(CACHE . 'cake_serialize_test3'));
 	}
 
-/**
- * test that clear() doesn't wipe files not in the current engine's prefix.
- *
- * @return void
- */
+	/**
+	 * test that clear() doesn't wipe files not in the current engine's prefix.
+	 *
+	 * @return void
+	 */
 	public function testClearWithPrefixes() {
 		$FileOne = new FileEngine();
 		$FileOne->init(array(
@@ -253,11 +253,11 @@ class FileEngineTest extends CakeTestCase {
 		$FileTwo->clear(false);
 	}
 
-/**
- * Test that clear() also removes files with group tags.
- *
- * @return void
- */
+	/**
+	 * Test that clear() also removes files with group tags.
+	 *
+	 * @return void
+	 */
 	public function testClearWithGroups() {
 		$engine = new FileEngine();
 		$engine->init(array(
@@ -271,11 +271,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse($engine->read($key), 'Key should have been removed');
 	}
 
-/**
- * Test that clear() also removes files with group tags.
- *
- * @return void
- */
+	/**
+	 * Test that clear() also removes files with group tags.
+	 *
+	 * @return void
+	 */
 	public function testClearWithNoKeys() {
 		$engine = new FileEngine();
 		$engine->init(array(
@@ -288,11 +288,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse($engine->read($key), 'No errors should be found');
 	}
 
-/**
- * testKeyPath method
- *
- * @return void
- */
+	/**
+	 * testKeyPath method
+	 *
+	 * @return void
+	 */
 	public function testKeyPath() {
 		$result = Cache::write('views.countries.something', 'here', 'file_test');
 		$this->assertTrue($result);
@@ -313,11 +313,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertTrue(file_exists(CACHE . 'cake_command_dir_more'));
 	}
 
-/**
- * testRemoveWindowsSlashesFromCache method
- *
- * @return void
- */
+	/**
+	 * testRemoveWindowsSlashesFromCache method
+	 *
+	 * @return void
+	 */
 	public function testRemoveWindowsSlashesFromCache() {
 		Cache::config('windows_test', array('engine' => 'File', 'isWindows' => true, 'prefix' => null, 'path' => TMP));
 
@@ -358,11 +358,11 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('windows_test');
 	}
 
-/**
- * testWriteQuotedString method
- *
- * @return void
- */
+	/**
+	 * testWriteQuotedString method
+	 *
+	 * @return void
+	 */
 	public function testWriteQuotedString() {
 		Cache::config('file_test', array('engine' => 'File', 'path' => TMP . 'tests'));
 		Cache::write('App.doubleQuoteTest', '"this is a quoted string"', 'file_test');
@@ -378,11 +378,11 @@ class FileEngineTest extends CakeTestCase {
 		Cache::delete('App.doubleQuoteTest', 'file_test');
 	}
 
-/**
- * check that FileEngine does not generate an error when a configured Path does not exist in debug mode.
- *
- * @return void
- */
+	/**
+	 * check that FileEngine does not generate an error when a configured Path does not exist in debug mode.
+	 *
+	 * @return void
+	 */
 	public function testPathDoesNotExist() {
 		$this->skipIf(is_dir(TMP . 'tests' . DS . 'autocreate'), 'Cannot run if test directory exists.');
 
@@ -394,11 +394,11 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('autocreate');
 	}
 
-/**
- * Testing the mask setting in FileEngine
- *
- * @return void
- */
+	/**
+	 * Testing the mask setting in FileEngine
+	 *
+	 * @return void
+	 */
 	public function testMaskSetting() {
 		if (DS === '\\') {
 			$this->markTestSkipped('File permission testing does not work on Windows.');
@@ -437,11 +437,11 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('mask_test');
 	}
 
-/**
- * Tests that configuring groups for stored keys return the correct values when read/written
- *
- * @return void
- */
+	/**
+	 * Tests that configuring groups for stored keys return the correct values when read/written
+	 *
+	 * @return void
+	 */
 	public function testGroupsReadWrite() {
 		Cache::config('file_groups', array('engine' => 'File', 'duration' => 3600, 'groups' => array('group_a', 'group_b')));
 		$this->assertTrue(Cache::write('test_groups', 'value', 'file_groups'));
@@ -451,11 +451,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertTrue(Cache::write('test_groups3', 'value3', 'file_groups'));
 	}
 
-/**
- * Test that clearing with repeat writes works properly
- *
- * @return void
- */
+	/**
+	 * Test that clearing with repeat writes works properly
+	 *
+	 * @return void
+	 */
 	public function testClearingWithRepeatWrites() {
 		Cache::config('repeat', array(
 			'engine' => 'File', 'groups' => array('users')
@@ -479,11 +479,11 @@ class FileEngineTest extends CakeTestCase {
 		Cache::drop('repeat');
 	}
 
-/**
- * Tests that deleting from a groups-enabled config is possible
- *
- * @return void
- */
+	/**
+	 * Tests that deleting from a groups-enabled config is possible
+	 *
+	 * @return void
+	 */
 	public function testGroupDelete() {
 		Cache::config('file_groups', array(
 			'engine' => 'File',
@@ -497,11 +497,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse(Cache::read('test_groups', 'file_groups'));
 	}
 
-/**
- * Test clearing a cache group
- *
- * @return void
- */
+	/**
+	 * Test clearing a cache group
+	 *
+	 * @return void
+	 */
 	public function testGroupClear() {
 		Cache::config('file_groups', array('engine' => 'File', 'duration' => 3600, 'groups' => array('group_a', 'group_b')));
 		Cache::config('file_groups2', array('engine' => 'File', 'duration' => 3600, 'groups' => array('group_b')));
@@ -531,11 +531,11 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertEquals('value 3', Cache::read('test_groups6', 'file_groups3'));
 	}
 
-/**
- * Test that clearGroup works with no prefix.
- *
- * @return void
- */
+	/**
+	 * Test that clearGroup works with no prefix.
+	 *
+	 * @return void
+	 */
 	public function testGroupClearNoPrefix() {
 		Cache::config('file_groups', array(
 			'engine' => 'File',

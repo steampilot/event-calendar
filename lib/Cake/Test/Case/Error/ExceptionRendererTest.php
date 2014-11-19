@@ -28,11 +28,11 @@ App::uses('Router', 'Routing');
  */
 class AuthBlueberryUser extends CakeTestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = false;
 }
 
@@ -43,18 +43,18 @@ class AuthBlueberryUser extends CakeTestModel {
  */
 class BlueberryComponent extends Component {
 
-/**
- * testName property
- *
- * @return void
- */
+	/**
+	 * testName property
+	 *
+	 * @return void
+	 */
 	public $testName = null;
 
-/**
- * initialize method
- *
- * @return void
- */
+	/**
+	 * initialize method
+	 *
+	 * @return void
+	 */
 	public function initialize(Controller $controller) {
 		$this->testName = 'BlueberryComponent';
 	}
@@ -68,34 +68,34 @@ class BlueberryComponent extends Component {
  */
 class TestErrorController extends Controller {
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * components property
- *
- * @return void
- */
+	/**
+	 * components property
+	 *
+	 * @return void
+	 */
 	public $components = array('Blueberry');
 
-/**
- * beforeRender method
- *
- * @return void
- */
+	/**
+	 * beforeRender method
+	 *
+	 * @return void
+	 */
 	public function beforeRender() {
 		echo $this->Blueberry->testName;
 	}
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		$this->autoRender = false;
 		return 'what up';
@@ -110,11 +110,11 @@ class TestErrorController extends Controller {
  */
 class MyCustomExceptionRenderer extends ExceptionRenderer {
 
-/**
- * custom error message type.
- *
- * @return void
- */
+	/**
+	 * custom error message type.
+	 *
+	 * @return void
+	 */
 	public function missingWidgetThing() {
 		echo 'widget thing is missing';
 	}
@@ -138,11 +138,11 @@ class ExceptionRendererTest extends CakeTestCase {
 
 	protected $_restoreError = false;
 
-/**
- * setup create a request object to get out of router later.
- *
- * @return void
- */
+	/**
+	 * setup create a request object to get out of router later.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Config.language', 'eng');
@@ -159,11 +159,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		Configure::write('debug', 2);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		if ($this->_restoreError) {
@@ -171,22 +171,22 @@ class ExceptionRendererTest extends CakeTestCase {
 		}
 	}
 
-/**
- * Mocks out the response on the ExceptionRenderer object so headers aren't modified.
- *
- * @return void
- */
+	/**
+	 * Mocks out the response on the ExceptionRenderer object so headers aren't modified.
+	 *
+	 * @return void
+	 */
 	protected function _mockResponse($error) {
 		$error->controller->response = $this->getMock('CakeResponse', array('_sendHeader'));
 		return $error;
 	}
 
-/**
- * test that methods declared in an ExceptionRenderer subclass are not converted
- * into error400 when debug > 0
- *
- * @return void
- */
+	/**
+	 * test that methods declared in an ExceptionRenderer subclass are not converted
+	 * into error400 when debug > 0
+	 *
+	 * @return void
+	 */
 	public function testSubclassMethodsNotBeingConvertedToError() {
 		Configure::write('debug', 2);
 
@@ -200,11 +200,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertEquals('widget thing is missing', $result);
 	}
 
-/**
- * test that subclass methods are not converted when debug = 0
- *
- * @return void
- */
+	/**
+	 * test that subclass methods are not converted when debug = 0
+	 *
+	 * @return void
+	 */
 	public function testSubclassMethodsNotBeingConvertedDebug0() {
 		Configure::write('debug', 0);
 		$exception = new MissingWidgetThingException('Widget not found');
@@ -219,11 +219,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertEquals('widget thing is missing', $result, 'Method declared in subclass converted to error400');
 	}
 
-/**
- * test that ExceptionRenderer subclasses properly convert framework errors.
- *
- * @return void
- */
+	/**
+	 * test that ExceptionRenderer subclasses properly convert framework errors.
+	 *
+	 * @return void
+	 */
 	public function testSubclassConvertingFrameworkErrors() {
 		Configure::write('debug', 0);
 
@@ -239,11 +239,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertRegExp('/Not Found/', $result, 'Method declared in error handler not converted to error400. %s');
 	}
 
-/**
- * test things in the constructor.
- *
- * @return void
- */
+	/**
+	 * test things in the constructor.
+	 *
+	 * @return void
+	 */
 	public function testConstruction() {
 		$exception = new NotFoundException('Page not found');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -253,11 +253,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertEquals($exception, $ExceptionRenderer->error);
 	}
 
-/**
- * test that method gets coerced when debug = 0
- *
- * @return void
- */
+	/**
+	 * test that method gets coerced when debug = 0
+	 *
+	 * @return void
+	 */
 	public function testErrorMethodCoercion() {
 		Configure::write('debug', 0);
 		$exception = new MissingActionException('Page not found');
@@ -268,11 +268,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertEquals($exception, $ExceptionRenderer->error);
 	}
 
-/**
- * test that helpers in custom CakeErrorController are not lost
- *
- * @return void
- */
+	/**
+	 * test that helpers in custom CakeErrorController are not lost
+	 *
+	 * @return void
+	 */
 	public function testCakeErrorHelpersNotLost() {
 		$testApp = CAKE . 'Test' . DS . 'test_app' . DS;
 		App::build(array(
@@ -300,11 +300,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('<b>peeled</b>', $result);
 	}
 
-/**
- * test that unknown exception types with valid status codes are treated correctly.
- *
- * @return void
- */
+	/**
+	 * test that unknown exception types with valid status codes are treated correctly.
+	 *
+	 * @return void
+	 */
 	public function testUnknownExceptionTypeWithExceptionThatHasA400Code() {
 		$exception = new MissingWidgetThingException('coding fail.');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -320,11 +320,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('coding fail', $result, 'Text should show up.');
 	}
 
-/**
- * test that unknown exception types with valid status codes are treated correctly.
- *
- * @return void
- */
+	/**
+	 * test that unknown exception types with valid status codes are treated correctly.
+	 *
+	 * @return void
+	 */
 	public function testUnknownExceptionTypeWithNoCodeIsA500() {
 		$exception = new OutOfBoundsException('foul ball.');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -341,11 +341,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('foul ball.', $result, 'Text should show up as its debug mode.');
 	}
 
-/**
- * test that unknown exceptions have messages ignored.
- *
- * @return void
- */
+	/**
+	 * test that unknown exceptions have messages ignored.
+	 *
+	 * @return void
+	 */
 	public function testUnknownExceptionInProduction() {
 		Configure::write('debug', 0);
 
@@ -365,11 +365,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('Internal Error', $result, 'Generic message only.');
 	}
 
-/**
- * test that unknown exception types with valid status codes are treated correctly.
- *
- * @return void
- */
+	/**
+	 * test that unknown exception types with valid status codes are treated correctly.
+	 *
+	 * @return void
+	 */
 	public function testUnknownExceptionTypeWithCodeHigherThan500() {
 		$exception = new OutOfBoundsException('foul ball.', 501);
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -384,11 +384,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('foul ball.', $result, 'Text should show up as its debug mode.');
 	}
 
-/**
- * testerror400 method
- *
- * @return void
- */
+	/**
+	 * testerror400 method
+	 *
+	 * @return void
+	 */
 	public function testError400() {
 		Router::reload();
 
@@ -408,11 +408,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertRegExp("/<strong>'.*?\/posts\/view\/1000'<\/strong>/", $result);
 	}
 
-/**
- * test that error400 only modifies the messages on CakeExceptions.
- *
- * @return void
- */
+	/**
+	 * test that error400 only modifies the messages on CakeExceptions.
+	 *
+	 * @return void
+	 */
 	public function testerror400OnlyChangingCakeException() {
 		Configure::write('debug', 0);
 
@@ -433,11 +433,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('Not Found', $result);
 	}
 
-/**
- * test that error400 doesn't expose XSS
- *
- * @return void
- */
+	/**
+	 * test that error400 doesn't expose XSS
+	 *
+	 * @return void
+	 */
 	public function testError400NoInjection() {
 		Router::reload();
 
@@ -455,11 +455,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertNotRegExp('#alert\(t\);</script>#', $result);
 	}
 
-/**
- * testError500 method
- *
- * @return void
- */
+	/**
+	 * testError500 method
+	 *
+	 * @return void
+	 */
 	public function testError500Message() {
 		$exception = new InternalErrorException('An Internal Error Has Occurred');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -473,11 +473,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertRegExp('/<h2>An Internal Error Has Occurred<\/h2>/', $result);
 	}
 
-/**
- * testExceptionResponseHeader method
- *
- * @return void
- */
+	/**
+	 * testExceptionResponseHeader method
+	 *
+	 * @return void
+	 */
 	public function testExceptionResponseHeader() {
 		$exception = new MethodNotAllowedException('Only allowing POST and DELETE');
 		$exception->responseHeader(array('Allow: POST, DELETE'));
@@ -494,11 +494,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		ob_get_clean();
 	}
 
-/**
- * testMissingController method
- *
- * @return void
- */
+	/**
+	 * testMissingController method
+	 *
+	 * @return void
+	 */
 	public function testMissingController() {
 		$exception = new MissingControllerException(array('class' => 'PostsController'));
 		$ExceptionRenderer = $this->_mockResponse(new ExceptionRenderer($exception));
@@ -511,11 +511,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertRegExp('/<em>PostsController<\/em>/', $result);
 	}
 
-/**
- * Returns an array of tests to run for the various CakeException classes.
- *
- * @return void
- */
+	/**
+	 * Returns an array of tests to run for the various CakeException classes.
+	 *
+	 * @return void
+	 */
 	public static function testProvider() {
 		return array(
 			array(
@@ -653,12 +653,12 @@ class ExceptionRendererTest extends CakeTestCase {
 		);
 	}
 
-/**
- * Test the various CakeException sub classes
- *
- * @dataProvider testProvider
- * @return void
- */
+	/**
+	 * Test the various CakeException sub classes
+	 *
+	 * @dataProvider testProvider
+	 * @return void
+	 */
 	public function testCakeExceptionHandling($exception, $patterns, $code) {
 		$ExceptionRenderer = new ExceptionRenderer($exception);
 		$ExceptionRenderer->controller->response = $this->getMock('CakeResponse', array('statusCode', '_sendHeader'));
@@ -675,11 +675,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		}
 	}
 
-/**
- * Test exceptions being raised when helpers are missing.
- *
- * @return void
- */
+	/**
+	 * Test exceptions being raised when helpers are missing.
+	 *
+	 * @return void
+	 */
 	public function testMissingRenderSafe() {
 		$exception = new MissingHelperException(array('class' => 'Fail'));
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -703,11 +703,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertEquals(array('Form', 'Html', 'Session'), $ExceptionRenderer->controller->helpers);
 	}
 
-/**
- * Test that exceptions in beforeRender() are handled by outputMessageSafe
- *
- * @return void
- */
+	/**
+	 * Test that exceptions in beforeRender() are handled by outputMessageSafe
+	 *
+	 * @return void
+	 */
 	public function testRenderExceptionInBeforeRender() {
 		$exception = new NotFoundException('Not there, sorry');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -727,11 +727,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$ExceptionRenderer->render();
 	}
 
-/**
- * Test that missing subDir/layoutPath don't cause other fatal errors.
- *
- * @return void
- */
+	/**
+	 * Test that missing subDir/layoutPath don't cause other fatal errors.
+	 *
+	 * @return void
+	 */
 	public function testMissingSubdirRenderSafe() {
 		$exception = new NotFoundException();
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -764,11 +764,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertEquals('Errors', $ExceptionRenderer->controller->viewPath);
 	}
 
-/**
- * Test that missing plugin disables Controller::$plugin if the two are the same plugin.
- *
- * @return void
- */
+	/**
+	 * Test that missing plugin disables Controller::$plugin if the two are the same plugin.
+	 *
+	 * @return void
+	 */
 	public function testMissingPluginRenderSafe() {
 		$exception = new NotFoundException();
 		$ExceptionRenderer = new ExceptionRenderer($exception);
@@ -795,11 +795,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$ExceptionRenderer->render();
 	}
 
-/**
- * Test that missing plugin doesn't disable Controller::$plugin if the two aren't the same plugin.
- *
- * @return void
- */
+	/**
+	 * Test that missing plugin doesn't disable Controller::$plugin if the two aren't the same plugin.
+	 *
+	 * @return void
+	 */
 	public function testMissingPluginRenderSafeWithPlugin() {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
@@ -831,12 +831,12 @@ class ExceptionRendererTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * Test that exceptions can be rendered when an request hasn't been registered
- * with Router
- *
- * @return void
- */
+	/**
+	 * Test that exceptions can be rendered when an request hasn't been registered
+	 * with Router
+	 *
+	 * @return void
+	 */
 	public function testRenderWithNoRequest() {
 		Router::reload();
 		$this->assertNull(Router::getRequest(false));
@@ -855,11 +855,11 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('Internal Error', $result);
 	}
 
-/**
- * Tests the output of rendering a PDOException
- *
- * @return void
- */
+	/**
+	 * Tests the output of rendering a PDOException
+	 *
+	 * @return void
+	 */
 	public function testPDOException() {
 		$exception = new PDOException('There was an error in the SQL query');
 		$exception->queryString = 'SELECT * from poo_query < 5 and :seven';

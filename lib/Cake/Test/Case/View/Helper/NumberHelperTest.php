@@ -47,36 +47,36 @@ class CakeNumberMock {
  */
 class NumberHelperTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->View = new View(null);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->View);
 	}
 
-/**
- * test CakeNumber class methods are called correctly
- *
- * @return void
- */
+	/**
+	 * test CakeNumber class methods are called correctly
+	 *
+	 * @return void
+	 */
 	public function testNumberHelperProxyMethodCalls() {
 		$methods = array(
 			'precision', 'toReadableSize', 'toPercentage', 'format',
 			'currency', 'addFormat',
-			);
+		);
 		$CakeNumber = $this->getMock('CakeNumberMock', $methods);
 		$Number = new NumberHelperTestObject($this->View, array('engine' => 'CakeNumberMock'));
 		$Number->attach($CakeNumber);
@@ -86,11 +86,11 @@ class NumberHelperTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test engine override
- *
- * @return void
- */
+	/**
+	 * test engine override
+	 *
+	 * @return void
+	 */
 	public function testEngineOverride() {
 		App::build(array(
 			'Utility' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Utility' . DS)

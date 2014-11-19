@@ -27,45 +27,45 @@ require_once dirname(__FILE__) . DS . 'ModelTestBase.php';
  */
 class ModelCrossSchemaHabtmTest extends BaseModelTest {
 
-/**
- * Fixtures to be used
- *
- * @var array
- */
+	/**
+	 * Fixtures to be used
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.player', 'core.guild', 'core.guilds_player',
 		'core.armor', 'core.armors_player',
 	);
 
-/**
- * Don't drop tables if they exist
- *
- * @var bool
- */
+	/**
+	 * Don't drop tables if they exist
+	 *
+	 * @var bool
+	 */
 	public $dropTables = false;
 
-/**
- * Don't auto load fixtures
- *
- * @var bool
- */
+	/**
+	 * Don't auto load fixtures
+	 *
+	 * @var bool
+	 */
 	public $autoFixtures = false;
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->_checkConfigs();
 	}
 
-/**
- * Check if primary and secondary test databases are configured.
- *
- * @return void
- */
+	/**
+	 * Check if primary and secondary test databases are configured.
+	 *
+	 * @return void
+	 */
 	protected function _checkConfigs() {
 		$config = ConnectionManager::enumConnectionObjects();
 		$this->skipIf($this->db instanceof Sqlite, 'This test is not compatible with Sqlite.');
@@ -77,11 +77,11 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
 		);
 	}
 
-/**
- * testModelDatasources method
- *
- * @return void
- */
+	/**
+	 * testModelDatasources method
+	 *
+	 * @return void
+	 */
 	public function testModelDatasources() {
 		$this->loadFixtures('Player', 'Guild', 'GuildsPlayer');
 
@@ -95,11 +95,11 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
 		$this->assertEquals('test2', $Player->GuildsPlayer->getDataSource()->configKeyName);
 	}
 
-/**
- * testHabtmFind method
- *
- * @return void
- */
+	/**
+	 * testHabtmFind method
+	 *
+	 * @return void
+	 */
 	public function testHabtmFind() {
 		$this->loadFixtures('Player', 'Guild', 'GuildsPlayer');
 		$Player = ClassRegistry::init('Player');
@@ -129,11 +129,11 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
 		$this->assertEquals(2, count($wizards));
 	}
 
-/**
- * testHabtmSave method
- *
- * @return void
- */
+	/**
+	 * testHabtmSave method
+	 *
+	 * @return void
+	 */
 	public function testHabtmSave() {
 		$this->loadFixtures('Player', 'Guild', 'GuildsPlayer');
 		$Player = ClassRegistry::init('Player');
@@ -172,11 +172,11 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
 		$this->assertEquals(2, count($rangers));
 	}
 
-/**
- * testHabtmWithThreeDatabases method
- *
- * @return void
- */
+	/**
+	 * testHabtmWithThreeDatabases method
+	 *
+	 * @return void
+	 */
 	public function testHabtmWithThreeDatabases() {
 		$config = ConnectionManager::enumConnectionObjects();
 		$this->skipIf(

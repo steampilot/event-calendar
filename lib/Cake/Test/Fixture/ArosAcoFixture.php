@@ -23,11 +23,11 @@
  */
 class ArosAcoFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'aro_id' => array('type' => 'integer', 'length' => 10, 'null' => false),
@@ -38,10 +38,10 @@ class ArosAcoFixture extends CakeTestFixture {
 		'_delete' => array('type' => 'string', 'length' => 2, 'default' => 0)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array();
 }

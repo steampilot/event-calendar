@@ -30,11 +30,11 @@ App::uses('CakeResponse', 'Network');
  */
 class PaginatorTestController extends Controller {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Paginator');
 }
 
@@ -45,51 +45,51 @@ class PaginatorTestController extends Controller {
  */
 class PaginatorControllerPost extends CakeTestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'posts';
 
-/**
- * invalidFields property
- *
- * @var array
- */
+	/**
+	 * invalidFields property
+	 *
+	 * @var array
+	 */
 	public $invalidFields = array('name' => 'error_msg');
 
-/**
- * lastQueries property
- *
- * @var array
- */
+	/**
+	 * lastQueries property
+	 *
+	 * @var array
+	 */
 	public $lastQueries = array();
 
-/**
- * belongsTo property
- *
- * @var array
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array('PaginatorAuthor' => array('foreignKey' => 'author_id'));
 
-/**
- * beforeFind method
- *
- * @param mixed $query
- * @return void
- */
+	/**
+	 * beforeFind method
+	 *
+	 * @param mixed $query
+	 * @return void
+	 */
 	public function beforeFind($query) {
 		array_unshift($this->lastQueries, $query);
 	}
 
-/**
- * find method
- *
- * @param mixed $type
- * @param array $options
- * @return void
- */
+	/**
+	 * find method
+	 *
+	 * @param mixed $type
+	 * @param array $options
+	 * @return void
+	 */
 	public function find($conditions = null, $fields = array(), $order = null, $recursive = null) {
 		if ($conditions === 'popular') {
 			$conditions = array($this->name . '.' . $this->primaryKey . ' > ' => '1');
@@ -108,28 +108,28 @@ class PaginatorControllerPost extends CakeTestModel {
  */
 class ControllerPaginateModel extends CakeTestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'comments';
 
-/**
- * paginate method
- *
- * @return bool
- */
+	/**
+	 * paginate method
+	 *
+	 * @return bool
+	 */
 	public function paginate($conditions, $fields, $order, $limit, $page, $recursive, $extra) {
 		$this->extra = $extra;
 		return true;
 	}
 
-/**
- * paginateCount
- *
- * @return void
- */
+	/**
+	 * paginateCount
+	 *
+	 * @return void
+	 */
 	public function paginateCount($conditions, $recursive, $extra) {
 		$this->extraCount = $extra;
 	}
@@ -143,25 +143,25 @@ class ControllerPaginateModel extends CakeTestModel {
  */
 class PaginatorControllerComment extends CakeTestModel {
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'Comment';
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'comments';
 
-/**
- * alias property
- *
- * @var string
- */
+	/**
+	 * alias property
+	 *
+	 * @var string
+	 */
 	public $alias = 'PaginatorControllerComment';
 }
 
@@ -172,18 +172,18 @@ class PaginatorControllerComment extends CakeTestModel {
  */
 class PaginatorAuthor extends CakeTestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'authors';
 
-/**
- * alias property
- *
- * @var string
- */
+	/**
+	 * alias property
+	 *
+	 * @var string
+	 */
 	public $virtualFields = array(
 		'joined_offset' => 'PaginatorAuthor.id + 1'
 	);
@@ -197,36 +197,36 @@ class PaginatorAuthor extends CakeTestModel {
  */
 class PaginatorCustomPost extends CakeTestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'posts';
 
-/**
- * belongsTo property
- *
- * @var string
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var string
+	 */
 	public $belongsTo = array('Author');
 
-/**
- * findMethods property
- *
- * @var array
- */
+	/**
+	 * findMethods property
+	 *
+	 * @var array
+	 */
 	public $findMethods = array(
 		'published' => true,
 		'totals' => true,
 		'totalsOperation' => true
 	);
 
-/**
- * _findPublished custom find
- *
- * @return array
- */
+	/**
+	 * _findPublished custom find
+	 *
+	 * @return array
+	 */
 	protected function _findPublished($state, $query, $results = array()) {
 		if ($state === 'before') {
 			$query['conditions']['published'] = 'Y';
@@ -235,11 +235,11 @@ class PaginatorCustomPost extends CakeTestModel {
 		return $results;
 	}
 
-/**
- * _findTotals custom find
- *
- * @return array
- */
+	/**
+	 * _findTotals custom find
+	 *
+	 * @return array
+	 */
 	protected function _findTotals($state, $query, $results = array()) {
 		if ($state === 'before') {
 			$query['fields'] = array('author_id');
@@ -253,11 +253,11 @@ class PaginatorCustomPost extends CakeTestModel {
 		return $results;
 	}
 
-/**
- * _findTotalsOperation custom find
- *
- * @return array
- */
+	/**
+	 * _findTotalsOperation custom find
+	 *
+	 * @return array
+	 */
 	protected function _findTotalsOperation($state, $query, $results = array()) {
 		if ($state === 'before') {
 			if (!empty($query['operation']) && $query['operation'] === 'count') {
@@ -283,18 +283,18 @@ class PaginatorCustomPost extends CakeTestModel {
 
 class PaginatorComponentTest extends CakeTestCase {
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.post', 'core.comment', 'core.author');
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->request = new CakeRequest('controller_posts/index');
@@ -306,11 +306,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->Controller->Post->alias = 'Post';
 	}
 
-/**
- * testPaginate method
- *
- * @return void
- */
+	/**
+	 * testPaginate method
+	 *
+	 * @return void
+	 */
 	public function testPaginate() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost', 'PaginatorControllerComment');
@@ -402,11 +402,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertSame(2, $Controller->params['paging']['PaginatorControllerPost']['count']);
 	}
 
-/**
- * Test that non-numeric values are rejected for page, and limit
- *
- * @return void
- */
+	/**
+	 * Test that non-numeric values are rejected for page, and limit
+	 *
+	 * @return void
+	 */
 	public function testPageParamCasting() {
 		$this->Controller->Post->expects($this->at(0))
 			->method('hasMethod')
@@ -432,11 +432,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertSame(1, $this->request->params['paging']['Post']['page'], 'XSS exploit opened');
 	}
 
-/**
- * testPaginateExtraParams method
- *
- * @return void
- */
+	/**
+	 * testPaginateExtraParams method
+	 *
+	 * @return void
+	 */
 	public function testPaginateExtraParams() {
 		$Controller = new PaginatorTestController($this->request);
 
@@ -527,11 +527,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $Controller->ControllerPaginateModel->extraCount);
 	}
 
-/**
- * Test that special paginate types are called and that the type param doesn't leak out into defaults or options.
- *
- * @return void
- */
+	/**
+	 * Test that special paginate types are called and that the type param doesn't leak out into defaults or options.
+	 *
+	 * @return void
+	 */
 	public function testPaginateSpecialType() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost', 'PaginatorControllerComment');
@@ -557,11 +557,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertFalse(isset($Controller->params['paging']['PaginatorControllerPost']['options'][0]));
 	}
 
-/**
- * testDefaultPaginateParams method
- *
- * @return void
- */
+	/**
+	 * testDefaultPaginateParams method
+	 *
+	 * @return void
+	 */
 	public function testDefaultPaginateParams() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->modelClass = 'PaginatorControllerPost';
@@ -577,11 +577,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals(array(3, 2, 1), $results);
 	}
 
-/**
- * test paginate() and model default order
- *
- * @return void
- */
+	/**
+	 * test paginate() and model default order
+	 *
+	 * @return void
+	 */
 	public function testPaginateOrderModelDefault() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost');
@@ -621,11 +621,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result['order']);
 	}
 
-/**
- * test paginate() and virtualField interactions
- *
- * @return void
- */
+	/**
+	 * test paginate() and virtualField interactions
+	 *
+	 * @return void
+	 */
 	public function testPaginateOrderVirtualField() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost', 'PaginatorControllerComment');
@@ -649,11 +649,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals(array(2, 3, 4), Hash::extract($result, '{n}.PaginatorControllerPost.offset_test'));
 	}
 
-/**
- * test paginate() and virtualField on joined model
- *
- * @return void
- */
+	/**
+	 * test paginate() and virtualField on joined model
+	 *
+	 * @return void
+	 */
 	public function testPaginateOrderVirtualFieldJoinedModel() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost');
@@ -673,23 +673,23 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals(array(2, 2, 4), Hash::extract($result, '{n}.PaginatorAuthor.joined_offset'));
 	}
 
-/**
- * Tests for missing models
- *
- * @expectedException MissingModelException
- * @return void
- */
+	/**
+	 * Tests for missing models
+	 *
+	 * @expectedException MissingModelException
+	 * @return void
+	 */
 	public function testPaginateMissingModel() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->constructClasses();
 		$Controller->Paginator->paginate('MissingModel');
 	}
 
-/**
- * test that option merging prefers specific models
- *
- * @return void
- */
+	/**
+	 * test that option merging prefers specific models
+	 *
+	 * @return void
+	 */
 	public function testMergeOptionsModelSpecific() {
 		$this->Paginator->settings = array(
 			'page' => 1,
@@ -711,11 +711,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test mergeOptions with named params.
- *
- * @return void
- */
+	/**
+	 * test mergeOptions with named params.
+	 *
+	 * @return void
+	 */
 	public function testMergeOptionsNamedParams() {
 		$this->request->params['named'] = array(
 			'page' => 10,
@@ -732,11 +732,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test mergeOptions with customFind key
- *
- * @return void
- */
+	/**
+	 * test mergeOptions with customFind key
+	 *
+	 * @return void
+	 */
 	public function testMergeOptionsCustomFindKey() {
 		$this->request->params['named'] = array(
 			'page' => 10,
@@ -754,11 +754,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test merging options from the querystring.
- *
- * @return void
- */
+	/**
+	 * test merging options from the querystring.
+	 *
+	 * @return void
+	 */
 	public function testMergeOptionsQueryString() {
 		$this->request->params['named'] = array(
 			'page' => 10,
@@ -779,11 +779,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that the default whitelist doesn't let people screw with things they should not be allowed to.
- *
- * @return void
- */
+	/**
+	 * test that the default whitelist doesn't let people screw with things they should not be allowed to.
+	 *
+	 * @return void
+	 */
 	public function testMergeOptionsDefaultWhiteList() {
 		$this->request->params['named'] = array(
 			'page' => 10,
@@ -804,11 +804,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that modifying the whitelist works.
- *
- * @return void
- */
+	/**
+	 * test that modifying the whitelist works.
+	 *
+	 * @return void
+	 */
 	public function testMergeOptionsExtraWhitelist() {
 		$this->request->params['named'] = array(
 			'page' => 10,
@@ -832,11 +832,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test mergeOptions with limit > maxLimit in code.
- *
- * @return void
- */
+	/**
+	 * test mergeOptions with limit > maxLimit in code.
+	 *
+	 * @return void
+	 */
 	public function testMergeOptionsMaxLimit() {
 		$this->Paginator->settings = array(
 			'limit' => 200,
@@ -866,11 +866,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that invalid directions are ignored.
- *
- * @return void
- */
+	/**
+	 * test that invalid directions are ignored.
+	 *
+	 * @return void
+	 */
 	public function testValidateSortInvalidDirection() {
 		$model = $this->getMock('Model');
 		$model->alias = 'model';
@@ -882,12 +882,12 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals('asc', $result['order']['model.something']);
 	}
 
-/**
- * Test that a really large page number gets clamped to the max page size.
- *
- * @expectedException NotFoundException
- * @return void
- */
+	/**
+	 * Test that a really large page number gets clamped to the max page size.
+	 *
+	 * @expectedException NotFoundException
+	 * @return void
+	 */
 	public function testOutOfRangePageNumberGetsClamped() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost');
@@ -899,12 +899,12 @@ class PaginatorComponentTest extends CakeTestCase {
 		$Controller->Paginator->paginate('PaginatorControllerPost');
 	}
 
-/**
- * Test that a really REALLY large page number gets clamped to the max page size.
- *
- * @expectedException NotFoundException
- * @return void
- */
+	/**
+	 * Test that a really REALLY large page number gets clamped to the max page size.
+	 *
+	 * @expectedException NotFoundException
+	 * @return void
+	 */
 	public function testOutOfVeryBigPageNumberGetsClamped() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost');
@@ -916,11 +916,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$Controller->Paginator->paginate('PaginatorControllerPost');
 	}
 
-/**
- * testOutOfRangePageNumberAndPageCountZero
- *
- * @return void
- */
+	/**
+	 * testOutOfRangePageNumberAndPageCountZero
+	 *
+	 * @return void
+	 */
 	public function testOutOfRangePageNumberAndPageCountZero() {
 		$Controller = new PaginatorTestController($this->request);
 		$Controller->uses = array('PaginatorControllerPost');
@@ -945,11 +945,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test that fields not in whitelist won't be part of order conditions.
- *
- * @return void
- */
+	/**
+	 * test that fields not in whitelist won't be part of order conditions.
+	 *
+	 * @return void
+	 */
 	public function testValidateSortWhitelistFailure() {
 		$model = $this->getMock('Model');
 		$model->alias = 'model';
@@ -961,11 +961,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertNull($result['order']);
 	}
 
-/**
- * test that fields in the whitelist are not validated
- *
- * @return void
- */
+	/**
+	 * test that fields in the whitelist are not validated
+	 *
+	 * @return void
+	 */
 	public function testValidateSortWhitelistTrusted() {
 		$model = $this->getMock('Model');
 		$model->alias = 'model';
@@ -978,11 +978,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result['order']);
 	}
 
-/**
- * test that virtual fields work.
- *
- * @return void
- */
+	/**
+	 * test that virtual fields work.
+	 *
+	 * @return void
+	 */
 	public function testValidateSortVirtualField() {
 		$model = $this->getMock('Model');
 		$model->alias = 'model';
@@ -1003,11 +1003,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals('desc', $result['order']['something']);
 	}
 
-/**
- * test that sorting fields is alias specific
- *
- * @return void
- */
+	/**
+	 * test that sorting fields is alias specific
+	 *
+	 * @return void
+	 */
 	public function testValidateSortSharedFields() {
 		$model = $this->getMock('Model');
 		$model->alias = 'Parent';
@@ -1027,11 +1027,12 @@ class PaginatorComponentTest extends CakeTestCase {
 
 		$this->assertEquals('desc', $result['order']['Child.something']);
 	}
-/**
- * test that multiple sort works.
- *
- * @return void
- */
+
+	/**
+	 * test that multiple sort works.
+	 *
+	 * @return void
+	 */
 	public function testValidateSortMultiple() {
 		$model = $this->getMock('Model');
 		$model->alias = 'model';
@@ -1052,11 +1053,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result['order']);
 	}
 
-/**
- * Test that no sort doesn't trigger an error.
- *
- * @return void
- */
+	/**
+	 * Test that no sort doesn't trigger an error.
+	 *
+	 * @return void
+	 */
 	public function testValidateSortNoSort() {
 		$model = $this->getMock('Model');
 		$model->alias = 'model';
@@ -1072,11 +1073,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals($options['order'], $result['order']);
 	}
 
-/**
- * Test sorting with incorrect aliases on valid fields.
- *
- * @return void
- */
+	/**
+	 * Test sorting with incorrect aliases on valid fields.
+	 *
+	 * @return void
+	 */
 	public function testValidateSortInvalidAlias() {
 		$model = $this->getMock('Model');
 		$model->alias = 'Model';
@@ -1087,11 +1088,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals(array(), $result['order']);
 	}
 
-/**
- * test that maxLimit is respected
- *
- * @return void
- */
+	/**
+	 * test that maxLimit is respected
+	 *
+	 * @return void
+	 */
 	public function testCheckLimit() {
 		$result = $this->Paginator->checkLimit(array('limit' => 1000000, 'maxLimit' => 100));
 		$this->assertEquals(100, $result['limit']);
@@ -1109,11 +1110,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals(1, $result['limit']);
 	}
 
-/**
- * testPaginateMaxLimit
- *
- * @return void
- */
+	/**
+	 * testPaginateMaxLimit
+	 *
+	 * @return void
+	 */
 	public function testPaginateMaxLimit() {
 		$Controller = new Controller($this->request);
 
@@ -1147,11 +1148,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals(2000, $Controller->params['paging']['PaginatorControllerPost']['options']['limit']);
 	}
 
-/**
- * test paginate() and virtualField overlapping with real fields.
- *
- * @return void
- */
+	/**
+	 * test paginate() and virtualField overlapping with real fields.
+	 *
+	 * @return void
+	 */
 	public function testPaginateOrderVirtualFieldSharedWithRealField() {
 		$Controller = new Controller($this->request);
 		$Controller->uses = array('PaginatorControllerPost', 'PaginatorControllerComment');
@@ -1191,11 +1192,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertEquals(array(1, 2, 3, 4), $result);
 	}
 
-/**
- * test paginate() and custom find, to make sure the correct count is returned.
- *
- * @return void
- */
+	/**
+	 * test paginate() and custom find, to make sure the correct count is returned.
+	 *
+	 * @return void
+	 */
 	public function testPaginateCustomFind() {
 		$Controller = new Controller($this->request);
 		$Controller->uses = array('PaginatorCustomPost');
@@ -1231,11 +1232,12 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertTrue($result['nextPage']);
 		$this->assertFalse($result['prevPage']);
 	}
-/**
- * test paginate() and custom find with fields array, to make sure the correct count is returned.
- *
- * @return void
- */
+
+	/**
+	 * test paginate() and custom find with fields array, to make sure the correct count is returned.
+	 *
+	 * @return void
+	 */
 	public function testPaginateCustomFindFieldsArray() {
 		$Controller = new Controller($this->request);
 		$Controller->uses = array('PaginatorCustomPost');
@@ -1263,11 +1265,12 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertTrue($result['nextPage']);
 		$this->assertFalse($result['prevPage']);
 	}
-/**
- * test paginate() and custom find with customFind key, to make sure the correct count is returned.
- *
- * @return void
- */
+
+	/**
+	 * test paginate() and custom find with customFind key, to make sure the correct count is returned.
+	 *
+	 * @return void
+	 */
 	public function testPaginateCustomFindWithCustomFindKey() {
 		$Controller = new Controller($this->request);
 		$Controller->uses = array('PaginatorCustomPost');
@@ -1296,11 +1299,11 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertFalse($result['prevPage']);
 	}
 
-/**
- * test paginate() and custom find with fields array, to make sure the correct count is returned.
- *
- * @return void
- */
+	/**
+	 * test paginate() and custom find with fields array, to make sure the correct count is returned.
+	 *
+	 * @return void
+	 */
 	public function testPaginateCustomFindGroupBy() {
 		$Controller = new Controller($this->request);
 		$Controller->uses = array('PaginatorCustomPost');
@@ -1360,12 +1363,12 @@ class PaginatorComponentTest extends CakeTestCase {
 		$this->assertTrue($result['prevPage']);
 	}
 
-/**
- * test paginate() and custom find with returning other query on count operation,
- * to make sure the correct count is returned.
- *
- * @return void
- */
+	/**
+	 * test paginate() and custom find with returning other query on count operation,
+	 * to make sure the correct count is returned.
+	 *
+	 * @return void
+	 */
 	public function testPaginateCustomFindCount() {
 		$Controller = new Controller($this->request);
 		$Controller->uses = array('PaginatorCustomPost');

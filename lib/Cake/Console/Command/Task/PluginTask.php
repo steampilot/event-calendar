@@ -26,35 +26,35 @@ App::uses('Folder', 'Utility');
  */
 class PluginTask extends AppShell {
 
-/**
- * path to plugins directory
- *
- * @var array
- */
+	/**
+	 * path to plugins directory
+	 *
+	 * @var array
+	 */
 	public $path = null;
 
-/**
- * Path to the bootstrap file. Changed in tests.
- *
- * @var string
- */
+	/**
+	 * Path to the bootstrap file. Changed in tests.
+	 *
+	 * @var string
+	 */
 	public $bootstrap = null;
 
-/**
- * initialize
- *
- * @return void
- */
+	/**
+	 * initialize
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->path = current(App::path('plugins'));
 		$this->bootstrap = APP . 'Config' . DS . 'bootstrap.php';
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		if (isset($this->args[0])) {
 			$plugin = Inflector::camelize($this->args[0]);
@@ -70,12 +70,12 @@ class PluginTask extends AppShell {
 		}
 	}
 
-/**
- * Interactive interface
- *
- * @param string $plugin The plugin name.
- * @return void
- */
+	/**
+	 * Interactive interface
+	 *
+	 * @param string $plugin The plugin name.
+	 * @return void
+	 */
 	protected function _interactive($plugin = null) {
 		while ($plugin === null) {
 			$plugin = $this->in(__d('cake_console', 'Enter the name of the plugin in CamelCase format'));
@@ -86,12 +86,12 @@ class PluginTask extends AppShell {
 		}
 	}
 
-/**
- * Bake the plugin, create directories and files
- *
- * @param string $plugin Name of the plugin in CamelCased format
- * @return bool
- */
+	/**
+	 * Bake the plugin, create directories and files
+	 *
+	 * @param string $plugin Name of the plugin in CamelCased format
+	 * @return bool
+	 */
 	public function bake($plugin) {
 		$pathOptions = App::path('plugins');
 		if (count($pathOptions) > 1) {
@@ -165,12 +165,12 @@ class PluginTask extends AppShell {
 		return true;
 	}
 
-/**
- * Update the app's bootstrap.php file.
- *
- * @param string $plugin Name of plugin
- * @return void
- */
+	/**
+	 * Update the app's bootstrap.php file.
+	 *
+	 * @param string $plugin Name of plugin
+	 * @return void
+	 */
 	protected function _modifyBootstrap($plugin) {
 		$bootstrap = new File($this->bootstrap, false);
 		$contents = $bootstrap->read();
@@ -181,12 +181,12 @@ class PluginTask extends AppShell {
 		}
 	}
 
-/**
- * find and change $this->path to the user selection
- *
- * @param array $pathOptions The list of paths to look in.
- * @return void
- */
+	/**
+	 * find and change $this->path to the user selection
+	 *
+	 * @param array $pathOptions The list of paths to look in.
+	 * @return void
+	 */
 	public function findPath($pathOptions) {
 		$valid = false;
 		foreach ($pathOptions as $i => $path) {
@@ -210,17 +210,17 @@ class PluginTask extends AppShell {
 		$this->path = $pathOptions[$choice - 1];
 	}
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Gets the option parser instance and configures it.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 
 		$parser->description(
-			__d('cake_console',	'Create the directory structure, AppModel and AppController classes for a new plugin. ' .
-			'Can create plugins in any of your bootstrapped plugin paths.')
+			__d('cake_console', 'Create the directory structure, AppModel and AppController classes for a new plugin. ' .
+				'Can create plugins in any of your bootstrapped plugin paths.')
 		)->addArgument('name', array(
 			'help' => __d('cake_console', 'CamelCased name of the plugin to create.')
 		));

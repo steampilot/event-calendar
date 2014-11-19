@@ -26,150 +26,150 @@ App::uses('Inflector', 'Utility');
  */
 class Helper extends Object {
 
-/**
- * Settings for this helper.
- *
- * @var array
- */
+	/**
+	 * Settings for this helper.
+	 *
+	 * @var array
+	 */
 	public $settings = array();
 
-/**
- * List of helpers used by this helper
- *
- * @var array
- */
+	/**
+	 * List of helpers used by this helper
+	 *
+	 * @var array
+	 */
 	public $helpers = array();
 
-/**
- * A helper lookup table used to lazy load helper objects.
- *
- * @var array
- */
+	/**
+	 * A helper lookup table used to lazy load helper objects.
+	 *
+	 * @var array
+	 */
 	protected $_helperMap = array();
 
-/**
- * The current theme name if any.
- *
- * @var string
- */
+	/**
+	 * The current theme name if any.
+	 *
+	 * @var string
+	 */
 	public $theme = null;
 
-/**
- * Request object
- *
- * @var CakeRequest
- */
+	/**
+	 * Request object
+	 *
+	 * @var CakeRequest
+	 */
 	public $request = null;
 
-/**
- * Plugin path
- *
- * @var string
- */
+	/**
+	 * Plugin path
+	 *
+	 * @var string
+	 */
 	public $plugin = null;
 
-/**
- * Holds the fields array('field_name' => array('type' => 'string', 'length' => 100),
- * primaryKey and validates array('field_name')
- *
- * @var array
- */
+	/**
+	 * Holds the fields array('field_name' => array('type' => 'string', 'length' => 100),
+	 * primaryKey and validates array('field_name')
+	 *
+	 * @var array
+	 */
 	public $fieldset = array();
 
-/**
- * Holds tag templates.
- *
- * @var array
- */
+	/**
+	 * Holds tag templates.
+	 *
+	 * @var array
+	 */
 	public $tags = array();
 
-/**
- * Holds the content to be cleaned.
- *
- * @var mixed
- */
+	/**
+	 * Holds the content to be cleaned.
+	 *
+	 * @var mixed
+	 */
 	protected $_tainted = null;
 
-/**
- * Holds the cleaned content.
- *
- * @var mixed
- */
+	/**
+	 * Holds the cleaned content.
+	 *
+	 * @var mixed
+	 */
 	protected $_cleaned = null;
 
-/**
- * The View instance this helper is attached to
- *
- * @var View
- */
+	/**
+	 * The View instance this helper is attached to
+	 *
+	 * @var View
+	 */
 	protected $_View;
 
-/**
- * A list of strings that should be treated as suffixes, or
- * sub inputs for a parent input. This is used for date/time
- * inputs primarily.
- *
- * @var array
- */
+	/**
+	 * A list of strings that should be treated as suffixes, or
+	 * sub inputs for a parent input. This is used for date/time
+	 * inputs primarily.
+	 *
+	 * @var array
+	 */
 	protected $_fieldSuffixes = array(
 		'year', 'month', 'day', 'hour', 'min', 'second', 'meridian'
 	);
 
-/**
- * The name of the current model entities are in scope of.
- *
- * @see Helper::setEntity()
- * @var string
- */
+	/**
+	 * The name of the current model entities are in scope of.
+	 *
+	 * @see Helper::setEntity()
+	 * @var string
+	 */
 	protected $_modelScope;
 
-/**
- * The name of the current model association entities are in scope of.
- *
- * @see Helper::setEntity()
- * @var string
- */
+	/**
+	 * The name of the current model association entities are in scope of.
+	 *
+	 * @see Helper::setEntity()
+	 * @var string
+	 */
 	protected $_association;
 
-/**
- * The dot separated list of elements the current field entity is for.
- *
- * @see Helper::setEntity()
- * @var string
- */
+	/**
+	 * The dot separated list of elements the current field entity is for.
+	 *
+	 * @see Helper::setEntity()
+	 * @var string
+	 */
 	protected $_entityPath;
 
-/**
- * Minimized attributes
- *
- * @var array
- */
+	/**
+	 * Minimized attributes
+	 *
+	 * @var array
+	 */
 	protected $_minimizedAttributes = array(
 		'compact', 'checked', 'declare', 'readonly', 'disabled', 'selected',
 		'defer', 'ismap', 'nohref', 'noshade', 'nowrap', 'multiple', 'noresize',
 		'autoplay', 'controls', 'loop', 'muted', 'required', 'novalidate', 'formnovalidate'
 	);
 
-/**
- * Format to attribute
- *
- * @var string
- */
+	/**
+	 * Format to attribute
+	 *
+	 * @var string
+	 */
 	protected $_attributeFormat = '%s="%s"';
 
-/**
- * Format to attribute
- *
- * @var string
- */
+	/**
+	 * Format to attribute
+	 *
+	 * @var string
+	 */
 	protected $_minimizedAttributeFormat = '%s="%s"';
 
-/**
- * Default Constructor
- *
- * @param View $View The View this helper is being attached to.
- * @param array $settings Configuration settings for the helper.
- */
+	/**
+	 * Default Constructor
+	 *
+	 * @param View $View The View this helper is being attached to.
+	 * @param array $settings Configuration settings for the helper.
+	 */
 	public function __construct(View $View, $settings = array()) {
 		$this->_View = $View;
 		$this->request = $View->request;
@@ -181,24 +181,24 @@ class Helper extends Object {
 		}
 	}
 
-/**
- * Provide non fatal errors on missing method calls.
- *
- * @param string $method Method to invoke
- * @param array $params Array of params for the method.
- * @return void
- */
+	/**
+	 * Provide non fatal errors on missing method calls.
+	 *
+	 * @param string $method Method to invoke
+	 * @param array $params Array of params for the method.
+	 * @return void
+	 */
 	public function __call($method, $params) {
 		trigger_error(__d('cake_dev', 'Method %1$s::%2$s does not exist', get_class($this), $method), E_USER_WARNING);
 	}
 
-/**
- * Lazy loads helpers. Provides access to deprecated request properties as well.
- *
- * @param string $name Name of the property being accessed.
- * @return mixed Helper or property found at $name
- * @deprecated 3.0.0 Accessing request properties through this method is deprecated and will be removed in 3.0.
- */
+	/**
+	 * Lazy loads helpers. Provides access to deprecated request properties as well.
+	 *
+	 * @param string $name Name of the property being accessed.
+	 * @return mixed Helper or property found at $name
+	 * @deprecated 3.0.0 Accessing request properties through this method is deprecated and will be removed in 3.0.
+	 */
 	public function __get($name) {
 		if (isset($this->_helperMap[$name]) && !isset($this->{$name})) {
 			$settings = array('enabled' => false) + (array)$this->_helperMap[$name]['settings'];
@@ -220,14 +220,14 @@ class Helper extends Object {
 		}
 	}
 
-/**
- * Provides backwards compatibility access for setting values to the request object.
- *
- * @param string $name Name of the property being accessed.
- * @param mixed $value Value to set.
- * @return void
- * @deprecated 3.0.0 This method will be removed in 3.0
- */
+	/**
+	 * Provides backwards compatibility access for setting values to the request object.
+	 *
+	 * @param string $name Name of the property being accessed.
+	 * @param mixed $value Value to set.
+	 * @return void
+	 * @deprecated 3.0.0 This method will be removed in 3.0
+	 */
 	public function __set($name, $value) {
 		switch ($name) {
 			case 'base':
@@ -243,28 +243,28 @@ class Helper extends Object {
 		$this->{$name} = $value;
 	}
 
-/**
- * Finds URL for specified action.
- *
- * Returns a URL pointing at the provided parameters.
- *
- * @param string|array $url Either a relative string url like `/products/view/23` or
- *    an array of URL parameters. Using an array for URLs will allow you to leverage
- *    the reverse routing features of CakePHP.
- * @param bool $full If true, the full base URL will be prepended to the result
- * @return string Full translated URL with base path.
- * @link http://book.cakephp.org/2.0/en/views/helpers.html
- */
+	/**
+	 * Finds URL for specified action.
+	 *
+	 * Returns a URL pointing at the provided parameters.
+	 *
+	 * @param string|array $url Either a relative string url like `/products/view/23` or
+	 *    an array of URL parameters. Using an array for URLs will allow you to leverage
+	 *    the reverse routing features of CakePHP.
+	 * @param bool $full If true, the full base URL will be prepended to the result
+	 * @return string Full translated URL with base path.
+	 * @link http://book.cakephp.org/2.0/en/views/helpers.html
+	 */
 	public function url($url = null, $full = false) {
 		return h(Router::url($url, $full));
 	}
 
-/**
- * Checks if a file exists when theme is used, if no file is found default location is returned
- *
- * @param string $file The file to create a webroot path to.
- * @return string Web accessible path to file.
- */
+	/**
+	 * Checks if a file exists when theme is used, if no file is found default location is returned
+	 *
+	 * @param string $file The file to create a webroot path to.
+	 * @return string Web accessible path to file.
+	 */
 	public function webroot($file) {
 		$asset = explode('?', $file);
 		$asset[1] = isset($asset[1]) ? '?' . $asset[1] : null;
@@ -295,18 +295,18 @@ class Helper extends Object {
 		return $webPath . $asset[1];
 	}
 
-/**
- * Generate URL for given asset file. Depending on options passed provides full URL with domain name.
- * Also calls Helper::assetTimestamp() to add timestamp to local files
- *
- * @param string|array $path Path string or URL array
- * @param array $options Options array. Possible keys:
- *   `fullBase` Return full URL with domain name
- *   `pathPrefix` Path prefix for relative URLs
- *   `ext` Asset extension to append
- *   `plugin` False value will prevent parsing path as a plugin
- * @return string Generated URL
- */
+	/**
+	 * Generate URL for given asset file. Depending on options passed provides full URL with domain name.
+	 * Also calls Helper::assetTimestamp() to add timestamp to local files
+	 *
+	 * @param string|array $path Path string or URL array
+	 * @param array $options Options array. Possible keys:
+	 *   `fullBase` Return full URL with domain name
+	 *   `pathPrefix` Path prefix for relative URLs
+	 *   `ext` Asset extension to append
+	 *   `plugin` False value will prevent parsing path as a plugin
+	 * @return string Generated URL
+	 */
 	public function assetUrl($path, $options = array()) {
 		if (is_array($path)) {
 			return $this->url($path, !empty($options['fullBase']));
@@ -341,12 +341,12 @@ class Helper extends Object {
 		return $path;
 	}
 
-/**
- * Encodes a URL for use in HTML attributes.
- *
- * @param string $url The URL to encode.
- * @return string The URL encoded for both URL & HTML contexts.
- */
+	/**
+	 * Encodes a URL for use in HTML attributes.
+	 *
+	 * @param string $url The URL to encode.
+	 * @return string The URL encoded for both URL & HTML contexts.
+	 */
 	protected function _encodeUrl($url) {
 		$path = parse_url($url, PHP_URL_PATH);
 		$parts = array_map('rawurldecode', explode('/', $path));
@@ -355,14 +355,14 @@ class Helper extends Object {
 		return h(str_replace($path, $encoded, $url));
 	}
 
-/**
- * Adds a timestamp to a file based resource based on the value of `Asset.timestamp` in
- * Configure. If Asset.timestamp is true and debug > 0, or Asset.timestamp === 'force'
- * a timestamp will be added.
- *
- * @param string $path The file path to timestamp, the path must be inside WWW_ROOT
- * @return string Path with a timestamp added, or not.
- */
+	/**
+	 * Adds a timestamp to a file based resource based on the value of `Asset.timestamp` in
+	 * Configure. If Asset.timestamp is true and debug > 0, or Asset.timestamp === 'force'
+	 * a timestamp will be added.
+	 *
+	 * @param string $path The file path to timestamp, the path must be inside WWW_ROOT
+	 * @return string Path with a timestamp added, or not.
+	 */
 	public function assetTimestamp($path) {
 		$stamp = Configure::read('Asset.timestamp');
 		$timestampEnabled = $stamp === 'force' || ($stamp === true && Configure::read('debug') > 0);
@@ -400,15 +400,15 @@ class Helper extends Object {
 		return $path;
 	}
 
-/**
- * Used to remove harmful tags from content. Removes a number of well known XSS attacks
- * from content. However, is not guaranteed to remove all possibilities. Escaping
- * content is the best way to prevent all possible attacks.
- *
- * @param string|array $output Either an array of strings to clean or a single string to clean.
- * @return string|array|null Cleaned content for output
- * @deprecated 3.0.0 This method will be removed in 3.0
- */
+	/**
+	 * Used to remove harmful tags from content. Removes a number of well known XSS attacks
+	 * from content. However, is not guaranteed to remove all possibilities. Escaping
+	 * content is the best way to prevent all possible attacks.
+	 *
+	 * @param string|array $output Either an array of strings to clean or a single string to clean.
+	 * @return string|array|null Cleaned content for output
+	 * @deprecated 3.0.0 This method will be removed in 3.0
+	 */
 	public function clean($output) {
 		$this->_reset();
 		if (empty($output)) {
@@ -425,32 +425,32 @@ class Helper extends Object {
 		return $this->_cleaned;
 	}
 
-/**
- * Returns a space-delimited string with items of the $options array. If a key
- * of $options array happens to be one of those listed in `Helper::$_minimizedAttributes`
- *
- * And its value is one of:
- *
- * - '1' (string)
- * - 1 (integer)
- * - true (boolean)
- * - 'true' (string)
- *
- * Then the value will be reset to be identical with key's name.
- * If the value is not one of these 3, the parameter is not output.
- *
- * 'escape' is a special option in that it controls the conversion of
- *  attributes to their html-entity encoded equivalents. Set to false to disable html-encoding.
- *
- * If value for any option key is set to `null` or `false`, that option will be excluded from output.
- *
- * @param array $options Array of options.
- * @param array $exclude Array of options to be excluded, the options here will not be part of the return.
- * @param string $insertBefore String to be inserted before options.
- * @param string $insertAfter String to be inserted after options.
- * @return string Composed attributes.
- * @deprecated 3.0.0 This method will be moved to HtmlHelper in 3.0
- */
+	/**
+	 * Returns a space-delimited string with items of the $options array. If a key
+	 * of $options array happens to be one of those listed in `Helper::$_minimizedAttributes`
+	 *
+	 * And its value is one of:
+	 *
+	 * - '1' (string)
+	 * - 1 (integer)
+	 * - true (boolean)
+	 * - 'true' (string)
+	 *
+	 * Then the value will be reset to be identical with key's name.
+	 * If the value is not one of these 3, the parameter is not output.
+	 *
+	 * 'escape' is a special option in that it controls the conversion of
+	 *  attributes to their html-entity encoded equivalents. Set to false to disable html-encoding.
+	 *
+	 * If value for any option key is set to `null` or `false`, that option will be excluded from output.
+	 *
+	 * @param array $options Array of options.
+	 * @param array $exclude Array of options to be excluded, the options here will not be part of the return.
+	 * @param string $insertBefore String to be inserted before options.
+	 * @param string $insertAfter String to be inserted after options.
+	 * @return string Composed attributes.
+	 * @deprecated 3.0.0 This method will be moved to HtmlHelper in 3.0
+	 */
 	protected function _parseAttributes($options, $exclude = null, $insertBefore = ' ', $insertAfter = null) {
 		if (!is_string($options)) {
 			$options = (array)$options + array('escape' => true);
@@ -475,16 +475,16 @@ class Helper extends Object {
 		return $out ? $insertBefore . $out . $insertAfter : '';
 	}
 
-/**
- * Formats an individual attribute, and returns the string value of the composed attribute.
- * Works with minimized attributes that have the same value as their name such as 'disabled' and 'checked'
- *
- * @param string $key The name of the attribute to create
- * @param string $value The value of the attribute to create.
- * @param bool $escape Define if the value must be escaped
- * @return string The composed attribute.
- * @deprecated 3.0.0 This method will be moved to HtmlHelper in 3.0
- */
+	/**
+	 * Formats an individual attribute, and returns the string value of the composed attribute.
+	 * Works with minimized attributes that have the same value as their name such as 'disabled' and 'checked'
+	 *
+	 * @param string $key The name of the attribute to create
+	 * @param string $value The value of the attribute to create.
+	 * @param bool $escape Define if the value must be escaped
+	 * @return string The composed attribute.
+	 * @deprecated 3.0.0 This method will be moved to HtmlHelper in 3.0
+	 */
 	protected function _formatAttribute($key, $value, $escape = true) {
 		if (is_array($value)) {
 			$value = implode(' ', $value);
@@ -503,15 +503,15 @@ class Helper extends Object {
 		return sprintf($this->_attributeFormat, $key, ($escape ? h($value) : $value));
 	}
 
-/**
- * Returns a string to be used as onclick handler for confirm dialogs.
- *
- * @param string $message Message to be displayed
- * @param string $okCode Code to be executed after user chose 'OK'
- * @param string $cancelCode Code to be executed after user chose 'Cancel'
- * @param array $options Array of options
- * @return string onclick JS code
- */
+	/**
+	 * Returns a string to be used as onclick handler for confirm dialogs.
+	 *
+	 * @param string $message Message to be displayed
+	 * @param string $okCode Code to be executed after user chose 'OK'
+	 * @param string $cancelCode Code to be executed after user chose 'Cancel'
+	 * @param array $options Array of options
+	 * @return string onclick JS code
+	 */
 	protected function _confirm($message, $okCode, $cancelCode = '', $options = array()) {
 		$message = json_encode($message);
 		$confirm = "if (confirm({$message})) { {$okCode} } {$cancelCode}";
@@ -521,13 +521,13 @@ class Helper extends Object {
 		return $confirm;
 	}
 
-/**
- * Sets this helper's model and field properties to the dot-separated value-pair in $entity.
- *
- * @param string $entity A field name, like "ModelName.fieldName" or "ModelName.ID.fieldName"
- * @param bool $setScope Sets the view scope to the model specified in $tagValue
- * @return void
- */
+	/**
+	 * Sets this helper's model and field properties to the dot-separated value-pair in $entity.
+	 *
+	 * @param string $entity A field name, like "ModelName.fieldName" or "ModelName.ID.fieldName"
+	 * @param bool $setScope Sets the view scope to the model specified in $tagValue
+	 * @return void
+	 */
 	public function setEntity($entity, $setScope = false) {
 		if ($entity === null) {
 			$this->_modelScope = false;
@@ -590,20 +590,20 @@ class Helper extends Object {
 		$this->_entityPath = $entity;
 	}
 
-/**
- * Returns the entity reference of the current context as an array of identity parts
- *
- * @return array An array containing the identity elements of an entity
- */
+	/**
+	 * Returns the entity reference of the current context as an array of identity parts
+	 *
+	 * @return array An array containing the identity elements of an entity
+	 */
 	public function entity() {
 		return explode('.', $this->_entityPath);
 	}
 
-/**
- * Gets the currently-used model of the rendering context.
- *
- * @return string
- */
+	/**
+	 * Gets the currently-used model of the rendering context.
+	 *
+	 * @return string
+	 */
 	public function model() {
 		if ($this->_association) {
 			return $this->_association;
@@ -611,13 +611,13 @@ class Helper extends Object {
 		return $this->_modelScope;
 	}
 
-/**
- * Gets the currently-used model field of the rendering context.
- * Strips off field suffixes such as year, month, day, hour, min, meridian
- * when the current entity is longer than 2 elements.
- *
- * @return string
- */
+	/**
+	 * Gets the currently-used model field of the rendering context.
+	 * Strips off field suffixes such as year, month, day, hour, min, meridian
+	 * when the current entity is longer than 2 elements.
+	 *
+	 * @return string
+	 */
 	public function field() {
 		$entity = $this->entity();
 		$count = count($entity);
@@ -628,16 +628,16 @@ class Helper extends Object {
 		return $last;
 	}
 
-/**
- * Generates a DOM ID for the selected element, if one is not set.
- * Uses the current View::entity() settings to generate a CamelCased id attribute.
- *
- * @param array|string $options Either an array of html attributes to add $id into, or a string
- *   with a view entity path to get a domId for.
- * @param string $id The name of the 'id' attribute.
- * @return mixed If $options was an array, an array will be returned with $id set. If a string
- *   was supplied, a string will be returned.
- */
+	/**
+	 * Generates a DOM ID for the selected element, if one is not set.
+	 * Uses the current View::entity() settings to generate a CamelCased id attribute.
+	 *
+	 * @param array|string $options Either an array of html attributes to add $id into, or a string
+	 *   with a view entity path to get a domId for.
+	 * @param string $id The name of the 'id' attribute.
+	 * @return mixed If $options was an array, an array will be returned with $id set. If a string
+	 *   was supplied, a string will be returned.
+	 */
 	public function domId($options = null, $id = 'id') {
 		if (is_array($options) && array_key_exists($id, $options) && $options[$id] === null) {
 			unset($options[$id]);
@@ -659,17 +659,17 @@ class Helper extends Object {
 		return $options;
 	}
 
-/**
- * Gets the input field name for the current tag. Creates input name attributes
- * using CakePHP's data[Model][field] formatting.
- *
- * @param array|string $options If an array, should be an array of attributes that $key needs to be added to.
- *   If a string or null, will be used as the View entity.
- * @param string $field Field name.
- * @param string $key The name of the attribute to be set, defaults to 'name'
- * @return mixed If an array was given for $options, an array with $key set will be returned.
- *   If a string was supplied a string will be returned.
- */
+	/**
+	 * Gets the input field name for the current tag. Creates input name attributes
+	 * using CakePHP's data[Model][field] formatting.
+	 *
+	 * @param array|string $options If an array, should be an array of attributes that $key needs to be added to.
+	 *   If a string or null, will be used as the View entity.
+	 * @param string $field Field name.
+	 * @param string $key The name of the attribute to be set, defaults to 'name'
+	 * @return mixed If an array was given for $options, an array with $key set will be returned.
+	 *   If a string was supplied a string will be returned.
+	 */
 	protected function _name($options = array(), $field = null, $key = 'name') {
 		if ($options === null) {
 			$options = array();
@@ -701,16 +701,16 @@ class Helper extends Object {
 		return $name;
 	}
 
-/**
- * Gets the data for the current tag
- *
- * @param array|string $options If an array, should be an array of attributes that $key needs to be added to.
- *   If a string or null, will be used as the View entity.
- * @param string $field Field name.
- * @param string $key The name of the attribute to be set, defaults to 'value'
- * @return mixed If an array was given for $options, an array with $key set will be returned.
- *   If a string was supplied a string will be returned.
- */
+	/**
+	 * Gets the data for the current tag
+	 *
+	 * @param array|string $options If an array, should be an array of attributes that $key needs to be added to.
+	 *   If a string or null, will be used as the View entity.
+	 * @param string $field Field name.
+	 * @param string $key The name of the attribute to be set, defaults to 'value'
+	 * @return mixed If an array was given for $options, an array with $key set will be returned.
+	 *   If a string was supplied a string will be returned.
+	 */
 	public function value($options = array(), $field = null, $key = 'value') {
 		if ($options === null) {
 			$options = array();
@@ -758,14 +758,14 @@ class Helper extends Object {
 		return $result;
 	}
 
-/**
- * Sets the defaults for an input tag. Will set the
- * name, value, and id attributes for an array of html attributes.
- *
- * @param string $field The field name to initialize.
- * @param array $options Array of options to use while initializing an input field.
- * @return array Array options for the form input.
- */
+	/**
+	 * Sets the defaults for an input tag. Will set the
+	 * name, value, and id attributes for an array of html attributes.
+	 *
+	 * @param string $field The field name to initialize.
+	 * @param array $options Array of options to use while initializing an input field.
+	 * @return array Array options for the form input.
+	 */
 	protected function _initInputField($field, $options = array()) {
 		if ($field !== null) {
 			$this->setEntity($field);
@@ -777,14 +777,14 @@ class Helper extends Object {
 		return $options;
 	}
 
-/**
- * Adds the given class to the element options
- *
- * @param array $options Array options/attributes to add a class to
- * @param string $class The class name being added.
- * @param string $key the key to use for class.
- * @return array Array of options with $key set.
- */
+	/**
+	 * Adds the given class to the element options
+	 *
+	 * @param array $options Array options/attributes to add a class to
+	 * @param string $class The class name being added.
+	 * @param string $key the key to use for class.
+	 * @return array Array of options with $key set.
+	 */
 	public function addClass($options = array(), $class = null, $key = 'class') {
 		if (isset($options[$key]) && trim($options[$key])) {
 			$options[$key] .= ' ' . $class;
@@ -794,97 +794,97 @@ class Helper extends Object {
 		return $options;
 	}
 
-/**
- * Returns a string generated by a helper method
- *
- * This method can be overridden in subclasses to do generalized output post-processing
- *
- * @param string $str String to be output.
- * @return string
- * @deprecated 3.0.0 This method will be removed in future versions.
- */
+	/**
+	 * Returns a string generated by a helper method
+	 *
+	 * This method can be overridden in subclasses to do generalized output post-processing
+	 *
+	 * @param string $str String to be output.
+	 * @return string
+	 * @deprecated 3.0.0 This method will be removed in future versions.
+	 */
 	public function output($str) {
 		return $str;
 	}
 
-/**
- * Before render callback. beforeRender is called before the view file is rendered.
- *
- * Overridden in subclasses.
- *
- * @param string $viewFile The view file that is going to be rendered
- * @return void
- */
+	/**
+	 * Before render callback. beforeRender is called before the view file is rendered.
+	 *
+	 * Overridden in subclasses.
+	 *
+	 * @param string $viewFile The view file that is going to be rendered
+	 * @return void
+	 */
 	public function beforeRender($viewFile) {
 	}
 
-/**
- * After render callback. afterRender is called after the view file is rendered
- * but before the layout has been rendered.
- *
- * Overridden in subclasses.
- *
- * @param string $viewFile The view file that was rendered.
- * @return void
- */
+	/**
+	 * After render callback. afterRender is called after the view file is rendered
+	 * but before the layout has been rendered.
+	 *
+	 * Overridden in subclasses.
+	 *
+	 * @param string $viewFile The view file that was rendered.
+	 * @return void
+	 */
 	public function afterRender($viewFile) {
 	}
 
-/**
- * Before layout callback. beforeLayout is called before the layout is rendered.
- *
- * Overridden in subclasses.
- *
- * @param string $layoutFile The layout about to be rendered.
- * @return void
- */
+	/**
+	 * Before layout callback. beforeLayout is called before the layout is rendered.
+	 *
+	 * Overridden in subclasses.
+	 *
+	 * @param string $layoutFile The layout about to be rendered.
+	 * @return void
+	 */
 	public function beforeLayout($layoutFile) {
 	}
 
-/**
- * After layout callback. afterLayout is called after the layout has rendered.
- *
- * Overridden in subclasses.
- *
- * @param string $layoutFile The layout file that was rendered.
- * @return void
- */
+	/**
+	 * After layout callback. afterLayout is called after the layout has rendered.
+	 *
+	 * Overridden in subclasses.
+	 *
+	 * @param string $layoutFile The layout file that was rendered.
+	 * @return void
+	 */
 	public function afterLayout($layoutFile) {
 	}
 
-/**
- * Before render file callback.
- * Called before any view fragment is rendered.
- *
- * Overridden in subclasses.
- *
- * @param string $viewFile The file about to be rendered.
- * @return void
- */
+	/**
+	 * Before render file callback.
+	 * Called before any view fragment is rendered.
+	 *
+	 * Overridden in subclasses.
+	 *
+	 * @param string $viewFile The file about to be rendered.
+	 * @return void
+	 */
 	public function beforeRenderFile($viewFile) {
 	}
 
-/**
- * After render file callback.
- * Called after any view fragment is rendered.
- *
- * Overridden in subclasses.
- *
- * @param string $viewFile The file just be rendered.
- * @param string $content The content that was rendered.
- * @return void
- */
+	/**
+	 * After render file callback.
+	 * Called after any view fragment is rendered.
+	 *
+	 * Overridden in subclasses.
+	 *
+	 * @param string $viewFile The file just be rendered.
+	 * @param string $content The content that was rendered.
+	 * @return void
+	 */
 	public function afterRenderFile($viewFile, $content) {
 	}
 
-/**
- * Transforms a recordset from a hasAndBelongsToMany association to a list of selected
- * options for a multiple select element
- *
- * @param string|array $data Data array or model name.
- * @param string $key Field name.
- * @return array
- */
+	/**
+	 * Transforms a recordset from a hasAndBelongsToMany association to a list of selected
+	 * options for a multiple select element
+	 *
+	 * @param string|array $data Data array or model name.
+	 * @param string $key Field name.
+	 * @return array
+	 */
 	protected function _selectedArray($data, $key = 'id') {
 		if (!is_array($data)) {
 			$model = $data;
@@ -906,21 +906,21 @@ class Helper extends Object {
 		return empty($array) ? null : $array;
 	}
 
-/**
- * Resets the vars used by Helper::clean() to null
- *
- * @return void
- */
+	/**
+	 * Resets the vars used by Helper::clean() to null
+	 *
+	 * @return void
+	 */
 	protected function _reset() {
 		$this->_tainted = null;
 		$this->_cleaned = null;
 	}
 
-/**
- * Removes harmful content from output
- *
- * @return void
- */
+	/**
+	 * Removes harmful content from output
+	 *
+	 * @return void
+	 */
 	protected function _clean() {
 		if (get_magic_quotes_gpc()) {
 			$this->_cleaned = stripslashes($this->_tainted);

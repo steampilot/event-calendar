@@ -22,21 +22,21 @@ App::uses('Hash', 'Utility');
  */
 abstract class BaseAuthenticate {
 
-/**
- * Settings for this object.
- *
- * - `fields` The fields to use to identify a user by.
- * - `userModel` The model name of the User, defaults to User.
- * - `scope` Additional conditions to use when looking up and authenticating users,
- *    i.e. `array('User.is_active' => 1).`
- * - `recursive` The value of the recursive key passed to find(). Defaults to 0.
- * - `contain` Extra models to contain and store in session.
- * - `passwordHasher` Password hasher class. Can be a string specifying class name
- *    or an array containing `className` key, any other keys will be passed as
- *    settings to the class. Defaults to 'Simple'.
- *
- * @var array
- */
+	/**
+	 * Settings for this object.
+	 *
+	 * - `fields` The fields to use to identify a user by.
+	 * - `userModel` The model name of the User, defaults to User.
+	 * - `scope` Additional conditions to use when looking up and authenticating users,
+	 *    i.e. `array('User.is_active' => 1).`
+	 * - `recursive` The value of the recursive key passed to find(). Defaults to 0.
+	 * - `contain` Extra models to contain and store in session.
+	 * - `passwordHasher` Password hasher class. Can be a string specifying class name
+	 *    or an array containing `className` key, any other keys will be passed as
+	 *    settings to the class. Defaults to 'Simple'.
+	 *
+	 * @var array
+	 */
 	public $settings = array(
 		'fields' => array(
 			'username' => 'username',
@@ -49,45 +49,45 @@ abstract class BaseAuthenticate {
 		'passwordHasher' => 'Simple'
 	);
 
-/**
- * A Component collection, used to get more components.
- *
- * @var ComponentCollection
- */
+	/**
+	 * A Component collection, used to get more components.
+	 *
+	 * @var ComponentCollection
+	 */
 	protected $_Collection;
 
-/**
- * Password hasher instance.
- *
- * @var AbstractPasswordHasher
- */
+	/**
+	 * Password hasher instance.
+	 *
+	 * @var AbstractPasswordHasher
+	 */
 	protected $_passwordHasher;
 
-/**
- * Constructor
- *
- * @param ComponentCollection $collection The Component collection used on this request.
- * @param array $settings Array of settings to use.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param ComponentCollection $collection The Component collection used on this request.
+	 * @param array $settings Array of settings to use.
+	 */
 	public function __construct(ComponentCollection $collection, $settings) {
 		$this->_Collection = $collection;
 		$this->settings = Hash::merge($this->settings, $settings);
 	}
 
-/**
- * Find a user record using the standard options.
- *
- * The $username parameter can be a (string)username or an array containing
- * conditions for Model::find('first'). If the $password param is not provided
- * the password field will be present in returned array.
- *
- * Input passwords will be hashed even when a user doesn't exist. This
- * helps mitigate timing attacks that are attempting to find valid usernames.
- *
- * @param string|array $username The username/identifier, or an array of find conditions.
- * @param string $password The password, only used if $username param is string.
- * @return bool|array Either false on failure, or an array of user data.
- */
+	/**
+	 * Find a user record using the standard options.
+	 *
+	 * The $username parameter can be a (string)username or an array containing
+	 * conditions for Model::find('first'). If the $password param is not provided
+	 * the password field will be present in returned array.
+	 *
+	 * Input passwords will be hashed even when a user doesn't exist. This
+	 * helps mitigate timing attacks that are attempting to find valid usernames.
+	 *
+	 * @param string|array $username The username/identifier, or an array of find conditions.
+	 * @param string $password The password, only used if $username param is string.
+	 * @return bool|array Either false on failure, or an array of user data.
+	 */
 	protected function _findUser($username, $password = null) {
 		$userModel = $this->settings['userModel'];
 		list(, $model) = pluginSplit($userModel);
@@ -127,13 +127,13 @@ abstract class BaseAuthenticate {
 		return array_merge($user, $result);
 	}
 
-/**
- * Return password hasher object
- *
- * @return AbstractPasswordHasher Password hasher instance
- * @throws CakeException If password hasher class not found or
- *   it does not extend AbstractPasswordHasher
- */
+	/**
+	 * Return password hasher object
+	 *
+	 * @return AbstractPasswordHasher Password hasher instance
+	 * @throws CakeException If password hasher class not found or
+	 *   it does not extend AbstractPasswordHasher
+	 */
 	public function passwordHasher() {
 		if ($this->_passwordHasher) {
 			return $this->_passwordHasher;
@@ -160,59 +160,59 @@ abstract class BaseAuthenticate {
 		return $this->_passwordHasher;
 	}
 
-/**
- * Hash the plain text password so that it matches the hashed/encrypted password
- * in the datasource.
- *
- * @param string $password The plain text password.
- * @return string The hashed form of the password.
- * @deprecated 3.0.0 Since 2.4. Use a PasswordHasher class instead.
- */
+	/**
+	 * Hash the plain text password so that it matches the hashed/encrypted password
+	 * in the datasource.
+	 *
+	 * @param string $password The plain text password.
+	 * @return string The hashed form of the password.
+	 * @deprecated 3.0.0 Since 2.4. Use a PasswordHasher class instead.
+	 */
 	protected function _password($password) {
 		return Security::hash($password, null, true);
 	}
 
-/**
- * Authenticate a user based on the request information.
- *
- * @param CakeRequest $request Request to get authentication information from.
- * @param CakeResponse $response A response object that can have headers added.
- * @return mixed Either false on failure, or an array of user data on success.
- */
+	/**
+	 * Authenticate a user based on the request information.
+	 *
+	 * @param CakeRequest $request Request to get authentication information from.
+	 * @param CakeResponse $response A response object that can have headers added.
+	 * @return mixed Either false on failure, or an array of user data on success.
+	 */
 	abstract public function authenticate(CakeRequest $request, CakeResponse $response);
 
-/**
- * Allows you to hook into AuthComponent::logout(),
- * and implement specialized logout behavior.
- *
- * All attached authentication objects will have this method
- * called when a user logs out.
- *
- * @param array $user The user about to be logged out.
- * @return void
- */
+	/**
+	 * Allows you to hook into AuthComponent::logout(),
+	 * and implement specialized logout behavior.
+	 *
+	 * All attached authentication objects will have this method
+	 * called when a user logs out.
+	 *
+	 * @param array $user The user about to be logged out.
+	 * @return void
+	 */
 	public function logout($user) {
 	}
 
-/**
- * Get a user based on information in the request. Primarily used by stateless authentication
- * systems like basic and digest auth.
- *
- * @param CakeRequest $request Request object.
- * @return mixed Either false or an array of user information
- */
+	/**
+	 * Get a user based on information in the request. Primarily used by stateless authentication
+	 * systems like basic and digest auth.
+	 *
+	 * @param CakeRequest $request Request object.
+	 * @return mixed Either false or an array of user information
+	 */
 	public function getUser(CakeRequest $request) {
 		return false;
 	}
 
-/**
- * Handle unauthenticated access attempt.
- *
- * @param CakeRequest $request A request object.
- * @param CakeResponse $response A response object.
- * @return mixed Either true to indicate the unauthenticated request has been
- *  dealt with and no more action is required by AuthComponent or void (default).
- */
+	/**
+	 * Handle unauthenticated access attempt.
+	 *
+	 * @param CakeRequest $request A request object.
+	 * @param CakeResponse $response A response object.
+	 * @return mixed Either true to indicate the unauthenticated request has been
+	 *  dealt with and no more action is required by AuthComponent or void (default).
+	 */
 	public function unauthenticated(CakeRequest $request, CakeResponse $response) {
 	}
 

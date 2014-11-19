@@ -43,11 +43,11 @@ class TestTestShell extends TestShell {
  */
 class TestShellTest extends CakeTestCase {
 
-/**
- * setUp test case
- *
- * @return void
- */
+	/**
+	 * setUp test case
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
@@ -61,21 +61,21 @@ class TestShellTest extends CakeTestCase {
 		$this->Shell->OptionParser = $this->getMock('ConsoleOptionParser', array(), array(null, false));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Dispatch, $this->Shell);
 	}
 
-/**
- * testMapCoreFileToCategory
- *
- * @return void
- */
+	/**
+	 * testMapCoreFileToCategory
+	 *
+	 * @return void
+	 */
 	public function testMapCoreFileToCategory() {
 		$this->Shell->startup();
 
@@ -89,13 +89,13 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('core', $return);
 	}
 
-/**
- * testMapCoreFileToCase
- *
- * basics.php is a slightly special case - it's the only file in the core with a test that isn't Capitalized
- *
- * @return void
- */
+	/**
+	 * testMapCoreFileToCase
+	 *
+	 * basics.php is a slightly special case - it's the only file in the core with a test that isn't Capitalized
+	 *
+	 * @return void
+	 */
 	public function testMapCoreFileToCase() {
 		$this->Shell->startup();
 
@@ -109,11 +109,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('Some/Deeply/Nested/Structure', $return);
 	}
 
-/**
- * testMapAppFileToCategory
- *
- * @return void
- */
+	/**
+	 * testMapAppFileToCategory
+	 *
+	 * @return void
+	 */
 	public function testMapAppFileToCategory() {
 		$this->Shell->startup();
 
@@ -124,11 +124,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('app', $return);
 	}
 
-/**
- * testMapAppFileToCase
- *
- * @return void
- */
+	/**
+	 * testMapAppFileToCase
+	 *
+	 * @return void
+	 */
 	public function testMapAppFileToCase() {
 		$this->Shell->startup();
 
@@ -139,11 +139,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('My/File/Is/Here', $return);
 	}
 
-/**
- * testMapPluginFileToCategory
- *
- * @return void
- */
+	/**
+	 * testMapPluginFileToCategory
+	 *
+	 * @return void
+	 */
 	public function testMapPluginFileToCategory() {
 		$this->Shell->startup();
 
@@ -154,11 +154,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('awesome', $return);
 	}
 
-/**
- * testMapPluginFileToCase
- *
- * @return void
- */
+	/**
+	 * testMapPluginFileToCase
+	 *
+	 * @return void
+	 */
 	public function testMapPluginFileToCase() {
 		$this->Shell->startup();
 
@@ -169,11 +169,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('Controller/ExampleController', $return);
 	}
 
-/**
- * testMapCoreTestToCategory
- *
- * @return void
- */
+	/**
+	 * testMapCoreTestToCategory
+	 *
+	 * @return void
+	 */
 	public function testMapCoreTestToCategory() {
 		$this->Shell->startup();
 
@@ -187,13 +187,13 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('core', $return);
 	}
 
-/**
- * testMapCoreTestToCase
- *
- * basics.php is a slightly special case - it's the only file in the core with a test that isn't Capitalized
- *
- * @return void
- */
+	/**
+	 * testMapCoreTestToCase
+	 *
+	 * basics.php is a slightly special case - it's the only file in the core with a test that isn't Capitalized
+	 *
+	 * @return void
+	 */
 	public function testMapCoreTestToCase() {
 		$this->Shell->startup();
 
@@ -207,11 +207,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('Some/Deeply/Nested/Structure', $return);
 	}
 
-/**
- * testMapAppTestToCategory
- *
- * @return void
- */
+	/**
+	 * testMapAppTestToCategory
+	 *
+	 * @return void
+	 */
 	public function testMapAppTestToCategory() {
 		$this->Shell->startup();
 
@@ -222,11 +222,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('app', $return);
 	}
 
-/**
- * testMapAppTestToCase
- *
- * @return void
- */
+	/**
+	 * testMapAppTestToCase
+	 *
+	 * @return void
+	 */
 	public function testMapAppTestToCase() {
 		$this->Shell->startup();
 
@@ -237,11 +237,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('My/File/Is/Here', $return);
 	}
 
-/**
- * testMapPluginTestToCategory
- *
- * @return void
- */
+	/**
+	 * testMapPluginTestToCategory
+	 *
+	 * @return void
+	 */
 	public function testMapPluginTestToCategory() {
 		$this->Shell->startup();
 
@@ -252,11 +252,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('awesome', $return);
 	}
 
-/**
- * testMapPluginTestToCase
- *
- * @return void
- */
+	/**
+	 * testMapPluginTestToCase
+	 *
+	 * @return void
+	 */
 	public function testMapPluginTestToCase() {
 		$this->Shell->startup();
 
@@ -267,11 +267,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertSame('Controller/ExampleController', $return);
 	}
 
-/**
- * testMapNotTestToNothing
- *
- * @return void
- */
+	/**
+	 * testMapNotTestToNothing
+	 *
+	 * @return void
+	 */
 	public function testMapNotTestToNothing() {
 		$this->Shell->startup();
 
@@ -288,11 +288,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertFalse($return);
 	}
 
-/**
- * test available list of test cases for an empty category
- *
- * @return void
- */
+	/**
+	 * test available list of test cases for an empty category
+	 *
+	 * @return void
+	 */
 	public function testAvailableWithEmptyList() {
 		$this->Shell->startup();
 		$this->Shell->args = array('unexistant-category');
@@ -301,11 +301,11 @@ class TestShellTest extends CakeTestCase {
 		$this->Shell->available();
 	}
 
-/**
- * test available list of test cases for core category
- *
- * @return void
- */
+	/**
+	 * test available list of test cases for core category
+	 *
+	 * @return void
+	 */
 	public function testAvailableCoreCategory() {
 		$this->Shell->startup();
 		$this->Shell->args = array('core');
@@ -324,11 +324,11 @@ class TestShellTest extends CakeTestCase {
 		$this->assertEquals(array('core', 'AllBehaviors'), $this->Shell->args);
 	}
 
-/**
- * Tests that correct option for test runner are passed
- *
- * @return void
- */
+	/**
+	 * Tests that correct option for test runner are passed
+	 *
+	 * @return void
+	 */
 	public function testRunnerOptions() {
 		$this->Shell->startup();
 		$this->Shell->args = array('core', 'Basics');

@@ -31,11 +31,11 @@ App::uses('TemplateTask', 'Console/Command/Task');
  */
 class TemplateTaskTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
@@ -47,21 +47,21 @@ class TemplateTaskTest extends CakeTestCase {
 		);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Task);
 	}
 
-/**
- * test that set sets variables
- *
- * @return void
- */
+	/**
+	 * test that set sets variables
+	 *
+	 * @return void
+	 */
 	public function testSet() {
 		$this->Task->set('one', 'two');
 		$this->assertTrue(isset($this->Task->templateVars['one']));
@@ -80,23 +80,23 @@ class TemplateTaskTest extends CakeTestCase {
 		$this->assertEquals($expected, $this->Task->templateVars);
 	}
 
-/**
- * test finding themes installed in
- *
- * @return void
- */
+	/**
+	 * test finding themes installed in
+	 *
+	 * @return void
+	 */
 	public function testFindingInstalledThemesForBake() {
 		$consoleLibs = CAKE . 'Console' . DS;
 		$this->Task->initialize();
 		$this->assertEquals($this->Task->templatePaths['default'], $consoleLibs . 'Templates' . DS . 'default' . DS);
 	}
 
-/**
- * test getting the correct theme name. Ensure that with only one theme, or a theme param
- * that the user is not bugged. If there are more, find and return the correct theme name
- *
- * @return void
- */
+	/**
+	 * test getting the correct theme name. Ensure that with only one theme, or a theme param
+	 * that the user is not bugged. If there are more, find and return the correct theme name
+	 *
+	 * @return void
+	 */
 	public function testGetThemePath() {
 		$defaultTheme = CAKE . 'Console' . DS . 'Templates' . DS . 'default' . DS;
 		$this->Task->templatePaths = array('default' => $defaultTheme);
@@ -117,11 +117,11 @@ class TemplateTaskTest extends CakeTestCase {
 		$this->assertEquals('other', $this->Task->params['theme']);
 	}
 
-/**
- * test generate
- *
- * @return void
- */
+	/**
+	 * test generate
+	 *
+	 * @return void
+	 */
 	public function testGenerate() {
 		App::build(array(
 			'Console' => array(
@@ -136,12 +136,12 @@ class TemplateTaskTest extends CakeTestCase {
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * test generate with a missing template in the chosen theme.
- * ensure fallback to default works.
- *
- * @return void
- */
+	/**
+	 * test generate with a missing template in the chosen theme.
+	 * ensure fallback to default works.
+	 *
+	 * @return void
+	 */
 	public function testGenerateWithTemplateFallbacks() {
 		App::build(array(
 			'Console' => array(

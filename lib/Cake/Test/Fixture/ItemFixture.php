@@ -23,11 +23,11 @@
  */
 class ItemFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'syfile_id' => array('type' => 'integer', 'null' => false),
@@ -35,11 +35,11 @@ class ItemFixture extends CakeTestFixture {
 		'name' => array('type' => 'string', 'null' => false)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('syfile_id' => 1, 'published' => 0, 'name' => 'Item 1'),
 		array('syfile_id' => 2, 'published' => 0, 'name' => 'Item 2'),

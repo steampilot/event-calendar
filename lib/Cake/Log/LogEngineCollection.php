@@ -25,14 +25,14 @@ App::uses('ObjectCollection', 'Utility');
  */
 class LogEngineCollection extends ObjectCollection {
 
-/**
- * Loads/constructs a Log engine.
- *
- * @param string $name instance identifier
- * @param array $options Setting for the Log Engine
- * @return BaseLog BaseLog engine instance
- * @throws CakeLogException when logger class does not implement a write method
- */
+	/**
+	 * Loads/constructs a Log engine.
+	 *
+	 * @param string $name instance identifier
+	 * @param array $options Setting for the Log Engine
+	 * @return BaseLog BaseLog engine instance
+	 * @throws CakeLogException when logger class does not implement a write method
+	 */
 	public function load($name, $options = array()) {
 		$enable = isset($options['enabled']) ? $options['enabled'] : true;
 		$loggerName = $options['engine'];
@@ -51,14 +51,14 @@ class LogEngineCollection extends ObjectCollection {
 		return $logger;
 	}
 
-/**
- * Attempts to import a logger class from the various paths it could be on.
- * Checks that the logger class implements a write method as well.
- *
- * @param string $loggerName the plugin.className of the logger class you want to build.
- * @return mixed boolean false on any failures, string of classname to use if search was successful.
- * @throws CakeLogException
- */
+	/**
+	 * Attempts to import a logger class from the various paths it could be on.
+	 * Checks that the logger class implements a write method as well.
+	 *
+	 * @param string $loggerName the plugin.className of the logger class you want to build.
+	 * @return mixed boolean false on any failures, string of classname to use if search was successful.
+	 * @throws CakeLogException
+	 */
 	protected static function _getLogger($loggerName) {
 		list($plugin, $loggerName) = pluginSplit($loggerName, true);
 		if (substr($loggerName, -3) !== 'Log') {

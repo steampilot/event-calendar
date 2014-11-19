@@ -26,11 +26,11 @@ App::uses('FileLog', 'Log/Engine');
  */
 class CakeLogTest extends CakeTestCase {
 
-/**
- * Start test callback, clears all streams enabled.
- *
- * @return void
- */
+	/**
+	 * Start test callback, clears all streams enabled.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$streams = CakeLog::configured();
@@ -39,11 +39,11 @@ class CakeLogTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test importing loggers from app/libs and plugins.
- *
- * @return void
- */
+	/**
+	 * test importing loggers from app/libs and plugins.
+	 *
+	 * @return void
+	 */
 	public function testImportingLoggers() {
 		App::build(array(
 			'Lib' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
@@ -69,21 +69,21 @@ class CakeLogTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * test all the errors from failed logger imports
- *
- * @expectedException CakeLogException
- * @return void
- */
+	/**
+	 * test all the errors from failed logger imports
+	 *
+	 * @expectedException CakeLogException
+	 * @return void
+	 */
 	public function testImportingLoggerFailure() {
 		CakeLog::config('fail', array());
 	}
 
-/**
- * test config() with valid key name
- *
- * @return void
- */
+	/**
+	 * test config() with valid key name
+	 *
+	 * @return void
+	 */
 	public function testValidKeyName() {
 		CakeLog::config('valid', array('engine' => 'File'));
 		$stream = CakeLog::stream('valid');
@@ -91,11 +91,11 @@ class CakeLogTest extends CakeTestCase {
 		CakeLog::drop('valid');
 	}
 
-/**
- * test config() with valid key name including the deprecated Log suffix
- *
- * @return void
- */
+	/**
+	 * test config() with valid key name including the deprecated Log suffix
+	 *
+	 * @return void
+	 */
 	public function testValidKeyNameLogSuffix() {
 		CakeLog::config('valid', array('engine' => 'FileLog'));
 		$stream = CakeLog::stream('valid');
@@ -103,31 +103,31 @@ class CakeLogTest extends CakeTestCase {
 		CakeLog::drop('valid');
 	}
 
-/**
- * test config() with invalid key name
- *
- * @expectedException CakeLogException
- * @return void
- */
+	/**
+	 * test config() with invalid key name
+	 *
+	 * @expectedException CakeLogException
+	 * @return void
+	 */
 	public function testInvalidKeyName() {
 		CakeLog::config('1nv', array('engine' => 'File'));
 	}
 
-/**
- * test that loggers have to implement the correct interface.
- *
- * @expectedException CakeLogException
- * @return void
- */
+	/**
+	 * test that loggers have to implement the correct interface.
+	 *
+	 * @expectedException CakeLogException
+	 * @return void
+	 */
 	public function testNotImplementingInterface() {
 		CakeLog::config('fail', array('engine' => 'stdClass'));
 	}
 
-/**
- * Test that CakeLog does not auto create logs when no streams are there to listen.
- *
- * @return void
- */
+	/**
+	 * Test that CakeLog does not auto create logs when no streams are there to listen.
+	 *
+	 * @return void
+	 */
 	public function testNoStreamListenting() {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');
@@ -140,11 +140,11 @@ class CakeLogTest extends CakeTestCase {
 		$this->assertEquals(array(), $result);
 	}
 
-/**
- * test configuring log streams
- *
- * @return void
- */
+	/**
+	 * test configuring log streams
+	 *
+	 * @return void
+	 */
 	public function testConfig() {
 		CakeLog::config('file', array(
 			'engine' => 'File',
@@ -164,11 +164,11 @@ class CakeLogTest extends CakeTestCase {
 		unlink(LOGS . 'error.log');
 	}
 
-/**
- * explicit tests for drop()
- *
- * @return void
- */
+	/**
+	 * explicit tests for drop()
+	 *
+	 * @return void
+	 */
 	public function testDrop() {
 		CakeLog::config('file', array(
 			'engine' => 'File',
@@ -182,11 +182,11 @@ class CakeLogTest extends CakeTestCase {
 		$this->assertSame(array(), $result);
 	}
 
-/**
- * testLogFileWriting method
- *
- * @return void
- */
+	/**
+	 * testLogFileWriting method
+	 *
+	 * @return void
+	 */
 	public function testLogFileWriting() {
 		CakeLog::config('file', array(
 			'engine' => 'File',
@@ -208,11 +208,11 @@ class CakeLogTest extends CakeTestCase {
 		unlink(LOGS . 'error.log');
 	}
 
-/**
- * test selective logging by level/type
- *
- * @return void
- */
+	/**
+	 * test selective logging by level/type
+	 *
+	 * @return void
+	 */
 	public function testSelectiveLoggingByLevel() {
 		if (file_exists(LOGS . 'spam.log')) {
 			unlink(LOGS . 'spam.log');
@@ -253,33 +253,33 @@ class CakeLogTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test enable
- *
- * @expectedException CakeLogException
- * @return void
- */
+	/**
+	 * test enable
+	 *
+	 * @expectedException CakeLogException
+	 * @return void
+	 */
 	public function testStreamEnable() {
 		CakeLog::config('spam', array(
 			'engine' => 'File',
 			'file' => 'spam',
-			));
+		));
 		$this->assertTrue(CakeLog::enabled('spam'));
 		CakeLog::drop('spam');
 		CakeLog::enable('bogus_stream');
 	}
 
-/**
- * test disable
- *
- * @expectedException CakeLogException
- * @return void
- */
+	/**
+	 * test disable
+	 *
+	 * @expectedException CakeLogException
+	 * @return void
+	 */
 	public function testStreamDisable() {
 		CakeLog::config('spam', array(
 			'engine' => 'File',
 			'file' => 'spam',
-			));
+		));
 		$this->assertTrue(CakeLog::enabled('spam'));
 		CakeLog::disable('spam');
 		$this->assertFalse(CakeLog::enabled('spam'));
@@ -287,31 +287,31 @@ class CakeLogTest extends CakeTestCase {
 		CakeLog::enable('bogus_stream');
 	}
 
-/**
- * test enabled() invalid stream
- *
- * @expectedException CakeLogException
- * @return void
- */
+	/**
+	 * test enabled() invalid stream
+	 *
+	 * @expectedException CakeLogException
+	 * @return void
+	 */
 	public function testStreamEnabledInvalid() {
 		CakeLog::enabled('bogus_stream');
 	}
 
-/**
- * test disable invalid stream
- *
- * @expectedException CakeLogException
- * @return void
- */
+	/**
+	 * test disable invalid stream
+	 *
+	 * @expectedException CakeLogException
+	 * @return void
+	 */
 	public function testStreamDisableInvalid() {
 		CakeLog::disable('bogus_stream');
 	}
 
-/**
- * resets log config
- *
- * @return void
- */
+	/**
+	 * resets log config
+	 *
+	 * @return void
+	 */
 	protected function _resetLogConfig() {
 		CakeLog::config('debug', array(
 			'engine' => 'File',
@@ -325,11 +325,11 @@ class CakeLogTest extends CakeTestCase {
 		));
 	}
 
-/**
- * delete logs
- *
- * @return void
- */
+	/**
+	 * delete logs
+	 *
+	 * @return void
+	 */
 	protected function _deleteLogs() {
 		if (file_exists(LOGS . 'shops.log')) {
 			unlink(LOGS . 'shops.log');
@@ -351,11 +351,11 @@ class CakeLogTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test backward compatible scoped logging
- *
- * @return void
- */
+	/**
+	 * test backward compatible scoped logging
+	 *
+	 * @return void
+	 */
 	public function testScopedLoggingBC() {
 		$this->_resetLogConfig();
 
@@ -405,11 +405,11 @@ class CakeLogTest extends CakeTestCase {
 		CakeLog::drop('shops');
 	}
 
-/**
- * Test that scopes are exclusive and don't bleed.
- *
- * @return void
- */
+	/**
+	 * Test that scopes are exclusive and don't bleed.
+	 *
+	 * @return void
+	 */
 	public function testScopedLoggingExclusive() {
 		$this->_deleteLogs();
 
@@ -437,11 +437,11 @@ class CakeLogTest extends CakeTestCase {
 		$this->assertFalse(file_exists(LOGS . 'shops.log'));
 	}
 
-/**
- * test scoped logging
- *
- * @return void
- */
+	/**
+	 * test scoped logging
+	 *
+	 * @return void
+	 */
 	public function testScopedLogging() {
 		$this->_resetLogConfig();
 		$this->_deleteLogs();
@@ -504,11 +504,11 @@ class CakeLogTest extends CakeTestCase {
 		CakeLog::drop('shops');
 	}
 
-/**
- * test bogus type and scope
- *
- * @return void
- */
+	/**
+	 * test bogus type and scope
+	 *
+	 * @return void
+	 */
 	public function testBogusTypeAndScope() {
 		$this->_resetLogConfig();
 		$this->_deleteLogs();
@@ -537,11 +537,11 @@ class CakeLogTest extends CakeTestCase {
 		$this->_deleteLogs();
 	}
 
-/**
- * test scoped logging with convenience methods
- *
- * @return void
- */
+	/**
+	 * test scoped logging with convenience methods
+	 *
+	 * @return void
+	 */
 	public function testConvenienceScopedLogging() {
 		if (file_exists(LOGS . 'shops.log')) {
 			unlink(LOGS . 'shops.log');
@@ -585,11 +585,11 @@ class CakeLogTest extends CakeTestCase {
 		CakeLog::drop('shops');
 	}
 
-/**
- * test convenience methods
- *
- * @return void
- */
+	/**
+	 * test convenience methods
+	 *
+	 * @return void
+	 */
 	public function testConvenienceMethods() {
 		$this->_deleteLogs();
 
@@ -661,11 +661,11 @@ class CakeLogTest extends CakeTestCase {
 		$this->_deleteLogs();
 	}
 
-/**
- * test levels customization
- *
- * @return void
- */
+	/**
+	 * test levels customization
+	 *
+	 * @return void
+	 */
 	public function testLevelCustomization() {
 		$this->skipIf(DIRECTORY_SEPARATOR === '\\', 'Log level tests not supported on Windows.');
 
@@ -693,11 +693,11 @@ class CakeLogTest extends CakeTestCase {
 		$this->assertEquals(array('ham', 'spam', 'fam'), $levels);
 	}
 
-/**
- * Test writing log files with custom levels
- *
- * @return void
- */
+	/**
+	 * Test writing log files with custom levels
+	 *
+	 * @return void
+	 */
 	public function testCustomLevelWrites() {
 		$this->_deleteLogs();
 		$this->_resetLogConfig();
@@ -715,12 +715,12 @@ class CakeLogTest extends CakeTestCase {
 			'engine' => 'File',
 			'file' => 'spam.log',
 			'types' => 'spam',
-			));
+		));
 		CakeLog::config('eggs', array(
 			'engine' => 'File',
 			'file' => 'eggs.log',
 			'types' => array('spam', 'eggs'),
-			));
+		));
 
 		$testMessage = 'spam message';
 		CakeLog::write('spam', $testMessage);

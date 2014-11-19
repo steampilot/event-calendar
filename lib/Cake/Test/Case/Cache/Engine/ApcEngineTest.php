@@ -25,11 +25,11 @@ App::uses('Cache', 'Cache');
  */
 class ApcEngineTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->skipIf(!function_exists('apc_store'), 'Apc is not installed or configured properly.');
@@ -43,11 +43,11 @@ class ApcEngineTest extends CakeTestCase {
 		Cache::config('apc', array('engine' => 'Apc', 'prefix' => 'cake_'));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('Cache.disable', $this->_cacheDisable);
@@ -56,11 +56,11 @@ class ApcEngineTest extends CakeTestCase {
 		Cache::config('default');
 	}
 
-/**
- * testReadAndWriteCache method
- *
- * @return void
- */
+	/**
+	 * testReadAndWriteCache method
+	 *
+	 * @return void
+	 */
 	public function testReadAndWriteCache() {
 		Cache::set(array('duration' => 1), 'apc');
 
@@ -79,11 +79,11 @@ class ApcEngineTest extends CakeTestCase {
 		Cache::delete('test', 'apc');
 	}
 
-/**
- * Writing cache entries with duration = 0 (forever) should work.
- *
- * @return void
- */
+	/**
+	 * Writing cache entries with duration = 0 (forever) should work.
+	 *
+	 * @return void
+	 */
 	public function testReadWriteDurationZero() {
 		Cache::config('apc', array('engine' => 'Apc', 'duration' => 0, 'prefix' => 'cake_'));
 		Cache::write('zero', 'Should save', 'apc');
@@ -93,11 +93,11 @@ class ApcEngineTest extends CakeTestCase {
 		$this->assertEquals('Should save', $result);
 	}
 
-/**
- * testExpiry method
- *
- * @return void
- */
+	/**
+	 * testExpiry method
+	 *
+	 * @return void
+	 */
 	public function testExpiry() {
 		Cache::set(array('duration' => 1), 'apc');
 
@@ -127,11 +127,11 @@ class ApcEngineTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testDeleteCache method
- *
- * @return void
- */
+	/**
+	 * testDeleteCache method
+	 *
+	 * @return void
+	 */
 	public function testDeleteCache() {
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('delete_test', $data, 'apc');
@@ -141,11 +141,11 @@ class ApcEngineTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDecrement method
- *
- * @return void
- */
+	/**
+	 * testDecrement method
+	 *
+	 * @return void
+	 */
 	public function testDecrement() {
 		$this->skipIf(!function_exists('apc_dec'), 'No apc_dec() function, cannot test decrement().');
 
@@ -165,11 +165,11 @@ class ApcEngineTest extends CakeTestCase {
 		$this->assertEquals(2, $result);
 	}
 
-/**
- * testIncrement method
- *
- * @return void
- */
+	/**
+	 * testIncrement method
+	 *
+	 * @return void
+	 */
 	public function testIncrement() {
 		$this->skipIf(!function_exists('apc_inc'), 'No apc_inc() function, cannot test increment().');
 
@@ -189,11 +189,11 @@ class ApcEngineTest extends CakeTestCase {
 		$this->assertEquals(8, $result);
 	}
 
-/**
- * test the clearing of cache keys
- *
- * @return void
- */
+	/**
+	 * test the clearing of cache keys
+	 *
+	 * @return void
+	 */
 	public function testClear() {
 		apc_store('not_cake', 'survive');
 		Cache::write('some_value', 'value', 'apc');
@@ -205,13 +205,13 @@ class ApcEngineTest extends CakeTestCase {
 		apc_delete('not_cake');
 	}
 
-/**
- * Tests that configuring groups for stored keys return the correct values when read/written
- * Shows that altering the group value is equivalent to deleting all keys under the same
- * group
- *
- * @return void
- */
+	/**
+	 * Tests that configuring groups for stored keys return the correct values when read/written
+	 * Shows that altering the group value is equivalent to deleting all keys under the same
+	 * group
+	 *
+	 * @return void
+	 */
 	public function testGroupsReadWrite() {
 		Cache::config('apc_groups', array(
 			'engine' => 'Apc',
@@ -233,11 +233,11 @@ class ApcEngineTest extends CakeTestCase {
 		$this->assertEquals('value3', Cache::read('test_groups', 'apc_groups'));
 	}
 
-/**
- * Tests that deleteing from a groups-enabled config is possible
- *
- * @return void
- */
+	/**
+	 * Tests that deleteing from a groups-enabled config is possible
+	 *
+	 * @return void
+	 */
 	public function testGroupDelete() {
 		Cache::config('apc_groups', array(
 			'engine' => 'Apc',
@@ -252,11 +252,11 @@ class ApcEngineTest extends CakeTestCase {
 		$this->assertFalse(Cache::read('test_groups', 'apc_groups'));
 	}
 
-/**
- * Test clearing a cache group
- *
- * @return void
- */
+	/**
+	 * Test clearing a cache group
+	 *
+	 * @return void
+	 */
 	public function testGroupClear() {
 		Cache::config('apc_groups', array(
 			'engine' => 'Apc',

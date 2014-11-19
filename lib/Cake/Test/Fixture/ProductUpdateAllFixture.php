@@ -58,5 +58,5 @@ class ProductUpdateAllFixture extends CakeTestFixture {
 			'groupcode' => 135,
 			'group_id' => 4
 		),
-		);
+	);
 }

@@ -23,11 +23,11 @@
  */
 class AttachmentFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'comment_id' => array('type' => 'integer', 'null' => false),
@@ -36,11 +36,11 @@ class AttachmentFixture extends CakeTestFixture {
 		'updated' => 'datetime'
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('comment_id' => 5, 'attachment' => 'attachment.zip', 'created' => '2007-03-18 10:51:23', 'updated' => '2007-03-18 10:53:31')
 	);

@@ -23,22 +23,22 @@
  */
 class ItemsPortfolioFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'item_id' => array('type' => 'integer', 'null' => false),
 		'portfolio_id' => array('type' => 'integer', 'null' => false)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('item_id' => 1, 'portfolio_id' => 1),
 		array('item_id' => 2, 'portfolio_id' => 2),

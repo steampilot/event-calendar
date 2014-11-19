@@ -31,18 +31,18 @@ App::uses('JsBaseEngineHelper', 'View/Helper');
  */
 class PrototypeEngineHelper extends JsBaseEngineHelper {
 
-/**
- * Is the current selection a multiple selection? or is it just a single element.
- *
- * @var bool
- */
+	/**
+	 * Is the current selection a multiple selection? or is it just a single element.
+	 *
+	 * @var bool
+	 */
 	protected $_multiple = false;
 
-/**
- * Option mappings for Prototype
- *
- * @var array
- */
+	/**
+	 * Option mappings for Prototype
+	 *
+	 * @var array
+	 */
 	protected $_optionMap = array(
 		'request' => array(
 			'async' => 'asynchronous',
@@ -76,11 +76,11 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		)
 	);
 
-/**
- * Contains a list of callback names -> default arguments.
- *
- * @var array
- */
+	/**
+	 * Contains a list of callback names -> default arguments.
+	 *
+	 * @var array
+	 */
 	protected $_callbackArguments = array(
 		'slider' => array(
 			'onSlide' => 'value',
@@ -110,12 +110,12 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		),
 	);
 
-/**
- * Create javascript selector for a CSS rule
- *
- * @param string $selector The selector that is targeted
- * @return $this
- */
+	/**
+	 * Create javascript selector for a CSS rule
+	 *
+	 * @param string $selector The selector that is targeted
+	 * @return $this
+	 */
 	public function get($selector) {
 		$this->_multiple = false;
 		if ($selector === 'window' || $selector === 'document') {
@@ -131,19 +131,19 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return $this;
 	}
 
-/**
- * Add an event to the script cache. Operates on the currently selected elements.
- *
- * ### Options
- *
- * - `wrap` - Whether you want the callback wrapped in an anonymous function. (defaults true)
- * - `stop` - Whether you want the event to stopped. (defaults true)
- *
- * @param string $type Type of event to bind to the current 946 id
- * @param string $callback The JavaScript function you wish to trigger or the function literal
- * @param array $options Options for the event.
- * @return string completed event handler
- */
+	/**
+	 * Add an event to the script cache. Operates on the currently selected elements.
+	 *
+	 * ### Options
+	 *
+	 * - `wrap` - Whether you want the callback wrapped in an anonymous function. (defaults true)
+	 * - `stop` - Whether you want the event to stopped. (defaults true)
+	 *
+	 * @param string $type Type of event to bind to the current 946 id
+	 * @param string $callback The JavaScript function you wish to trigger or the function literal
+	 * @param array $options Options for the event.
+	 * @return string completed event handler
+	 */
 	public function event($type, $callback, $options = array()) {
 		$defaults = array('wrap' => true, 'stop' => true);
 		$options += $defaults;
@@ -159,37 +159,37 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return $out;
 	}
 
-/**
- * Create a domReady event. This is a special event in many libraries
- *
- * @param string $functionBody The code to run on domReady
- * @return string completed domReady method
- */
+	/**
+	 * Create a domReady event. This is a special event in many libraries
+	 *
+	 * @param string $functionBody The code to run on domReady
+	 * @return string completed domReady method
+	 */
 	public function domReady($functionBody) {
 		$this->selection = 'document';
 		return $this->event('dom:loaded', $functionBody, array('stop' => false));
 	}
 
-/**
- * Create an iteration over the current selection result.
- *
- * @param string $callback The function body you wish to apply during the iteration.
- * @return string completed iteration
- */
+	/**
+	 * Create an iteration over the current selection result.
+	 *
+	 * @param string $callback The function body you wish to apply during the iteration.
+	 * @return string completed iteration
+	 */
 	public function each($callback) {
 		return $this->selection . '.each(function (item, index) {' . $callback . '});';
 	}
 
-/**
- * Trigger an Effect.
- *
- * ### Note: Effects require Scriptaculous to be loaded.
- *
- * @param string $name The name of the effect to trigger.
- * @param array $options Array of options for the effect.
- * @return string completed string with effect.
- * @see JsBaseEngineHelper::effect()
- */
+	/**
+	 * Trigger an Effect.
+	 *
+	 * ### Note: Effects require Scriptaculous to be loaded.
+	 *
+	 * @param string $name The name of the effect to trigger.
+	 * @param array $options Array of options for the effect.
+	 * @return string completed string with effect.
+	 * @see JsBaseEngineHelper::effect()
+	 */
 	public function effect($name, $options = array()) {
 		$effect = '';
 		$optionString = null;
@@ -225,13 +225,13 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return $effect;
 	}
 
-/**
- * Create an Ajax or Ajax.Updater call.
- *
- * @param string|array $url URL.
- * @param array $options Options list.
- * @return string The completed ajax call.
- */
+	/**
+	 * Create an Ajax or Ajax.Updater call.
+	 *
+	 * @param string|array $url URL.
+	 * @param array $options Options list.
+	 * @return string The completed ajax call.
+	 */
 	public function request($url, $options = array()) {
 		$url = html_entity_decode($this->url($url), ENT_COMPAT, Configure::read('App.encoding'));
 		$url = '"' . $url . '"';
@@ -258,18 +258,18 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return "var jsRequest = new Ajax$type($url$options);";
 	}
 
-/**
- * Create a sortable element.
- *
- * #### Note: Requires scriptaculous to be loaded.
- *
- * The scriptaculous implementation of sortables does not support the 'start'
- * and 'distance' options.
- *
- * @param array $options Array of options for the sortable.
- * @return string Completed sortable script.
- * @see JsBaseEngineHelper::sortable() for options list.
- */
+	/**
+	 * Create a sortable element.
+	 *
+	 * #### Note: Requires scriptaculous to be loaded.
+	 *
+	 * The scriptaculous implementation of sortables does not support the 'start'
+	 * and 'distance' options.
+	 *
+	 * @param array $options Array of options for the sortable.
+	 * @return string Completed sortable script.
+	 * @see JsBaseEngineHelper::sortable() for options list.
+	 */
 	public function sortable($options = array()) {
 		$options = $this->_processOptions('sortable', $options);
 		if (!empty($options)) {
@@ -278,15 +278,15 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return 'var jsSortable = Sortable.create(' . $this->selection . $options . ');';
 	}
 
-/**
- * Create a Draggable element.
- *
- * #### Note: Requires scriptaculous to be loaded.
- *
- * @param array $options Array of options for the draggable.
- * @return string Completed draggable script.
- * @see JsBaseEngineHelper::draggable() for options list.
- */
+	/**
+	 * Create a Draggable element.
+	 *
+	 * #### Note: Requires scriptaculous to be loaded.
+	 *
+	 * @param array $options Array of options for the draggable.
+	 * @return string Completed draggable script.
+	 * @see JsBaseEngineHelper::draggable() for options list.
+	 */
 	public function drag($options = array()) {
 		$options = $this->_processOptions('drag', $options);
 		if (!empty($options)) {
@@ -298,15 +298,15 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return 'var jsDrag = new Draggable(' . $this->selection . $options . ');';
 	}
 
-/**
- * Create a Droppable element.
- *
- * #### Note: Requires scriptaculous to be loaded.
- *
- * @param array $options Array of options for the droppable.
- * @return string Completed droppable script.
- * @see JsBaseEngineHelper::droppable() for options list.
- */
+	/**
+	 * Create a Droppable element.
+	 *
+	 * #### Note: Requires scriptaculous to be loaded.
+	 *
+	 * @param array $options Array of options for the droppable.
+	 * @return string Completed droppable script.
+	 * @see JsBaseEngineHelper::droppable() for options list.
+	 */
 	public function drop($options = array()) {
 		$options = $this->_processOptions('drop', $options);
 		if (!empty($options)) {
@@ -315,15 +315,15 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return 'Droppables.add(' . $this->selection . $options . ');';
 	}
 
-/**
- * Creates a slider control widget.
- *
- * ### Note: Requires scriptaculous to be loaded.
- *
- * @param array $options Array of options for the slider.
- * @return string Completed slider script.
- * @see JsBaseEngineHelper::slider() for options list.
- */
+	/**
+	 * Creates a slider control widget.
+	 *
+	 * ### Note: Requires scriptaculous to be loaded.
+	 *
+	 * @param array $options Array of options for the slider.
+	 * @return string Completed slider script.
+	 * @see JsBaseEngineHelper::slider() for options list.
+	 */
 	public function slider($options = array()) {
 		$slider = $this->selection;
 		$this->get($options['handle']);
@@ -346,13 +346,13 @@ class PrototypeEngineHelper extends JsBaseEngineHelper {
 		return $out;
 	}
 
-/**
- * Serialize the form attached to $selector.
- *
- * @param array $options Array of options.
- * @return string Completed serializeForm() snippet
- * @see JsBaseEngineHelper::serializeForm()
- */
+	/**
+	 * Serialize the form attached to $selector.
+	 *
+	 * @param array $options Array of options.
+	 * @return string Completed serializeForm() snippet
+	 * @see JsBaseEngineHelper::serializeForm()
+	 */
 	public function serializeForm($options = array()) {
 		$options += array('isForm' => false, 'inline' => false);
 		$selection = $this->selection;

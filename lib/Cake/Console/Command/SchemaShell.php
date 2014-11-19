@@ -29,25 +29,25 @@ App::uses('CakeSchema', 'Model');
  */
 class SchemaShell extends AppShell {
 
-/**
- * Schema class being used.
- *
- * @var CakeSchema
- */
+	/**
+	 * Schema class being used.
+	 *
+	 * @var CakeSchema
+	 */
 	public $Schema;
 
-/**
- * is this a dry run?
- *
- * @var bool
- */
+	/**
+	 * is this a dry run?
+	 *
+	 * @var bool
+	 */
 	protected $_dry = null;
 
-/**
- * Override startup
- *
- * @return void
- */
+	/**
+	 * Override startup
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		$this->_welcome();
 		$this->out('Cake Schema Shell');
@@ -93,12 +93,12 @@ class SchemaShell extends AppShell {
 		$this->Schema = new CakeSchema(compact('name', 'path', 'file', 'connection', 'plugin'));
 	}
 
-/**
- * Read and output contents of schema object
- * path to read as second arg
- *
- * @return void
- */
+	/**
+	 * Read and output contents of schema object
+	 * path to read as second arg
+	 *
+	 * @return void
+	 */
 	public function view() {
 		$File = new File($this->Schema->path . DS . $this->params['file']);
 		if ($File->exists()) {
@@ -110,12 +110,12 @@ class SchemaShell extends AppShell {
 		return $this->_stop();
 	}
 
-/**
- * Read database and Write schema object
- * accepts a connection as first arg or path to save as second arg
- *
- * @return void
- */
+	/**
+	 * Read database and Write schema object
+	 * accepts a connection as first arg or path to save as second arg
+	 *
+	 * @return void
+	 */
 	public function generate() {
 		$this->out(__d('cake_console', 'Generating Schema...'));
 		$options = array();
@@ -193,15 +193,15 @@ class SchemaShell extends AppShell {
 		return $this->_stop();
 	}
 
-/**
- * Dump Schema object to sql file
- * Use the `write` param to enable and control SQL file output location.
- * Simply using -write will write the sql file to the same dir as the schema file.
- * If -write contains a full path name the file will be saved there. If -write only
- * contains no DS, that will be used as the file name, in the same dir as the schema file.
- *
- * @return string
- */
+	/**
+	 * Dump Schema object to sql file
+	 * Use the `write` param to enable and control SQL file output location.
+	 * Simply using -write will write the sql file to the same dir as the schema file.
+	 * If -write contains a full path name the file will be saved there. If -write only
+	 * contains no DS, that will be used as the file name, in the same dir as the schema file.
+	 *
+	 * @return string
+	 */
 	public function dump() {
 		$write = false;
 		$Schema = $this->Schema->load();
@@ -240,31 +240,31 @@ class SchemaShell extends AppShell {
 		return $contents;
 	}
 
-/**
- * Run database create commands. Alias for run create.
- *
- * @return void
- */
+	/**
+	 * Run database create commands. Alias for run create.
+	 *
+	 * @return void
+	 */
 	public function create() {
 		list($Schema, $table) = $this->_loadSchema();
 		$this->_create($Schema, $table);
 	}
 
-/**
- * Run database create commands. Alias for run create.
- *
- * @return void
- */
+	/**
+	 * Run database create commands. Alias for run create.
+	 *
+	 * @return void
+	 */
 	public function update() {
 		list($Schema, $table) = $this->_loadSchema();
 		$this->_update($Schema, $table);
 	}
 
-/**
- * Prepares the Schema objects for database operations.
- *
- * @return void
- */
+	/**
+	 * Prepares the Schema objects for database operations.
+	 *
+	 * @return void
+	 */
 	protected function _loadSchema() {
 		$name = $plugin = null;
 		if (!empty($this->params['name'])) {
@@ -304,14 +304,14 @@ class SchemaShell extends AppShell {
 		return array(&$Schema, $table);
 	}
 
-/**
- * Create database from Schema object
- * Should be called via the run method
- *
- * @param CakeSchema $Schema The schema instance to create.
- * @param string $table The table name.
- * @return void
- */
+	/**
+	 * Create database from Schema object
+	 * Should be called via the run method
+	 *
+	 * @param CakeSchema $Schema The schema instance to create.
+	 * @param string $table The table name.
+	 * @return void
+	 */
 	protected function _create(CakeSchema $Schema, $table = null) {
 		$db = ConnectionManager::getDataSource($this->Schema->connection);
 
@@ -355,14 +355,14 @@ class SchemaShell extends AppShell {
 		$this->out(__d('cake_console', 'End create.'));
 	}
 
-/**
- * Update database with Schema object
- * Should be called via the run method
- *
- * @param CakeSchema &$Schema The schema instance
- * @param string $table The table name.
- * @return void
- */
+	/**
+	 * Update database with Schema object
+	 * Should be called via the run method
+	 *
+	 * @param CakeSchema &$Schema The schema instance
+	 * @param string $table The table name.
+	 * @return void
+	 */
 	protected function _update(&$Schema, $table = null) {
 		$db = ConnectionManager::getDataSource($this->Schema->connection);
 
@@ -411,14 +411,14 @@ class SchemaShell extends AppShell {
 		$this->out(__d('cake_console', 'End update.'));
 	}
 
-/**
- * Runs sql from _create() or _update()
- *
- * @param array $contents The contents to execute.
- * @param string $event The event to fire
- * @param CakeSchema $Schema The schema instance.
- * @return void
- */
+	/**
+	 * Runs sql from _create() or _update()
+	 *
+	 * @param array $contents The contents to execute.
+	 * @param string $event The event to fire
+	 * @param CakeSchema $Schema The schema instance.
+	 * @return void
+	 */
 	protected function _run($contents, $event, CakeSchema $Schema) {
 		if (empty($contents)) {
 			$this->err(__d('cake_console', 'Sql could not be run'));
@@ -457,11 +457,11 @@ class SchemaShell extends AppShell {
 		}
 	}
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Gets the option parser instance and configures it.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 

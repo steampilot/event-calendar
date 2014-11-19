@@ -29,11 +29,11 @@ App::uses('DbConfigTask', 'Console/Command/Task');
  */
 class DbConfigTaskTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
@@ -47,21 +47,21 @@ class DbConfigTaskTest extends CakeTestCase {
 		$this->Task->path = APP . 'Config' . DS;
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Task);
 	}
 
-/**
- * Test the getConfig method.
- *
- * @return void
- */
+	/**
+	 * Test the getConfig method.
+	 *
+	 * @return void
+	 */
 	public function testGetConfig() {
 		$this->Task->expects($this->any())
 			->method('in')
@@ -71,22 +71,22 @@ class DbConfigTaskTest extends CakeTestCase {
 		$this->assertEquals('test', $result);
 	}
 
-/**
- * test that initialize sets the path up.
- *
- * @return void
- */
+	/**
+	 * test that initialize sets the path up.
+	 *
+	 * @return void
+	 */
 	public function testInitialize() {
 		$this->Task->initialize();
 		$this->assertFalse(empty($this->Task->path));
 		$this->assertEquals(APP . 'Config' . DS, $this->Task->path);
 	}
 
-/**
- * test execute and by extension _interactive
- *
- * @return void
- */
+	/**
+	 * test execute and by extension _interactive
+	 *
+	 * @return void
+	 */
 	public function testExecuteIntoInteractive() {
 		$this->Task->initialize();
 

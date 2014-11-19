@@ -25,11 +25,11 @@
  */
 class ModelTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * suite method, defines tests for this suite.
- *
- * @return void
- */
+	/**
+	 * suite method, defines tests for this suite.
+	 *
+	 * @return void
+	 */
 	public static function suite() {
 		$suite = new PHPUnit_Framework_TestSuite('All Model related class tests');
 

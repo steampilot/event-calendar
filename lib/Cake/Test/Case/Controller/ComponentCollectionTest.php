@@ -29,31 +29,31 @@ class CookieAliasComponent extends CookieComponent {
 
 class ComponentCollectionTest extends CakeTestCase {
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Components = new ComponentCollection();
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Components);
 	}
 
-/**
- * test triggering callbacks on loaded helpers
- *
- * @return void
- */
+	/**
+	 * test triggering callbacks on loaded helpers
+	 *
+	 * @return void
+	 */
 	public function testLoad() {
 		$result = $this->Components->load('Cookie');
 		$this->assertInstanceOf('CookieComponent', $result);
@@ -68,11 +68,11 @@ class ComponentCollectionTest extends CakeTestCase {
 		$this->assertSame($result, $this->Components->Cookie);
 	}
 
-/**
- * Tests loading as an alias
- *
- * @return void
- */
+	/**
+	 * Tests loading as an alias
+	 *
+	 * @return void
+	 */
 	public function testLoadWithAlias() {
 		$result = $this->Components->load('Cookie', array('className' => 'CookieAlias', 'somesetting' => true));
 		$this->assertInstanceOf('CookieAliasComponent', $result);
@@ -99,11 +99,11 @@ class ComponentCollectionTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * test load and enable = false
- *
- * @return void
- */
+	/**
+	 * test load and enable = false
+	 *
+	 * @return void
+	 */
 	public function testLoadWithEnableFalse() {
 		$result = $this->Components->load('Cookie', array('enabled' => false));
 		$this->assertInstanceOf('CookieComponent', $result);
@@ -112,21 +112,21 @@ class ComponentCollectionTest extends CakeTestCase {
 		$this->assertFalse($this->Components->enabled('Cookie'), 'Cookie should be disabled');
 	}
 
-/**
- * test missingcomponent exception
- *
- * @expectedException MissingComponentException
- * @return void
- */
+	/**
+	 * test missingcomponent exception
+	 *
+	 * @expectedException MissingComponentException
+	 * @return void
+	 */
 	public function testLoadMissingComponent() {
 		$this->Components->load('ThisComponentShouldAlwaysBeMissing');
 	}
 
-/**
- * test loading a plugin component.
- *
- * @return void
- */
+	/**
+	 * test loading a plugin component.
+	 *
+	 * @return void
+	 */
 	public function testLoadPluginComponent() {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
@@ -139,11 +139,11 @@ class ComponentCollectionTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * test unload()
- *
- * @return void
- */
+	/**
+	 * test unload()
+	 *
+	 * @return void
+	 */
 	public function testUnload() {
 		$this->Components->load('Cookie');
 		$this->Components->load('Security');
@@ -162,11 +162,11 @@ class ComponentCollectionTest extends CakeTestCase {
 		$this->assertEquals(array('Security'), $result, 'enabled components is wrong');
 	}
 
-/**
- * test getting the controller out of the collection
- *
- * @return void
- */
+	/**
+	 * test getting the controller out of the collection
+	 *
+	 * @return void
+	 */
 	public function testGetController() {
 		$controller = $this->getMock('Controller');
 		$controller->components = array('Security');

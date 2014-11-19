@@ -25,21 +25,21 @@ class AccountFixture extends CakeTestFixture {
 
 	public $table = 'Accounts';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
-		'iAccountId'		=> array('type' => 'integer', 'key' => 'primary'),
-		'cDescription'	=> array('type' => 'string', 'length' => 10, 'null' => true)
+		'iAccountId' => array('type' => 'integer', 'key' => 'primary'),
+		'cDescription' => array('type' => 'string', 'length' => 10, 'null' => true)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('cDescription' => 'gwoo'),
 		array('cDescription' => 'phpnut'),

@@ -25,11 +25,11 @@ App::uses('FileLog', 'Log/Engine');
  */
 class FileLogTest extends CakeTestCase {
 
-/**
- * testLogFileWriting method
- *
- * @return void
- */
+	/**
+	 * testLogFileWriting method
+	 *
+	 * @return void
+	 */
 	public function testLogFileWriting() {
 		$this->_deleteLogs(LOGS);
 
@@ -53,11 +53,11 @@ class FileLogTest extends CakeTestCase {
 		$this->assertRegExp('/^2[0-9]{3}-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+ Random: Test warning/', $result);
 	}
 
-/**
- * test using the path setting to write logs in other places.
- *
- * @return void
- */
+	/**
+	 * test using the path setting to write logs in other places.
+	 *
+	 * @return void
+	 */
 	public function testPathSetting() {
 		$path = TMP . 'tests' . DS;
 		$this->_deleteLogs($path);
@@ -67,11 +67,11 @@ class FileLogTest extends CakeTestCase {
 		$this->assertTrue(file_exists($path . 'error.log'));
 	}
 
-/**
- * test log rotation
- *
- * @return void
- */
+	/**
+	 * test log rotation
+	 *
+	 * @return void
+	 */
 	public function testRotation() {
 		$path = TMP . 'tests' . DS;
 		$this->_deleteLogs($path);
@@ -180,11 +180,11 @@ class FileLogTest extends CakeTestCase {
 		unlink($path . 'error.log');
 	}
 
-/**
- * helper function to clears all log files in specified directory
- *
- * @return void
- */
+	/**
+	 * helper function to clears all log files in specified directory
+	 *
+	 * @return void
+	 */
 	protected function _deleteLogs($dir) {
 		$files = array_merge(glob($dir . '*.log'), glob($dir . '*.log.*'));
 		foreach ($files as $file) {

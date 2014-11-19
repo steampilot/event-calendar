@@ -22,8 +22,8 @@ echo "<?php\n";
 echo "App::uses('{$plugin}AppController', '{$pluginPath}Controller');\n";
 ?>
 /**
- * <?php echo $controllerName; ?> Controller
- *
+* <?php echo $controllerName; ?> Controller
+*
 <?php
 if (!$isScaffold) {
 	$defaultModel = Inflector::singularize($controllerName);
@@ -35,18 +35,19 @@ if (!$isScaffold) {
 	}
 }
 ?>
- */
+*/
 class <?php echo $controllerName; ?>Controller extends <?php echo $plugin; ?>AppController {
 
 <?php if ($isScaffold): ?>
-/**
- * Scaffold
- *
- * @var mixed
- */
+	/**
+	* Scaffold
+	*
+	* @var mixed
+	*/
 	public $scaffold;
 
-<?php else:
+<?php
+else:
 
 	if (count($helpers)):
 		echo "/**\n * Helpers\n *\n * @var array\n */\n";

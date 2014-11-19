@@ -27,31 +27,31 @@ App::uses('UuidFixture', 'Test/Fixture');
  */
 class CakeFixtureManagerTest extends CakeTestCase {
 
-/**
- * reset environment.
- *
- * @return void
- */
+	/**
+	 * reset environment.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->fixtureManager = new CakeFixtureManager();
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->fixtureManager);
 	}
 
-/**
- * testLoadTruncatesTable
- *
- * @return void
- */
+	/**
+	 * testLoadTruncatesTable
+	 *
+	 * @return void
+	 */
 	public function testLoadTruncatesTable() {
 		$MockFixture = $this->getMock('UuidFixture', array('truncate'));
 		$MockFixture
@@ -74,11 +74,11 @@ class CakeFixtureManagerTest extends CakeTestCase {
 		$fixtureManager->load($TestCase);
 	}
 
-/**
- * testLoadSingleTruncatesTable
- *
- * @return void
- */
+	/**
+	 * testLoadSingleTruncatesTable
+	 *
+	 * @return void
+	 */
 	public function testLoadSingleTruncatesTable() {
 		$MockFixture = $this->getMock('UuidFixture', array('truncate'));
 		$MockFixture

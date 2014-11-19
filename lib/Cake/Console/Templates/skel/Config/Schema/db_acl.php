@@ -8,37 +8,37 @@
  * @package       app.Config.Schema
  * @since         CakePHP(tm) v 0.2.9
  */
-
 /*
  *
  * Using the Schema command line utility
  * cake schema run create DbAcl
  *
  */
+
 class DbAclSchema extends CakeSchema {
 
-/**
- * Before event.
- *
- * @param array $event The event data.
- * @return bool success
- */
+	/**
+	 * Before event.
+	 *
+	 * @param array $event The event data.
+	 * @return bool success
+	 */
 	public function before($event = array()) {
 		return true;
 	}
 
-/**
- * After event.
- *
- * @param array $event The event data.
- * @return void
- */
+	/**
+	 * After event.
+	 *
+	 * @param array $event The event data.
+	 * @return void
+	 */
 	public function after($event = array()) {
 	}
 
-/**
- * ACO - Access Control Object - Something that is wanted
- */
+	/**
+	 * ACO - Access Control Object - Something that is wanted
+	 */
 	public $acos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
 		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
@@ -50,9 +50,9 @@ class DbAclSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 
-/**
- * ARO - Access Request Object - Something that wants something
- */
+	/**
+	 * ARO - Access Request Object - Something that wants something
+	 */
 	public $aros = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
 		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10),
@@ -64,10 +64,10 @@ class DbAclSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 
-/**
- * Used by the Cake::Model:Permission class.
- * Checks if the given $aro has access to action $action in $aco.
- */
+	/**
+	 * Used by the Cake::Model:Permission class.
+	 * Checks if the given $aro has access to action $action in $aco.
+	 */
 	public $aros_acos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
 		'aro_id' => array('type' => 'integer', 'null' => false, 'length' => 10, 'key' => 'index'),

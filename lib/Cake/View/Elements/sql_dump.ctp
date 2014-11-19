@@ -41,12 +41,19 @@ if ($noLogs || isset($_forced_from_dbo_)):
 			preg_replace('/[^A-Za-z0-9_]/', '_', uniqid(time(), true))
 		);
 		printf('<caption>(%s) %s %s took %s ms</caption>', $source, $logInfo['count'], $text, $logInfo['time']);
-	?>
-	<thead>
-		<tr><th>Nr</th><th>Query</th><th>Error</th><th>Affected</th><th>Num. rows</th><th>Took (ms)</th></tr>
-	</thead>
-	<tbody>
-	<?php
+		?>
+		<thead>
+		<tr>
+			<th>Nr</th>
+			<th>Query</th>
+			<th>Error</th>
+			<th>Affected</th>
+			<th>Num. rows</th>
+			<th>Took (ms)</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php
 		foreach ($logInfo['log'] as $k => $i) :
 			$i += array('error' => '');
 			if (!empty($i['params']) && is_array($i['params'])) {
@@ -73,8 +80,8 @@ if ($noLogs || isset($_forced_from_dbo_)):
 				"\n"
 			);
 		endforeach;
-	?>
-	</tbody></table>
+		?>
+		</tbody></table>
 	<?php
 	endforeach;
 else:

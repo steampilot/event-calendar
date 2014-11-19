@@ -25,22 +25,22 @@ class ContentAccountFixture extends CakeTestFixture {
 
 	public $table = 'ContentAccounts';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'iContentAccountsId' => array('type' => 'integer', 'key' => 'primary'),
 		'iContentId' => array('type' => 'integer'),
 		'iAccountId' => array('type' => 'integer')
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('iContentId' => 1, 'iAccountId' => 1),
 		array('iContentId' => 2, 'iAccountId' => 2),

@@ -32,13 +32,13 @@ App::uses('CakeTestModel', 'TestSuite/Fixture');
  */
 class CakeTestSuiteCommand extends PHPUnit_TextUI_Command {
 
-/**
- * Construct method
- *
- * @param mixed $loader The loader instance to use.
- * @param array $params list of options to be used for this run
- * @throws MissingTestLoaderException When a loader class could not be found.
- */
+	/**
+	 * Construct method
+	 *
+	 * @param mixed $loader The loader instance to use.
+	 * @param array $params list of options to be used for this run
+	 * @throws MissingTestLoaderException When a loader class could not be found.
+	 */
 	public function __construct($loader, $params = array()) {
 		if ($loader && !class_exists($loader)) {
 			throw new MissingTestLoaderException(array('class' => $loader));
@@ -52,20 +52,21 @@ class CakeTestSuiteCommand extends PHPUnit_TextUI_Command {
 		$this->longOptions['output='] = 'handleReporter';
 	}
 
-/**
- * Ugly hack to get around PHPUnit having a hard coded class name for the Runner. :(
- *
- * @param array $argv The command arguments
- * @param bool $exit The exit mode.
- * @return void
- */
+	/**
+	 * Ugly hack to get around PHPUnit having a hard coded class name for the Runner. :(
+	 *
+	 * @param array $argv The command arguments
+	 * @param bool $exit The exit mode.
+	 * @return void
+	 */
 	public function run(array $argv, $exit = true) {
 		$this->handleArguments($argv);
 
 		$runner = $this->getRunner($this->arguments['loader']);
 
 		if (is_object($this->arguments['test']) &&
-			$this->arguments['test'] instanceof PHPUnit_Framework_Test) {
+			$this->arguments['test'] instanceof PHPUnit_Framework_Test
+		) {
 			$suite = $this->arguments['test'];
 		} else {
 			$suite = $runner->getTest(
@@ -108,32 +109,32 @@ class CakeTestSuiteCommand extends PHPUnit_TextUI_Command {
 		}
 	}
 
-/**
- * Create a runner for the command.
- *
- * @param mixed $loader The loader to be used for the test run.
- * @return CakeTestRunner
- */
+	/**
+	 * Create a runner for the command.
+	 *
+	 * @param mixed $loader The loader to be used for the test run.
+	 * @return CakeTestRunner
+	 */
 	public function getRunner($loader) {
 		return new CakeTestRunner($loader, $this->_params);
 	}
 
-/**
- * Handler for customizing the FixtureManager class/
- *
- * @param string $class Name of the class that will be the fixture manager
- * @return void
- */
+	/**
+	 * Handler for customizing the FixtureManager class/
+	 *
+	 * @param string $class Name of the class that will be the fixture manager
+	 * @return void
+	 */
 	public function handleFixture($class) {
 		$this->arguments['fixtureManager'] = $class;
 	}
 
-/**
- * Handles output flag used to change printing on webrunner.
- *
- * @param string $reporter The reporter class to use.
- * @return void
- */
+	/**
+	 * Handles output flag used to change printing on webrunner.
+	 *
+	 * @param string $reporter The reporter class to use.
+	 * @return void
+	 */
 	public function handleReporter($reporter) {
 		$object = null;
 

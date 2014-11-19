@@ -15,10 +15,10 @@
  */
 ?>
 <div class="<?php echo $pluralVar; ?> form">
-<?php echo "<?php echo \$this->Form->create('{$modelClass}'); ?>\n"; ?>
+	<?php echo "<?php echo \$this->Form->create('{$modelClass}'); ?>\n"; ?>
 	<fieldset>
 		<legend><?php printf("<?php echo __('%s %s'); ?>", Inflector::humanize($action), $singularHumanName); ?></legend>
-<?php
+		<?php
 		echo "\t<?php\n";
 		foreach ($fields as $field) {
 			if (strpos($action, 'add') !== false && $field === $primaryKey) {
@@ -33,21 +33,21 @@
 			}
 		}
 		echo "\t?>\n";
-?>
+		?>
 	</fieldset>
-<?php
+	<?php
 	echo "<?php echo \$this->Form->end(__('Submit')); ?>\n";
-?>
+	?>
 </div>
 <div class="actions">
 	<h3><?php echo "<?php echo __('Actions'); ?>"; ?></h3>
 	<ul>
 
-<?php if (strpos($action, 'add') === false): ?>
-		<li><?php echo "<?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), array(), __('Are you sure you want to delete # %s?', \$this->Form->value('{$modelClass}.{$primaryKey}'))); ?>"; ?></li>
-<?php endif; ?>
+		<?php if (strpos($action, 'add') === false): ?>
+			<li><?php echo "<?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), array(), __('Are you sure you want to delete # %s?', \$this->Form->value('{$modelClass}.{$primaryKey}'))); ?>"; ?></li>
+		<?php endif; ?>
 		<li><?php echo "<?php echo \$this->Html->link(__('List " . $pluralHumanName . "'), array('action' => 'index')); ?>"; ?></li>
-<?php
+		<?php
 		$done = array();
 		foreach ($associations as $type => $data) {
 			foreach ($data as $alias => $details) {
@@ -58,6 +58,6 @@
 				}
 			}
 		}
-?>
+		?>
 	</ul>
 </div>

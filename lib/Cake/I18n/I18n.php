@@ -28,146 +28,146 @@ App::uses('CakeSession', 'Model/Datasource');
  */
 class I18n {
 
-/**
- * Instance of the L10n class for localization
- *
- * @var L10n
- */
+	/**
+	 * Instance of the L10n class for localization
+	 *
+	 * @var L10n
+	 */
 	public $l10n = null;
 
-/**
- * Default domain of translation
- *
- * @var string
- */
+	/**
+	 * Default domain of translation
+	 *
+	 * @var string
+	 */
 	public static $defaultDomain = 'default';
 
-/**
- * Current domain of translation
- *
- * @var string
- */
+	/**
+	 * Current domain of translation
+	 *
+	 * @var string
+	 */
 	public $domain = null;
 
-/**
- * Current category of translation
- *
- * @var string
- */
+	/**
+	 * Current category of translation
+	 *
+	 * @var string
+	 */
 	public $category = 'LC_MESSAGES';
 
-/**
- * Current language used for translations
- *
- * @var string
- */
+	/**
+	 * Current language used for translations
+	 *
+	 * @var string
+	 */
 	protected $_lang = null;
 
-/**
- * Translation strings for a specific domain read from the .mo or .po files
- *
- * @var array
- */
+	/**
+	 * Translation strings for a specific domain read from the .mo or .po files
+	 *
+	 * @var array
+	 */
 	protected $_domains = array();
 
-/**
- * Set to true when I18N::_bindTextDomain() is called for the first time.
- * If a translation file is found it is set to false again
- *
- * @var bool
- */
+	/**
+	 * Set to true when I18N::_bindTextDomain() is called for the first time.
+	 * If a translation file is found it is set to false again
+	 *
+	 * @var bool
+	 */
 	protected $_noLocale = false;
 
-/**
- * Translation categories
- *
- * @var array
- */
+	/**
+	 * Translation categories
+	 *
+	 * @var array
+	 */
 	protected $_categories = array(
 		'LC_ALL', 'LC_COLLATE', 'LC_CTYPE', 'LC_MONETARY', 'LC_NUMERIC', 'LC_TIME', 'LC_MESSAGES'
 	);
 
-/**
- * Constants for the translation categories.
- *
- * The constants may be used in translation fetching
- * instead of hardcoded integers.
- * Example:
- * {{{
- *	I18n::translate('CakePHP is awesome.', null, null, I18n::LC_MESSAGES)
- * }}}
- *
- * To keep the code more readable, I18n constants are preferred over
- * hardcoded integers.
- */
-/**
- * Constant for LC_ALL.
- *
- * @var int
- */
+	/**
+	 * Constants for the translation categories.
+	 *
+	 * The constants may be used in translation fetching
+	 * instead of hardcoded integers.
+	 * Example:
+	 * {{{
+	 *    I18n::translate('CakePHP is awesome.', null, null, I18n::LC_MESSAGES)
+	 * }}}
+	 *
+	 * To keep the code more readable, I18n constants are preferred over
+	 * hardcoded integers.
+	 */
+	/**
+	 * Constant for LC_ALL.
+	 *
+	 * @var int
+	 */
 	const LC_ALL = 0;
 
-/**
- * Constant for LC_COLLATE.
- *
- * @var int
- */
+	/**
+	 * Constant for LC_COLLATE.
+	 *
+	 * @var int
+	 */
 	const LC_COLLATE = 1;
 
-/**
- * Constant for LC_CTYPE.
- *
- * @var int
- */
+	/**
+	 * Constant for LC_CTYPE.
+	 *
+	 * @var int
+	 */
 	const LC_CTYPE = 2;
 
-/**
- * Constant for LC_MONETARY.
- *
- * @var int
- */
+	/**
+	 * Constant for LC_MONETARY.
+	 *
+	 * @var int
+	 */
 	const LC_MONETARY = 3;
 
-/**
- * Constant for LC_NUMERIC.
- *
- * @var int
- */
+	/**
+	 * Constant for LC_NUMERIC.
+	 *
+	 * @var int
+	 */
 	const LC_NUMERIC = 4;
 
-/**
- * Constant for LC_TIME.
- *
- * @var int
- */
+	/**
+	 * Constant for LC_TIME.
+	 *
+	 * @var int
+	 */
 	const LC_TIME = 5;
 
-/**
- * Constant for LC_MESSAGES.
- *
- * @var int
- */
+	/**
+	 * Constant for LC_MESSAGES.
+	 *
+	 * @var int
+	 */
 	const LC_MESSAGES = 6;
 
-/**
- * Escape string
- *
- * @var string
- */
+	/**
+	 * Escape string
+	 *
+	 * @var string
+	 */
 	protected $_escape = null;
 
-/**
- * Constructor, use I18n::getInstance() to get the i18n translation object.
- */
+	/**
+	 * Constructor, use I18n::getInstance() to get the i18n translation object.
+	 */
 	public function __construct() {
 		$this->l10n = new L10n();
 	}
 
-/**
- * Return a static instance of the I18n class
- *
- * @return I18n
- */
+	/**
+	 * Return a static instance of the I18n class
+	 *
+	 * @return I18n
+	 */
 	public static function getInstance() {
 		static $instance = array();
 		if (!$instance) {
@@ -176,21 +176,21 @@ class I18n {
 		return $instance[0];
 	}
 
-/**
- * Used by the translation functions in basics.php
- * Returns a translated string based on current language and translation files stored in locale folder
- *
- * @param string $singular String to translate
- * @param string $plural Plural string (if any)
- * @param string $domain Domain The domain of the translation. Domains are often used by plugin translations.
- *    If null, the default domain will be used.
- * @param string $category Category The integer value of the category to use.
- * @param int $count Count Count is used with $plural to choose the correct plural form.
- * @param string $language Language to translate string to.
- *    If null it checks for language in session followed by Config.language configuration variable.
- * @return string translated string.
- * @throws CakeException When '' is provided as a domain.
- */
+	/**
+	 * Used by the translation functions in basics.php
+	 * Returns a translated string based on current language and translation files stored in locale folder
+	 *
+	 * @param string $singular String to translate
+	 * @param string $plural Plural string (if any)
+	 * @param string $domain Domain The domain of the translation. Domains are often used by plugin translations.
+	 *    If null, the default domain will be used.
+	 * @param string $category Category The integer value of the category to use.
+	 * @param int $count Count Count is used with $plural to choose the correct plural form.
+	 * @param string $language Language to translate string to.
+	 *    If null it checks for language in session followed by Config.language configuration variable.
+	 * @return string translated string.
+	 * @throws CakeException When '' is provided as a domain.
+	 */
 	public static function translate($singular, $plural = null, $domain = null, $category = self::LC_MESSAGES, $count = null, $language = null) {
 		$_this = I18n::getInstance();
 
@@ -285,33 +285,33 @@ class I18n {
 		return $singular;
 	}
 
-/**
- * Clears the domains internal data array. Useful for testing i18n.
- *
- * @return void
- */
+	/**
+	 * Clears the domains internal data array. Useful for testing i18n.
+	 *
+	 * @return void
+	 */
 	public static function clear() {
 		$self = I18n::getInstance();
 		$self->_domains = array();
 	}
 
-/**
- * Get the loaded domains cache.
- *
- * @return array
- */
+	/**
+	 * Get the loaded domains cache.
+	 *
+	 * @return array
+	 */
 	public static function domains() {
 		$self = I18n::getInstance();
 		return $self->_domains;
 	}
 
-/**
- * Attempts to find the plural form of a string.
- *
- * @param string $header Type
- * @param int $n Number
- * @return int plural match
- */
+	/**
+	 * Attempts to find the plural form of a string.
+	 *
+	 * @param string $header Type
+	 * @param int $n Number
+	 * @return int plural match
+	 */
 	protected function _pluralGuess($header, $n) {
 		if (!is_string($header) || $header === "nplurals=1;plural=0;" || !isset($header[0])) {
 			return 0;
@@ -354,12 +354,12 @@ class I18n {
 		}
 	}
 
-/**
- * Binds the given domain to a file in the specified directory.
- *
- * @param string $domain Domain to bind
- * @return string Domain binded
- */
+	/**
+	 * Binds the given domain to a file in the specified directory.
+	 *
+	 * @param string $domain Domain to bind
+	 * @return string Domain binded
+	 */
 	protected function _bindTextDomain($domain) {
 		$this->_noLocale = true;
 		$core = true;
@@ -456,12 +456,12 @@ class I18n {
 		return $domain;
 	}
 
-/**
- * Loads the binary .mo file and returns array of translations
- *
- * @param string $filename Binary .mo file to load
- * @return mixed Array of translations on success or false on failure
- */
+	/**
+	 * Loads the binary .mo file and returns array of translations
+	 *
+	 * @param string $filename Binary .mo file to load
+	 * @return mixed Array of translations on success or false on failure
+	 */
 	public static function loadMo($filename) {
 		$translations = false;
 
@@ -501,12 +501,12 @@ class I18n {
 		return $translations;
 	}
 
-/**
- * Loads the text .po file and returns array of translations
- *
- * @param string $filename Text .po file to load
- * @return mixed Array of translations on success or false on failure
- */
+	/**
+	 * Loads the text .po file and returns array of translations
+	 *
+	 * @param string $filename Text .po file to load
+	 * @return mixed Array of translations on success or false on failure
+	 */
 	public static function loadPo($filename) {
 		if (!$file = fopen($filename, 'r')) {
 			return false;
@@ -575,12 +575,12 @@ class I18n {
 		return array_merge($merge, $translations);
 	}
 
-/**
- * Parses a locale definition file following the POSIX standard
- *
- * @param string $filename Locale definition filename
- * @return mixed Array of definitions on success or false on failure
- */
+	/**
+	 * Parses a locale definition file following the POSIX standard
+	 *
+	 * @param string $filename Locale definition filename
+	 * @return mixed Array of definitions on success or false on failure
+	 */
 	public static function loadLocaleDefinition($filename) {
 		if (!$file = fopen($filename, 'r')) {
 			return false;
@@ -643,12 +643,12 @@ class I18n {
 		return $definitions;
 	}
 
-/**
- * Auxiliary function to parse a symbol from a locale definition file
- *
- * @param string $string Symbol to be parsed
- * @return string parsed symbol
- */
+	/**
+	 * Auxiliary function to parse a symbol from a locale definition file
+	 *
+	 * @param string $string Symbol to be parsed
+	 * @return string parsed symbol
+	 */
 	protected function _parseLiteralValue($string) {
 		$string = $string[1];
 		if (substr($string, 0, 2) === $this->_escape . 'x') {
@@ -673,13 +673,13 @@ class I18n {
 		return $string;
 	}
 
-/**
- * Returns a Time format definition from corresponding domain
- *
- * @param string $format Format to be translated
- * @param string $domain Domain where format is stored
- * @return mixed translated format string if only value or array of translated strings for corresponding format.
- */
+	/**
+	 * Returns a Time format definition from corresponding domain
+	 *
+	 * @param string $format Format to be translated
+	 * @param string $domain Domain where format is stored
+	 * @return mixed translated format string if only value or array of translated strings for corresponding format.
+	 */
 	protected function _translateTime($format, $domain) {
 		if (!empty($this->_domains[$domain][$this->_lang]['LC_TIME'][$format])) {
 			if (($trans = $this->_domains[$domain][$this->_lang][$this->category][$format])) {

@@ -25,18 +25,18 @@
  */
 class UnsignedFixture extends CakeTestFixture {
 
-/**
- * table property
- *
- * @var array
- */
+	/**
+	 * table property
+	 *
+	 * @var array
+	 */
 	public $table = 'unsigned';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'uinteger' => array('type' => 'integer', 'null' => '', 'default' => '1', 'length' => '8', 'key' => 'primary', 'unsigned' => true),
 		'integer' => array('type' => 'integer', 'length' => '8', 'unsigned' => false),
@@ -52,10 +52,10 @@ class UnsignedFixture extends CakeTestFixture {
 		)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array();
 }

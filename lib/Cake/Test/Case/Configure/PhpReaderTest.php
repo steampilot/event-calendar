@@ -25,11 +25,11 @@ App::uses('PhpReader', 'Configure');
  */
 class PhpReaderTest extends CakeTestCase {
 
-/**
- * Test data to serialize and unserialize.
- *
- * @var array
- */
+	/**
+	 * Test data to serialize and unserialize.
+	 *
+	 * @var array
+	 */
 	public $testData = array(
 		'One' => array(
 			'two' => 'value',
@@ -45,21 +45,21 @@ class PhpReaderTest extends CakeTestCase {
 		),
 	);
 
-/**
- * Setup.
- *
- * @return void
- */
+	/**
+	 * Setup.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->path = CAKE . 'Test' . DS . 'test_app' . DS . 'Config' . DS;
 	}
 
-/**
- * Test reading files.
- *
- * @return void
- */
+	/**
+	 * Test reading files.
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$reader = new PhpReader($this->path);
 		$values = $reader->read('var_test');
@@ -70,55 +70,55 @@ class PhpReaderTest extends CakeTestCase {
 		$this->assertEquals('value', $values['Read']);
 	}
 
-/**
- * Test an exception is thrown by reading files that exist without .php extension.
- *
- * @expectedException ConfigureException
- * @return void
- */
+	/**
+	 * Test an exception is thrown by reading files that exist without .php extension.
+	 *
+	 * @expectedException ConfigureException
+	 * @return void
+	 */
 	public function testReadWithExistentFileWithoutExtension() {
 		$reader = new PhpReader($this->path);
 		$reader->read('no_php_extension');
 	}
 
-/**
- * Test an exception is thrown by reading files that don't exist.
- *
- * @expectedException ConfigureException
- * @return void
- */
+	/**
+	 * Test an exception is thrown by reading files that don't exist.
+	 *
+	 * @expectedException ConfigureException
+	 * @return void
+	 */
 	public function testReadWithNonExistentFile() {
 		$reader = new PhpReader($this->path);
 		$reader->read('fake_values');
 	}
 
-/**
- * Test reading an empty file.
- *
- * @expectedException ConfigureException
- * @return void
- */
+	/**
+	 * Test reading an empty file.
+	 *
+	 * @expectedException ConfigureException
+	 * @return void
+	 */
 	public function testReadEmptyFile() {
 		$reader = new PhpReader($this->path);
 		$reader->read('empty');
 	}
 
-/**
- * Test reading keys with ../ doesn't work.
- *
- * @expectedException ConfigureException
- * @return void
- */
+	/**
+	 * Test reading keys with ../ doesn't work.
+	 *
+	 * @expectedException ConfigureException
+	 * @return void
+	 */
 	public function testReadWithDots() {
 		$reader = new PhpReader($this->path);
 		$reader->read('../empty');
 	}
 
-/**
- * Test reading from plugins.
- *
- * @return void
- */
+	/**
+	 * Test reading from plugins.
+	 *
+	 * @return void
+	 */
 	public function testReadPluginValue() {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
@@ -133,11 +133,11 @@ class PhpReaderTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * Test dumping data to PHP format.
- *
- * @return void
- */
+	/**
+	 * Test dumping data to PHP format.
+	 *
+	 * @return void
+	 */
 	public function testDump() {
 		$reader = new PhpReader(TMP);
 		$result = $reader->dump('test.php', $this->testData);
@@ -145,10 +145,10 @@ class PhpReaderTest extends CakeTestCase {
 		$expected = <<<PHP
 <?php
 \$config = array (
-  'One' => 
+  'One' =>
   array (
     'two' => 'value',
-    'three' => 
+    'three' =>
     array (
       'four' => 'value four',
     ),
@@ -156,7 +156,7 @@ class PhpReaderTest extends CakeTestCase {
     'bool_false' => false,
     'bool_true' => true,
   ),
-  'Asset' => 
+  'Asset' =>
   array (
     'timestamp' => 'force',
   ),
@@ -176,11 +176,11 @@ PHP;
 		unlink($file);
 	}
 
-/**
- * Test that dump() makes files read() can read.
- *
- * @return void
- */
+	/**
+	 * Test that dump() makes files read() can read.
+	 *
+	 * @return void
+	 */
 	public function testDumpRead() {
 		$reader = new PhpReader(TMP);
 		$reader->dump('test.php', $this->testData);

@@ -33,257 +33,257 @@ App::uses('CakeEmail', 'Network/Email');
  */
 class EmailComponent extends Component {
 
-/**
- * Recipient of the email
- *
- * @var string
- */
+	/**
+	 * Recipient of the email
+	 *
+	 * @var string
+	 */
 	public $to = null;
 
-/**
- * The mail which the email is sent from
- *
- * @var string
- */
+	/**
+	 * The mail which the email is sent from
+	 *
+	 * @var string
+	 */
 	public $from = null;
 
-/**
- * The email the recipient will reply to
- *
- * @var string
- */
+	/**
+	 * The email the recipient will reply to
+	 *
+	 * @var string
+	 */
 	public $replyTo = null;
 
-/**
- * The read receipt email
- *
- * @var string
- */
+	/**
+	 * The read receipt email
+	 *
+	 * @var string
+	 */
 	public $readReceipt = null;
 
-/**
- * The mail that will be used in case of any errors like
- * - Remote mailserver down
- * - Remote user has exceeded his quota
- * - Unknown user
- *
- * @var string
- */
+	/**
+	 * The mail that will be used in case of any errors like
+	 * - Remote mailserver down
+	 * - Remote user has exceeded his quota
+	 * - Unknown user
+	 *
+	 * @var string
+	 */
 	public $return = null;
 
-/**
- * Carbon Copy
- *
- * List of email's that should receive a copy of the email.
- * The Recipient WILL be able to see this list
- *
- * @var array
- */
+	/**
+	 * Carbon Copy
+	 *
+	 * List of email's that should receive a copy of the email.
+	 * The Recipient WILL be able to see this list
+	 *
+	 * @var array
+	 */
 	public $cc = array();
 
-/**
- * Blind Carbon Copy
- *
- * List of email's that should receive a copy of the email.
- * The Recipient WILL NOT be able to see this list
- *
- * @var array
- */
+	/**
+	 * Blind Carbon Copy
+	 *
+	 * List of email's that should receive a copy of the email.
+	 * The Recipient WILL NOT be able to see this list
+	 *
+	 * @var array
+	 */
 	public $bcc = array();
 
-/**
- * The date to put in the Date: header. This should be a date
- * conforming with the RFC2822 standard. Leave null, to have
- * today's date generated.
- *
- * @var string
- */
+	/**
+	 * The date to put in the Date: header. This should be a date
+	 * conforming with the RFC2822 standard. Leave null, to have
+	 * today's date generated.
+	 *
+	 * @var string
+	 */
 	public $date = null;
 
-/**
- * The subject of the email
- *
- * @var string
- */
+	/**
+	 * The subject of the email
+	 *
+	 * @var string
+	 */
 	public $subject = null;
 
-/**
- * Associative array of a user defined headers
- * Keys will be prefixed 'X-' as per RFC2822 Section 4.7.5
- *
- * @var array
- */
+	/**
+	 * Associative array of a user defined headers
+	 * Keys will be prefixed 'X-' as per RFC2822 Section 4.7.5
+	 *
+	 * @var array
+	 */
 	public $headers = array();
 
-/**
- * List of additional headers
- *
- * These will NOT be used if you are using safemode and mail()
- *
- * @var string
- */
+	/**
+	 * List of additional headers
+	 *
+	 * These will NOT be used if you are using safemode and mail()
+	 *
+	 * @var string
+	 */
 	public $additionalParams = null;
 
-/**
- * Layout for the View
- *
- * @var string
- */
+	/**
+	 * Layout for the View
+	 *
+	 * @var string
+	 */
 	public $layout = 'default';
 
-/**
- * Template for the view
- *
- * @var string
- */
+	/**
+	 * Template for the view
+	 *
+	 * @var string
+	 */
 	public $template = null;
 
-/**
- * Line feed character(s) to be used when sending using mail() function
- * By default PHP_EOL is used.
- * RFC2822 requires it to be CRLF but some Unix
- * mail transfer agents replace LF by CRLF automatically
- * (which leads to doubling CR if CRLF is used).
- *
- * @var string
- */
+	/**
+	 * Line feed character(s) to be used when sending using mail() function
+	 * By default PHP_EOL is used.
+	 * RFC2822 requires it to be CRLF but some Unix
+	 * mail transfer agents replace LF by CRLF automatically
+	 * (which leads to doubling CR if CRLF is used).
+	 *
+	 * @var string
+	 */
 	public $lineFeed = PHP_EOL;
 
-/**
- * What format should the email be sent in
- *
- * Supported formats:
- * - text
- * - html
- * - both
- *
- * @var string
- */
+	/**
+	 * What format should the email be sent in
+	 *
+	 * Supported formats:
+	 * - text
+	 * - html
+	 * - both
+	 *
+	 * @var string
+	 */
 	public $sendAs = 'text';
 
-/**
- * What method should the email be sent by
- *
- * Supported methods:
- * - mail
- * - smtp
- * - debug
- *
- * @var string
- */
+	/**
+	 * What method should the email be sent by
+	 *
+	 * Supported methods:
+	 * - mail
+	 * - smtp
+	 * - debug
+	 *
+	 * @var string
+	 */
 	public $delivery = 'mail';
 
-/**
- * charset the email is sent in
- *
- * @var string
- */
+	/**
+	 * charset the email is sent in
+	 *
+	 * @var string
+	 */
 	public $charset = 'utf-8';
 
-/**
- * List of files that should be attached to the email.
- *
- * Can be both absolute and relative paths
- *
- * @var array
- */
+	/**
+	 * List of files that should be attached to the email.
+	 *
+	 * Can be both absolute and relative paths
+	 *
+	 * @var array
+	 */
 	public $attachments = array();
 
-/**
- * What mailer should EmailComponent identify itself as
- *
- * @var string
- */
+	/**
+	 * What mailer should EmailComponent identify itself as
+	 *
+	 * @var string
+	 */
 	public $xMailer = 'CakePHP Email Component';
 
-/**
- * The list of paths to search if an attachment isn't absolute
- *
- * @var array
- */
+	/**
+	 * The list of paths to search if an attachment isn't absolute
+	 *
+	 * @var array
+	 */
 	public $filePaths = array();
 
-/**
- * List of options to use for smtp mail method
- *
- * Options is:
- * - port
- * - host
- * - timeout
- * - username
- * - password
- * - client
- *
- * @var array
- */
+	/**
+	 * List of options to use for smtp mail method
+	 *
+	 * Options is:
+	 * - port
+	 * - host
+	 * - timeout
+	 * - username
+	 * - password
+	 * - client
+	 *
+	 * @var array
+	 */
 	public $smtpOptions = array();
 
-/**
- * Contains the rendered plain text message if one was sent.
- *
- * @var string
- */
+	/**
+	 * Contains the rendered plain text message if one was sent.
+	 *
+	 * @var string
+	 */
 	public $textMessage = null;
 
-/**
- * Contains the rendered HTML message if one was sent.
- *
- * @var string
- */
+	/**
+	 * Contains the rendered HTML message if one was sent.
+	 *
+	 * @var string
+	 */
 	public $htmlMessage = null;
 
-/**
- * Whether to generate a Message-ID header for the
- * e-mail. True to generate a Message-ID, False to let
- * it be handled by sendmail (or similar) or a string
- * to completely override the Message-ID.
- *
- * If you are sending Email from a shell, be sure to set this value. As you
- * could encounter delivery issues if you do not.
- *
- * @var mixed
- */
+	/**
+	 * Whether to generate a Message-ID header for the
+	 * e-mail. True to generate a Message-ID, False to let
+	 * it be handled by sendmail (or similar) or a string
+	 * to completely override the Message-ID.
+	 *
+	 * If you are sending Email from a shell, be sure to set this value. As you
+	 * could encounter delivery issues if you do not.
+	 *
+	 * @var mixed
+	 */
 	public $messageId = true;
 
-/**
- * Controller reference
- *
- * @var Controller
- */
+	/**
+	 * Controller reference
+	 *
+	 * @var Controller
+	 */
 	protected $_controller = null;
 
-/**
- * Constructor
- *
- * @param ComponentCollection $collection A ComponentCollection this component can use to lazy load its components
- * @param array $settings Array of configuration settings.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param ComponentCollection $collection A ComponentCollection this component can use to lazy load its components
+	 * @param array $settings Array of configuration settings.
+	 */
 	public function __construct(ComponentCollection $collection, $settings = array()) {
 		$this->_controller = $collection->getController();
 		parent::__construct($collection, $settings);
 	}
 
-/**
- * Initialize component
- *
- * @param Controller $controller Instantiating controller
- * @return void
- */
+	/**
+	 * Initialize component
+	 *
+	 * @param Controller $controller Instantiating controller
+	 * @return void
+	 */
 	public function initialize(Controller $controller) {
 		if (Configure::read('App.encoding') !== null) {
 			$this->charset = Configure::read('App.encoding');
 		}
 	}
 
-/**
- * Send an email using the specified content, template and layout
- *
- * @param string|array $content Either an array of text lines, or a string with contents
- *  If you are rendering a template this variable will be sent to the templates as `$content`
- * @param string $template Template to use when sending email
- * @param string $layout Layout to use to enclose email body
- * @return bool Success
- */
+	/**
+	 * Send an email using the specified content, template and layout
+	 *
+	 * @param string|array $content Either an array of text lines, or a string with contents
+	 *  If you are rendering a template this variable will be sent to the templates as `$content`
+	 * @param string $template Template to use when sending email
+	 * @param string $layout Layout to use to enclose email body
+	 * @return bool Success
+	 */
 	public function send($content = null, $template = null, $layout = null) {
 		$lib = new CakeEmail();
 		$lib->charset = $this->charset;
@@ -359,11 +359,11 @@ class EmailComponent extends Component {
 		return $sent;
 	}
 
-/**
- * Reset all EmailComponent internal variables to be able to send out a new email.
- *
- * @return void
- */
+	/**
+	 * Reset all EmailComponent internal variables to be able to send out a new email.
+	 *
+	 * @return void
+	 */
 	public function reset() {
 		$this->template = null;
 		$this->to = array();
@@ -382,11 +382,11 @@ class EmailComponent extends Component {
 		$this->delivery = 'mail';
 	}
 
-/**
- * Format the attach array
- *
- * @return array
- */
+	/**
+	 * Format the attach array
+	 *
+	 * @return array
+	 */
 	protected function _formatAttachFiles() {
 		$files = array();
 		foreach ($this->attachments as $filename => $attachment) {
@@ -401,12 +401,12 @@ class EmailComponent extends Component {
 		return $files;
 	}
 
-/**
- * Find the specified attachment in the list of file paths
- *
- * @param string $attachment Attachment file name to find
- * @return string|null Path to located file
- */
+	/**
+	 * Find the specified attachment in the list of file paths
+	 *
+	 * @param string $attachment Attachment file name to find
+	 * @return string|null Path to located file
+	 */
 	protected function _findFiles($attachment) {
 		if (file_exists($attachment)) {
 			return $attachment;
@@ -420,12 +420,12 @@ class EmailComponent extends Component {
 		return null;
 	}
 
-/**
- * Format addresses to be an array with email as key and alias as value
- *
- * @param array $addresses Address to format.
- * @return array
- */
+	/**
+	 * Format addresses to be an array with email as key and alias as value
+	 *
+	 * @param array $addresses Address to format.
+	 * @return array
+	 */
 	protected function _formatAddresses($addresses) {
 		$formatted = array();
 		foreach ($addresses as $address) {
@@ -439,14 +439,14 @@ class EmailComponent extends Component {
 		return $formatted;
 	}
 
-/**
- * Remove certain elements (such as bcc:, to:, %0a) from given value.
- * Helps prevent header injection / manipulation on user content.
- *
- * @param string $value Value to strip
- * @param bool $message Set to true to indicate main message content
- * @return string Stripped value
- */
+	/**
+	 * Remove certain elements (such as bcc:, to:, %0a) from given value.
+	 * Helps prevent header injection / manipulation on user content.
+	 *
+	 * @param string $value Value to strip
+	 * @param bool $message Set to true to indicate main message content
+	 * @return string Stripped value
+	 */
 	protected function _strip($value, $message = false) {
 		$search = '%0a|%0d|Content-(?:Type|Transfer-Encoding)\:';
 		$search .= '|charset\=|mime-version\:|multipart/mixed|(?:[^a-z]to|b?cc)\:.*';

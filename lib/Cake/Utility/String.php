@@ -23,12 +23,12 @@
  */
 class String {
 
-/**
- * Generate a random UUID
- *
- * @see http://www.ietf.org/rfc/rfc4122.txt
- * @return RFC 4122 UUID
- */
+	/**
+	 * Generate a random UUID
+	 *
+	 * @see http://www.ietf.org/rfc/rfc4122.txt
+	 * @return RFC 4122 UUID
+	 */
 	public static function uuid() {
 		$node = env('SERVER_ADDR');
 
@@ -96,16 +96,16 @@ class String {
 		);
 	}
 
-/**
- * Tokenizes a string using $separator, ignoring any instance of $separator that appears between
- * $leftBound and $rightBound.
- *
- * @param string $data The data to tokenize.
- * @param string $separator The token to split the data on.
- * @param string $leftBound The left boundary to ignore separators in.
- * @param string $rightBound The right boundary to ignore separators in.
- * @return mixed Array of tokens in $data or original input if empty.
- */
+	/**
+	 * Tokenizes a string using $separator, ignoring any instance of $separator that appears between
+	 * $leftBound and $rightBound.
+	 *
+	 * @param string $data The data to tokenize.
+	 * @param string $separator The token to split the data on.
+	 * @param string $leftBound The left boundary to ignore separators in.
+	 * @param string $rightBound The right boundary to ignore separators in.
+	 * @return mixed Array of tokens in $data or original input if empty.
+	 */
 	public static function tokenize($data, $separator = ',', $leftBound = '(', $rightBound = ')') {
 		if (empty($data)) {
 			return array();
@@ -172,27 +172,27 @@ class String {
 		return array();
 	}
 
-/**
- * Replaces variable placeholders inside a $str with any given $data. Each key in the $data array
- * corresponds to a variable placeholder name in $str.
- * Example: `String::insert(':name is :age years old.', array('name' => 'Bob', '65'));`
- * Returns: Bob is 65 years old.
- *
- * Available $options are:
- *
- * - before: The character or string in front of the name of the variable placeholder (Defaults to `:`)
- * - after: The character or string after the name of the variable placeholder (Defaults to null)
- * - escape: The character or string used to escape the before character / string (Defaults to `\`)
- * - format: A regex to use for matching variable placeholders. Default is: `/(?<!\\)\:%s/`
- *   (Overwrites before, after, breaks escape / clean)
- * - clean: A boolean or array with instructions for String::cleanInsert
- *
- * @param string $str A string containing variable placeholders
- * @param array $data A key => val array where each key stands for a placeholder variable name
- *     to be replaced with val
- * @param array $options An array of options, see description above
- * @return string
- */
+	/**
+	 * Replaces variable placeholders inside a $str with any given $data. Each key in the $data array
+	 * corresponds to a variable placeholder name in $str.
+	 * Example: `String::insert(':name is :age years old.', array('name' => 'Bob', '65'));`
+	 * Returns: Bob is 65 years old.
+	 *
+	 * Available $options are:
+	 *
+	 * - before: The character or string in front of the name of the variable placeholder (Defaults to `:`)
+	 * - after: The character or string after the name of the variable placeholder (Defaults to null)
+	 * - escape: The character or string used to escape the before character / string (Defaults to `\`)
+	 * - format: A regex to use for matching variable placeholders. Default is: `/(?<!\\)\:%s/`
+	 *   (Overwrites before, after, breaks escape / clean)
+	 * - clean: A boolean or array with instructions for String::cleanInsert
+	 *
+	 * @param string $str A string containing variable placeholders
+	 * @param array $data A key => val array where each key stands for a placeholder variable name
+	 *     to be replaced with val
+	 * @param array $options An array of options, see description above
+	 * @return string
+	 */
 	public static function insert($str, $data, $options = array()) {
 		$defaults = array(
 			'before' => ':', 'after' => null, 'escape' => '\\', 'format' => null, 'clean' => false
@@ -246,17 +246,17 @@ class String {
 		return ($options['clean']) ? String::cleanInsert($str, $options) : $str;
 	}
 
-/**
- * Cleans up a String::insert() formatted string with given $options depending on the 'clean' key in
- * $options. The default method used is text but html is also available. The goal of this function
- * is to replace all whitespace and unneeded markup around placeholders that did not get replaced
- * by String::insert().
- *
- * @param string $str String to clean.
- * @param array $options Options list.
- * @return string
- * @see String::insert()
- */
+	/**
+	 * Cleans up a String::insert() formatted string with given $options depending on the 'clean' key in
+	 * $options. The default method used is text but html is also available. The goal of this function
+	 * is to replace all whitespace and unneeded markup around placeholders that did not get replaced
+	 * by String::insert().
+	 *
+	 * @param string $str String to clean.
+	 * @param array $options Options list.
+	 * @return string
+	 * @see String::insert()
+	 */
 	public static function cleanInsert($str, $options) {
 		$clean = $options['clean'];
 		if (!$clean) {
@@ -311,20 +311,20 @@ class String {
 		return $str;
 	}
 
-/**
- * Wraps text to a specific width, can optionally wrap at word breaks.
- *
- * ### Options
- *
- * - `width` The width to wrap to. Defaults to 72.
- * - `wordWrap` Only wrap on words breaks (spaces) Defaults to true.
- * - `indent` String to indent with. Defaults to null.
- * - `indentAt` 0 based index to start indenting at. Defaults to 0.
- *
- * @param string $text The text to format.
- * @param array|int $options Array of options to use, or an integer to wrap the text to.
- * @return string Formatted text.
- */
+	/**
+	 * Wraps text to a specific width, can optionally wrap at word breaks.
+	 *
+	 * ### Options
+	 *
+	 * - `width` The width to wrap to. Defaults to 72.
+	 * - `wordWrap` Only wrap on words breaks (spaces) Defaults to true.
+	 * - `indent` String to indent with. Defaults to null.
+	 * - `indentAt` 0 based index to start indenting at. Defaults to 0.
+	 *
+	 * @param string $text The text to format.
+	 * @param array|int $options Array of options to use, or an integer to wrap the text to.
+	 * @return string Formatted text.
+	 */
 	public static function wrap($text, $options = array()) {
 		if (is_numeric($options)) {
 			$options = array('width' => $options);
@@ -345,15 +345,15 @@ class String {
 		return $wrapped;
 	}
 
-/**
- * Unicode aware version of wordwrap.
- *
- * @param string $text The text to format.
- * @param int $width The width to wrap to. Defaults to 72.
- * @param string $break The line is broken using the optional break parameter. Defaults to '\n'.
- * @param bool $cut If the cut is set to true, the string is always wrapped at the specified width.
- * @return string Formatted text.
- */
+	/**
+	 * Unicode aware version of wordwrap.
+	 *
+	 * @param string $text The text to format.
+	 * @param int $width The width to wrap to. Defaults to 72.
+	 * @param string $break The line is broken using the optional break parameter. Defaults to '\n'.
+	 * @param bool $cut If the cut is set to true, the string is always wrapped at the specified width.
+	 * @return string Formatted text.
+	 */
 	public static function wordWrap($text, $width = 72, $break = "\n", $cut = false) {
 		if ($cut) {
 			$parts = array();
@@ -394,22 +394,22 @@ class String {
 		return implode($break, $parts);
 	}
 
-/**
- * Highlights a given phrase in a text. You can specify any expression in highlighter that
- * may include the \1 expression to include the $phrase found.
- *
- * ### Options:
- *
- * - `format` The piece of html with that the phrase will be highlighted
- * - `html` If true, will ignore any HTML tags, ensuring that only the correct text is highlighted
- * - `regex` a custom regex rule that is used to match words, default is '|$tag|iu'
- *
- * @param string $text Text to search the phrase in.
- * @param string|array $phrase The phrase or phrases that will be searched.
- * @param array $options An array of html attributes and options.
- * @return string The highlighted text
- * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::highlight
- */
+	/**
+	 * Highlights a given phrase in a text. You can specify any expression in highlighter that
+	 * may include the \1 expression to include the $phrase found.
+	 *
+	 * ### Options:
+	 *
+	 * - `format` The piece of html with that the phrase will be highlighted
+	 * - `html` If true, will ignore any HTML tags, ensuring that only the correct text is highlighted
+	 * - `regex` a custom regex rule that is used to match words, default is '|$tag|iu'
+	 *
+	 * @param string $text Text to search the phrase in.
+	 * @param string|array $phrase The phrase or phrases that will be searched.
+	 * @param array $options An array of html attributes and options.
+	 * @return string The highlighted text
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::highlight
+	 */
 	public static function highlight($text, $phrase, $options = array()) {
 		if (empty($phrase)) {
 			return $text;
@@ -448,33 +448,33 @@ class String {
 		return preg_replace(sprintf($options['regex'], $phrase), $format, $text);
 	}
 
-/**
- * Strips given text of all links (<a href=....).
- *
- * @param string $text Text
- * @return string The text without links
- * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::stripLinks
- */
+	/**
+	 * Strips given text of all links (<a href=....).
+	 *
+	 * @param string $text Text
+	 * @return string The text without links
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::stripLinks
+	 */
 	public static function stripLinks($text) {
 		return preg_replace('|<a\s+[^>]+>|im', '', preg_replace('|<\/a>|im', '', $text));
 	}
 
-/**
- * Truncates text starting from the end.
- *
- * Cuts a string to the length of $length and replaces the first characters
- * with the ellipsis if the text is longer than length.
- *
- * ### Options:
- *
- * - `ellipsis` Will be used as Beginning and prepended to the trimmed string
- * - `exact` If false, $text will not be cut mid-word
- *
- * @param string $text String to truncate.
- * @param int $length Length of returned string, including ellipsis.
- * @param array $options An array of options.
- * @return string Trimmed string.
- */
+	/**
+	 * Truncates text starting from the end.
+	 *
+	 * Cuts a string to the length of $length and replaces the first characters
+	 * with the ellipsis if the text is longer than length.
+	 *
+	 * ### Options:
+	 *
+	 * - `ellipsis` Will be used as Beginning and prepended to the trimmed string
+	 * - `exact` If false, $text will not be cut mid-word
+	 *
+	 * @param string $text String to truncate.
+	 * @param int $length Length of returned string, including ellipsis.
+	 * @param array $options An array of options.
+	 * @return string Trimmed string.
+	 */
 	public static function tail($text, $length = 100, $options = array()) {
 		$defaults = array(
 			'ellipsis' => '...', 'exact' => true
@@ -499,24 +499,24 @@ class String {
 		return $ellipsis . $truncate;
 	}
 
-/**
- * Truncates text.
- *
- * Cuts a string to the length of $length and replaces the last characters
- * with the ellipsis if the text is longer than length.
- *
- * ### Options:
- *
- * - `ellipsis` Will be used as Ending and appended to the trimmed string (`ending` is deprecated)
- * - `exact` If false, $text will not be cut mid-word
- * - `html` If true, HTML tags would be handled correctly
- *
- * @param string $text String to truncate.
- * @param int $length Length of returned string, including ellipsis.
- * @param array $options An array of html attributes and options.
- * @return string Trimmed string.
- * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::truncate
- */
+	/**
+	 * Truncates text.
+	 *
+	 * Cuts a string to the length of $length and replaces the last characters
+	 * with the ellipsis if the text is longer than length.
+	 *
+	 * ### Options:
+	 *
+	 * - `ellipsis` Will be used as Ending and appended to the trimmed string (`ending` is deprecated)
+	 * - `exact` If false, $text will not be cut mid-word
+	 * - `html` If true, HTML tags would be handled correctly
+	 *
+	 * @param string $text String to truncate.
+	 * @param int $length Length of returned string, including ellipsis.
+	 * @param array $options An array of html attributes and options.
+	 * @return string Trimmed string.
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::truncate
+	 */
 	public static function truncate($text, $length = 100, $options = array()) {
 		$defaults = array(
 			'ellipsis' => '...', 'exact' => true, 'html' => false
@@ -626,17 +626,17 @@ class String {
 		return $truncate;
 	}
 
-/**
- * Extracts an excerpt from the text surrounding the phrase with a number of characters on each side
- * determined by radius.
- *
- * @param string $text String to search the phrase in
- * @param string $phrase Phrase that will be searched for
- * @param int $radius The amount of characters that will be returned on each side of the founded phrase
- * @param string $ellipsis Ending that will be appended
- * @return string Modified string
- * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::excerpt
- */
+	/**
+	 * Extracts an excerpt from the text surrounding the phrase with a number of characters on each side
+	 * determined by radius.
+	 *
+	 * @param string $text String to search the phrase in
+	 * @param string $phrase Phrase that will be searched for
+	 * @param int $radius The amount of characters that will be returned on each side of the founded phrase
+	 * @param string $ellipsis Ending that will be appended
+	 * @return string Modified string
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::excerpt
+	 */
 	public static function excerpt($text, $phrase, $radius = 100, $ellipsis = '...') {
 		if (empty($text) || empty($phrase)) {
 			return self::truncate($text, $radius * 2, array('ellipsis' => $ellipsis));
@@ -670,15 +670,15 @@ class String {
 		return $excerpt;
 	}
 
-/**
- * Creates a comma separated list where the last two items are joined with 'and', forming natural English
- *
- * @param array $list The list to be joined
- * @param string $and The word used to join the last and second last items together with. Defaults to 'and'
- * @param string $separator The separator used to join all the other items together. Defaults to ', '
- * @return string The glued together string.
- * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::toList
- */
+	/**
+	 * Creates a comma separated list where the last two items are joined with 'and', forming natural English
+	 *
+	 * @param array $list The list to be joined
+	 * @param string $and The word used to join the last and second last items together with. Defaults to 'and'
+	 * @param string $separator The separator used to join all the other items together. Defaults to ', '
+	 * @return string The glued together string.
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::toList
+	 */
 	public static function toList($list, $and = 'and', $separator = ', ') {
 		if (count($list) > 1) {
 			return implode($separator, array_slice($list, null, -1)) . ' ' . $and . ' ' . array_pop($list);

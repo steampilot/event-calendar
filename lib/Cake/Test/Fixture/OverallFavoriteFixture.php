@@ -23,11 +23,11 @@
  */
 class OverallFavoriteFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'model_type' => array('type' => 'string', 'length' => 255),
@@ -35,11 +35,11 @@ class OverallFavoriteFixture extends CakeTestFixture {
 		'priority' => array('type' => 'integer')
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('id' => 1, 'model_type' => 'Cd', 'model_id' => '1', 'priority' => '1'),
 		array('id' => 2, 'model_type' => 'Book', 'model_id' => '1', 'priority' => '2')

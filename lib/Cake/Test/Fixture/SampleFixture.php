@@ -23,22 +23,22 @@
  */
 class SampleFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'apple_id' => array('type' => 'integer', 'null' => false),
 		'name' => array('type' => 'string', 'length' => 40, 'null' => false)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('apple_id' => 3, 'name' => 'sample1'),
 		array('apple_id' => 2, 'name' => 'sample2'),

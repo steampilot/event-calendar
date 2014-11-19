@@ -21,11 +21,11 @@ echo __("single 'quoted'");
 // Multiline
 __('Hot features!'
 	. "\n - No Configuration:"
-		. ' Set-up the database and let the magic begin'
+	. ' Set-up the database and let the magic begin'
 	. "\n - Extremely Simple:"
-		. ' Just look at the name...It\'s Cake'
+	. ' Just look at the name...It\'s Cake'
 	. "\n - Active, Friendly Community:"
-		. ' Join us #cakephp on IRC. We\'d love to help you get started');
+	. ' Join us #cakephp on IRC. We\'d love to help you get started');
 
 // Category
 echo __c('You have a new message (category: LC_TIME).', 5);

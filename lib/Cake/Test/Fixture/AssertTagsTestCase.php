@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This class helps in indirectly testing the functionalities of CakeTestCase::assertTags
  *
@@ -6,11 +7,11 @@
  */
 class AssertTagsTestCase extends CakeTestCase {
 
-/**
- * test that assertTags knows how to handle correct quoting.
- *
- * @return void
- */
+	/**
+	 * test that assertTags knows how to handle correct quoting.
+	 *
+	 * @return void
+	 */
 	public function testAssertTagsQuotes() {
 		$input = '<a href="/test.html" class="active">My link</a>';
 		$pattern = array(
@@ -37,20 +38,20 @@ class AssertTagsTestCase extends CakeTestCase {
 		$this->assertTags($input, $pattern);
 	}
 
-/**
- * testNumericValuesInExpectationForAssertTags
- *
- * @return void
- */
+	/**
+	 * testNumericValuesInExpectationForAssertTags
+	 *
+	 * @return void
+	 */
 	public function testNumericValuesInExpectationForAssertTags() {
 		$value = 220985;
 
 		$input = '<p><strong>' . $value . '</strong></p>';
 		$pattern = array(
 			'<p',
-				'<strong',
-					$value,
-				'/strong',
+			'<strong',
+			$value,
+			'/strong',
 			'/p'
 		);
 		$this->assertTags($input, $pattern);
@@ -58,14 +59,14 @@ class AssertTagsTestCase extends CakeTestCase {
 		$input = '<p><strong>' . $value . '</strong></p><p><strong>' . $value . '</strong></p>';
 		$pattern = array(
 			'<p',
-				'<strong',
-					$value,
-				'/strong',
+			'<strong',
+			$value,
+			'/strong',
 			'/p',
 			'<p',
-				'<strong',
-					$value,
-				'/strong',
+			'<strong',
+			$value,
+			'/strong',
 			'/p',
 		);
 		$this->assertTags($input, $pattern);
@@ -73,24 +74,24 @@ class AssertTagsTestCase extends CakeTestCase {
 		$input = '<p><strong>' . $value . '</strong></p><p id="' . $value . '"><strong>' . $value . '</strong></p>';
 		$pattern = array(
 			'<p',
-				'<strong',
-					$value,
-				'/strong',
+			'<strong',
+			$value,
+			'/strong',
 			'/p',
 			'p' => array('id' => $value),
-				'<strong',
-					$value,
-				'/strong',
+			'<strong',
+			$value,
+			'/strong',
 			'/p',
 		);
 		$this->assertTags($input, $pattern);
 	}
 
-/**
- * testBadAssertTags
- *
- * @return void
- */
+	/**
+	 * testBadAssertTags
+	 *
+	 * @return void
+	 */
 	public function testBadAssertTags() {
 		$input = '<a href="/test.html" class="active">My link</a>';
 		$pattern = array(
@@ -101,11 +102,11 @@ class AssertTagsTestCase extends CakeTestCase {
 		$this->assertTags($input, $pattern);
 	}
 
-/**
- * testBadAssertTags
- *
- * @return void
- */
+	/**
+	 * testBadAssertTags
+	 *
+	 * @return void
+	 */
 	public function testBadAssertTags2() {
 		$input = '<a href="/test.html" class="active">My link</a>';
 		$pattern = array(

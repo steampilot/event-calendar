@@ -23,21 +23,21 @@
  */
 class BiddingMessageFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'bidding' => array('type' => 'string', 'null' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('bidding' => 'One', 'name' => 'Message 1'),
 		array('bidding' => 'Two', 'name' => 'Message 2'),

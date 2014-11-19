@@ -23,11 +23,11 @@
  */
 class PersonFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'length' => 32),
@@ -39,11 +39,11 @@ class PersonFixture extends CakeTestFixture {
 		)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('name' => 'person', 'mother_id' => 2, 'father_id' => 3),
 		array('name' => 'mother', 'mother_id' => 4, 'father_id' => 5),

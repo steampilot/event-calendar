@@ -25,11 +25,11 @@
  */
 class AllDbRelatedTest extends PHPUnit_Framework_TestSuite {
 
-/**
- * Suite define the tests for this suite
- *
- * @return void
- */
+	/**
+	 * Suite define the tests for this suite
+	 *
+	 * @return void
+	 */
 	public static function suite() {
 		$suite = new PHPUnit_Framework_TestSuite('All Db Related Tests');
 

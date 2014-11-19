@@ -30,21 +30,21 @@ if (!defined('FULL_BASE_URL')) {
  */
 class RouterTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Routing', array('admin' => null, 'prefixes' => array()));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		CakePlugin::unload();
@@ -52,11 +52,11 @@ class RouterTest extends CakeTestCase {
 		Configure::write('App.fullBaseUrl', 'http://localhost');
 	}
 
-/**
- * testFullBaseUrl method
- *
- * @return void
- */
+	/**
+	 * testFullBaseUrl method
+	 *
+	 * @return void
+	 */
 	public function testFullBaseUrl() {
 		$this->assertRegExp('/^http(s)?:\/\//', Router::url('/', true));
 		$this->assertRegExp('/^http(s)?:\/\//', Router::url(null, true));
@@ -64,11 +64,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertSame(FULL_BASE_URL . '/', Router::url(array('full_base' => true)));
 	}
 
-/**
- * Tests that the base URL can be changed at runtime.
- *
- * @return void
- */
+	/**
+	 * Tests that the base URL can be changed at runtime.
+	 *
+	 * @return void
+	 */
 	public function testBaseUrl() {
 		$this->assertEquals(FULL_BASE_URL, Router::fullBaseUrl());
 		Router::fullBaseUrl('http://example.com');
@@ -79,33 +79,33 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('https://example.com', Configure::read('App.fullBaseUrl'));
 	}
 
-/**
- * Test that Router uses App.base to build URL's when there are no stored
- * request objects.
- *
- * @return void
- */
+	/**
+	 * Test that Router uses App.base to build URL's when there are no stored
+	 * request objects.
+	 *
+	 * @return void
+	 */
 	public function testBaseUrlWithBasePath() {
 		Configure::write('App.base', '/cakephp');
 		Router::fullBaseUrl('http://example.com');
 		$this->assertEquals('http://example.com/cakephp/tasks', Router::url('/tasks', true));
 	}
 
-/**
- * testRouteDefaultParams method
- *
- * @return void
- */
+	/**
+	 * testRouteDefaultParams method
+	 *
+	 * @return void
+	 */
 	public function testRouteDefaultParams() {
 		Router::connect('/:controller', array('controller' => 'posts'));
 		$this->assertEquals(Router::url(array('action' => 'index')), '/');
 	}
 
-/**
- * testMapResources method
- *
- * @return void
- */
+	/**
+	 * testMapResources method
+	 *
+	 * @return void
+	 */
 	public function testMapResources() {
 		$resources = Router::mapResources('Posts');
 
@@ -150,11 +150,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array('pass' => array('name'), 'named' => array(), 'plugin' => '', 'controller' => 'posts', 'action' => 'edit', 'id' => 'name', '[method]' => 'PUT'), $result);
 	}
 
-/**
- * testMapResources with plugin controllers.
- *
- * @return void
- */
+	/**
+	 * testMapResources with plugin controllers.
+	 *
+	 * @return void
+	 */
 	public function testPluginMapResources() {
 		App::build(array(
 			'Plugin' => array(
@@ -190,9 +190,9 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testMapResources with custom connectOptions
- */
+	/**
+	 * testMapResources with custom connectOptions
+	 */
 	public function testMapResourcesConnectOptions() {
 		App::build(array(
 			'Plugin' => array(
@@ -212,11 +212,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('^(bar)$', $route->options['foo']);
 	}
 
-/**
- * Test mapResources with a plugin and prefix.
- *
- * @return void
- */
+	/**
+	 * Test mapResources with a plugin and prefix.
+	 *
+	 * @return void
+	 */
 	public function testPluginMapResourcesWithPrefix() {
 		App::build(array(
 			'Plugin' => array(
@@ -253,11 +253,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testMultipleResourceRoute method
- *
- * @return void
- */
+	/**
+	 * testMultipleResourceRoute method
+	 *
+	 * @return void
+	 */
 	public function testMultipleResourceRoute() {
 		Router::connect('/:controller', array('action' => 'index', '[method]' => array('GET', 'POST')));
 
@@ -270,11 +270,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array('pass' => array(), 'named' => array(), 'plugin' => '', 'controller' => 'posts', 'action' => 'index', '[method]' => array('GET', 'POST')), $result);
 	}
 
-/**
- * testGenerateUrlResourceRoute method
- *
- * @return void
- */
+	/**
+	 * testGenerateUrlResourceRoute method
+	 *
+	 * @return void
+	 */
 	public function testGenerateUrlResourceRoute() {
 		Router::mapResources('Posts');
 
@@ -303,11 +303,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testUrlNormalization method
- *
- * @return void
- */
+	/**
+	 * testUrlNormalization method
+	 *
+	 * @return void
+	 */
 	public function testUrlNormalization() {
 		$expected = '/users/logout';
 
@@ -374,11 +374,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('/admin/beers_tags/add', $result);
 	}
 
-/**
- * test generation of basic URLs.
- *
- * @return void
- */
+	/**
+	 * test generation of basic URLs.
+	 *
+	 * @return void
+	 */
 	public function testUrlGenerationBasic() {
 		extract(Router::getNamedExpressions());
 
@@ -511,11 +511,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that catch all routes work with a variety of falsey inputs.
- *
- * @return void
- */
+	/**
+	 * Test that catch all routes work with a variety of falsey inputs.
+	 *
+	 * @return void
+	 */
 	public function testUrlCatchAllRoute() {
 		Router::connect('/*', array('controller' => 'categories', 'action' => 'index'));
 		$result = Router::url(array('controller' => 'categories', 'action' => 'index', '0'));
@@ -535,11 +535,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests using arrays in named parameters
- *
- * @return void
- */
+	/**
+	 * Tests using arrays in named parameters
+	 *
+	 * @return void
+	 */
 	public function testArrayNamedParameters() {
 		$result = Router::url(array('controller' => 'tests', 'pages' => array(
 			1, 2, 3
@@ -591,11 +591,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test generation of routes with query string parameters.
- *
- * @return void
- */
+	/**
+	 * Test generation of routes with query string parameters.
+	 *
+	 * @return void
+	 */
 	public function testUrlGenerationWithQueryStrings() {
 		$result = Router::url(array('controller' => 'posts', 'action' => 'index', '0', '?' => 'var=test&var2=test2'));
 		$expected = '/posts/index/0?var=test&var2=test2';
@@ -615,11 +615,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that regex validation of keyed route params is working.
- *
- * @return void
- */
+	/**
+	 * test that regex validation of keyed route params is working.
+	 *
+	 * @return void
+	 */
 	public function testUrlGenerationWithRegexQualifiedParams() {
 		Router::connect(
 			':language/galleries',
@@ -698,11 +698,11 @@ class RouterTest extends CakeTestCase {
 		));
 	}
 
-/**
- * Test URL generation with an admin prefix
- *
- * @return void
- */
+	/**
+	 * Test URL generation with an admin prefix
+	 *
+	 * @return void
+	 */
 	public function testUrlGenerationWithAdminPrefix() {
 		Configure::write('Routing.prefixes', array('admin'));
 		Router::reload();
@@ -890,11 +890,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testUrlGenerationWithExtensions method
- *
- * @return void
- */
+	/**
+	 * testUrlGenerationWithExtensions method
+	 *
+	 * @return void
+	 */
 	public function testUrlGenerationWithExtensions() {
 		Router::parse('/');
 		$result = Router::url(array('plugin' => null, 'controller' => 'articles', 'action' => 'add', 'id' => null, 'ext' => 'json'));
@@ -914,11 +914,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testPluginUrlGeneration method
- *
- * @return void
- */
+	/**
+	 * testPluginUrlGeneration method
+	 *
+	 * @return void
+	 */
 	public function testUrlGenerationPlugins() {
 		$request = new CakeRequest();
 		Router::setRequestInfo(
@@ -955,11 +955,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that you can leave active plugin routes with plugin = null
- *
- * @return void
- */
+	/**
+	 * test that you can leave active plugin routes with plugin = null
+	 *
+	 * @return void
+	 */
 	public function testCanLeavePlugin() {
 		Router::reload();
 		Router::connect(
@@ -996,11 +996,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('/admin/other/posts/index', $result);
 	}
 
-/**
- * Test that URL's fail to parse when they are prefixed with //
- *
- * @return void
- */
+	/**
+	 * Test that URL's fail to parse when they are prefixed with //
+	 *
+	 * @return void
+	 */
 	public function testUrlParseFailureDoubleSlash() {
 		Router::connect('/posts', array('controller' => 'posts', 'action' => 'index'));
 		$result = Router::parse('/posts');
@@ -1013,11 +1013,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array(), $result);
 	}
 
-/**
- * testUrlParsing method
- *
- * @return void
- */
+	/**
+	 * testUrlParsing method
+	 *
+	 * @return void
+	 */
 	public function testUrlParsing() {
 		extract(Router::getNamedExpressions());
 
@@ -1138,11 +1138,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that the persist key works.
- *
- * @return void
- */
+	/**
+	 * test that the persist key works.
+	 *
+	 * @return void
+	 */
 	public function testPersistentParameters() {
 		Router::reload();
 		Router::connect(
@@ -1199,11 +1199,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testUuidRoutes method
- *
- * @return void
- */
+	/**
+	 * testUuidRoutes method
+	 *
+	 * @return void
+	 */
 	public function testUuidRoutes() {
 		Router::connect(
 			'/subjects/add/:category_id',
@@ -1215,11 +1215,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRouteSymmetry method
- *
- * @return void
- */
+	/**
+	 * testRouteSymmetry method
+	 *
+	 * @return void
+	 */
 	public function testRouteSymmetry() {
 		Router::connect(
 			"/:extra/page/:slug/*",
@@ -1252,21 +1252,21 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test parse and reverse symmetry
- *
- * @return void
- * @dataProvider parseReverseSymmetryData
- */
+	/**
+	 * Test parse and reverse symmetry
+	 *
+	 * @return void
+	 * @dataProvider parseReverseSymmetryData
+	 */
 	public function testParseReverseSymmetry($url) {
 		$this->assertSame($url, Router::reverse(Router::parse($url) + array('url' => array())));
 	}
 
-/**
- * Data for parse and reverse test
- *
- * @return array
- */
+	/**
+	 * Data for parse and reverse test
+	 *
+	 * @return array
+	 */
 	public function parseReverseSymmetryData() {
 		return array(
 			array('/'),
@@ -1279,12 +1279,12 @@ class RouterTest extends CakeTestCase {
 		);
 	}
 
-/**
- * Test that Routing.prefixes are used when a Router instance is created
- * or reset
- *
- * @return void
- */
+	/**
+	 * Test that Routing.prefixes are used when a Router instance is created
+	 * or reset
+	 *
+	 * @return void
+	 */
 	public function testRoutingPrefixesSetting() {
 		$restore = Configure::read('Routing');
 
@@ -1303,11 +1303,11 @@ class RouterTest extends CakeTestCase {
 		Configure::write('Routing', $restore);
 	}
 
-/**
- * Test prefix routing and plugin combinations
- *
- * @return void
- */
+	/**
+	 * Test prefix routing and plugin combinations
+	 *
+	 * @return void
+	 */
 	public function testPrefixRoutingAndPlugins() {
 		Configure::write('Routing.prefixes', array('admin'));
 		$paths = App::path('plugins');
@@ -1368,11 +1368,11 @@ class RouterTest extends CakeTestCase {
 		App::build(array('plugins' => $paths));
 	}
 
-/**
- * testParseExtensions method
- *
- * @return void
- */
+	/**
+	 * testParseExtensions method
+	 *
+	 * @return void
+	 */
 	public function testParseExtensions() {
 		$this->assertEquals(array(), Router::extensions());
 
@@ -1380,11 +1380,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array('rss'), Router::extensions());
 	}
 
-/**
- * testSetExtensions method
- *
- * @return void
- */
+	/**
+	 * testSetExtensions method
+	 *
+	 * @return void
+	 */
 	public function testSetExtensions() {
 		Router::setExtensions(array('rss'));
 		$this->assertEquals(array('rss'), Router::extensions());
@@ -1411,11 +1411,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array('pdf'), $result);
 	}
 
-/**
- * testExtensionParsing method
- *
- * @return void
- */
+	/**
+	 * testExtensionParsing method
+	 *
+	 * @return void
+	 */
 	public function testExtensionParsing() {
 		Router::parseExtensions();
 		require CAKE . 'Config' . DS . 'routes.php';
@@ -1464,11 +1464,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testQuerystringGeneration method
- *
- * @return void
- */
+	/**
+	 * testQuerystringGeneration method
+	 *
+	 * @return void
+	 */
 	public function testQuerystringGeneration() {
 		$result = Router::url(array('controller' => 'posts', 'action' => 'index', '0', '?' => 'var=test&var2=test2'));
 		$expected = '/posts/index/0?var=test&var2=test2';
@@ -1493,11 +1493,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testConnectNamed method
- *
- * @return void
- */
+	/**
+	 * testConnectNamed method
+	 *
+	 * @return void
+	 */
 	public function testConnectNamed() {
 		$named = Router::connectNamed(false, array('default' => true));
 		$this->assertFalse($named['greedyNamed']);
@@ -1524,11 +1524,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertTrue(empty($result['named']));
 	}
 
-/**
- * testNamedArgsUrlGeneration method
- *
- * @return void
- */
+	/**
+	 * testNamedArgsUrlGeneration method
+	 *
+	 * @return void
+	 */
 	public function testNamedArgsUrlGeneration() {
 		$result = Router::url(array('controller' => 'posts', 'action' => 'index', 'published' => 1, 'deleted' => 1));
 		$expected = '/posts/index/published:1/deleted:1';
@@ -1585,11 +1585,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testNamedArgsUrlParsing method
- *
- * @return void
- */
+	/**
+	 * testNamedArgsUrlParsing method
+	 *
+	 * @return void
+	 */
 	public function testNamedArgsUrlParsing() {
 		Router::reload();
 		require CAKE . 'Config' . DS . 'routes.php';
@@ -1646,12 +1646,12 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test URL generation with legacy (1.2) style prefix routes.
- *
- * @return void
- * @see testUrlGenerationWithAutoPrefixes
- */
+	/**
+	 * Test URL generation with legacy (1.2) style prefix routes.
+	 *
+	 * @return void
+	 * @see testUrlGenerationWithAutoPrefixes
+	 */
 	public function testUrlGenerationWithLegacyPrefixes() {
 		Router::reload();
 		Router::connect('/protected/:controller/:action/*', array(
@@ -1718,11 +1718,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test newer style automatically generated prefix routes.
- *
- * @return void
- */
+	/**
+	 * test newer style automatically generated prefix routes.
+	 *
+	 * @return void
+	 */
 	public function testUrlGenerationWithAutoPrefixes() {
 		Configure::write('Routing.prefixes', array('protected'));
 		Router::reload();
@@ -1790,11 +1790,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that auto-generated prefix routes persist
- *
- * @return void
- */
+	/**
+	 * test that auto-generated prefix routes persist
+	 *
+	 * @return void
+	 */
 	public function testAutoPrefixRoutePersistence() {
 		Configure::write('Routing.prefixes', array('protected'));
 		Router::reload();
@@ -1821,11 +1821,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that setting a prefix override the current one
- *
- * @return void
- */
+	/**
+	 * test that setting a prefix override the current one
+	 *
+	 * @return void
+	 */
 	public function testPrefixOverride() {
 		Configure::write('Routing.prefixes', array('protected', 'admin'));
 		Router::reload();
@@ -1863,11 +1863,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that setting a prefix to false is ignored, as its generally user error.
- *
- * @return void
- */
+	/**
+	 * Test that setting a prefix to false is ignored, as its generally user error.
+	 *
+	 * @return void
+	 */
 	public function testPrefixFalseIgnored() {
 		Configure::write('Routing.prefixes', array('admin'));
 		Router::reload();
@@ -1886,11 +1886,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('/admin/asset_compress/get/test', $url);
 	}
 
-/**
- * testRemoveBase method
- *
- * @return void
- */
+	/**
+	 * testRemoveBase method
+	 *
+	 * @return void
+	 */
 	public function testRemoveBase() {
 		$request = new CakeRequest();
 		Router::setRequestInfo(
@@ -1917,11 +1917,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testPagesUrlParsing method
- *
- * @return void
- */
+	/**
+	 * testPagesUrlParsing method
+	 *
+	 * @return void
+	 */
 	public function testPagesUrlParsing() {
 		Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 		Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
@@ -1963,11 +1963,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that requests with a trailing dot don't loose the do.
- *
- * @return void
- */
+	/**
+	 * test that requests with a trailing dot don't loose the do.
+	 *
+	 * @return void
+	 */
 	public function testParsingWithTrailingPeriod() {
 		Router::reload();
 		Router::connect('/:controller/:action/*');
@@ -1978,11 +1978,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('something. . .', $result['pass'][0], 'Period was chopped off %s');
 	}
 
-/**
- * test that requests with a trailing dot don't loose the do.
- *
- * @return void
- */
+	/**
+	 * test that requests with a trailing dot don't loose the do.
+	 *
+	 * @return void
+	 */
 	public function testParsingWithTrailingPeriodAndParseExtensions() {
 		Router::reload();
 		Router::connect('/:controller/:action/*');
@@ -1995,11 +1995,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('something. . .', $result['pass'][0], 'Period was chopped off %s');
 	}
 
-/**
- * test that patterns work for :action
- *
- * @return void
- */
+	/**
+	 * test that patterns work for :action
+	 *
+	 * @return void
+	 */
 	public function testParsingWithPatternOnAction() {
 		Router::reload();
 		Router::connect(
@@ -2027,11 +2027,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('/blog/actions', $result);
 	}
 
-/**
- * testParsingWithPrefixes method
- *
- * @return void
- */
+	/**
+	 * testParsingWithPrefixes method
+	 *
+	 * @return void
+	 */
 	public function testParsingWithPrefixes() {
 		$adminParams = array('prefix' => 'admin', 'admin' => true);
 		Router::connect('/admin/:controller', $adminParams);
@@ -2096,11 +2096,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests URL generation with flags and prefixes in and out of context
- *
- * @return void
- */
+	/**
+	 * Tests URL generation with flags and prefixes in and out of context
+	 *
+	 * @return void
+	 */
 	public function testUrlWritingWithPrefixes() {
 		Router::connect('/company/:controller/:action/*', array('prefix' => 'company', 'company' => true));
 		Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
@@ -2130,11 +2130,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test url generation with prefixes and custom routes
- *
- * @return void
- */
+	/**
+	 * test url generation with prefixes and custom routes
+	 *
+	 * @return void
+	 */
 	public function testUrlWritingWithPrefixesAndCustomRoutes() {
 		Router::connect(
 			'/admin/login',
@@ -2161,11 +2161,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('/admin/login', $result);
 	}
 
-/**
- * testPassedArgsOrder method
- *
- * @return void
- */
+	/**
+	 * testPassedArgsOrder method
+	 *
+	 * @return void
+	 */
 	public function testPassedArgsOrder() {
 		Router::connect('/test-passed/*', array('controller' => 'pages', 'action' => 'display', 'home'));
 		Router::connect('/test2/*', array('controller' => 'pages', 'action' => 'display', 2));
@@ -2215,11 +2215,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRegexRouteMatching method
- *
- * @return void
- */
+	/**
+	 * testRegexRouteMatching method
+	 *
+	 * @return void
+	 */
 	public function testRegexRouteMatching() {
 		Router::connect('/:locale/:controller/:action/*', array(), array('locale' => 'dan|eng'));
 
@@ -2258,11 +2258,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testStripPlugin
- *
- * @return void
- */
+	/**
+	 * testStripPlugin
+	 *
+	 * @return void
+	 */
 	public function testStripPlugin() {
 		$pluginName = 'forums';
 		$url = 'example.com/' . $pluginName . '/';
@@ -2273,23 +2273,23 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(Router::stripPlugin($url, null), $url);
 	}
 
-/**
- * testCurrentRouteWhenNonExistentRoute
- *
- * @return void
- */
+	/**
+	 * testCurrentRouteWhenNonExistentRoute
+	 *
+	 * @return void
+	 */
 	public function testCurrentRouteWhenNonExistentRoute() {
 		$route = Router::currentRoute();
 		$this->assertFalse($route);
 	}
 
-/**
- * testCurrentRoute
- *
- * This test needs some improvement and actual requestAction() usage
- *
- * @return void
- */
+	/**
+	 * testCurrentRoute
+	 *
+	 * This test needs some improvement and actual requestAction() usage
+	 *
+	 * @return void
+	 */
 	public function testCurrentRoute() {
 		$url = array('controller' => 'pages', 'action' => 'display', 'government');
 		Router::connect('/government', $url);
@@ -2298,11 +2298,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array_merge($url, array('plugin' => null)), $route->defaults);
 	}
 
-/**
- * testRequestRoute
- *
- * @return void
- */
+	/**
+	 * testRequestRoute
+	 *
+	 * @return void
+	 */
 	public function testRequestRoute() {
 		$url = array('controller' => 'products', 'action' => 'display', 5);
 		Router::connect('/government', $url);
@@ -2323,11 +2323,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array_merge($url, array('plugin' => null)), $route->defaults);
 	}
 
-/**
- * testGetParams
- *
- * @return void
- */
+	/**
+	 * testGetParams
+	 *
+	 * @return void
+	 */
 	public function testGetParams() {
 		$paths = array('base' => '/', 'here' => '/products/display/5', 'webroot' => '/webroot');
 		$params = array('param1' => '1', 'param2' => '2');
@@ -2355,11 +2355,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, Router::getParams(true));
 	}
 
-/**
- * test that connectDefaults() can disable default route connection
- *
- * @return void
- */
+	/**
+	 * test that connectDefaults() can disable default route connection
+	 *
+	 * @return void
+	 */
 	public function testDefaultsMethod() {
 		Router::connect('/test/*', array('controller' => 'pages', 'action' => 'display', 2));
 		$result = Router::parse('/posts/edit/5');
@@ -2367,11 +2367,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertFalse(isset($result['action']));
 	}
 
-/**
- * test that the required default routes are connected.
- *
- * @return void
- */
+	/**
+	 * test that the required default routes are connected.
+	 *
+	 * @return void
+	 */
 	public function testConnectDefaultRoutes() {
 		App::build(array(
 			'plugins' => array(
@@ -2404,11 +2404,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result, 'Plugin shortcut route broken. %s');
 	}
 
-/**
- * test using a custom route class for route connection
- *
- * @return void
- */
+	/**
+	 * test using a custom route class for route connection
+	 *
+	 * @return void
+	 */
 	public function testUsingCustomRouteClass() {
 		$this->getMock('CakeRoute', array(), array(), 'MockConnectedRoute', false);
 		$routes = Router::connect(
@@ -2425,11 +2425,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test using custom route class in PluginDot notation
- *
- * @return void
- */
+	/**
+	 * test using custom route class in PluginDot notation
+	 *
+	 * @return void
+	 */
 	public function testUsingCustomRouteClassPluginDotSyntax() {
 		App::build(array(
 			'Plugin' => array(
@@ -2447,23 +2447,23 @@ class RouterTest extends CakeTestCase {
 		CakePlugin::unload('TestPlugin');
 	}
 
-/**
- * test that route classes must extend CakeRoute
- *
- * @expectedException RouterException
- * @return void
- */
+	/**
+	 * test that route classes must extend CakeRoute
+	 *
+	 * @expectedException RouterException
+	 * @return void
+	 */
 	public function testCustomRouteException() {
 		Router::connect('/:controller', array(), array('routeClass' => 'Object'));
 	}
 
-/**
- * test reversing parameter arrays back into strings.
- *
- * Mark the router as initialized so it doesn't auto-load routes
- *
- * @return void
- */
+	/**
+	 * test reversing parameter arrays back into strings.
+	 *
+	 * Mark the router as initialized so it doesn't auto-load routes
+	 *
+	 * @return void
+	 */
 	public function testRouterReverse() {
 		Router::$initialized = true;
 
@@ -2542,11 +2542,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertRegExp('/^http(s)?:\/\//', $result);
 	}
 
-/**
- * Test that extensions work with Router::reverse()
- *
- * @return void
- */
+	/**
+	 * Test that extensions work with Router::reverse()
+	 *
+	 * @return void
+	 */
 	public function testReverseWithExtension() {
 		Router::parseExtensions('json');
 
@@ -2564,11 +2564,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that setRequestInfo can accept arrays and turn that into a CakeRequest object.
- *
- * @return void
- */
+	/**
+	 * test that setRequestInfo can accept arrays and turn that into a CakeRequest object.
+	 *
+	 * @return void
+	 */
 	public function testSetRequestInfoLegacy() {
 		Router::setRequestInfo(array(
 			array(
@@ -2589,11 +2589,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('/', $result->webroot);
 	}
 
-/**
- * Test that Router::url() uses the first request
- *
- * @return void
- */
+	/**
+	 * Test that Router::url() uses the first request
+	 *
+	 * @return void
+	 */
 	public function testUrlWithRequestAction() {
 		$firstRequest = new CakeRequest('/posts/index');
 		$firstRequest->addParams(array(
@@ -2621,11 +2621,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals('/posts', $result, 'with second requests, the last should win.');
 	}
 
-/**
- * test that a route object returning a full URL is not modified.
- *
- * @return void
- */
+	/**
+	 * test that a route object returning a full URL is not modified.
+	 *
+	 * @return void
+	 */
 	public function testUrlFullUrlReturnFromRoute() {
 		$url = 'http://example.com/posts/view/1';
 
@@ -2638,11 +2638,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($url, $result);
 	}
 
-/**
- * test protocol in url
- *
- * @return void
- */
+	/**
+	 * test protocol in url
+	 *
+	 * @return void
+	 */
 	public function testUrlProtocol() {
 		$url = 'http://example.com';
 		$this->assertEquals($url, Router::url($url));
@@ -2679,11 +2679,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($expected, Router::url($url, true));
 	}
 
-/**
- * Testing that patterns on the :action param work properly.
- *
- * @return void
- */
+	/**
+	 * Testing that patterns on the :action param work properly.
+	 *
+	 * @return void
+	 */
 	public function testPatternOnAction() {
 		$route = new CakeRoute(
 			'/blog/:action/*',
@@ -2704,11 +2704,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * Tests resourceMap as getter and setter.
- *
- * @return void
- */
+	/**
+	 * Tests resourceMap as getter and setter.
+	 *
+	 * @return void
+	 */
 	public function testResourceMap() {
 		$default = Router::resourceMap();
 		$expected = array(
@@ -2735,11 +2735,11 @@ class RouterTest extends CakeTestCase {
 		Router::resourceMap($default);
 	}
 
-/**
- * test setting redirect routes
- *
- * @return void
- */
+	/**
+	 * test setting redirect routes
+	 *
+	 * @return void
+	 */
 	public function testRouteRedirection() {
 		Router::redirect('/blog', array('controller' => 'posts'), array('status' => 302));
 		$this->assertEquals(1, count(Router::$routes));
@@ -2757,11 +2757,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals(array(), Router::$routes[0]->response->header());
 	}
 
-/**
- * Test setting the default route class
- *
- * @return void
- */
+	/**
+	 * Test setting the default route class
+	 *
+	 * @return void
+	 */
 	public function testDefaultRouteClass() {
 		$this->getMock('CakeRoute', array(), array('/test'), 'TestDefaultRouteClass');
 		Router::defaultRouteClass('TestDefaultRouteClass');
@@ -2770,11 +2770,11 @@ class RouterTest extends CakeTestCase {
 		$this->assertInstanceOf('TestDefaultRouteClass', $result[0]);
 	}
 
-/**
- * Test getting the default route class
- *
- * @return void
- */
+	/**
+	 * Test getting the default route class
+	 *
+	 * @return void
+	 */
 	public function testDefaultRouteClassGetter() {
 		$routeClass = 'TestDefaultRouteClass';
 		Router::defaultRouteClass($routeClass);
@@ -2783,42 +2783,42 @@ class RouterTest extends CakeTestCase {
 		$this->assertEquals($routeClass, Router::defaultRouteClass(null));
 	}
 
-/**
- * Test that route classes must extend CakeRoute
- *
- * @expectedException RouterException
- * @return void
- */
+	/**
+	 * Test that route classes must extend CakeRoute
+	 *
+	 * @expectedException RouterException
+	 * @return void
+	 */
 	public function testDefaultRouteException() {
 		Router::defaultRouteClass('');
 		Router::connect('/:controller', array());
 	}
 
-/**
- * Test that route classes must extend CakeRoute
- *
- * @expectedException RouterException
- * @return void
- */
+	/**
+	 * Test that route classes must extend CakeRoute
+	 *
+	 * @expectedException RouterException
+	 * @return void
+	 */
 	public function testSettingInvalidDefaultRouteException() {
 		Router::defaultRouteClass('Object');
 	}
 
-/**
- * Test that class must exist
- *
- * @expectedException RouterException
- * @return void
- */
+	/**
+	 * Test that class must exist
+	 *
+	 * @expectedException RouterException
+	 * @return void
+	 */
 	public function testSettingNonExistentDefaultRouteException() {
 		Router::defaultRouteClass('NonExistentClass');
 	}
 
-/**
- * Tests generating well-formed querystrings
- *
- * @return void
- */
+	/**
+	 * Tests generating well-formed querystrings
+	 *
+	 * @return void
+	 */
 	public function testQueryString() {
 		$result = Router::queryString(array('var' => 'foo bar'));
 		$expected = '?var=foo+bar';

@@ -29,18 +29,18 @@ App::uses('File', 'Utility');
  */
 class ApiShell extends AppShell {
 
-/**
- * Map between short name for paths and real paths.
- *
- * @var array
- */
+	/**
+	 * Map between short name for paths and real paths.
+	 *
+	 * @var array
+	 */
 	public $paths = array();
 
-/**
- * Override initialize of the Shell
- *
- * @return void
- */
+	/**
+	 * Override initialize of the Shell
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->paths = array_merge($this->paths, array(
 			'behavior' => CAKE . 'Model' . DS . 'Behavior' . DS,
@@ -54,11 +54,11 @@ class ApiShell extends AppShell {
 		));
 	}
 
-/**
- * Override main() to handle action
- *
- * @return void
- */
+	/**
+	 * Override main() to handle action
+	 *
+	 * @return void
+	 */
 	public function main() {
 		if (empty($this->args)) {
 			return $this->out($this->OptionParser->help());
@@ -136,11 +136,11 @@ class ApiShell extends AppShell {
 		}
 	}
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Gets the option parser instance and configures it.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 
@@ -158,11 +158,11 @@ class ApiShell extends AppShell {
 		return $parser;
 	}
 
-/**
- * Show help for this shell.
- *
- * @return void
- */
+	/**
+	 * Show help for this shell.
+	 *
+	 * @return void
+	 */
 	public function help() {
 		$head = "Usage: cake api [<type>] <className> [-m <method>]\n";
 		$head .= "-----------------------------------------------\n";
@@ -195,14 +195,14 @@ class ApiShell extends AppShell {
 		}
 	}
 
-/**
- * Parse a given class (located on given file) and get public methods and their
- * signatures.
- *
- * @param string $path File path
- * @param string $class Class name
- * @return array Methods and signatures indexed by method name
- */
+	/**
+	 * Parse a given class (located on given file) and get public methods and their
+	 * signatures.
+	 *
+	 * @param string $path File path
+	 * @param string $class Class name
+	 * @return array Methods and signatures indexed by method name
+	 */
 	protected function _parseClass($path, $class) {
 		$parsed = array();
 

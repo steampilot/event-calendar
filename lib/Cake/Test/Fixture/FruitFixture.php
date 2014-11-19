@@ -23,11 +23,11 @@
  */
 class FruitFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'string', 'length' => 36, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'length' => 255),
@@ -36,11 +36,11 @@ class FruitFixture extends CakeTestFixture {
 		'taste' => array('type' => 'string', 'length' => 255)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array(
 			'id' => '481fc6d0-b920-43e0-a40d-6d1740cf8569', 'name' => 'Orange',

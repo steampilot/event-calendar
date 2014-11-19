@@ -26,18 +26,18 @@ App::uses('AclNode', 'Model');
  */
 class DbAclNodeTestBase extends AclNode {
 
-/**
- * useDbConfig property
- *
- * @var string
- */
+	/**
+	 * useDbConfig property
+	 *
+	 * @var string
+	 */
 	public $useDbConfig = 'test';
 
-/**
- * cacheSources property
- *
- * @var bool
- */
+	/**
+	 * cacheSources property
+	 *
+	 * @var bool
+	 */
 	public $cacheSources = false;
 }
 
@@ -48,18 +48,18 @@ class DbAclNodeTestBase extends AclNode {
  */
 class DbAroTest extends DbAclNodeTestBase {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'aros';
 
-/**
- * hasAndBelongsToMany property
- *
- * @var array
- */
+	/**
+	 * hasAndBelongsToMany property
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array('DbAcoTest' => array('with' => 'DbPermissionTest'));
 }
 
@@ -70,18 +70,18 @@ class DbAroTest extends DbAclNodeTestBase {
  */
 class DbAcoTest extends DbAclNodeTestBase {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'acos';
 
-/**
- * hasAndBelongsToMany property
- *
- * @var array
- */
+	/**
+	 * hasAndBelongsToMany property
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array('DbAroTest' => array('with' => 'DbPermissionTest'));
 }
 
@@ -92,25 +92,25 @@ class DbAcoTest extends DbAclNodeTestBase {
  */
 class DbPermissionTest extends CakeTestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'aros_acos';
 
-/**
- * cacheQueries property
- *
- * @var bool
- */
+	/**
+	 * cacheQueries property
+	 *
+	 * @var bool
+	 */
 	public $cacheQueries = false;
 
-/**
- * belongsTo property
- *
- * @var array
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array('DbAroTest' => array('foreignKey' => 'aro_id'), 'DbAcoTest' => array('foreignKey' => 'aco_id'));
 }
 
@@ -121,18 +121,18 @@ class DbPermissionTest extends CakeTestModel {
  */
 class DbAcoActionTest extends CakeTestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'aco_actions';
 
-/**
- * belongsTo property
- *
- * @var array
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array('DbAcoTest' => array('foreignKey' => 'aco_id'));
 }
 
@@ -143,26 +143,26 @@ class DbAcoActionTest extends CakeTestModel {
  */
 class DbAroUserTest extends CakeTestModel {
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'AuthUser';
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'auth_users';
 
-/**
- * bindNode method
- *
- * @param string|array|Model $ref
- * @return void
- */
+	/**
+	 * bindNode method
+	 *
+	 * @param string|array|Model $ref
+	 * @return void
+	 */
 	public function bindNode($ref = null) {
 		if (Configure::read('DbAclbindMode') === 'string') {
 			return 'ROOT/admins/Gandalf';
@@ -180,10 +180,10 @@ class DbAroUserTest extends CakeTestModel {
  */
 class TestDbAcl extends DbAcl {
 
-/**
- * construct method
- *
- */
+	/**
+	 * construct method
+	 *
+	 */
 	public function __construct() {
 		$this->Aro = new DbAroTest();
 		$this->Aro->Permission = new DbPermissionTest();
@@ -200,29 +200,29 @@ class TestDbAcl extends DbAcl {
  */
 class AclNodeTest extends CakeTestCase {
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.aro', 'core.aco', 'core.aros_aco', 'core.aco_action', 'core.auth_user');
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Acl.classname', 'TestDbAcl');
 		Configure::write('Acl.database', 'test');
 	}
 
-/**
- * testNode method
- *
- * @return void
- */
+	/**
+	 * testNode method
+	 *
+	 * @return void
+	 */
 	public function testNode() {
 		$Aco = new DbAcoTest();
 		$result = Hash::extract($Aco->node('Controller1'), '{n}.DbAcoTest.id');
@@ -257,22 +257,22 @@ class AclNodeTest extends CakeTestCase {
 		$this->assertEquals(null, $result);
 	}
 
-/**
- * test that node() doesn't dig deeper than it should.
- *
- * @return void
- */
+	/**
+	 * test that node() doesn't dig deeper than it should.
+	 *
+	 * @return void
+	 */
 	public function testNodeWithDuplicatePathSegments() {
 		$Aco = new DbAcoTest();
 		$nodes = $Aco->node('ROOT/Users');
 		$this->assertEquals(1, $nodes[0]['DbAcoTest']['parent_id'], 'Parent id does not point at ROOT. %s');
 	}
 
-/**
- * testNodeArrayFind method
- *
- * @return void
- */
+	/**
+	 * testNodeArrayFind method
+	 *
+	 * @return void
+	 */
 	public function testNodeArrayFind() {
 		$Aro = new DbAroTest();
 		Configure::write('DbAclbindMode', 'string');
@@ -286,11 +286,11 @@ class AclNodeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testNodeObjectFind method
- *
- * @return void
- */
+	/**
+	 * testNodeObjectFind method
+	 *
+	 * @return void
+	 */
 	public function testNodeObjectFind() {
 		$Aro = new DbAroTest();
 		$Model = new DbAroUserTest();
@@ -305,11 +305,11 @@ class AclNodeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testNodeAliasParenting method
- *
- * @return void
- */
+	/**
+	 * testNodeAliasParenting method
+	 *
+	 * @return void
+	 */
 	public function testNodeAliasParenting() {
 		$Aco = ClassRegistry::init('DbAcoTest');
 		$db = $Aco->getDataSource();
@@ -329,11 +329,11 @@ class AclNodeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testNodeActionAuthorize method
- *
- * @return void
- */
+	/**
+	 * testNodeActionAuthorize method
+	 *
+	 * @return void
+	 */
 	public function testNodeActionAuthorize() {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)

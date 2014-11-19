@@ -71,19 +71,19 @@ class ConsoleLogTest extends CakeTestCase {
 		}
 	}
 
-/**
- * Test writing to ConsoleOutput
- *
- * @return void
- */
+	/**
+	 * Test writing to ConsoleOutput
+	 *
+	 * @return void
+	 */
 	public function testConsoleOutputWrites() {
 		TestCakeLog::config('test_console_log', array(
 			'engine' => 'TestConsole',
-			));
+		));
 
 		$mock = $this->getMock('TestConsoleLog', array('write'), array(
 			array('types' => 'error'),
-			));
+		));
 		TestCakeLog::replace('test_console_log', $mock);
 
 		$message = 'Test error message';
@@ -92,18 +92,18 @@ class ConsoleLogTest extends CakeTestCase {
 		TestCakeLog::write(LOG_ERR, $message);
 	}
 
-/**
- * Test logging to both ConsoleLog and FileLog
- *
- * @return void
- */
+	/**
+	 * Test logging to both ConsoleLog and FileLog
+	 *
+	 * @return void
+	 */
 	public function testCombinedLogWriting() {
 		TestCakeLog::config('test_console_log', array(
 			'engine' => 'TestConsole',
-			));
+		));
 		$mock = $this->getMock('TestConsoleLog', array('write'), array(
 			array('types' => 'error'),
-			));
+		));
 		TestCakeLog::replace('test_console_log', $mock);
 
 		// log to both file and console
@@ -130,15 +130,15 @@ class ConsoleLogTest extends CakeTestCase {
 		$this->assertContains($message, $logOutput);
 	}
 
-/**
- * test default value of stream 'outputAs'
- *
- * @return void
- */
+	/**
+	 * test default value of stream 'outputAs'
+	 *
+	 * @return void
+	 */
 	public function testDefaultOutputAs() {
 		TestCakeLog::config('test_console_log', array(
 			'engine' => 'TestConsole',
-			));
+		));
 		if (
 			(DS === '\\' && !(bool)env('ANSICON')) ||
 			(function_exists('posix_isatty') && !posix_isatty(null))

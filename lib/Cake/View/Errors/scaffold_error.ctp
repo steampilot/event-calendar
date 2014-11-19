@@ -25,7 +25,7 @@
 </p>
 <pre>
 &lt;?php
-function _scaffoldError() {<br />
+function _scaffoldError() {<br/>
 
 }
 
@@ -33,6 +33,6 @@ function _scaffoldError() {<br />
 
 <?php
 if (isset($error) && $error instanceof Exception) {
-	echo $this->element('exception_stack_trace'); 
+	echo $this->element('exception_stack_trace');
 }
 ?>

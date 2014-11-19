@@ -25,13 +25,13 @@ App::uses('BaseAuthorize', 'Controller/Component/Auth');
  */
 class ActionsAuthorize extends BaseAuthorize {
 
-/**
- * Authorize a user using the AclComponent.
- *
- * @param array $user The user to authorize
- * @param CakeRequest $request The request needing authorization.
- * @return bool
- */
+	/**
+	 * Authorize a user using the AclComponent.
+	 *
+	 * @param array $user The user to authorize
+	 * @param CakeRequest $request The request needing authorization.
+	 * @return bool
+	 */
 	public function authorize($user, CakeRequest $request) {
 		$Acl = $this->_Collection->load('Acl');
 		$user = array($this->settings['userModel'] => $user);

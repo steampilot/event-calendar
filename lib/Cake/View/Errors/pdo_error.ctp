@@ -26,8 +26,8 @@
 	</p>
 <?php endif; ?>
 <?php if (!empty($error->params)) : ?>
-		<strong><?php echo __d('cake_dev', 'SQL Query Params'); ?>: </strong>
-		<?php echo Debugger::dump($error->params); ?>
+	<strong><?php echo __d('cake_dev', 'SQL Query Params'); ?>: </strong>
+	<?php echo Debugger::dump($error->params); ?>
 <?php endif; ?>
 <p class="notice">
 	<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>

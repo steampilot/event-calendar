@@ -25,11 +25,11 @@ App::uses('IniAcl', 'Controller/Component/Acl');
  */
 class IniAclTest extends CakeTestCase {
 
-/**
- * testIniCheck method
- *
- * @return void
- */
+	/**
+	 * testIniCheck method
+	 *
+	 * @return void
+	 */
 	public function testCheck() {
 		$iniFile = CAKE . 'Test' . DS . 'test_app' . DS . 'Config' . DS . 'acl.ini.php';
 
@@ -48,11 +48,11 @@ class IniAclTest extends CakeTestCase {
 		$this->assertFalse($Ini->check('nobody', 'comments'));
 	}
 
-/**
- * check should accept a user array.
- *
- * @return void
- */
+	/**
+	 * check should accept a user array.
+	 *
+	 * @return void
+	 */
 	public function testCheckArray() {
 		$iniFile = CAKE . 'Test' . DS . 'test_app' . DS . 'Config' . DS . 'acl.ini.php';
 

@@ -25,162 +25,247 @@ App::uses('CakeRequest', 'Network');
  */
 class L10n {
 
-/**
- * The language for current locale
- *
- * @var string
- */
+	/**
+	 * The language for current locale
+	 *
+	 * @var string
+	 */
 	public $language = 'English (United States)';
 
-/**
- * Locale search paths
- *
- * @var array
- */
+	/**
+	 * Locale search paths
+	 *
+	 * @var array
+	 */
 	public $languagePath = array('en_us', 'eng');
 
-/**
- * ISO 639-3 for current locale
- *
- * @var string
- */
+	/**
+	 * ISO 639-3 for current locale
+	 *
+	 * @var string
+	 */
 	public $lang = 'eng';
 
-/**
- * Locale
- *
- * @var string
- */
+	/**
+	 * Locale
+	 *
+	 * @var string
+	 */
 	public $locale = 'en_us';
 
-/**
- * Default language.
- *
- * If config value 'Config.language' is set in an application this will be set
- * as a fall back else if DEFAULT_LANGUAGE it defined it will be used.
- * Constant DEFAULT_LANGUAGE has been deprecated in 2.4
- *
- * @var string
- */
+	/**
+	 * Default language.
+	 *
+	 * If config value 'Config.language' is set in an application this will be set
+	 * as a fall back else if DEFAULT_LANGUAGE it defined it will be used.
+	 * Constant DEFAULT_LANGUAGE has been deprecated in 2.4
+	 *
+	 * @var string
+	 */
 	public $default = null;
 
-/**
- * Encoding used for current locale
- *
- * @var string
- */
+	/**
+	 * Encoding used for current locale
+	 *
+	 * @var string
+	 */
 	public $charset = 'utf-8';
 
-/**
- * Text direction for current locale
- *
- * @var string
- */
+	/**
+	 * Text direction for current locale
+	 *
+	 * @var string
+	 */
 	public $direction = 'ltr';
 
-/**
- * Maps ISO 639-3 to I10n::_l10nCatalog
- * The terminological codes (first one per language) should be used if possible.
- * They are the ones building the path in `/APP/Locale/[code]/`
- * The bibliographic codes are aliases.
- *
- * @var array
- */
+	/**
+	 * Maps ISO 639-3 to I10n::_l10nCatalog
+	 * The terminological codes (first one per language) should be used if possible.
+	 * They are the ones building the path in `/APP/Locale/[code]/`
+	 * The bibliographic codes are aliases.
+	 *
+	 * @var array
+	 */
 	protected $_l10nMap = array(
-		/* Afrikaans */ 'afr' => 'af',
-		/* Albanian */ 'sqi' => 'sq',
-		/* Albanian - bibliographic */ 'alb' => 'sq',
-		/* Arabic */ 'ara' => 'ar',
-		/* Armenian/Armenia */ 'hye' => 'hy',
-		/* Basque */ 'eus' => 'eu',
-		/* Basque */ 'baq' => 'eu',
-		/* Tibetan */ 'bod' => 'bo',
-		/* Tibetan - bibliographic */ 'tib' => 'bo',
-		/* Bosnian */ 'bos' => 'bs',
-		/* Bulgarian */ 'bul' => 'bg',
-		/* Byelorussian */ 'bel' => 'be',
-		/* Catalan */ 'cat' => 'ca',
-		/* Chinese */ 'zho' => 'zh',
-		/* Chinese - bibliographic */ 'chi' => 'zh',
-		/* Croatian */ 'hrv' => 'hr',
-		/* Czech */ 'ces' => 'cs',
-		/* Czech - bibliographic */ 'cze' => 'cs',
-		/* Danish */ 'dan' => 'da',
-		/* Dutch (Standard) */ 'nld' => 'nl',
-		/* Dutch (Standard) - bibliographic */ 'dut' => 'nl',
-		/* English */ 'eng' => 'en',
-		/* Estonian */ 'est' => 'et',
-		/* Faeroese */ 'fao' => 'fo',
-		/* Farsi/Persian */ 'fas' => 'fa',
-		/* Farsi/Persian - bibliographic */ 'per' => 'fa',
-		/* Finnish */ 'fin' => 'fi',
-		/* French (Standard) */ 'fra' => 'fr',
-		/* French (Standard)  - bibliographic */ 'fre' => 'fr',
-		/* Gaelic (Scots) */ 'gla' => 'gd',
-		/* Galician */ 'glg' => 'gl',
-		/* German (Standard) */ 'deu' => 'de',
-		/* German (Standard) - bibliographic */ 'ger' => 'de',
-		/* Greek */ 'gre' => 'el',
-		/* Greek */ 'ell' => 'el',
-		/* Hebrew */ 'heb' => 'he',
-		/* Hindi */ 'hin' => 'hi',
-		/* Hungarian */ 'hun' => 'hu',
-		/* Icelandic */ 'isl' => 'is',
-		/* Icelandic - bibliographic */ 'ice' => 'is',
-		/* Indonesian */ 'ind' => 'id',
-		/* Irish */ 'gle' => 'ga',
-		/* Italian */ 'ita' => 'it',
-		/* Japanese */ 'jpn' => 'ja',
-		/* Kazakh */ 'kaz' => 'kk',
-		/* Kalaallisut (Greenlandic) */ 'kal' => 'kl',
-		/* Korean */ 'kor' => 'ko',
-		/* Latvian */ 'lav' => 'lv',
-		/* Limburgish */ 'lim' => 'li',
-		/* Lithuanian */ 'lit' => 'lt',
-		/* Macedonian */ 'mkd' => 'mk',
-		/* Macedonian - bibliographic */ 'mac' => 'mk',
-		/* Malaysian */ 'msa' => 'ms',
-		/* Malaysian - bibliographic */ 'may' => 'ms',
-		/* Maltese */ 'mlt' => 'mt',
-		/* Norwegian */ 'nor' => 'no',
-		/* Norwegian Bokmal */ 'nob' => 'nb',
-		/* Norwegian Nynorsk */ 'nno' => 'nn',
-		/* Polish */ 'pol' => 'pl',
-		/* Portuguese (Portugal) */ 'por' => 'pt',
-		/* Rhaeto-Romanic */ 'roh' => 'rm',
-		/* Romanian */ 'ron' => 'ro',
-		/* Romanian - bibliographic */ 'rum' => 'ro',
-		/* Russian */ 'rus' => 'ru',
-		/* Sami */ 'sme' => 'se',
-		/* Serbian */ 'srp' => 'sr',
-		/* Slovak */ 'slk' => 'sk',
-		/* Slovak - bibliographic */ 'slo' => 'sk',
-		/* Slovenian */ 'slv' => 'sl',
-		/* Sorbian */ 'wen' => 'sb',
-		/* Spanish (Spain - Traditional) */ 'spa' => 'es',
-		/* Swedish */ 'swe' => 'sv',
-		/* Thai */ 'tha' => 'th',
-		/* Tsonga */ 'tso' => 'ts',
-		/* Tswana */ 'tsn' => 'tn',
-		/* Turkish */ 'tur' => 'tr',
-		/* Ukrainian */ 'ukr' => 'uk',
-		/* Urdu */ 'urd' => 'ur',
-		/* Venda */ 'ven' => 've',
-		/* Vietnamese */ 'vie' => 'vi',
-		/* Welsh */ 'cym' => 'cy',
-		/* Welsh - bibliographic */ 'wel' => 'cy',
-		/* Xhosa */ 'xho' => 'xh',
-		/* Yiddish */ 'yid' => 'yi',
-		/* Zulu */ 'zul' => 'zu'
+		/* Afrikaans */
+		'afr' => 'af',
+		/* Albanian */
+		'sqi' => 'sq',
+		/* Albanian - bibliographic */
+		'alb' => 'sq',
+		/* Arabic */
+		'ara' => 'ar',
+		/* Armenian/Armenia */
+		'hye' => 'hy',
+		/* Basque */
+		'eus' => 'eu',
+		/* Basque */
+		'baq' => 'eu',
+		/* Tibetan */
+		'bod' => 'bo',
+		/* Tibetan - bibliographic */
+		'tib' => 'bo',
+		/* Bosnian */
+		'bos' => 'bs',
+		/* Bulgarian */
+		'bul' => 'bg',
+		/* Byelorussian */
+		'bel' => 'be',
+		/* Catalan */
+		'cat' => 'ca',
+		/* Chinese */
+		'zho' => 'zh',
+		/* Chinese - bibliographic */
+		'chi' => 'zh',
+		/* Croatian */
+		'hrv' => 'hr',
+		/* Czech */
+		'ces' => 'cs',
+		/* Czech - bibliographic */
+		'cze' => 'cs',
+		/* Danish */
+		'dan' => 'da',
+		/* Dutch (Standard) */
+		'nld' => 'nl',
+		/* Dutch (Standard) - bibliographic */
+		'dut' => 'nl',
+		/* English */
+		'eng' => 'en',
+		/* Estonian */
+		'est' => 'et',
+		/* Faeroese */
+		'fao' => 'fo',
+		/* Farsi/Persian */
+		'fas' => 'fa',
+		/* Farsi/Persian - bibliographic */
+		'per' => 'fa',
+		/* Finnish */
+		'fin' => 'fi',
+		/* French (Standard) */
+		'fra' => 'fr',
+		/* French (Standard)  - bibliographic */
+		'fre' => 'fr',
+		/* Gaelic (Scots) */
+		'gla' => 'gd',
+		/* Galician */
+		'glg' => 'gl',
+		/* German (Standard) */
+		'deu' => 'de',
+		/* German (Standard) - bibliographic */
+		'ger' => 'de',
+		/* Greek */
+		'gre' => 'el',
+		/* Greek */
+		'ell' => 'el',
+		/* Hebrew */
+		'heb' => 'he',
+		/* Hindi */
+		'hin' => 'hi',
+		/* Hungarian */
+		'hun' => 'hu',
+		/* Icelandic */
+		'isl' => 'is',
+		/* Icelandic - bibliographic */
+		'ice' => 'is',
+		/* Indonesian */
+		'ind' => 'id',
+		/* Irish */
+		'gle' => 'ga',
+		/* Italian */
+		'ita' => 'it',
+		/* Japanese */
+		'jpn' => 'ja',
+		/* Kazakh */
+		'kaz' => 'kk',
+		/* Kalaallisut (Greenlandic) */
+		'kal' => 'kl',
+		/* Korean */
+		'kor' => 'ko',
+		/* Latvian */
+		'lav' => 'lv',
+		/* Limburgish */
+		'lim' => 'li',
+		/* Lithuanian */
+		'lit' => 'lt',
+		/* Macedonian */
+		'mkd' => 'mk',
+		/* Macedonian - bibliographic */
+		'mac' => 'mk',
+		/* Malaysian */
+		'msa' => 'ms',
+		/* Malaysian - bibliographic */
+		'may' => 'ms',
+		/* Maltese */
+		'mlt' => 'mt',
+		/* Norwegian */
+		'nor' => 'no',
+		/* Norwegian Bokmal */
+		'nob' => 'nb',
+		/* Norwegian Nynorsk */
+		'nno' => 'nn',
+		/* Polish */
+		'pol' => 'pl',
+		/* Portuguese (Portugal) */
+		'por' => 'pt',
+		/* Rhaeto-Romanic */
+		'roh' => 'rm',
+		/* Romanian */
+		'ron' => 'ro',
+		/* Romanian - bibliographic */
+		'rum' => 'ro',
+		/* Russian */
+		'rus' => 'ru',
+		/* Sami */
+		'sme' => 'se',
+		/* Serbian */
+		'srp' => 'sr',
+		/* Slovak */
+		'slk' => 'sk',
+		/* Slovak - bibliographic */
+		'slo' => 'sk',
+		/* Slovenian */
+		'slv' => 'sl',
+		/* Sorbian */
+		'wen' => 'sb',
+		/* Spanish (Spain - Traditional) */
+		'spa' => 'es',
+		/* Swedish */
+		'swe' => 'sv',
+		/* Thai */
+		'tha' => 'th',
+		/* Tsonga */
+		'tso' => 'ts',
+		/* Tswana */
+		'tsn' => 'tn',
+		/* Turkish */
+		'tur' => 'tr',
+		/* Ukrainian */
+		'ukr' => 'uk',
+		/* Urdu */
+		'urd' => 'ur',
+		/* Venda */
+		'ven' => 've',
+		/* Vietnamese */
+		'vie' => 'vi',
+		/* Welsh */
+		'cym' => 'cy',
+		/* Welsh - bibliographic */
+		'wel' => 'cy',
+		/* Xhosa */
+		'xho' => 'xh',
+		/* Yiddish */
+		'yid' => 'yi',
+		/* Zulu */
+		'zul' => 'zu'
 	);
 
-/**
- * HTTP_ACCEPT_LANGUAGE catalog
- *
- * holds all information related to a language
- *
- * @var array
- */
+	/**
+	 * HTTP_ACCEPT_LANGUAGE catalog
+	 *
+	 * holds all information related to a language
+	 *
+	 * @var array
+	 */
 	protected $_l10nCatalog = array(
 		'af' => array('language' => 'Afrikaans', 'locale' => 'afr', 'localeFallback' => 'afr', 'charset' => 'utf-8', 'direction' => 'ltr'),
 		'ar' => array('language' => 'Arabic', 'locale' => 'ara', 'localeFallback' => 'ara', 'charset' => 'utf-8', 'direction' => 'rtl'),
@@ -325,9 +410,9 @@ class L10n {
 		'zu' => array('language' => 'Zulu', 'locale' => 'zul', 'localeFallback' => 'zul', 'charset' => 'utf-8', 'direction' => 'ltr')
 	);
 
-/**
- * Class constructor
- */
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		if (defined('DEFAULT_LANGUAGE')) {
 			$this->default = DEFAULT_LANGUAGE;
@@ -338,14 +423,14 @@ class L10n {
 		}
 	}
 
-/**
- * Gets the settings for $language.
- * If $language is null it attempt to get settings from L10n::_autoLanguage(); if this fails
- * the method will get the settings from L10n::_setLanguage();
- *
- * @param string $language Language (if null will use DEFAULT_LANGUAGE if defined)
- * @return mixed
- */
+	/**
+	 * Gets the settings for $language.
+	 * If $language is null it attempt to get settings from L10n::_autoLanguage(); if this fails
+	 * the method will get the settings from L10n::_setLanguage();
+	 *
+	 * @param string $language Language (if null will use DEFAULT_LANGUAGE if defined)
+	 * @return mixed
+	 */
 	public function get($language = null) {
 		if ($language !== null) {
 			return $this->_setLanguage($language);
@@ -357,13 +442,13 @@ class L10n {
 		return $this->lang;
 	}
 
-/**
- * Sets the class vars to correct values for $language.
- * If $language is null it will use the L10n::$default if defined
- *
- * @param string $language Language (if null will use L10n::$default if defined)
- * @return mixed
- */
+	/**
+	 * Sets the class vars to correct values for $language.
+	 * If $language is null it will use the L10n::$default if defined
+	 *
+	 * @param string $language Language (if null will use L10n::$default if defined)
+	 * @return mixed
+	 */
 	protected function _setLanguage($language = null) {
 		$catalog = false;
 		if ($language !== null) {
@@ -407,11 +492,11 @@ class L10n {
 		}
 	}
 
-/**
- * Attempts to find the locale settings based on the HTTP_ACCEPT_LANGUAGE variable
- *
- * @return bool Success
- */
+	/**
+	 * Attempts to find the locale settings based on the HTTP_ACCEPT_LANGUAGE variable
+	 *
+	 * @return bool Success
+	 */
 	protected function _autoLanguage() {
 		$_detectableLanguages = CakeRequest::acceptLanguage();
 		foreach ($_detectableLanguages as $langKey) {
@@ -430,13 +515,13 @@ class L10n {
 		return false;
 	}
 
-/**
- * Attempts to find locale for language, or language for locale
- *
- * @param string|array $mixed 2/3 char string (language/locale), array of those strings, or null
- * @return string|array|bool string language/locale, array of those values, whole map as an array,
- *    or false when language/locale doesn't exist
- */
+	/**
+	 * Attempts to find locale for language, or language for locale
+	 *
+	 * @param string|array $mixed 2/3 char string (language/locale), array of those strings, or null
+	 * @return string|array|bool string language/locale, array of those values, whole map as an array,
+	 *    or false when language/locale doesn't exist
+	 */
 	public function map($mixed = null) {
 		if (is_array($mixed)) {
 			$result = array();
@@ -459,13 +544,13 @@ class L10n {
 		return $this->_l10nMap;
 	}
 
-/**
- * Attempts to find catalog record for requested language
- *
- * @param string|array $language string requested language, array of requested languages, or null for whole catalog
- * @return array|bool array catalog record for requested language, array of catalog records, whole catalog,
- *    or false when language doesn't exist
- */
+	/**
+	 * Attempts to find catalog record for requested language
+	 *
+	 * @param string|array $language string requested language, array of requested languages, or null for whole catalog
+	 * @return array|bool array catalog record for requested language, array of catalog records, whole catalog,
+	 *    or false when language doesn't exist
+	 */
 	public function catalog($language = null) {
 		if (is_array($language)) {
 			$result = array();

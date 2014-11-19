@@ -19,12 +19,12 @@ App::uses('BaseAuthorize', 'Controller/Component/Auth');
  * Your controller's isAuthorized() method should return a boolean to indicate whether or not the user is authorized.
  *
  * {{{
- *	public function isAuthorized($user) {
- *		if (!empty($this->request->params['admin'])) {
- *			return $user['role'] === 'admin';
- *		}
- *		return !empty($user);
- *	}
+ *    public function isAuthorized($user) {
+ *        if (!empty($this->request->params['admin'])) {
+ *            return $user['role'] === 'admin';
+ *        }
+ *        return !empty($user);
+ *    }
  * }}}
  *
  * the above is simple implementation that would only authorize users of the 'admin' role to access
@@ -36,13 +36,13 @@ App::uses('BaseAuthorize', 'Controller/Component/Auth');
  */
 class ControllerAuthorize extends BaseAuthorize {
 
-/**
- * Get/set the controller this authorize object will be working with. Also checks that isAuthorized is implemented.
- *
- * @param Controller $controller null to get, a controller to set.
- * @return mixed
- * @throws CakeException
- */
+	/**
+	 * Get/set the controller this authorize object will be working with. Also checks that isAuthorized is implemented.
+	 *
+	 * @param Controller $controller null to get, a controller to set.
+	 * @return mixed
+	 * @throws CakeException
+	 */
 	public function controller(Controller $controller = null) {
 		if ($controller) {
 			if (!method_exists($controller, 'isAuthorized')) {
@@ -52,13 +52,13 @@ class ControllerAuthorize extends BaseAuthorize {
 		return parent::controller($controller);
 	}
 
-/**
- * Checks user authorization using a controller callback.
- *
- * @param array $user Active user data
- * @param CakeRequest $request Request instance.
- * @return bool
- */
+	/**
+	 * Checks user authorization using a controller callback.
+	 *
+	 * @param array $user Active user data
+	 * @param CakeRequest $request Request instance.
+	 * @return bool
+	 */
 	public function authorize($user, CakeRequest $request) {
 		return (bool)$this->_Controller->isAuthorized($user);
 	}

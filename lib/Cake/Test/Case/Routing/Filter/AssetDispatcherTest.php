@@ -25,21 +25,21 @@ App::uses('CakeResponse', 'Network');
  */
 class AssetDispatcherTest extends CakeTestCase {
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('Dispatcher.filters', array());
 	}
 
-/**
- * test that asset filters work for theme and plugin assets
- *
- * @return void
- */
+	/**
+	 * test that asset filters work for theme and plugin assets
+	 *
+	 * @return void
+	 */
 	public function testAssetFilterForThemeAndPlugins() {
 		$filter = new AssetDispatcher();
 		$response = $this->getMock('CakeResponse', array('_sendHeader'));
@@ -83,12 +83,12 @@ class AssetDispatcherTest extends CakeTestCase {
 		$this->assertFalse($event->isStopped());
 	}
 
-/**
- * AssetDispatcher should not 404 extensions that could be handled
- * by Routing.
- *
- * @return void
- */
+	/**
+	 * AssetDispatcher should not 404 extensions that could be handled
+	 * by Routing.
+	 *
+	 * @return void
+	 */
 	public function testNoHandleRoutedExtension() {
 		$filter = new AssetDispatcher();
 		$response = $this->getMock('CakeResponse', array('_sendHeader'));
@@ -110,12 +110,12 @@ class AssetDispatcherTest extends CakeTestCase {
 		$this->assertFalse($event->isStopped(), 'Events for routed extensions should not be stopped');
 	}
 
-/**
- * Tests that $response->checkNotModified() is called and bypasses
- * file dispatching
- *
- * @return void
- */
+	/**
+	 * Tests that $response->checkNotModified() is called and bypasses
+	 * file dispatching
+	 *
+	 * @return void
+	 */
 	public function testNotModified() {
 		$filter = new AssetDispatcher();
 		Configure::write('Asset.filter', array(
@@ -156,11 +156,11 @@ class AssetDispatcherTest extends CakeTestCase {
 		$this->assertEquals($time->format('D, j M Y H:i:s') . ' GMT', $response->modified());
 	}
 
-/**
- * Test that no exceptions are thrown for //index.php type URLs.
- *
- * @return void
- */
+	/**
+	 * Test that no exceptions are thrown for //index.php type URLs.
+	 *
+	 * @return void
+	 */
 	public function test404OnDoubleSlash() {
 		$filter = new AssetDispatcher();
 
@@ -172,11 +172,11 @@ class AssetDispatcherTest extends CakeTestCase {
 		$this->assertFalse($event->isStopped());
 	}
 
-/**
- * Test that attempts to traverse directories are prevented.
- *
- * @return void
- */
+	/**
+	 * Test that attempts to traverse directories are prevented.
+	 *
+	 * @return void
+	 */
 	public function test404OnDoubleDot() {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
@@ -194,11 +194,11 @@ class AssetDispatcherTest extends CakeTestCase {
 		$this->assertFalse($event->isStopped());
 	}
 
-/**
- * Test that attempts to traverse directories with urlencoded paths fail.
- *
- * @return void
- */
+	/**
+	 * Test that attempts to traverse directories with urlencoded paths fail.
+	 *
+	 * @return void
+	 */
 	public function test404OnDoubleDotEncoded() {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),

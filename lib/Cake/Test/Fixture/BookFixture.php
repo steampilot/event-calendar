@@ -23,11 +23,11 @@
  */
 class BookFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'isbn' => array('type' => 'string', 'length' => 13),
@@ -37,11 +37,11 @@ class BookFixture extends CakeTestFixture {
 		'pages' => array('type' => 'integer', 'null' => true)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('id' => 1, 'isbn' => '1234567890', 'title' => 'Faust', 'author' => 'Johann Wolfgang von Goethe')
 	);

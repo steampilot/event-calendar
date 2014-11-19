@@ -28,25 +28,25 @@ require_once dirname(__FILE__) . DS . 'models.php';
  */
 abstract class BaseModelTest extends CakeTestCase {
 
-/**
- * autoFixtures property
- *
- * @var bool
- */
+	/**
+	 * autoFixtures property
+	 *
+	 * @var bool
+	 */
 	public $autoFixtures = false;
 
-/**
- * Whether backup global state for each test method or not
- *
- * @var bool
- */
+	/**
+	 * Whether backup global state for each test method or not
+	 *
+	 * @var bool
+	 */
 	public $backupGlobals = false;
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.category', 'core.category_thread', 'core.user', 'core.my_category', 'core.my_product',
 		'core.my_user', 'core.my_categories_my_users', 'core.my_categories_my_products',
@@ -73,21 +73,21 @@ abstract class BaseModelTest extends CakeTestCase {
 		'core.bidding', 'core.bidding_message', 'core.site', 'core.domain', 'core.domains_site',
 	);
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->debug = Configure::read('debug');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('debug', $this->debug);

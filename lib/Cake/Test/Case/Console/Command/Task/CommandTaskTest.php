@@ -23,11 +23,11 @@ App::uses('CommandTask', 'Console/Command/Task');
  */
 class CommandTaskTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		App::build(array(
@@ -50,22 +50,22 @@ class CommandTaskTest extends CakeTestCase {
 		);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->CommandTask);
 		CakePlugin::unload();
 	}
 
-/**
- * Test the resulting list of shells
- *
- * @return void
- */
+	/**
+	 * Test the resulting list of shells
+	 *
+	 * @return void
+	 */
 	public function testGetShellList() {
 		$result = $this->CommandTask->getShellList();
 
@@ -87,7 +87,7 @@ class CommandTaskTest extends CakeTestCase {
 			'TestPlugin' => array(
 				'example'
 			),
-				'TestPluginTwo' => array(
+			'TestPluginTwo' => array(
 				'example',
 				'welcome'
 			),
@@ -98,11 +98,11 @@ class CommandTaskTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the resulting list of commands
- *
- * @return void
- */
+	/**
+	 * Test the resulting list of commands
+	 *
+	 * @return void
+	 */
 	public function testCommands() {
 		$result = $this->CommandTask->commands();
 
@@ -127,11 +127,11 @@ class CommandTaskTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the resulting list of subcommands for the given command
- *
- * @return void
- */
+	/**
+	 * Test the resulting list of subcommands for the given command
+	 *
+	 * @return void
+	 */
 	public function testSubCommands() {
 		$result = $this->CommandTask->subCommands('acl');
 
@@ -153,11 +153,11 @@ class CommandTaskTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that unknown commands return an empty array
- *
- * @return void
- */
+	/**
+	 * Test that unknown commands return an empty array
+	 *
+	 * @return void
+	 */
 	public function testSubCommandsUnknownCommand() {
 		$result = $this->CommandTask->subCommands('yoghurt');
 
@@ -165,41 +165,41 @@ class CommandTaskTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that getting a existing shell returns the shell instance
- *
- * @return void
- */
+	/**
+	 * Test that getting a existing shell returns the shell instance
+	 *
+	 * @return void
+	 */
 	public function testGetShell() {
 		$result = $this->CommandTask->getShell('acl');
 		$this->assertInstanceOf('AclShell', $result);
 	}
 
-/**
- * Test that getting a non-existing shell returns false
- *
- * @return void
- */
+	/**
+	 * Test that getting a non-existing shell returns false
+	 *
+	 * @return void
+	 */
 	public function testGetShellNonExisting() {
 		$result = $this->CommandTask->getShell('strawberry');
 		$this->assertFalse($result);
 	}
 
-/**
- * Test that getting a existing core shell with 'core.' prefix returns the correct shell instance
- *
- * @return void
- */
+	/**
+	 * Test that getting a existing core shell with 'core.' prefix returns the correct shell instance
+	 *
+	 * @return void
+	 */
 	public function testGetShellCore() {
 		$result = $this->CommandTask->getShell('core.bake');
 		$this->assertInstanceOf('BakeShell', $result);
 	}
 
-/**
- * Test the options array for a known command
- *
- * @return void
- */
+	/**
+	 * Test the options array for a known command
+	 *
+	 * @return void
+	 */
 	public function testOptions() {
 		$result = $this->CommandTask->options('bake');
 
@@ -218,11 +218,11 @@ class CommandTaskTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the options array for an unknown command
- *
- * @return void
- */
+	/**
+	 * Test the options array for an unknown command
+	 *
+	 * @return void
+	 */
 	public function testOptionsUnknownCommand() {
 		$result = $this->CommandTask->options('pie');
 

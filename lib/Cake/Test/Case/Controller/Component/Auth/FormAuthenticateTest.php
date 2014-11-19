@@ -29,18 +29,18 @@ require_once CAKE . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'models.php';
  */
 class FormAuthenticateTest extends CakeTestCase {
 
-/**
- * Fixtrues
- *
- * @var array
- */
+	/**
+	 * Fixtrues
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.user', 'core.auth_user');
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Collection = $this->getMock('ComponentCollection');
@@ -54,11 +54,11 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->response = $this->getMock('CakeResponse');
 	}
 
-/**
- * test applying settings in the constructor
- *
- * @return void
- */
+	/**
+	 * test applying settings in the constructor
+	 *
+	 * @return void
+	 */
 	public function testConstructor() {
 		$object = new FormAuthenticate($this->Collection, array(
 			'userModel' => 'AuthUser',
@@ -68,67 +68,67 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->assertEquals(array('username' => 'user', 'password' => 'password'), $object->settings['fields']);
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoData() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array();
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoUsername() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array('password' => 'foobar'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoPassword() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array('user' => 'mariano'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test authenticate password is false method
- *
- * @return void
- */
+	/**
+	 * test authenticate password is false method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticatePasswordIsFalse() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => 'mariano',
 				'password' => null
-		));
+			));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * Test for password as empty string with _checkFields() call skipped
- * Refs https://github.com/cakephp/cakephp/pull/2441
- *
- * @return void
- */
+	/**
+	 * Test for password as empty string with _checkFields() call skipped
+	 * Refs https://github.com/cakephp/cakephp/pull/2441
+	 *
+	 * @return void
+	 */
 	public function testAuthenticatePasswordIsEmptyString() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => 'mariano',
 				'password' => ''
-		));
+			));
 
 		$this->auth = $this->getMock(
 			'FormAuthenticate',
@@ -150,55 +150,55 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test authenticate field is not string
- *
- * @return void
- */
+	/**
+	 * test authenticate field is not string
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateFieldsAreNotString() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => array('mariano', 'phpnut'),
 				'password' => 'my password'
-		));
+			));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 
 		$request->data = array(
 			'User' => array(
 				'user' => array(),
 				'password' => 'my password'
-		));
+			));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 
 		$request->data = array(
 			'User' => array(
 				'user' => 'mariano',
 				'password' => array('password1', 'password2')
-		));
+			));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateInjection() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => '> 1',
 				'password' => "' OR 1 = 1"
-		));
+			));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test authenticate success
- *
- * @return void
- */
+	/**
+	 * test authenticate success
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateSuccess() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array(
@@ -215,11 +215,11 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test scope failure.
- *
- * @return void
- */
+	/**
+	 * test scope failure.
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateScopeFail() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
 		$request = new CakeRequest('posts/index', false);
@@ -231,11 +231,11 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * Test that username of 0 works.
- *
- * @return void
- */
+	/**
+	 * Test that username of 0 works.
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateUsernameZero() {
 		$User = ClassRegistry::init('User');
 		$User->updateAll(array('user' => $User->getDataSource()->value('0')), array('user' => 'mariano'));
@@ -255,11 +255,11 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->assertEquals($expected, $this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test a model in a plugin.
- *
- * @return void
- */
+	/**
+	 * test a model in a plugin.
+	 *
+	 * @return void
+	 */
 	public function testPluginModel() {
 		Cache::delete('object_map', '_cake_core_');
 		App::build(array(
@@ -294,11 +294,11 @@ class FormAuthenticateTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * test password hasher settings
- *
- * @return void
- */
+	/**
+	 * test password hasher settings
+	 *
+	 * @return void
+	 */
 	public function testPasswordHasherSettings() {
 		$this->auth->settings['passwordHasher'] = array(
 			'className' => 'Simple',

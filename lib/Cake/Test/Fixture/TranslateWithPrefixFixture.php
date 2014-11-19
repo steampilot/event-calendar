@@ -17,6 +17,7 @@
  * @since         CakePHP(tm) v 1.2.0.5669
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Class TranslateWithPrefixFixture
  *
@@ -24,18 +25,18 @@
  */
 class TranslateWithPrefixFixture extends CakeTestFixture {
 
-/**
- * table property
- *
- * @var string
- */
+	/**
+	 * table property
+	 *
+	 * @var string
+	 */
 	public $table = 'i18n_translate_with_prefixes';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'locale' => array('type' => 'string', 'length' => 6, 'null' => false),
@@ -45,11 +46,11 @@ class TranslateWithPrefixFixture extends CakeTestFixture {
 		'content' => array('type' => 'text')
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('id' => 1, 'locale' => 'eng', 'model' => 'TranslatedItem', 'foreign_key' => 1, 'field' => 'title', 'content' => 'Title #1'),
 		array('id' => 2, 'locale' => 'eng', 'model' => 'TranslatedItem', 'foreign_key' => 1, 'field' => 'content', 'content' => 'Content #1'),

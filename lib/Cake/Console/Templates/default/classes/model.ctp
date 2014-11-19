@@ -22,8 +22,8 @@ echo "<?php\n";
 echo "App::uses('{$plugin}AppModel', '{$pluginPath}Model');\n";
 ?>
 /**
- * <?php echo $name ?> Model
- *
+* <?php echo $name ?> Model
+*
 <?php
 foreach (array('hasOne', 'belongsTo', 'hasMany', 'hasAndBelongsToMany') as $assocType) {
 	if (!empty($associations[$assocType])) {
@@ -33,15 +33,15 @@ foreach (array('hasOne', 'belongsTo', 'hasMany', 'hasAndBelongsToMany') as $asso
 	}
 }
 ?>
- */
+*/
 class <?php echo $name ?> extends <?php echo $plugin; ?>AppModel {
 
 <?php if ($useDbConfig !== 'default'): ?>
-/**
- * Use database config
- *
- * @var string
- */
+	/**
+	* Use database config
+	*
+	* @var string
+	*/
 	public $useDbConfig = '<?php echo $useDbConfig; ?>';
 
 <?php endif;
@@ -53,32 +53,35 @@ if ($useTable && $useTable !== Inflector::tableize($name)):
 endif;
 
 if ($primaryKey !== 'id'): ?>
-/**
- * Primary key field
- *
- * @var string
- */
+	/**
+	* Primary key field
+	*
+	* @var string
+	*/
 	public $primaryKey = '<?php echo $primaryKey; ?>';
 
 <?php endif;
 
 if ($displayField): ?>
-/**
- * Display field
- *
- * @var string
- */
+	/**
+	* Display field
+	*
+	* @var string
+	*/
 	public $displayField = '<?php echo $displayField; ?>';
 
 <?php endif;
 
 if (!empty($actsAs)): ?>
-/**
- * Behaviors
- *
- * @var array
- */
-	public $actsAs = array(<?php echo "\n\t"; foreach ($actsAs as $behavior): echo "\t"; var_export($behavior); echo ",\n\t"; endforeach; ?>);
+	/**
+	* Behaviors
+	*
+	* @var array
+	*/
+	public $actsAs = array(<?php echo "\n\t";
+	foreach ($actsAs as $behavior): echo "\t";
+		var_export($behavior);
+		echo ",\n\t"; endforeach; ?>);
 
 <?php endif;
 
@@ -104,10 +107,10 @@ endif;
 
 foreach ($associations as $assoc):
 	if (!empty($assoc)):
-?>
+		?>
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-<?php
+		//The Associations below have been created with all possible keys, those that are not needed can be removed
+		<?php
 		break;
 	endif;
 endforeach;

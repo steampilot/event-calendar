@@ -23,11 +23,11 @@
  */
 class AcoActionFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'parent_id' => array('type' => 'integer', 'length' => 10, 'null' => true),
@@ -38,10 +38,10 @@ class AcoActionFixture extends CakeTestFixture {
 		'rght' => array('type' => 'integer', 'length' => 10, 'null' => true)
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array();
 }

@@ -23,11 +23,11 @@
  */
 class BakeCommentFixture extends CakeTestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'otherid' => array('type' => 'integer', 'key' => 'primary'),
 		'bake_article_id' => array('type' => 'integer', 'null' => false),
@@ -38,10 +38,10 @@ class BakeCommentFixture extends CakeTestFixture {
 		'updated' => 'datetime'
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array();
 }

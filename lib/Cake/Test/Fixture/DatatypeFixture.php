@@ -23,11 +23,11 @@
  */
 class DatatypeFixture extends CakeTestFixture {
 
-/**
- * Fields property
- *
- * @var array
- */
+	/**
+	 * Fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => 0, 'key' => 'primary'),
 		'float_field' => array('type' => 'float', 'length' => '5,2', 'null' => false, 'default' => null),
@@ -36,11 +36,11 @@ class DatatypeFixture extends CakeTestFixture {
 		'bool' => array('type' => 'boolean', 'null' => false, 'default' => false),
 	);
 
-/**
- * Records property
- *
- * @var array
- */
+	/**
+	 * Records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('id' => 1, 'float_field' => 42.23, 'huge_int' => '1234567891234567891', 'bool' => 0),
 	);

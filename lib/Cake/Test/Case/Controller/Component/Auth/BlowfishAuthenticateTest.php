@@ -9,10 +9,10 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright	  Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright      Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @package	      Cake.Test.Case.Controller.Component.Auth
- * @since	      CakePHP(tm) v 2.3
+ * @package          Cake.Test.Case.Controller.Component.Auth
+ * @since          CakePHP(tm) v 2.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
@@ -28,17 +28,17 @@ require_once CAKE . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'models.php';
 /**
  * Test case for BlowfishAuthentication
  *
- * @package	Cake.Test.Case.Controller.Component.Auth
+ * @package    Cake.Test.Case.Controller.Component.Auth
  */
 class BlowfishAuthenticateTest extends CakeTestCase {
 
 	public $fixtures = array('core.user', 'core.auth_user');
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Collection = $this->getMock('ComponentCollection');
@@ -55,11 +55,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->skipIf(strpos($hash, '$2a$') === false, 'Skipping blowfish tests as hashing is not working');
 	}
 
-/**
- * test applying settings in the constructor
- *
- * @return void
- */
+	/**
+	 * test applying settings in the constructor
+	 *
+	 * @return void
+	 */
 	public function testConstructor() {
 		$Object = new BlowfishAuthenticate($this->Collection, array(
 			'userModel' => 'AuthUser',
@@ -69,59 +69,59 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertEquals(array('username' => 'user', 'password' => 'password'), $Object->settings['fields']);
 	}
 
-/**
- * testAuthenticateNoData method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateNoData method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoData() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array();
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateNoUsername method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateNoUsername method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoUsername() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array('password' => 'foobar'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateNoPassword method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateNoPassword method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoPassword() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array('user' => 'mariano'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticatePasswordIsFalse method
- *
- * @return void
- */
+	/**
+	 * testAuthenticatePasswordIsFalse method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticatePasswordIsFalse() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => 'mariano',
 				'password' => null
-		));
+			));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateInjection method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateInjection method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateInjection() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array(
@@ -131,11 +131,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateSuccess method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateSuccess method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateSuccess() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array(
@@ -152,11 +152,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAuthenticateScopeFail method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateScopeFail method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateScopeFail() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
 		$request = new CakeRequest('posts/index', false);
@@ -167,11 +167,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testPluginModel method
- *
- * @return void
- */
+	/**
+	 * testPluginModel method
+	 *
+	 * @return void
+	 */
 	public function testPluginModel() {
 		Cache::delete('object_map', '_cake_core_');
 		App::build(array(

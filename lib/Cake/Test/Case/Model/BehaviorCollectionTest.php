@@ -29,20 +29,20 @@ require_once dirname(__FILE__) . DS . 'models.php';
  */
 class TestBehavior extends ModelBehavior {
 
-/**
- * mapMethods property
- *
- * @var array
- */
+	/**
+	 * mapMethods property
+	 *
+	 * @var array
+	 */
 	public $mapMethods = array('/test(\w+)/' => 'testMethod', '/look for\s+(.+)/' => 'speakEnglish');
 
-/**
- * setup method
- *
- * @param Model $model
- * @param array $config
- * @return void
- */
+	/**
+	 * setup method
+	 *
+	 * @param Model $model
+	 * @param array $config
+	 * @return void
+	 */
 	public function setup(Model $model, $config = array()) {
 		parent::setup($model, $config);
 		if (isset($config['mangle'])) {
@@ -51,13 +51,13 @@ class TestBehavior extends ModelBehavior {
 		$this->settings[$model->alias] = array_merge(array('beforeFind' => 'on', 'afterFind' => 'off'), $config);
 	}
 
-/**
- * beforeFind method
- *
- * @param Model $model
- * @param array $query
- * @return void
- */
+	/**
+	 * beforeFind method
+	 *
+	 * @param Model $model
+	 * @param array $query
+	 * @return void
+	 */
 	public function beforeFind(Model $model, $query) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['beforeFind']) || $settings['beforeFind'] === 'off') {
@@ -75,14 +75,14 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * afterFind method
- *
- * @param Model $model
- * @param array $results
- * @param bool $primary
- * @return void
- */
+	/**
+	 * afterFind method
+	 *
+	 * @param Model $model
+	 * @param array $results
+	 * @param bool $primary
+	 * @return void
+	 */
 	public function afterFind(Model $model, $results, $primary = false) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['afterFind']) || $settings['afterFind'] === 'off') {
@@ -100,14 +100,14 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * beforeSave method
- *
- * @param Model $model Model using this behavior
- * @param array $options Options passed from Model::save().
- * @return mixed False if the operation should abort. Any other result will continue.
- * @see Model::save()
- */
+	/**
+	 * beforeSave method
+	 *
+	 * @param Model $model Model using this behavior
+	 * @param array $options Options passed from Model::save().
+	 * @return mixed False if the operation should abort. Any other result will continue.
+	 * @see Model::save()
+	 */
 	public function beforeSave(Model $model, $options = array()) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['beforeSave']) || $settings['beforeSave'] === 'off') {
@@ -124,14 +124,14 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * afterSave method
- *
- * @param Model $model
- * @param bool $created
- * @param array $options Options passed from Model::save().
- * @return void
- */
+	/**
+	 * afterSave method
+	 *
+	 * @param Model $model
+	 * @param bool $created
+	 * @param array $options Options passed from Model::save().
+	 * @return void
+	 */
 	public function afterSave(Model $model, $created, $options = array()) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['afterSave']) || $settings['afterSave'] === 'off') {
@@ -156,14 +156,14 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * beforeValidate Callback
- *
- * @param Model $Model Model invalidFields was called on.
- * @param array $options Options passed from Model::save().
- * @return bool
- * @see Model::save()
- */
+	/**
+	 * beforeValidate Callback
+	 *
+	 * @param Model $Model Model invalidFields was called on.
+	 * @param array $options Options passed from Model::save().
+	 * @return bool
+	 * @see Model::save()
+	 */
 	public function beforeValidate(Model $model, $options = array()) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['validate']) || $settings['validate'] === 'off') {
@@ -184,13 +184,13 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * afterValidate method
- *
- * @param Model $model
- * @param bool $cascade
- * @return void
- */
+	/**
+	 * afterValidate method
+	 *
+	 * @param Model $model
+	 * @param bool $cascade
+	 * @return void
+	 */
 	public function afterValidate(Model $model) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['afterValidate']) || $settings['afterValidate'] === 'off') {
@@ -205,13 +205,13 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * beforeDelete method
- *
- * @param Model $model
- * @param bool $cascade
- * @return void
- */
+	/**
+	 * beforeDelete method
+	 *
+	 * @param Model $model
+	 * @param bool $cascade
+	 * @return void
+	 */
 	public function beforeDelete(Model $model, $cascade = true) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['beforeDelete']) || $settings['beforeDelete'] === 'off') {
@@ -231,12 +231,12 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * afterDelete method
- *
- * @param Model $model
- * @return void
- */
+	/**
+	 * afterDelete method
+	 *
+	 * @param Model $model
+	 * @return void
+	 */
 	public function afterDelete(Model $model) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['afterDelete']) || $settings['afterDelete'] === 'off') {
@@ -249,12 +249,12 @@ class TestBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * onError method
- *
- * @param Model $model
- * @return void
- */
+	/**
+	 * onError method
+	 *
+	 * @param Model $model
+	 * @return void
+	 */
 	public function onError(Model $model, $error) {
 		$settings = $this->settings[$model->alias];
 		if (!isset($settings['onError']) || $settings['onError'] === 'off') {
@@ -263,12 +263,12 @@ class TestBehavior extends ModelBehavior {
 		echo "onError trigger success";
 	}
 
-/**
- * beforeTest method
- *
- * @param Model $model
- * @return void
- */
+	/**
+	 * beforeTest method
+	 *
+	 * @param Model $model
+	 * @return void
+	 */
 	public function beforeTest(Model $model) {
 		if (!isset($model->beforeTestResult)) {
 			$model->beforeTestResult = array();
@@ -277,25 +277,25 @@ class TestBehavior extends ModelBehavior {
 		return strtolower(get_class($this));
 	}
 
-/**
- * testMethod method
- *
- * @param Model $model
- * @param bool $param
- * @return void
- */
+	/**
+	 * testMethod method
+	 *
+	 * @param Model $model
+	 * @param bool $param
+	 * @return void
+	 */
 	public function testMethod(Model $model, $param = true) {
 		if ($param === true) {
 			return 'working';
 		}
 	}
 
-/**
- * testData method
- *
- * @param Model $model
- * @return void
- */
+	/**
+	 * testData method
+	 *
+	 * @param Model $model
+	 * @return void
+	 */
 	public function testData(Model $model) {
 		if (!isset($model->data['Apple']['field'])) {
 			return false;
@@ -304,25 +304,25 @@ class TestBehavior extends ModelBehavior {
 		return true;
 	}
 
-/**
- * validateField method
- *
- * @param Model $model
- * @param string|array $field
- * @return void
- */
+	/**
+	 * validateField method
+	 *
+	 * @param Model $model
+	 * @param string|array $field
+	 * @return void
+	 */
 	public function validateField(Model $model, $field) {
 		return current($field) === 'Orange';
 	}
 
-/**
- * speakEnglish method
- *
- * @param Model $model
- * @param string $method
- * @param string $query
- * @return void
- */
+	/**
+	 * speakEnglish method
+	 *
+	 * @param Model $model
+	 * @param string $method
+	 * @param string $query
+	 * @return void
+	 */
 	public function speakEnglish(Model $model, $method, $query) {
 		$method = preg_replace('/look for\s+/', 'Item.name = \'', $method);
 		$query = preg_replace('/^in\s+/', 'Location.name = \'', $query);
@@ -462,22 +462,22 @@ class Orangutan extends Monkey {
  */
 class BehaviorCollectionTest extends CakeTestCase {
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.apple', 'core.sample', 'core.article', 'core.user', 'core.comment',
 		'core.attachment', 'core.tag', 'core.articles_tag', 'core.translate',
 		'core.device'
 	);
 
-/**
- * Test load() with enabled => false
- *
- * @return void
- */
+	/**
+	 * Test load() with enabled => false
+	 *
+	 * @return void
+	 */
 	public function testLoadDisabled() {
 		$Apple = new Apple();
 		$this->assertSame(array(), $Apple->Behaviors->loaded());
@@ -487,11 +487,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertFalse($Apple->Behaviors->enabled('Translate'));
 	}
 
-/**
- * Tests loading aliased behaviors
- *
- * @return void
- */
+	/**
+	 * Tests loading aliased behaviors
+	 *
+	 * @return void
+	 */
 	public function testLoadAlias() {
 		$Apple = new Apple();
 		$this->assertSame(array(), $Apple->Behaviors->loaded());
@@ -516,11 +516,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * testBehaviorBinding method
- *
- * @return void
- */
+	/**
+	 * testBehaviorBinding method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorBinding() {
 		$Apple = new Apple();
 		$this->assertSame(array(), $Apple->Behaviors->loaded());
@@ -581,11 +581,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals($expected, $Apple->Behaviors->Test->settings['Apple']);
 	}
 
-/**
- * test that attach()/detach() works with plugin.banana
- *
- * @return void
- */
+	/**
+	 * test that attach()/detach() works with plugin.banana
+	 *
+	 * @return void
+	 */
 	public function testDetachWithPluginNames() {
 		$Apple = new Apple();
 		$Apple->Behaviors->load('Plugin.Test');
@@ -603,22 +603,22 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals(array(), $Apple->Behaviors->loaded());
 	}
 
-/**
- * test that attaching a non existent Behavior triggers a cake error.
- *
- * @expectedException MissingBehaviorException
- * @return void
- */
+	/**
+	 * test that attaching a non existent Behavior triggers a cake error.
+	 *
+	 * @expectedException MissingBehaviorException
+	 * @return void
+	 */
 	public function testInvalidBehaviorCausingCakeError() {
 		$Apple = new Apple();
 		$Apple->Behaviors->load('NoSuchBehavior');
 	}
 
-/**
- * testBehaviorToggling method
- *
- * @return void
- */
+	/**
+	 * testBehaviorToggling method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorToggling() {
 		$Apple = new Apple();
 		$this->assertSame($Apple->Behaviors->enabled(), array());
@@ -648,11 +648,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertSame($Apple->Behaviors->enabled(), array());
 	}
 
-/**
- * testBehaviorFindCallbacks method
- *
- * @return void
- */
+	/**
+	 * testBehaviorFindCallbacks method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorFindCallbacks() {
 		$this->skipIf($this->db instanceof Sqlserver, 'This test is not compatible with SQL Server.');
 
@@ -706,11 +706,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals($expected, $Apple->find('all'));
 	}
 
-/**
- * testBehaviorHasManyFindCallbacks method
- *
- * @return void
- */
+	/**
+	 * testBehaviorHasManyFindCallbacks method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorHasManyFindCallbacks() {
 		$Apple = new Apple();
 		$Apple->unbindModel(array('hasOne' => array('Sample'), 'belongsTo' => array('Parent')), false);
@@ -747,11 +747,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals($expected, $Apple->find('all'));
 	}
 
-/**
- * testBehaviorHasOneFindCallbacks method
- *
- * @return void
- */
+	/**
+	 * testBehaviorHasOneFindCallbacks method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorHasOneFindCallbacks() {
 		$Apple = new Apple();
 		$Apple->unbindModel(array('hasMany' => array('Child'), 'belongsTo' => array('Parent')), false);
@@ -783,11 +783,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals($expected, $Apple->find('all'));
 	}
 
-/**
- * testBehaviorBelongsToFindCallbacks method
- *
- * @return void
- */
+	/**
+	 * testBehaviorBelongsToFindCallbacks method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorBelongsToFindCallbacks() {
 		$this->skipIf($this->db instanceof Sqlserver, 'This test is not compatible with SQL Server.');
 
@@ -841,11 +841,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals($expected, $Apple->find('all', $conditions));
 	}
 
-/**
- * testBehaviorSaveCallbacks method
- *
- * @return void
- */
+	/**
+	 * testBehaviorSaveCallbacks method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorSaveCallbacks() {
 		$Sample = new Sample();
 		$record = array('Sample' => array('apple_id' => 6, 'name' => 'sample99'));
@@ -922,11 +922,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertSame($expected, $Sample->save($record2));
 	}
 
-/**
- * testBehaviorDeleteCallbacks method
- *
- * @return void
- */
+	/**
+	 * testBehaviorDeleteCallbacks method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorDeleteCallbacks() {
 		$Apple = new Apple();
 
@@ -955,11 +955,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertTrue($results);
 	}
 
-/**
- * testBehaviorOnErrorCallback method
- *
- * @return void
- */
+	/**
+	 * testBehaviorOnErrorCallback method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorOnErrorCallback() {
 		$Apple = new Apple();
 
@@ -969,11 +969,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertSame(trim(ob_get_clean()), 'onError trigger success');
 	}
 
-/**
- * testBehaviorValidateCallback method
- *
- * @return void
- */
+	/**
+	 * testBehaviorValidateCallback method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorValidateCallback() {
 		$Apple = new Apple();
 
@@ -997,11 +997,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertSame($Apple->whitelist, array('unknown', 'name'));
 	}
 
-/**
- * testBehaviorValidateAfterCallback method
- *
- * @return void
- */
+	/**
+	 * testBehaviorValidateAfterCallback method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorValidateAfterCallback() {
 		$Apple = new Apple();
 
@@ -1018,11 +1018,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals(array('foo'), $Apple->data);
 	}
 
-/**
- * testBehaviorValidateMethods method
- *
- * @return void
- */
+	/**
+	 * testBehaviorValidateMethods method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorValidateMethods() {
 		$Apple = new Apple();
 		$Apple->Behaviors->load('Test');
@@ -1036,11 +1036,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testBehaviorMethodDispatching method
- *
- * @return void
- */
+	/**
+	 * testBehaviorMethodDispatching method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorMethodDispatching() {
 		$Apple = new Apple();
 		$Apple->Behaviors->load('Test');
@@ -1061,11 +1061,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals($expected, $result, 'Mapped method was lowercased.');
 	}
 
-/**
- * testBehaviorMethodDispatchingWithData method
- *
- * @return void
- */
+	/**
+	 * testBehaviorMethodDispatchingWithData method
+	 *
+	 * @return void
+	 */
 	public function testBehaviorMethodDispatchingWithData() {
 		$Apple = new Apple();
 		$Apple->Behaviors->load('Test');
@@ -1077,11 +1077,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertTrue($Apple->testData('one', 'two', 'three', 'four', 'five', 'six'));
 	}
 
-/**
- * undocumented function
- *
- * @return void
- */
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 */
 	public function testBindModelCallsInBehaviors() {
 		// hasMany
 		$Article = new Article();
@@ -1122,11 +1122,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertTrue(array_key_exists('Attachment', $result));
 	}
 
-/**
- * Test attach and detaching
- *
- * @return void
- */
+	/**
+	 * Test attach and detaching
+	 *
+	 * @return void
+	 */
 	public function testBehaviorAttachAndDetach() {
 		$Sample = new Sample();
 		$Sample->actsAs = array('Test3' => array('bar'), 'Test2' => array('foo', 'bar'));
@@ -1137,11 +1137,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$Sample->Behaviors->trigger('beforeTest', array(&$Sample));
 	}
 
-/**
- * test that hasMethod works with basic functions.
- *
- * @return void
- */
+	/**
+	 * test that hasMethod works with basic functions.
+	 *
+	 * @return void
+	 */
 	public function testHasMethodBasic() {
 		new Sample();
 		$Collection = new BehaviorCollection();
@@ -1153,11 +1153,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertFalse($Collection->hasMethod('No method'));
 	}
 
-/**
- * test that hasMethod works with mapped methods.
- *
- * @return void
- */
+	/**
+	 * test that hasMethod works with mapped methods.
+	 *
+	 * @return void
+	 */
 	public function testHasMethodMappedMethods() {
 		new Sample();
 		$Collection = new BehaviorCollection();
@@ -1167,11 +1167,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertTrue($Collection->hasMethod('mappingRobotOnTheRoof'));
 	}
 
-/**
- * test hasMethod returning a 'callback'
- *
- * @return void
- */
+	/**
+	 * test hasMethod returning a 'callback'
+	 *
+	 * @return void
+	 */
 	public function testHasMethodAsCallback() {
 		new Sample();
 		$Collection = new BehaviorCollection();
@@ -1190,11 +1190,11 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that behavior priority
- *
- * @return void
- */
+	/**
+	 * Test that behavior priority
+	 *
+	 * @return void
+	 */
 	public function testBehaviorOrderCallbacks() {
 		$model = ClassRegistry::init('Orangutan');
 		$model->Behaviors->init('Orangutan', array(

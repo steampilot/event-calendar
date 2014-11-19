@@ -26,12 +26,12 @@ App::uses('MemcacheEngine', 'Cache/Engine');
  */
 class TestMemcacheEngine extends MemcacheEngine {
 
-/**
- * public accessor to _parseServerString
- *
- * @param string $server
- * @return array
- */
+	/**
+	 * public accessor to _parseServerString
+	 *
+	 * @param string $server
+	 * @return array
+	 */
 	public function parseServerString($server) {
 		return $this->_parseServerString($server);
 	}
@@ -49,11 +49,11 @@ class TestMemcacheEngine extends MemcacheEngine {
  */
 class MemcacheEngineTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->skipIf(!class_exists('Memcache'), 'Memcache is not installed or configured properly.');
@@ -67,11 +67,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('Cache.disable', $this->_cacheDisable);
@@ -81,11 +81,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		Cache::config('default');
 	}
 
-/**
- * testSettings method
- *
- * @return void
- */
+	/**
+	 * testSettings method
+	 *
+	 * @return void
+	 */
 	public function testSettings() {
 		$settings = Cache::settings('memcache');
 		unset($settings['serialize'], $settings['path']);
@@ -102,11 +102,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertEquals($expecting, $settings);
 	}
 
-/**
- * testSettings method
- *
- * @return void
- */
+	/**
+	 * testSettings method
+	 *
+	 * @return void
+	 */
 	public function testMultipleServers() {
 		$servers = array('127.0.0.1:11211', '127.0.0.1:11222');
 		$available = true;
@@ -131,11 +131,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		Cache::drop('dual_server');
 	}
 
-/**
- * testConnect method
- *
- * @return void
- */
+	/**
+	 * testConnect method
+	 *
+	 * @return void
+	 */
 	public function testConnect() {
 		$Memcache = new MemcacheEngine();
 		$Memcache->init(Cache::settings('memcache'));
@@ -143,11 +143,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * test connecting to an ipv6 server.
- *
- * @return void
- */
+	/**
+	 * test connecting to an ipv6 server.
+	 *
+	 * @return void
+	 */
 	public function testConnectIpv6() {
 		$Memcache = new MemcacheEngine();
 		$result = $Memcache->init(array(
@@ -161,11 +161,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * test non latin domains.
- *
- * @return void
- */
+	/**
+	 * test non latin domains.
+	 *
+	 * @return void
+	 */
 	public function testParseServerStringNonLatin() {
 		$Memcache = new TestMemcacheEngine();
 		$result = $Memcache->parseServerString('schülervz.net:13211');
@@ -175,22 +175,22 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertEquals(array('sülül', '1111'), $result);
 	}
 
-/**
- * test unix sockets.
- *
- * @return void
- */
+	/**
+	 * test unix sockets.
+	 *
+	 * @return void
+	 */
 	public function testParseServerStringUnix() {
 		$Memcache = new TestMemcacheEngine();
 		$result = $Memcache->parseServerString('unix:///path/to/memcached.sock');
 		$this->assertEquals(array('unix:///path/to/memcached.sock', 0), $result);
 	}
 
-/**
- * testReadAndWriteCache method
- *
- * @return void
- */
+	/**
+	 * testReadAndWriteCache method
+	 *
+	 * @return void
+	 */
 	public function testReadAndWriteCache() {
 		Cache::set(array('duration' => 1), null, 'memcache');
 
@@ -209,11 +209,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		Cache::delete('test', 'memcache');
 	}
 
-/**
- * testExpiry method
- *
- * @return void
- */
+	/**
+	 * testExpiry method
+	 *
+	 * @return void
+	 */
 	public function testExpiry() {
 		Cache::set(array('duration' => 1), 'memcache');
 
@@ -256,11 +256,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		Cache::config('memcache', array('duration' => 3600));
 	}
 
-/**
- * testDeleteCache method
- *
- * @return void
- */
+	/**
+	 * testDeleteCache method
+	 *
+	 * @return void
+	 */
 	public function testDeleteCache() {
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('delete_test', $data, 'memcache');
@@ -270,11 +270,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDecrement method
- *
- * @return void
- */
+	/**
+	 * testDecrement method
+	 *
+	 * @return void
+	 */
 	public function testDecrement() {
 		$result = Cache::write('test_decrement', 5, 'memcache');
 		$this->assertTrue($result);
@@ -292,11 +292,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertEquals(2, $result);
 	}
 
-/**
- * testIncrement method
- *
- * @return void
- */
+	/**
+	 * testIncrement method
+	 *
+	 * @return void
+	 */
 	public function testIncrement() {
 		$result = Cache::write('test_increment', 5, 'memcache');
 		$this->assertTrue($result);
@@ -314,11 +314,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertEquals(8, $result);
 	}
 
-/**
- * test that configurations don't conflict, when a file engine is declared after a memcache one.
- *
- * @return void
- */
+	/**
+	 * test that configurations don't conflict, when a file engine is declared after a memcache one.
+	 *
+	 * @return void
+	 */
 	public function testConfigurationConflict() {
 		Cache::config('long_memcache', array(
 			'engine' => 'Memcache',
@@ -349,11 +349,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		Cache::delete('short_duration_test', 'short_memcache');
 	}
 
-/**
- * test clearing memcache.
- *
- * @return void
- */
+	/**
+	 * test clearing memcache.
+	 *
+	 * @return void
+	 */
 	public function testClear() {
 		Cache::config('memcache2', array(
 			'engine' => 'Memcache',
@@ -375,11 +375,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		Cache::clear(false, 'memcache2');
 	}
 
-/**
- * test that a 0 duration can successfully write.
- *
- * @return void
- */
+	/**
+	 * test that a 0 duration can successfully write.
+	 *
+	 * @return void
+	 */
 	public function testZeroDuration() {
 		Cache::config('memcache', array('duration' => 0));
 		$result = Cache::write('test_key', 'written!', 'memcache');
@@ -389,11 +389,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertEquals('written!', $result);
 	}
 
-/**
- * test that durations greater than 30 days never expire
- *
- * @return void
- */
+	/**
+	 * test that durations greater than 30 days never expire
+	 *
+	 * @return void
+	 */
 	public function testLongDurationEqualToZero() {
 		$memcache = new TestMemcacheEngine();
 		$memcache->settings['compress'] = false;
@@ -408,13 +408,13 @@ class MemcacheEngineTest extends CakeTestCase {
 		$memcache->write('key', $value, 50 * DAY);
 	}
 
-/**
- * Tests that configuring groups for stored keys return the correct values when read/written
- * Shows that altering the group value is equivalent to deleting all keys under the same
- * group
- *
- * @return void
- */
+	/**
+	 * Tests that configuring groups for stored keys return the correct values when read/written
+	 * Shows that altering the group value is equivalent to deleting all keys under the same
+	 * group
+	 *
+	 * @return void
+	 */
 	public function testGroupReadWrite() {
 		Cache::config('memcache_groups', array(
 			'engine' => 'Memcache',
@@ -441,11 +441,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertEquals('value3', Cache::read('test_groups', 'memcache_groups'));
 	}
 
-/**
- * Tests that deleteing from a groups-enabled config is possible
- *
- * @return void
- */
+	/**
+	 * Tests that deleteing from a groups-enabled config is possible
+	 *
+	 * @return void
+	 */
 	public function testGroupDelete() {
 		Cache::config('memcache_groups', array(
 			'engine' => 'Memcache',
@@ -459,11 +459,11 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertFalse(Cache::read('test_groups', 'memcache_groups'));
 	}
 
-/**
- * Test clearing a cache group
- *
- * @return void
- */
+	/**
+	 * Test clearing a cache group
+	 *
+	 * @return void
+	 */
 	public function testGroupClear() {
 		Cache::config('memcache_groups', array(
 			'engine' => 'Memcache',

@@ -32,23 +32,23 @@ App::uses('CakeRequest', 'Network');
  * - `download` Set to true to set a `Content-Disposition` header. This is ideal for file downloads.
  * - `path` The absolute path, including the trailing / on the server's filesystem to `id`.
  * - `mimeType` The mime type of the file if CakeResponse doesn't know about it.
- * 	Must be an associative array with extension as key and mime type as value eg. array('ini' => 'text/plain')
+ *    Must be an associative array with extension as key and mime type as value eg. array('ini' => 'text/plain')
  *
  * ### Usage
  *
  * {{{
  * class ExampleController extends AppController {
- *		public function download() {
- *			$this->viewClass = 'Media';
- *			$params = array(
- *				'id' => 'example.zip',
- *				'name' => 'example',
- *				'download' => true,
- *				'extension' => 'zip',
- *				'path' => APP . 'files' . DS
- *			);
- *			$this->set($params);
- *		}
+ *        public function download() {
+ *            $this->viewClass = 'Media';
+ *            $params = array(
+ *                'id' => 'example.zip',
+ *                'name' => 'example',
+ *                'download' => true,
+ *                'extension' => 'zip',
+ *                'path' => APP . 'files' . DS
+ *            );
+ *            $this->set($params);
+ *        }
  * }
  * }}}
  *
@@ -57,13 +57,13 @@ App::uses('CakeRequest', 'Network');
  */
 class MediaView extends View {
 
-/**
- * Display or download the given file
- *
- * @param string $view Not used
- * @param string $layout Not used
- * @return void
- */
+	/**
+	 * Display or download the given file
+	 *
+	 * @param string $view Not used
+	 * @param string $layout Not used
+	 * @return void
+	 */
 	public function render($view = null, $layout = null) {
 		$name = $download = $id = $modified = $path = $cache = $mimeType = $compress = null;
 		extract($this->viewVars, EXTR_OVERWRITE);

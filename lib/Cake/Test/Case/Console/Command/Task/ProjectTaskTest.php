@@ -33,11 +33,11 @@ App::uses('File', 'Utility');
  */
 class ProjectTaskTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
@@ -50,11 +50,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->Task->path = TMP . 'tests' . DS;
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 
@@ -63,22 +63,22 @@ class ProjectTaskTest extends CakeTestCase {
 		unset($this->Task);
 	}
 
-/**
- * creates a test project that is used for testing project task.
- *
- * @return void
- */
+	/**
+	 * creates a test project that is used for testing project task.
+	 *
+	 * @return void
+	 */
 	protected function _setupTestProject() {
 		$skel = CAKE . 'Console' . DS . 'Templates' . DS . 'skel';
 		$this->Task->expects($this->at(0))->method('in')->will($this->returnValue('y'));
 		$this->Task->bake($this->Task->path . 'bake_test_app', $skel);
 	}
 
-/**
- * test bake() method and directory creation.
- *
- * @return void
- */
+	/**
+	 * test bake() method and directory creation.
+	 *
+	 * @return void
+	 */
 	public function testBake() {
 		$this->_setupTestProject();
 		$path = $this->Task->path . 'bake_test_app';
@@ -128,11 +128,11 @@ class ProjectTaskTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test bake with an absolute path.
- *
- * @return void
- */
+	/**
+	 * test bake with an absolute path.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithAbsolutePath() {
 		$path = $this->Task->args[0] = TMP . 'tests' . DS . 'bake_test_app';
 		$this->Task->params['skel'] = CAKE . 'Console' . DS . 'Templates' . DS . 'skel';
@@ -148,11 +148,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->assertRegExp('/define\(\'CAKE_CORE_INCLUDE_PATH\', .*?DS/', $contents);
 	}
 
-/**
- * test bake with CakePHP on the include path. The constants should remain commented out.
- *
- * @return void
- */
+	/**
+	 * test bake with CakePHP on the include path. The constants should remain commented out.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithCakeOnIncludePath() {
 		if (!function_exists('ini_set')) {
 			$this->markTestAsSkipped('Not access to ini_set, cannot proceed.');
@@ -175,11 +175,11 @@ class ProjectTaskTest extends CakeTestCase {
 		ini_set('include_path', $restore);
 	}
 
-/**
- * test bake() method with -empty flag,  directory creation and empty files.
- *
- * @return void
- */
+	/**
+	 * test bake() method with -empty flag,  directory creation and empty files.
+	 *
+	 * @return void
+	 */
 	public function testBakeEmptyFlag() {
 		$this->Task->params['empty'] = true;
 		$this->_setupTestProject();
@@ -214,11 +214,11 @@ class ProjectTaskTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test generation of Security.salt
- *
- * @return void
- */
+	/**
+	 * test generation of Security.salt
+	 *
+	 * @return void
+	 */
 	public function testSecuritySaltGeneration() {
 		$this->_setupTestProject();
 
@@ -231,11 +231,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->assertNotRegExp('/DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi/', $contents, 'Default Salt left behind. %s');
 	}
 
-/**
- * test generation of Security.cipherSeed
- *
- * @return void
- */
+	/**
+	 * test generation of Security.cipherSeed
+	 *
+	 * @return void
+	 */
 	public function testSecurityCipherSeedGeneration() {
 		$this->_setupTestProject();
 
@@ -248,11 +248,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->assertNotRegExp('/76859309657453542496749683645/', $contents, 'Default CipherSeed left behind. %s');
 	}
 
-/**
- * test generation of cache prefix
- *
- * @return void
- */
+	/**
+	 * test generation of cache prefix
+	 *
+	 * @return void
+	 */
 	public function testCachePrefixGeneration() {
 		$this->_setupTestProject();
 
@@ -266,11 +266,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->assertNotRegExp('/\$prefix = \'myapp_\';/', $contents, 'Default cache prefix left behind. %s');
 	}
 
-/**
- * Test that index.php is generated correctly.
- *
- * @return void
- */
+	/**
+	 * Test that index.php is generated correctly.
+	 *
+	 * @return void
+	 */
 	public function testIndexPhpGeneration() {
 		$this->_setupTestProject();
 
@@ -285,11 +285,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->assertNotRegExp('/define\(\'CAKE_CORE_INCLUDE_PATH\', ROOT/', $contents);
 	}
 
-/**
- * test getPrefix method, and that it returns Routing.prefix or writes to config file.
- *
- * @return void
- */
+	/**
+	 * test getPrefix method, and that it returns Routing.prefix or writes to config file.
+	 *
+	 * @return void
+	 */
 	public function testGetPrefix() {
 		Configure::write('Routing.prefixes', array('admin'));
 		$result = $this->Task->getPrefix();
@@ -307,11 +307,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$File->delete();
 	}
 
-/**
- * test cakeAdmin() writing core.php
- *
- * @return void
- */
+	/**
+	 * test cakeAdmin() writing core.php
+	 *
+	 * @return void
+	 */
 	public function testCakeAdmin() {
 		$File = new File(APP . 'Config' . DS . 'core.php');
 		$contents = $File->read();
@@ -327,11 +327,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$File->delete();
 	}
 
-/**
- * test getting the prefix with more than one prefix setup
- *
- * @return void
- */
+	/**
+	 * test getting the prefix with more than one prefix setup
+	 *
+	 * @return void
+	 */
 	public function testGetPrefixWithMultiplePrefixes() {
 		Configure::write('Routing.prefixes', array('admin', 'ninja', 'shinobi'));
 		$this->_setupTestProject();
@@ -342,11 +342,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->assertEquals('ninja_', $result);
 	}
 
-/**
- * Test execute method with one param to destination folder.
- *
- * @return void
- */
+	/**
+	 * Test execute method with one param to destination folder.
+	 *
+	 * @return void
+	 */
 	public function testExecute() {
 		$this->Task->params['skel'] = CAKE . 'Console' . DS . 'Templates' . DS . 'skel';
 		$this->Task->params['working'] = TMP . 'tests' . DS;
@@ -367,11 +367,11 @@ class ProjectTaskTest extends CakeTestCase {
 		$this->assertTrue(is_dir($path . DS . 'Test' . DS . 'Fixture'), 'No fixtures dir');
 	}
 
-/**
- * test console path
- *
- * @return void
- */
+	/**
+	 * test console path
+	 *
+	 * @return void
+	 */
 	public function testConsolePath() {
 		$this->_setupTestProject();
 

@@ -30,38 +30,38 @@ App::uses('ModelBehavior', 'Model');
  */
 class ContainableBehavior extends ModelBehavior {
 
-/**
- * Types of relationships available for models
- *
- * @var array
- */
+	/**
+	 * Types of relationships available for models
+	 *
+	 * @var array
+	 */
 	public $types = array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany');
 
-/**
- * Runtime configuration for this behavior
- *
- * @var array
- */
+	/**
+	 * Runtime configuration for this behavior
+	 *
+	 * @var array
+	 */
 	public $runtime = array();
 
-/**
- * Initiate behavior for the model using specified settings.
- *
- * Available settings:
- *
- * - recursive: (boolean, optional) set to true to allow containable to automatically
- *   determine the recursiveness level needed to fetch specified models,
- *   and set the model recursiveness to this level. setting it to false
- *   disables this feature. DEFAULTS TO: true
- * - notices: (boolean, optional) issues E_NOTICES for bindings referenced in a
- *   containable call that are not valid. DEFAULTS TO: true
- * - autoFields: (boolean, optional) auto-add needed fields to fetch requested
- *   bindings. DEFAULTS TO: true
- *
- * @param Model $Model Model using the behavior
- * @param array $settings Settings to override for model.
- * @return void
- */
+	/**
+	 * Initiate behavior for the model using specified settings.
+	 *
+	 * Available settings:
+	 *
+	 * - recursive: (boolean, optional) set to true to allow containable to automatically
+	 *   determine the recursiveness level needed to fetch specified models,
+	 *   and set the model recursiveness to this level. setting it to false
+	 *   disables this feature. DEFAULTS TO: true
+	 * - notices: (boolean, optional) issues E_NOTICES for bindings referenced in a
+	 *   containable call that are not valid. DEFAULTS TO: true
+	 * - autoFields: (boolean, optional) auto-add needed fields to fetch requested
+	 *   bindings. DEFAULTS TO: true
+	 *
+	 * @param Model $Model Model using the behavior
+	 * @param array $settings Settings to override for model.
+	 * @return void
+	 */
 	public function setup(Model $Model, $settings = array()) {
 		if (!isset($this->settings[$Model->alias])) {
 			$this->settings[$Model->alias] = array('recursive' => true, 'notices' => true, 'autoFields' => true);
@@ -69,27 +69,27 @@ class ContainableBehavior extends ModelBehavior {
 		$this->settings[$Model->alias] = array_merge($this->settings[$Model->alias], $settings);
 	}
 
-/**
- * Runs before a find() operation. Used to allow 'contain' setting
- * as part of the find call, like this:
- *
- * `Model->find('all', array('contain' => array('Model1', 'Model2')));`
- *
- * {{{
- * Model->find('all', array('contain' => array(
- * 	'Model1' => array('Model11', 'Model12'),
- * 	'Model2',
- * 	'Model3' => array(
- * 		'Model31' => 'Model311',
- * 		'Model32',
- * 		'Model33' => array('Model331', 'Model332')
- * )));
- * }}}
- *
- * @param Model $Model Model using the behavior
- * @param array $query Query parameters as set by cake
- * @return array
- */
+	/**
+	 * Runs before a find() operation. Used to allow 'contain' setting
+	 * as part of the find call, like this:
+	 *
+	 * `Model->find('all', array('contain' => array('Model1', 'Model2')));`
+	 *
+	 * {{{
+	 * Model->find('all', array('contain' => array(
+	 *    'Model1' => array('Model11', 'Model12'),
+	 *    'Model2',
+	 *    'Model3' => array(
+	 *        'Model31' => 'Model311',
+	 *        'Model32',
+	 *        'Model33' => array('Model331', 'Model332')
+	 * )));
+	 * }}}
+	 *
+	 * @param Model $Model Model using the behavior
+	 * @param array $query Query parameters as set by cake
+	 * @return array
+	 */
 	public function beforeFind(Model $Model, $query) {
 		$reset = (isset($query['reset']) ? $query['reset'] : true);
 		$noContain = false;
@@ -177,8 +177,8 @@ class ContainableBehavior extends ModelBehavior {
 		}
 
 		$autoFields = ($this->settings[$Model->alias]['autoFields']
-					&& !in_array($Model->findQueryType, array('list', 'count'))
-					&& !empty($query['fields']));
+			&& !in_array($Model->findQueryType, array('list', 'count'))
+			&& !empty($query['fields']));
 
 		if (!$autoFields) {
 			return $query;
@@ -206,7 +206,7 @@ class ContainableBehavior extends ModelBehavior {
 					if ($Model->useDbConfig === $Model->{$modelName}->useDbConfig) {
 						$field = $modelName . '.' . (
 							($field === '--primaryKey--') ? $Model->$modelName->primaryKey : $field
-						);
+							);
 					} else {
 						$field = null;
 					}
@@ -220,28 +220,28 @@ class ContainableBehavior extends ModelBehavior {
 		return $query;
 	}
 
-/**
- * Unbinds all relations from a model except the specified ones. Calling this function without
- * parameters unbinds all related models.
- *
- * @param Model $Model Model on which binding restriction is being applied
- * @return void
- * @link http://book.cakephp.org/2.0/en/core-libraries/behaviors/containable.html#using-containable
- */
+	/**
+	 * Unbinds all relations from a model except the specified ones. Calling this function without
+	 * parameters unbinds all related models.
+	 *
+	 * @param Model $Model Model on which binding restriction is being applied
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/behaviors/containable.html#using-containable
+	 */
 	public function contain(Model $Model) {
 		$args = func_get_args();
 		$contain = call_user_func_array('am', array_slice($args, 1));
 		$this->runtime[$Model->alias]['contain'] = $contain;
 	}
 
-/**
- * Permanently restore the original binding settings of given model, useful
- * for restoring the bindings after using 'reset' => false as part of the
- * contain call.
- *
- * @param Model $Model Model on which to reset bindings
- * @return void
- */
+	/**
+	 * Permanently restore the original binding settings of given model, useful
+	 * for restoring the bindings after using 'reset' => false as part of the
+	 * contain call.
+	 *
+	 * @param Model $Model Model on which to reset bindings
+	 * @return void
+	 */
 	public function resetBindings(Model $Model) {
 		if (!empty($Model->__backOriginalAssociation)) {
 			$Model->__backAssociation = $Model->__backOriginalAssociation;
@@ -257,15 +257,15 @@ class ContainableBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * Process containments for model.
- *
- * @param Model $Model Model on which binding restriction is being applied
- * @param array $contain Parameters to use for restricting this model
- * @param array $containments Current set of containments
- * @param bool $throwErrors Whether non-existent bindings show throw errors
- * @return array Containments
- */
+	/**
+	 * Process containments for model.
+	 *
+	 * @param Model $Model Model on which binding restriction is being applied
+	 * @param array $contain Parameters to use for restricting this model
+	 * @param array $containments Current set of containments
+	 * @param bool $throwErrors Whether non-existent bindings show throw errors
+	 * @return array Containments
+	 */
 	public function containments(Model $Model, $contain, $containments = array(), $throwErrors = null) {
 		$options = array('className', 'joinTable', 'with', 'foreignKey', 'associationForeignKey', 'conditions', 'fields', 'order', 'limit', 'offset', 'unique', 'finderQuery');
 		$keep = array();
@@ -360,14 +360,14 @@ class ContainableBehavior extends ModelBehavior {
 		return $containments;
 	}
 
-/**
- * Calculate needed fields to fetch the required bindings for the given model.
- *
- * @param Model $Model Model
- * @param array $map Map of relations for given model
- * @param array|bool $fields If array, fields to initially load, if false use $Model as primary model
- * @return array Fields
- */
+	/**
+	 * Calculate needed fields to fetch the required bindings for the given model.
+	 *
+	 * @param Model $Model Model
+	 * @param array $map Map of relations for given model
+	 * @param array|bool $fields If array, fields to initially load, if false use $Model as primary model
+	 * @return array Fields
+	 */
 	public function fieldDependencies(Model $Model, $map, $fields = array()) {
 		if ($fields === false) {
 			foreach ($map as $parent => $children) {
@@ -407,12 +407,12 @@ class ContainableBehavior extends ModelBehavior {
 		return array_unique($fields);
 	}
 
-/**
- * Build the map of containments
- *
- * @param array $containments Containments
- * @return array Built containments
- */
+	/**
+	 * Build the map of containments
+	 *
+	 * @param array $containments Containments
+	 * @return array Built containments
+	 */
 	public function containmentsMap($containments) {
 		$map = array();
 		foreach ($containments['models'] as $name => $model) {

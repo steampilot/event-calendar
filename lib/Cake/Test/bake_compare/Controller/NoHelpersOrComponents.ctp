@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+
 /**
  * Articles Controller
  *
@@ -8,11 +9,11 @@ App::uses('AppController', 'Controller');
  */
 class ArticlesController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
+	/**
+	 * Components
+	 *
+	 * @var array
+	 */
 	public $components = array('Paginator');
 
 }

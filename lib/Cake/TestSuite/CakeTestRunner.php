@@ -26,24 +26,24 @@ App::uses('CakeFixtureManager', 'TestSuite/Fixture');
  */
 class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
 
-/**
- * Lets us pass in some options needed for CakePHP's webrunner.
- *
- * @param mixed $loader The test suite loader
- * @param array $params list of options to be used for this run
- */
+	/**
+	 * Lets us pass in some options needed for CakePHP's webrunner.
+	 *
+	 * @param mixed $loader The test suite loader
+	 * @param array $params list of options to be used for this run
+	 */
 	public function __construct($loader, $params) {
 		parent::__construct($loader);
 		$this->_params = $params;
 	}
 
-/**
- * Actually run a suite of tests. Cake initializes fixtures here using the chosen fixture manager
- *
- * @param PHPUnit_Framework_Test $suite The test suite to run
- * @param array $arguments The CLI arguments
- * @return void
- */
+	/**
+	 * Actually run a suite of tests. Cake initializes fixtures here using the chosen fixture manager
+	 *
+	 * @param PHPUnit_Framework_Test $suite The test suite to run
+	 * @param array $arguments The CLI arguments
+	 * @return void
+	 */
 	public function doRun(PHPUnit_Framework_Test $suite, array $arguments = array()) {
 		if (isset($arguments['printer'])) {
 			self::$versionStringPrinted = true;
@@ -63,11 +63,11 @@ class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
 	}
 
 // @codingStandardsIgnoreStart PHPUnit overrides don't match CakePHP
-/**
- * Create the test result and splice on our code coverage reports.
- *
- * @return PHPUnit_Framework_TestResult
- */
+	/**
+	 * Create the test result and splice on our code coverage reports.
+	 *
+	 * @return PHPUnit_Framework_TestResult
+	 */
 	protected function createTestResult() {
 		$result = new PHPUnit_Framework_TestResult;
 		if (!empty($this->_params['codeCoverage'])) {
@@ -82,13 +82,13 @@ class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
 	}
 // @codingStandardsIgnoreEnd
 
-/**
- * Get the fixture manager class specified or use the default one.
- *
- * @param array $arguments The CLI arguments.
- * @return mixed instance of a fixture manager.
- * @throws RuntimeException When fixture manager class cannot be loaded.
- */
+	/**
+	 * Get the fixture manager class specified or use the default one.
+	 *
+	 * @param array $arguments The CLI arguments.
+	 * @return mixed instance of a fixture manager.
+	 * @throws RuntimeException When fixture manager class cannot be loaded.
+	 */
 	protected function _getFixtureManager($arguments) {
 		if (isset($arguments['fixtureManager'])) {
 			App::uses($arguments['fixtureManager'], 'TestSuite');

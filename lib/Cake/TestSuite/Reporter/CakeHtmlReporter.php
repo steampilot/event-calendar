@@ -25,12 +25,12 @@ App::uses('CakeBaseReporter', 'TestSuite/Reporter');
  */
 class CakeHtmlReporter extends CakeBaseReporter {
 
-/**
- * Paints the top of the web page setting the
- * title to the name of the starting test.
- *
- * @return void
- */
+	/**
+	 * Paints the top of the web page setting the
+	 * title to the name of the starting test.
+	 *
+	 * @return void
+	 */
 	public function paintHeader() {
 		$this->_headerSent = true;
 		$this->sendContentType();
@@ -40,34 +40,34 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		echo "<ul class='tests'>\n";
 	}
 
-/**
- * Set the content-type header so it is in the correct encoding.
- *
- * @return void
- */
+	/**
+	 * Set the content-type header so it is in the correct encoding.
+	 *
+	 * @return void
+	 */
 	public function sendContentType() {
 		if (!headers_sent()) {
 			header('Content-Type: text/html; charset=' . Configure::read('App.encoding'));
 		}
 	}
 
-/**
- * Paints the document start content contained in header.php
- *
- * @return void
- */
+	/**
+	 * Paints the document start content contained in header.php
+	 *
+	 * @return void
+	 */
 	public function paintDocumentStart() {
 		ob_start();
 		$baseDir = $this->params['baseDir'];
 		include CAKE . 'TestSuite' . DS . 'templates' . DS . 'header.php';
 	}
 
-/**
- * Paints the menu on the left side of the test suite interface.
- * Contains all of the various plugin, core, and app buttons.
- *
- * @return void
- */
+	/**
+	 * Paints the menu on the left side of the test suite interface.
+	 * Contains all of the various plugin, core, and app buttons.
+	 *
+	 * @return void
+	 */
 	public function paintTestMenu() {
 		$cases = $this->baseUrl() . '?show=cases';
 		$plugins = App::objects('plugin', null, false);
@@ -75,11 +75,11 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		include CAKE . 'TestSuite' . DS . 'templates' . DS . 'menu.php';
 	}
 
-/**
- * Retrieves and paints the list of tests cases in an HTML format.
- *
- * @return void
- */
+	/**
+	 * Retrieves and paints the list of tests cases in an HTML format.
+	 *
+	 * @return void
+	 */
 	public function testCaseList() {
 		$testCases = parent::testCaseList();
 		$core = $this->params['core'];
@@ -103,19 +103,19 @@ class CakeHtmlReporter extends CakeBaseReporter {
 			$title = explode(DS, str_replace('.test.php', '', $testCase));
 			$title[count($title) - 1] = Inflector::camelize($title[count($title) - 1]);
 			$title = implode(' / ', $title);
-				$buffer .= "<li><a href='" . $this->baseUrl() . "?case=" . urlencode($testCase) . $urlExtra . "'>" . $title . "</a></li>\n";
+			$buffer .= "<li><a href='" . $this->baseUrl() . "?case=" . urlencode($testCase) . $urlExtra . "'>" . $title . "</a></li>\n";
 		}
 		$buffer .= "</ul>\n";
 		echo $buffer;
 	}
 
-/**
- * Send the headers necessary to ensure the page is
- * reloaded on every request. Otherwise you could be
- * scratching your head over out of date test data.
- *
- * @return void
- */
+	/**
+	 * Send the headers necessary to ensure the page is
+	 * reloaded on every request. Otherwise you could be
+	 * scratching your head over out of date test data.
+	 *
+	 * @return void
+	 */
 	public function sendNoCacheHeaders() {
 		if (!headers_sent()) {
 			header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
@@ -126,13 +126,13 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		}
 	}
 
-/**
- * Paints the end of the test with a summary of
- * the passes and failures.
- *
- * @param PHPUnit_Framework_TestResult $result Result object
- * @return void
- */
+	/**
+	 * Paints the end of the test with a summary of
+	 * the passes and failures.
+	 *
+	 * @param PHPUnit_Framework_TestResult $result Result object
+	 * @return void
+	 */
 	public function paintFooter($result) {
 		ob_end_flush();
 		$colour = ($result->failureCount() + $result->errorCount() > 0 ? "red" : "green");
@@ -166,12 +166,12 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		$this->paintDocumentEnd();
 	}
 
-/**
- * Paints a code coverage report.
- *
- * @param array $coverage The coverage data
- * @return void
- */
+	/**
+	 * Paints a code coverage report.
+	 *
+	 * @param array $coverage The coverage data
+	 * @return void
+	 */
 	public function paintCoverage(array $coverage) {
 		App::uses('HtmlCoverageReport', 'TestSuite/Coverage');
 
@@ -179,11 +179,11 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		echo $reporter->report();
 	}
 
-/**
- * Renders the links that for accessing things in the test suite.
- *
- * @return void
- */
+	/**
+	 * Renders the links that for accessing things in the test suite.
+	 *
+	 * @return void
+	 */
 	protected function _paintLinks() {
 		$show = $query = array();
 		if (!empty($this->params['case'])) {
@@ -207,12 +207,12 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		echo "<a href='" . $this->baseUrl() . $query . "&amp;code_coverage=true'>Analyze Code Coverage</a></p>\n";
 	}
 
-/**
- * Convert an array of parameters into a query string url
- *
- * @param array $url Url hash to be converted
- * @return string Converted url query string
- */
+	/**
+	 * Convert an array of parameters into a query string url
+	 *
+	 * @param array $url Url hash to be converted
+	 * @return string Converted url query string
+	 */
 	protected function _queryString($url) {
 		$out = '?';
 		$params = array();
@@ -223,11 +223,11 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		return $out;
 	}
 
-/**
- * Paints the end of the document html.
- *
- * @return void
- */
+	/**
+	 * Paints the end of the document html.
+	 *
+	 * @return void
+	 */
 	public function paintDocumentEnd() {
 		$baseDir = $this->params['baseDir'];
 		include CAKE . 'TestSuite' . DS . 'templates' . DS . 'footer.php';
@@ -236,16 +236,16 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		}
 	}
 
-/**
- * Paints the test failure with a breadcrumbs
- * trail of the nesting test suites below the
- * top level test.
- *
- * @param PHPUnit_Framework_AssertionFailedError $message Failure object displayed in
- *   the context of the other tests.
- * @param mixed $test The test case to paint a failure for.
- * @return void
- */
+	/**
+	 * Paints the test failure with a breadcrumbs
+	 * trail of the nesting test suites below the
+	 * top level test.
+	 *
+	 * @param PHPUnit_Framework_AssertionFailedError $message Failure object displayed in
+	 *   the context of the other tests.
+	 * @param mixed $test The test case to paint a failure for.
+	 * @return void
+	 */
 	public function paintFail($message, $test) {
 		$trace = $this->_getStackTrace($message);
 		$testName = get_class($test) . '(' . $test->getName() . ')';
@@ -273,15 +273,15 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		echo "</li>\n";
 	}
 
-/**
- * Paints the test pass with a breadcrumbs
- * trail of the nesting test suites below the
- * top level test.
- *
- * @param PHPUnit_Framework_Test $test Test method that just passed
- * @param float $time time spent to run the test method
- * @return void
- */
+	/**
+	 * Paints the test pass with a breadcrumbs
+	 * trail of the nesting test suites below the
+	 * top level test.
+	 *
+	 * @param PHPUnit_Framework_Test $test Test method that just passed
+	 * @param float $time time spent to run the test method
+	 * @return void
+	 */
 	public function paintPass(PHPUnit_Framework_Test $test, $time = null) {
 		if (isset($this->params['showPasses']) && $this->params['showPasses']) {
 			echo "<li class='pass'>\n";
@@ -292,13 +292,13 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		}
 	}
 
-/**
- * Paints a PHP exception.
- *
- * @param Exception $message Exception to display.
- * @param mixed $test The test that failed.
- * @return void
- */
+	/**
+	 * Paints a PHP exception.
+	 *
+	 * @param Exception $message Exception to display.
+	 * @param mixed $test The test that failed.
+	 * @return void
+	 */
 	public function paintException($message, $test) {
 		$trace = $this->_getStackTrace($message);
 		$testName = get_class($test) . '(' . $test->getName() . ')';
@@ -312,13 +312,13 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		echo "</li>\n";
 	}
 
-/**
- * Prints the message for skipping tests.
- *
- * @param string $message Text of skip condition.
- * @param PHPUnit_Framework_TestCase $test the test method skipped
- * @return void
- */
+	/**
+	 * Prints the message for skipping tests.
+	 *
+	 * @param string $message Text of skip condition.
+	 * @param PHPUnit_Framework_TestCase $test the test method skipped
+	 * @return void
+	 */
 	public function paintSkip($message, $test) {
 		echo "<li class='skipped'>\n";
 		echo "<span>Skipped</span> ";
@@ -326,32 +326,32 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		echo "</li>\n";
 	}
 
-/**
- * Paints formatted text such as dumped variables.
- *
- * @param string $message Text to show.
- * @return void
- */
+	/**
+	 * Paints formatted text such as dumped variables.
+	 *
+	 * @param string $message Text to show.
+	 * @return void
+	 */
 	public function paintFormattedMessage($message) {
 		echo '<pre>' . $this->_htmlEntities($message) . '</pre>';
 	}
 
-/**
- * Character set adjusted entity conversion.
- *
- * @param string $message Plain text or Unicode message.
- * @return string Browser readable message.
- */
+	/**
+	 * Character set adjusted entity conversion.
+	 *
+	 * @param string $message Plain text or Unicode message.
+	 * @return string Browser readable message.
+	 */
 	protected function _htmlEntities($message) {
 		return htmlentities($message, ENT_COMPAT, $this->_characterSet);
 	}
 
-/**
- * Gets a formatted stack trace.
- *
- * @param Exception $e Exception to get a stack trace for.
- * @return string Generated stack trace.
- */
+	/**
+	 * Gets a formatted stack trace.
+	 *
+	 * @param Exception $e Exception to get a stack trace for.
+	 * @return string Generated stack trace.
+	 */
 	protected function _getStackTrace(Exception $e) {
 		$trace = $e->getTrace();
 		$out = array();
@@ -367,12 +367,12 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		return implode('<br />', $out);
 	}
 
-/**
- * A test suite started.
- *
- * @param PHPUnit_Framework_TestSuite $suite The test suite to start.
- * @return void
- */
+	/**
+	 * A test suite started.
+	 *
+	 * @param PHPUnit_Framework_TestSuite $suite The test suite to start.
+	 * @return void
+	 */
 	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
 		if (!$this->_headerSent) {
 			echo $this->paintHeader();

@@ -26,63 +26,63 @@ App::uses('BakeTask', 'Console/Command/Task');
  */
 class ViewTask extends BakeTask {
 
-/**
- * Tasks to be loaded by this Task
- *
- * @var array
- */
+	/**
+	 * Tasks to be loaded by this Task
+	 *
+	 * @var array
+	 */
 	public $tasks = array('Project', 'Controller', 'DbConfig', 'Template');
 
-/**
- * path to View directory
- *
- * @var array
- */
+	/**
+	 * path to View directory
+	 *
+	 * @var array
+	 */
 	public $path = null;
 
-/**
- * Name of the controller being used
- *
- * @var string
- */
+	/**
+	 * Name of the controller being used
+	 *
+	 * @var string
+	 */
 	public $controllerName = null;
 
-/**
- * The template file to use
- *
- * @var string
- */
+	/**
+	 * The template file to use
+	 *
+	 * @var string
+	 */
 	public $template = null;
 
-/**
- * Actions to use for scaffolding
- *
- * @var array
- */
+	/**
+	 * Actions to use for scaffolding
+	 *
+	 * @var array
+	 */
 	public $scaffoldActions = array('index', 'view', 'add', 'edit');
 
-/**
- * An array of action names that don't require templates. These
- * actions will not emit errors when doing bakeActions()
- *
- * @var array
- */
+	/**
+	 * An array of action names that don't require templates. These
+	 * actions will not emit errors when doing bakeActions()
+	 *
+	 * @var array
+	 */
 	public $noTemplateActions = array('delete');
 
-/**
- * Override initialize
- *
- * @return void
- */
+	/**
+	 * Override initialize
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->path = current(App::path('View'));
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return mixed
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return mixed
+	 */
 	public function execute() {
 		parent::execute();
 		if (empty($this->args)) {
@@ -126,11 +126,11 @@ class ViewTask extends BakeTask {
 		}
 	}
 
-/**
- * Get a list of actions that can / should have views baked for them.
- *
- * @return array Array of action names that should be baked
- */
+	/**
+	 * Get a list of actions that can / should have views baked for them.
+	 *
+	 * @return array Array of action names that should be baked
+	 */
 	protected function _methodsToBake() {
 		$methods = array_diff(
 			array_map('strtolower', get_class_methods($this->controllerName . 'Controller')),
@@ -158,11 +158,11 @@ class ViewTask extends BakeTask {
 		return $methods;
 	}
 
-/**
- * Bake All views for All controllers.
- *
- * @return void
- */
+	/**
+	 * Bake All views for All controllers.
+	 *
+	 * @return void
+	 */
 	public function all() {
 		$this->Controller->interactive = false;
 		$tables = $this->Controller->listAll($this->connection, false);
@@ -187,11 +187,11 @@ class ViewTask extends BakeTask {
 		}
 	}
 
-/**
- * Handles interactive baking
- *
- * @return void
- */
+	/**
+	 * Handles interactive baking
+	 *
+	 * @return void
+	 */
 	protected function _interactive() {
 		$this->hr();
 		$this->out(sprintf("Bake View\nPath: %s", $this->getPath()));
@@ -241,15 +241,15 @@ class ViewTask extends BakeTask {
 		}
 	}
 
-/**
- * Loads Controller and sets variables for the template
- * Available template variables
- *	'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar',
- *	'singularHumanName', 'pluralHumanName', 'fields', 'foreignKeys',
- *	'belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany'
- *
- * @return array Returns a variables to be made available to a view template
- */
+	/**
+	 * Loads Controller and sets variables for the template
+	 * Available template variables
+	 *    'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar',
+	 *    'singularHumanName', 'pluralHumanName', 'fields', 'foreignKeys',
+	 *    'belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany'
+	 *
+	 * @return array Returns a variables to be made available to a view template
+	 */
 	protected function _loadController() {
 		if (!$this->controllerName) {
 			$this->err(__d('cake_console', 'Controller not found'));
@@ -291,16 +291,16 @@ class ViewTask extends BakeTask {
 		$pluralHumanName = $this->_pluralHumanName($this->controllerName);
 
 		return compact('modelClass', 'schema', 'primaryKey', 'displayField', 'singularVar', 'pluralVar',
-				'singularHumanName', 'pluralHumanName', 'fields', 'associations');
+			'singularHumanName', 'pluralHumanName', 'fields', 'associations');
 	}
 
-/**
- * Bake a view file for each of the supplied actions
- *
- * @param array $actions Array of actions to make files for.
- * @param array $vars The template variables.
- * @return void
- */
+	/**
+	 * Bake a view file for each of the supplied actions
+	 *
+	 * @param array $actions Array of actions to make files for.
+	 * @param array $vars The template variables.
+	 * @return void
+	 */
 	public function bakeActions($actions, $vars) {
 		foreach ($actions as $action) {
 			$content = $this->getContent($action, $vars);
@@ -308,11 +308,11 @@ class ViewTask extends BakeTask {
 		}
 	}
 
-/**
- * handle creation of baking a custom action view file
- *
- * @return void
- */
+	/**
+	 * handle creation of baking a custom action view file
+	 *
+	 * @return void
+	 */
 	public function customAction() {
 		$action = '';
 		while (!$action) {
@@ -337,13 +337,13 @@ class ViewTask extends BakeTask {
 		$this->out(__d('cake_console', 'Bake Aborted.'));
 	}
 
-/**
- * Assembles and writes bakes the view file.
- *
- * @param string $action Action to bake
- * @param string $content Content to write
- * @return bool Success
- */
+	/**
+	 * Assembles and writes bakes the view file.
+	 *
+	 * @param string $action Action to bake
+	 * @param string $content Content to write
+	 * @return bool Success
+	 */
 	public function bake($action, $content = '') {
 		if ($content === true) {
 			$content = $this->getContent($action);
@@ -357,13 +357,13 @@ class ViewTask extends BakeTask {
 		return $this->createFile($filename, $content);
 	}
 
-/**
- * Builds content from template and variables
- *
- * @param string $action name to generate content to
- * @param array $vars passed for use in templates
- * @return string content from template
- */
+	/**
+	 * Builds content from template and variables
+	 *
+	 * @param string $action name to generate content to
+	 * @param array $vars passed for use in templates
+	 * @return string content from template
+	 */
 	public function getContent($action, $vars = null) {
 		if (!$vars) {
 			$vars = $this->_loadController();
@@ -379,12 +379,12 @@ class ViewTask extends BakeTask {
 		return false;
 	}
 
-/**
- * Gets the template name based on the action name
- *
- * @param string $action name
- * @return string template name
- */
+	/**
+	 * Gets the template name based on the action name
+	 *
+	 * @param string $action name
+	 * @return string template name
+	 */
 	public function getTemplate($action) {
 		if ($action != $this->template && in_array($action, $this->noTemplateActions)) {
 			return false;
@@ -411,11 +411,11 @@ class ViewTask extends BakeTask {
 		return $template;
 	}
 
-/**
- * Gets the option parser instance and configures it.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Gets the option parser instance and configures it.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 
@@ -451,12 +451,12 @@ class ViewTask extends BakeTask {
 		return $parser;
 	}
 
-/**
- * Returns associations for controllers models.
- *
- * @param Model $model The Model instance.
- * @return array associations
- */
+	/**
+	 * Returns associations for controllers models.
+	 *
+	 * @param Model $model The Model instance.
+	 * @return array associations
+	 */
 	protected function _associations(Model $model) {
 		$keys = array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany');
 		$associations = array();

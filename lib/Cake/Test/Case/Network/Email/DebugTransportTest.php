@@ -26,21 +26,21 @@ App::uses('DebugTransport', 'Network/Email');
  */
 class DebugTransportTest extends CakeTestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->DebugTransport = new DebugTransport();
 	}
 
-/**
- * testSend method
- *
- * @return void
- */
+	/**
+	 * testSend method
+	 *
+	 * @return void
+	 */
 	public function testSend() {
 		$email = $this->getMock('CakeEmail', array('message'), array(), 'DebugCakeEmail');
 		$email->from('noreply@cakephp.org', 'CakePHP Test');

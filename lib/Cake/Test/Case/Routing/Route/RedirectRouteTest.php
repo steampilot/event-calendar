@@ -27,22 +27,22 @@ App::uses('Router', 'Routing');
  */
 class RedirectRouteTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Routing', array('admin' => null, 'prefixes' => array()));
 		Router::reload();
 	}
 
-/**
- * test the parsing of routes.
- *
- * @return void
- */
+	/**
+	 * test the parsing of routes.
+	 *
+	 * @return void
+	 */
 	public function testParsing() {
 		$route = new RedirectRoute('/home', array('controller' => 'posts'));
 		$route->stop = false;

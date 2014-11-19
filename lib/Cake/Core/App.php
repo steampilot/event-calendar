@@ -38,7 +38,7 @@ App::uses('CakePlugin', 'Core');
  *
  * For instance if you'd like to use your own HttpSocket class, put it under
  *
- *		app/Network/Http/HttpSocket.php
+ *        app/Network/Http/HttpSocket.php
  *
  * ### Inspecting loaded paths
  *
@@ -64,39 +64,39 @@ App::uses('CakePlugin', 'Core');
  */
 class App {
 
-/**
- * Append paths
- *
- * @var string
- */
+	/**
+	 * Append paths
+	 *
+	 * @var string
+	 */
 	const APPEND = 'append';
 
-/**
- * Prepend paths
- *
- * @var string
- */
+	/**
+	 * Prepend paths
+	 *
+	 * @var string
+	 */
 	const PREPEND = 'prepend';
 
-/**
- * Register package
- *
- * @var string
- */
+	/**
+	 * Register package
+	 *
+	 * @var string
+	 */
 	const REGISTER = 'register';
 
-/**
- * Reset paths instead of merging
- *
- * @var bool
- */
+	/**
+	 * Reset paths instead of merging
+	 *
+	 * @var bool
+	 */
 	const RESET = true;
 
-/**
- * List of object types and their properties
- *
- * @var array
- */
+	/**
+	 * List of object types and their properties
+	 *
+	 * @var array
+	 */
 	public static $types = array(
 		'class' => array('extends' => null, 'core' => true),
 		'file' => array('extends' => null, 'core' => true),
@@ -112,60 +112,60 @@ class App {
 		'plugin' => array('extends' => null, 'core' => true)
 	);
 
-/**
- * Paths to search for files.
- *
- * @var array
- */
+	/**
+	 * Paths to search for files.
+	 *
+	 * @var array
+	 */
 	public static $search = array();
 
-/**
- * Whether or not to return the file that is loaded.
- *
- * @var bool
- */
+	/**
+	 * Whether or not to return the file that is loaded.
+	 *
+	 * @var bool
+	 */
 	public static $return = false;
 
-/**
- * Holds key/value pairs of $type => file path.
- *
- * @var array
- */
+	/**
+	 * Holds key/value pairs of $type => file path.
+	 *
+	 * @var array
+	 */
 	protected static $_map = array();
 
-/**
- * Holds and key => value array of object types.
- *
- * @var array
- */
+	/**
+	 * Holds and key => value array of object types.
+	 *
+	 * @var array
+	 */
 	protected static $_objects = array();
 
-/**
- * Holds the location of each class
- *
- * @var array
- */
+	/**
+	 * Holds the location of each class
+	 *
+	 * @var array
+	 */
 	protected static $_classMap = array();
 
-/**
- * Holds the possible paths for each package name
- *
- * @var array
- */
+	/**
+	 * Holds the possible paths for each package name
+	 *
+	 * @var array
+	 */
 	protected static $_packages = array();
 
-/**
- * Holds the templates for each customizable package path in the application
- *
- * @var array
- */
+	/**
+	 * Holds the templates for each customizable package path in the application
+	 *
+	 * @var array
+	 */
 	protected static $_packageFormat = array();
 
-/**
- * Maps an old style CakePHP class type to the corresponding package
- *
- * @var array
- */
+	/**
+	 * Maps an old style CakePHP class type to the corresponding package
+	 *
+	 * @var array
+	 */
 	public static $legacy = array(
 		'models' => 'Model',
 		'behaviors' => 'Model/Behavior',
@@ -181,42 +181,42 @@ class App {
 		'locales' => 'Locale'
 	);
 
-/**
- * Indicates whether the class cache should be stored again because of an addition to it
- *
- * @var bool
- */
+	/**
+	 * Indicates whether the class cache should be stored again because of an addition to it
+	 *
+	 * @var bool
+	 */
 	protected static $_cacheChange = false;
 
-/**
- * Indicates whether the object cache should be stored again because of an addition to it
- *
- * @var bool
- */
+	/**
+	 * Indicates whether the object cache should be stored again because of an addition to it
+	 *
+	 * @var bool
+	 */
 	protected static $_objectCacheChange = false;
 
-/**
- * Indicates the the Application is in the bootstrapping process. Used to better cache
- * loaded classes while the cache libraries have not been yet initialized
- *
- * @var bool
- */
+	/**
+	 * Indicates the the Application is in the bootstrapping process. Used to better cache
+	 * loaded classes while the cache libraries have not been yet initialized
+	 *
+	 * @var bool
+	 */
 	public static $bootstrapping = false;
 
-/**
- * Used to read information stored path
- *
- * Usage:
- *
- * `App::path('Model'); will return all paths for models`
- *
- * `App::path('Model/Datasource', 'MyPlugin'); will return the path for datasources under the 'MyPlugin' plugin`
- *
- * @param string $type type of path
- * @param string $plugin name of plugin
- * @return array
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::path
- */
+	/**
+	 * Used to read information stored path
+	 *
+	 * Usage:
+	 *
+	 * `App::path('Model'); will return all paths for models`
+	 *
+	 * `App::path('Model/Datasource', 'MyPlugin'); will return the path for datasources under the 'MyPlugin' plugin`
+	 *
+	 * @param string $type type of path
+	 * @param string $plugin name of plugin
+	 * @return array
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::path
+	 */
 	public static function path($type, $plugin = null) {
 		if (!empty(self::$legacy[$type])) {
 			$type = self::$legacy[$type];
@@ -240,41 +240,41 @@ class App {
 		return self::$_packages[$type];
 	}
 
-/**
- * Get all the currently loaded paths from App. Useful for inspecting
- * or storing all paths App knows about. For a paths to a specific package
- * use App::path()
- *
- * @return array An array of packages and their associated paths.
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::paths
- */
+	/**
+	 * Get all the currently loaded paths from App. Useful for inspecting
+	 * or storing all paths App knows about. For a paths to a specific package
+	 * use App::path()
+	 *
+	 * @return array An array of packages and their associated paths.
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::paths
+	 */
 	public static function paths() {
 		return self::$_packages;
 	}
 
-/**
- * Sets up each package location on the file system. You can configure multiple search paths
- * for each package, those will be used to look for files one folder at a time in the specified order
- * All paths should be terminated with a Directory separator
- *
- * Usage:
- *
- * `App::build(array(Model' => array('/a/full/path/to/models/'))); will setup a new search path for the Model package`
- *
- * `App::build(array('Model' => array('/path/to/models/')), App::RESET); will setup the path as the only valid path for searching models`
- *
- * `App::build(array('View/Helper' => array('/path/to/helpers/', '/another/path/'))); will setup multiple search paths for helpers`
- *
- * `App::build(array('Service' => array('%s' . 'Service' . DS)), App::REGISTER); will register new package 'Service'`
- *
- * If reset is set to true, all loaded plugins will be forgotten and they will be needed to be loaded again.
- *
- * @param array $paths associative array with package names as keys and a list of directories for new search paths
- * @param bool|string $mode App::RESET will set paths, App::APPEND with append paths, App::PREPEND will prepend paths (default)
- * 	App::REGISTER will register new packages and their paths, %s in path will be replaced by APP path
- * @return void
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::build
- */
+	/**
+	 * Sets up each package location on the file system. You can configure multiple search paths
+	 * for each package, those will be used to look for files one folder at a time in the specified order
+	 * All paths should be terminated with a Directory separator
+	 *
+	 * Usage:
+	 *
+	 * `App::build(array(Model' => array('/a/full/path/to/models/'))); will setup a new search path for the Model package`
+	 *
+	 * `App::build(array('Model' => array('/path/to/models/')), App::RESET); will setup the path as the only valid path for searching models`
+	 *
+	 * `App::build(array('View/Helper' => array('/path/to/helpers/', '/another/path/'))); will setup multiple search paths for helpers`
+	 *
+	 * `App::build(array('Service' => array('%s' . 'Service' . DS)), App::REGISTER); will register new package 'Service'`
+	 *
+	 * If reset is set to true, all loaded plugins will be forgotten and they will be needed to be loaded again.
+	 *
+	 * @param array $paths associative array with package names as keys and a list of directories for new search paths
+	 * @param bool|string $mode App::RESET will set paths, App::APPEND with append paths, App::PREPEND will prepend paths (default)
+	 *    App::REGISTER will register new packages and their paths, %s in path will be replaced by APP path
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::build
+	 */
 	public static function build($paths = array(), $mode = App::PREPEND) {
 		//Provides Backwards compatibility for old-style package names
 		$legacyPaths = array();
@@ -351,33 +351,33 @@ class App {
 		}
 	}
 
-/**
- * Gets the path that a plugin is on. Searches through the defined plugin paths.
- *
- * Usage:
- *
- * `App::pluginPath('MyPlugin'); will return the full path to 'MyPlugin' plugin'`
- *
- * @param string $plugin CamelCased/lower_cased plugin name to find the path of.
- * @return string full path to the plugin.
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::pluginPath
- * @deprecated 3.0.0 Use CakePlugin::path() instead.
- */
+	/**
+	 * Gets the path that a plugin is on. Searches through the defined plugin paths.
+	 *
+	 * Usage:
+	 *
+	 * `App::pluginPath('MyPlugin'); will return the full path to 'MyPlugin' plugin'`
+	 *
+	 * @param string $plugin CamelCased/lower_cased plugin name to find the path of.
+	 * @return string full path to the plugin.
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::pluginPath
+	 * @deprecated 3.0.0 Use CakePlugin::path() instead.
+	 */
 	public static function pluginPath($plugin) {
 		return CakePlugin::path($plugin);
 	}
 
-/**
- * Finds the path that a theme is on. Searches through the defined theme paths.
- *
- * Usage:
- *
- * `App::themePath('MyTheme'); will return the full path to the 'MyTheme' theme`
- *
- * @param string $theme theme name to find the path of.
- * @return string full path to the theme.
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::themePath
- */
+	/**
+	 * Finds the path that a theme is on. Searches through the defined theme paths.
+	 *
+	 * Usage:
+	 *
+	 * `App::themePath('MyTheme'); will return the full path to the 'MyTheme' theme`
+	 *
+	 * @param string $theme theme name to find the path of.
+	 * @return string full path to the theme.
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::themePath
+	 */
 	public static function themePath($theme) {
 		$themeDir = 'Themed' . DS . Inflector::camelize($theme);
 		foreach (self::$_packages['View'] as $path) {
@@ -388,44 +388,44 @@ class App {
 		return self::$_packages['View'][0] . $themeDir . DS;
 	}
 
-/**
- * Returns the full path to a package inside the CakePHP core
- *
- * Usage:
- *
- * `App::core('Cache/Engine'); will return the full path to the cache engines package`
- *
- * @param string $type Package type.
- * @return array full path to package
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::core
- */
+	/**
+	 * Returns the full path to a package inside the CakePHP core
+	 *
+	 * Usage:
+	 *
+	 * `App::core('Cache/Engine'); will return the full path to the cache engines package`
+	 *
+	 * @param string $type Package type.
+	 * @return array full path to package
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::core
+	 */
 	public static function core($type) {
 		return array(CAKE . str_replace('/', DS, $type) . DS);
 	}
 
-/**
- * Returns an array of objects of the given type.
- *
- * Example usage:
- *
- * `App::objects('plugin');` returns `array('DebugKit', 'Blog', 'User');`
- *
- * `App::objects('Controller');` returns `array('PagesController', 'BlogController');`
- *
- * You can also search only within a plugin's objects by using the plugin dot
- * syntax.
- *
- * `App::objects('MyPlugin.Model');` returns `array('MyPluginPost', 'MyPluginComment');`
- *
- * When scanning directories, files and directories beginning with `.` will be excluded as these
- * are commonly used by version control systems.
- *
- * @param string $type Type of object, i.e. 'Model', 'Controller', 'View/Helper', 'file', 'class' or 'plugin'
- * @param string|array $path Optional Scan only the path given. If null, paths for the chosen type will be used.
- * @param bool $cache Set to false to rescan objects of the chosen type. Defaults to true.
- * @return mixed Either false on incorrect / miss. Or an array of found objects.
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::objects
- */
+	/**
+	 * Returns an array of objects of the given type.
+	 *
+	 * Example usage:
+	 *
+	 * `App::objects('plugin');` returns `array('DebugKit', 'Blog', 'User');`
+	 *
+	 * `App::objects('Controller');` returns `array('PagesController', 'BlogController');`
+	 *
+	 * You can also search only within a plugin's objects by using the plugin dot
+	 * syntax.
+	 *
+	 * `App::objects('MyPlugin.Model');` returns `array('MyPluginPost', 'MyPluginComment');`
+	 *
+	 * When scanning directories, files and directories beginning with `.` will be excluded as these
+	 * are commonly used by version control systems.
+	 *
+	 * @param string $type Type of object, i.e. 'Model', 'Controller', 'View/Helper', 'file', 'class' or 'plugin'
+	 * @param string|array $path Optional Scan only the path given. If null, paths for the chosen type will be used.
+	 * @param bool $cache Set to false to rescan objects of the chosen type. Defaults to true.
+	 * @return mixed Either false on incorrect / miss. Or an array of found objects.
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::objects
+	 */
 	public static function objects($type, $path = null, $cache = true) {
 		if (empty(self::$_objects) && $cache === true) {
 			self::$_objects = (array)Cache::read('object_map', '_cake_core_');
@@ -503,34 +503,34 @@ class App {
 		return self::$_objects[$cacheLocation][$name];
 	}
 
-/**
- * Declares a package for a class. This package location will be used
- * by the automatic class loader if the class is tried to be used
- *
- * Usage:
- *
- * `App::uses('MyCustomController', 'Controller');` will setup the class to be found under Controller package
- *
- * `App::uses('MyHelper', 'MyPlugin.View/Helper');` will setup the helper class to be found in plugin's helper package
- *
- * @param string $className the name of the class to configure package for
- * @param string $location the package name
- * @return void
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::uses
- */
+	/**
+	 * Declares a package for a class. This package location will be used
+	 * by the automatic class loader if the class is tried to be used
+	 *
+	 * Usage:
+	 *
+	 * `App::uses('MyCustomController', 'Controller');` will setup the class to be found under Controller package
+	 *
+	 * `App::uses('MyHelper', 'MyPlugin.View/Helper');` will setup the helper class to be found in plugin's helper package
+	 *
+	 * @param string $className the name of the class to configure package for
+	 * @param string $location the package name
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::uses
+	 */
 	public static function uses($className, $location) {
 		self::$_classMap[$className] = $location;
 	}
 
-/**
- * Method to handle the automatic class loading. It will look for each class' package
- * defined using App::uses() and with this information it will resolve the package name to a full path
- * to load the class from. File name for each class should follow the class name. For instance,
- * if a class is name `MyCustomClass` the file name should be `MyCustomClass.php`
- *
- * @param string $className the name of the class to load
- * @return bool
- */
+	/**
+	 * Method to handle the automatic class loading. It will look for each class' package
+	 * defined using App::uses() and with this information it will resolve the package name to a full path
+	 * to load the class from. File name for each class should follow the class name. For instance,
+	 * if a class is name `MyCustomClass` the file name should be `MyCustomClass.php`
+	 *
+	 * @param string $className the name of the class to load
+	 * @return bool
+	 */
 	public static function load($className) {
 		if (!isset(self::$_classMap[$className])) {
 			return false;
@@ -571,13 +571,13 @@ class App {
 		return false;
 	}
 
-/**
- * Returns the package name where a class was defined to be located at
- *
- * @param string $className name of the class to obtain the package name from
- * @return string|null Package name, or null if not declared
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::location
- */
+	/**
+	 * Returns the package name where a class was defined to be located at
+	 *
+	 * @param string $className name of the class to obtain the package name from
+	 * @return string|null Package name, or null if not declared
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::location
+	 */
 	public static function location($className) {
 		if (!empty(self::$_classMap[$className])) {
 			return self::$_classMap[$className];
@@ -585,24 +585,24 @@ class App {
 		return null;
 	}
 
-/**
- * Finds classes based on $name or specific file(s) to search. Calling App::import() will
- * not construct any classes contained in the files. It will only find and require() the file.
- *
- * @param string|array $type The type of Class if passed as a string, or all params can be passed as
- *   a single array to $type.
- * @param string $name Name of the Class or a unique name for the file
- * @param bool|array $parent boolean true if Class Parent should be searched, accepts key => value
- *   array('parent' => $parent, 'file' => $file, 'search' => $search, 'ext' => '$ext');
- *   $ext allows setting the extension of the file name
- *   based on Inflector::underscore($name) . ".$ext";
- * @param array $search paths to search for files, array('path 1', 'path 2', 'path 3');
- * @param string $file full name of the file to search for including extension
- * @param bool $return Return the loaded file, the file must have a return
- *   statement in it to work: return $variable;
- * @return bool true if Class is already in memory or if file is found and loaded, false if not
- * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#including-files-with-app-import
- */
+	/**
+	 * Finds classes based on $name or specific file(s) to search. Calling App::import() will
+	 * not construct any classes contained in the files. It will only find and require() the file.
+	 *
+	 * @param string|array $type The type of Class if passed as a string, or all params can be passed as
+	 *   a single array to $type.
+	 * @param string $name Name of the Class or a unique name for the file
+	 * @param bool|array $parent boolean true if Class Parent should be searched, accepts key => value
+	 *   array('parent' => $parent, 'file' => $file, 'search' => $search, 'ext' => '$ext');
+	 *   $ext allows setting the extension of the file name
+	 *   based on Inflector::underscore($name) . ".$ext";
+	 * @param array $search paths to search for files, array('path 1', 'path 2', 'path 3');
+	 * @param string $file full name of the file to search for including extension
+	 * @param bool $return Return the loaded file, the file must have a return
+	 *   statement in it to work: return $variable;
+	 * @return bool true if Class is already in memory or if file is found and loaded, false if not
+	 * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#including-files-with-app-import
+	 */
 	public static function import($type = null, $name = null, $parent = true, $search = array(), $file = null, $return = false) {
 		$ext = null;
 
@@ -654,17 +654,17 @@ class App {
 		return false;
 	}
 
-/**
- * Helper function to include classes
- * This is a compatibility wrapper around using App::uses() and automatic class loading
- *
- * @param string $name unique name of the file for identifying it inside the application
- * @param string $plugin camel cased plugin name if any
- * @param string $type name of the packed where the class is located
- * @param string $originalType type name as supplied initially by the user
- * @param bool $parent whether to load the class parent or not
- * @return bool true indicating the successful load and existence of the class
- */
+	/**
+	 * Helper function to include classes
+	 * This is a compatibility wrapper around using App::uses() and automatic class loading
+	 *
+	 * @param string $name unique name of the file for identifying it inside the application
+	 * @param string $plugin camel cased plugin name if any
+	 * @param string $type name of the packed where the class is located
+	 * @param string $originalType type name as supplied initially by the user
+	 * @param bool $parent whether to load the class parent or not
+	 * @return bool true indicating the successful load and existence of the class
+	 */
 	protected static function _loadClass($name, $plugin, $type, $originalType, $parent) {
 		if ($type === 'Console/Command' && $name === 'Shell') {
 			$type = 'Console';
@@ -693,16 +693,16 @@ class App {
 		return class_exists($name);
 	}
 
-/**
- * Helper function to include single files
- *
- * @param string $name unique name of the file for identifying it inside the application
- * @param string $plugin camel cased plugin name if any
- * @param array $search list of paths to search the file into
- * @param string $file filename if known, the $name param will be used otherwise
- * @param bool $return whether this function should return the contents of the file after being parsed by php or just a success notice
- * @return mixed if $return contents of the file after php parses it, boolean indicating success otherwise
- */
+	/**
+	 * Helper function to include single files
+	 *
+	 * @param string $name unique name of the file for identifying it inside the application
+	 * @param string $plugin camel cased plugin name if any
+	 * @param array $search list of paths to search the file into
+	 * @param string $file filename if known, the $name param will be used otherwise
+	 * @param bool $return whether this function should return the contents of the file after being parsed by php or just a success notice
+	 * @return mixed if $return contents of the file after php parses it, boolean indicating success otherwise
+	 */
 	protected static function _loadFile($name, $plugin, $search, $file, $return) {
 		$mapped = self::_mapped($name, $plugin);
 		if ($mapped) {
@@ -731,15 +731,15 @@ class App {
 		return false;
 	}
 
-/**
- * Helper function to load files from vendors folders
- *
- * @param string $name unique name of the file for identifying it inside the application
- * @param string $plugin camel cased plugin name if any
- * @param string $file file name if known
- * @param string $ext file extension if known
- * @return bool true if the file was loaded successfully, false otherwise
- */
+	/**
+	 * Helper function to load files from vendors folders
+	 *
+	 * @param string $name unique name of the file for identifying it inside the application
+	 * @param string $plugin camel cased plugin name if any
+	 * @param string $file file name if known
+	 * @param string $ext file extension if known
+	 * @return bool true if the file was loaded successfully, false otherwise
+	 */
 	protected static function _loadVendor($name, $plugin, $file, $ext) {
 		if ($mapped = self::_mapped($name, $plugin)) {
 			return (bool)include_once $mapped;
@@ -767,24 +767,24 @@ class App {
 		return false;
 	}
 
-/**
- * Initializes the cache for App, registers a shutdown function.
- *
- * @return void
- */
+	/**
+	 * Initializes the cache for App, registers a shutdown function.
+	 *
+	 * @return void
+	 */
 	public static function init() {
 		self::$_map += (array)Cache::read('file_map', '_cake_core_');
 		register_shutdown_function(array('App', 'shutdown'));
 	}
 
-/**
- * Maps the $name to the $file.
- *
- * @param string $file full path to file
- * @param string $name unique name for this map
- * @param string $plugin camelized if object is from a plugin, the name of the plugin
- * @return void
- */
+	/**
+	 * Maps the $name to the $file.
+	 *
+	 * @param string $file full path to file
+	 * @param string $name unique name for this map
+	 * @param string $plugin camelized if object is from a plugin, the name of the plugin
+	 * @return void
+	 */
 	protected static function _map($file, $name, $plugin = null) {
 		$key = $name;
 		if ($plugin) {
@@ -801,13 +801,13 @@ class App {
 		}
 	}
 
-/**
- * Returns a file's complete path.
- *
- * @param string $name unique name
- * @param string $plugin camelized if object is from a plugin, the name of the plugin
- * @return mixed file path if found, false otherwise
- */
+	/**
+	 * Returns a file's complete path.
+	 *
+	 * @param string $name unique name
+	 * @param string $plugin camelized if object is from a plugin, the name of the plugin
+	 * @return mixed file path if found, false otherwise
+	 */
 	protected static function _mapped($name, $plugin = null) {
 		$key = $name;
 		if ($plugin) {
@@ -816,11 +816,11 @@ class App {
 		return isset(self::$_map[$key]) ? self::$_map[$key] : false;
 	}
 
-/**
- * Sets then returns the templates for each customizable package path
- *
- * @return array templates for each customizable package path
- */
+	/**
+	 * Sets then returns the templates for each customizable package path
+	 *
+	 * @return array templates for each customizable package path
+	 */
 	protected static function _packageFormat() {
 		if (empty(self::$_packageFormat)) {
 			self::$_packageFormat = array(
@@ -886,14 +886,14 @@ class App {
 		return self::$_packageFormat;
 	}
 
-/**
- * Object destructor.
- *
- * Writes cache file if changes have been made to the $_map. Also, check if a fatal
- * error happened and call the handler.
- *
- * @return void
- */
+	/**
+	 * Object destructor.
+	 *
+	 * Writes cache file if changes have been made to the $_map. Also, check if a fatal
+	 * error happened and call the handler.
+	 *
+	 * @return void
+	 */
 	public static function shutdown() {
 		if (self::$_cacheChange) {
 			Cache::write('file_map', array_filter(self::$_map), '_cake_core_');
@@ -904,11 +904,11 @@ class App {
 		self::_checkFatalError();
 	}
 
-/**
- * Check if a fatal error happened and trigger the configured handler if configured
- *
- * @return void
- */
+	/**
+	 * Check if a fatal error happened and trigger the configured handler if configured
+	 *
+	 * @return void
+	 */
 	protected static function _checkFatalError() {
 		$lastError = error_get_last();
 		if (!is_array($lastError)) {

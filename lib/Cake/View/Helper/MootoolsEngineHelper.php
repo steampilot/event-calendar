@@ -31,11 +31,11 @@ App::uses('JsBaseEngineHelper', 'View/Helper');
  */
 class MootoolsEngineHelper extends JsBaseEngineHelper {
 
-/**
- * Option mappings for MooTools
- *
- * @var array
- */
+	/**
+	 * Option mappings for MooTools
+	 *
+	 * @var array
+	 */
 	protected $_optionMap = array(
 		'request' => array(
 			'complete' => 'onComplete',
@@ -69,11 +69,11 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		)
 	);
 
-/**
- * Contains a list of callback names -> default arguments.
- *
- * @var array
- */
+	/**
+	 * Contains a list of callback names -> default arguments.
+	 *
+	 * @var array
+	 */
 	protected $_callbackArguments = array(
 		'slider' => array(
 			'onTick' => 'position',
@@ -114,12 +114,12 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		)
 	);
 
-/**
- * Create javascript selector for a CSS rule
- *
- * @param string $selector The selector that is targeted
- * @return $this
- */
+	/**
+	 * Create javascript selector for a CSS rule
+	 *
+	 * @param string $selector The selector that is targeted
+	 * @return $this
+	 */
 	public function get($selector) {
 		$this->_multipleSelection = false;
 		if ($selector === 'window' || $selector === 'document') {
@@ -135,19 +135,19 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		return $this;
 	}
 
-/**
- * Add an event to the script cache. Operates on the currently selected elements.
- *
- * ### Options
- *
- * - 'wrap' - Whether you want the callback wrapped in an anonymous function. (defaults true)
- * - 'stop' - Whether you want the event to stopped. (defaults true)
- *
- * @param string $type Type of event to bind to the current dom id
- * @param string $callback The JavaScript function you wish to trigger or the function literal
- * @param array $options Options for the event.
- * @return string completed event handler
- */
+	/**
+	 * Add an event to the script cache. Operates on the currently selected elements.
+	 *
+	 * ### Options
+	 *
+	 * - 'wrap' - Whether you want the callback wrapped in an anonymous function. (defaults true)
+	 * - 'stop' - Whether you want the event to stopped. (defaults true)
+	 *
+	 * @param string $type Type of event to bind to the current dom id
+	 * @param string $callback The JavaScript function you wish to trigger or the function literal
+	 * @param array $options Options for the event.
+	 * @return string completed event handler
+	 */
 	public function event($type, $callback, $options = array()) {
 		$defaults = array('wrap' => true, 'stop' => true);
 		$options += $defaults;
@@ -163,35 +163,35 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		return $out;
 	}
 
-/**
- * Create a domReady event. This is a special event in many libraries
- *
- * @param string $functionBody The code to run on domReady
- * @return string completed domReady method
- */
+	/**
+	 * Create a domReady event. This is a special event in many libraries
+	 *
+	 * @param string $functionBody The code to run on domReady
+	 * @return string completed domReady method
+	 */
 	public function domReady($functionBody) {
 		$this->selection = 'window';
 		return $this->event('domready', $functionBody, array('stop' => false));
 	}
 
-/**
- * Create an iteration over the current selection result.
- *
- * @param string $callback The function body you wish to apply during the iteration.
- * @return string completed iteration
- */
+	/**
+	 * Create an iteration over the current selection result.
+	 *
+	 * @param string $callback The function body you wish to apply during the iteration.
+	 * @return string completed iteration
+	 */
 	public function each($callback) {
 		return $this->selection . '.each(function (item, index) {' . $callback . '});';
 	}
 
-/**
- * Trigger an Effect.
- *
- * @param string $name The name of the effect to trigger.
- * @param array $options Array of options for the effect.
- * @return string completed string with effect.
- * @see JsBaseEngineHelper::effect()
- */
+	/**
+	 * Trigger an Effect.
+	 *
+	 * @param string $name The name of the effect to trigger.
+	 * @param array $options Array of options for the effect.
+	 * @return string completed string with effect.
+	 * @see JsBaseEngineHelper::effect()
+	 */
 	public function effect($name, $options = array()) {
 		$speed = null;
 		if (isset($options['speed']) && in_array($options['speed'], array('fast', 'slow'))) {
@@ -224,16 +224,16 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		return $this->selection . '.' . $effect . ';';
 	}
 
-/**
- * Create a new Request.
- *
- * Requires `Request`. If you wish to use 'update' key you must have ```Request.HTML```
- * if you wish to do Json requests you will need ```JSON``` and ```Request.JSON```.
- *
- * @param string|array $url URL
- * @param array $options Options list.
- * @return string The completed ajax call.
- */
+	/**
+	 * Create a new Request.
+	 *
+	 * Requires `Request`. If you wish to use 'update' key you must have ```Request.HTML```
+	 * if you wish to do Json requests you will need ```JSON``` and ```Request.JSON```.
+	 *
+	 * @param string|array $url URL
+	 * @param array $options Options list.
+	 * @return string The completed ajax call.
+	 */
 	public function request($url, $options = array()) {
 		$url = html_entity_decode($this->url($url), ENT_COMPAT, Configure::read('App.encoding'));
 		$options = $this->_mapOptions('request', $options);
@@ -263,48 +263,48 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		return "var jsRequest = new Request$type({{$options}}).send($data);";
 	}
 
-/**
- * Create a sortable element.
- *
- * Requires the `Sortables` plugin from MootoolsMore
- *
- * @param array $options Array of options for the sortable.
- * @return string Completed sortable script.
- * @see JsBaseEngineHelper::sortable() for options list.
- */
+	/**
+	 * Create a sortable element.
+	 *
+	 * Requires the `Sortables` plugin from MootoolsMore
+	 *
+	 * @param array $options Array of options for the sortable.
+	 * @return string Completed sortable script.
+	 * @see JsBaseEngineHelper::sortable() for options list.
+	 */
 	public function sortable($options = array()) {
 		$options = $this->_processOptions('sortable', $options);
 		return 'var jsSortable = new Sortables(' . $this->selection . ', {' . $options . '});';
 	}
 
-/**
- * Create a Draggable element.
- *
- * Requires the `Drag` plugin from MootoolsMore
- *
- * @param array $options Array of options for the draggable.
- * @return string Completed draggable script.
- * @see JsHelper::drag() for options list.
- */
+	/**
+	 * Create a Draggable element.
+	 *
+	 * Requires the `Drag` plugin from MootoolsMore
+	 *
+	 * @param array $options Array of options for the draggable.
+	 * @return string Completed draggable script.
+	 * @see JsHelper::drag() for options list.
+	 */
 	public function drag($options = array()) {
 		$options = $this->_processOptions('drag', $options);
 		return $this->selection . '.makeDraggable({' . $options . '});';
 	}
 
-/**
- * Create a Droppable element.
- *
- * Requires the `Drag` and `Drag.Move` plugins from MootoolsMore
- *
- * Droppables in Mootools function differently from other libraries. Droppables
- * are implemented as an extension of Drag. So in addition to making a get() selection for
- * the droppable element. You must also provide a selector rule to the draggable element. Furthermore,
- * Mootools droppables inherit all options from Drag.
- *
- * @param array $options Array of options for the droppable.
- * @return string Completed droppable script.
- * @see JsBaseEngineHelper::drop() for options list.
- */
+	/**
+	 * Create a Droppable element.
+	 *
+	 * Requires the `Drag` and `Drag.Move` plugins from MootoolsMore
+	 *
+	 * Droppables in Mootools function differently from other libraries. Droppables
+	 * are implemented as an extension of Drag. So in addition to making a get() selection for
+	 * the droppable element. You must also provide a selector rule to the draggable element. Furthermore,
+	 * Mootools droppables inherit all options from Drag.
+	 *
+	 * @param array $options Array of options for the droppable.
+	 * @return string Completed droppable script.
+	 * @see JsBaseEngineHelper::drop() for options list.
+	 */
 	public function drop($options = array()) {
 		if (empty($options['drag'])) {
 			trigger_error(
@@ -326,15 +326,15 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		return $out;
 	}
 
-/**
- * Create a slider control
- *
- * Requires `Slider` from MootoolsMore
- *
- * @param array $options Array of options for the slider.
- * @return string Completed slider script.
- * @see JsBaseEngineHelper::slider() for options list.
- */
+	/**
+	 * Create a slider control
+	 *
+	 * Requires `Slider` from MootoolsMore
+	 *
+	 * @param array $options Array of options for the slider.
+	 * @return string Completed slider script.
+	 * @see JsBaseEngineHelper::slider() for options list.
+	 */
 	public function slider($options = array()) {
 		$slider = $this->selection;
 		$this->get($options['handle']);
@@ -353,13 +353,13 @@ class MootoolsEngineHelper extends JsBaseEngineHelper {
 		return $out;
 	}
 
-/**
- * Serialize the form attached to $selector.
- *
- * @param array $options Array of options.
- * @return string Completed serializeForm() snippet
- * @see JsBaseEngineHelper::serializeForm()
- */
+	/**
+	 * Serialize the form attached to $selector.
+	 *
+	 * @param array $options Array of options.
+	 * @return string Completed serializeForm() snippet
+	 * @see JsBaseEngineHelper::serializeForm()
+	 */
 	public function serializeForm($options = array()) {
 		$options += array('isForm' => false, 'inline' => false);
 		$selection = $this->selection;
