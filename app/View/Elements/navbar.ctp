@@ -76,10 +76,9 @@
 					</div>
 				</li>
 				<li<?php echo ($strActiveNavbar == 'dashbaord') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/'); ?>"><i class="fa fa-home"></i> <?php wh(__('Dashboard')); ?></a></li>
-				<li<?php echo ($strActiveNavbar == 'customer') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/customers'); ?>"><i class="fa fa-user"></i> <?php wh(__('Customers')); ?></a></li>
-				<li<?php echo ($strActiveNavbar == 'sale') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/sales'); ?>"><i class="fa fa-money"></i> <?php wh(__('Sales')); ?></a></li>
-				<li<?php echo ($strActiveNavbar == 'article') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/articles'); ?>"><i class="fa fa-bus"></i> <?php wh(__('Articles')); ?></a></li>
-				<li<?php echo ($strActiveNavbar == 'statistic') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/statistics'); ?>"><i class="fa fa-bar-chart"></i> <?php wh(__('Statistics')); ?></a></li>
+				<li<?php echo ($strActiveNavbar == 'Events') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/events'); ?>"><i class="fa fa-user"></i> <?php wh(__('Events')); ?></a></li>
+				<li<?php echo ($strActiveNavbar == 'Genres') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/genres'); ?>"><i class="fa fa-money"></i> <?php wh(__('Genres')); ?></a></li>
+				<li<?php echo ($strActiveNavbar == 'Price Categories') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/price_categories'); ?>"><i class="fa fa-bus"></i> <?php wh(__('Price Categories')); ?></a></li>
 				<!--
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list-ul"></i> <?php wh(__('Master data')); ?> <span class="caret"></span></a>
