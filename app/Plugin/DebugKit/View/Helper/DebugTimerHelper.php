@@ -24,20 +24,20 @@ App::uses('Helper', 'View');
  */
 class DebugTimerHelper extends Helper {
 
-	/**
-	 * Set to true when rendering is complete.
-	 * Used to not add timers for rendering the toolbar.
-	 *
-	 * @var boolean
-	 */
+/**
+ * Set to true when rendering is complete.
+ * Used to not add timers for rendering the toolbar.
+ *
+ * @var boolean
+ */
 	protected $_renderComplete = false;
 
-	/**
-	 * Constructor
-	 *
-	 * @param View $View
-	 * @param array $settings
-	 */
+/**
+ * Constructor
+ *
+ * @param View $View
+ * @param array $settings
+ */
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 		DebugTimer::start(
@@ -46,11 +46,11 @@ class DebugTimerHelper extends Helper {
 		);
 	}
 
-	/**
-	 * Sets a timer point before rendering a file.
-	 *
-	 * @param string $viewFile The view being rendered
-	 */
+/**
+ * Sets a timer point before rendering a file.
+ *
+ * @param string $viewFile The view being rendered
+ */
 	public function beforeRenderFile($viewFile) {
 		if ($this->_renderComplete) {
 			return;
@@ -58,16 +58,16 @@ class DebugTimerHelper extends Helper {
 		DebugTimer::start(
 			'render_' . basename($viewFile),
 			__d('debug_kit', 'Rendering %s',
-				Debugger::trimPath($viewFile))
+			Debugger::trimPath($viewFile))
 		);
 	}
 
-	/**
-	 * Stops the timer point before rendering a file.
-	 *
-	 * @param string $viewFile The view being rendered
-	 * @param string $content The contents of the view.
-	 */
+/**
+ * Stops the timer point before rendering a file.
+ *
+ * @param string $viewFile The view being rendered
+ * @param string $content The contents of the view.
+ */
 	public function afterRenderFile($viewFile, $content) {
 		if ($this->_renderComplete) {
 			return;
@@ -75,11 +75,11 @@ class DebugTimerHelper extends Helper {
 		DebugTimer::stop('render_' . basename($viewFile));
 	}
 
-	/**
-	 * Stop timers for rendering.
-	 *
-	 * @param string $layoutFile
-	 */
+/**
+ * Stop timers for rendering.
+ *
+ * @param string $layoutFile
+ */
 	public function afterLayout($layoutFile) {
 		DebugTimer::stop('viewRender');
 		DebugTimer::stop('controllerRender');

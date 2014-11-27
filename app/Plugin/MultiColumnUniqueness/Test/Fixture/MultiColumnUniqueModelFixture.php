@@ -17,17 +17,17 @@
  */
 class MultiColumnUniqueModelFixture extends CakeTestFixture {
 
-	/**
-	 * Table schema
-	 *
-	 * 1. A pair of integer fields
-	 * 2. A pair of string fields
-	 * 3. A pair of boolean fields
-	 * 4. A pair of datetime fields
-	 * 5. A pair of float fields
-	 *
-	 * @var array
-	 */
+/**
+ * Table schema
+ *
+ * 1. A pair of integer fields
+ * 2. A pair of string fields
+ * 3. A pair of boolean fields
+ * 4. A pair of datetime fields
+ * 5. A pair of float fields
+ *
+ * @var array
+ */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'length' => 11, 'key' => 'primary'),
 		'integer1' => array('type' => 'integer', 'null' => true),
@@ -42,20 +42,20 @@ class MultiColumnUniqueModelFixture extends CakeTestFixture {
 		'float2' => array('type' => 'float', 'null' => true, 'length' => '9'),
 	);
 
-	/**
-	 * Fixture records
-	 *
-	 * There is a system behind this data:
-	 * 1. Both fields are NULL
-	 * 2. First field filled, second NULL
-	 * 3. First field NULL, second filled
-	 * 4. Both fields "filled" with empty or zero values
-	 * 5. Both fields filled with non-empty or non-zero values
-	 * 6. First field "filled" with empty or zero value, second filled with non-empty or non-zero value
-	 * 7. First field filled with non-empty or non-zero value, second "filled" with empty or zero value
-	 *
-	 * @var array
-	 */
+/**
+ * Fixture records
+ *
+ * There is a system behind this data:
+ * 1. Both fields are NULL
+ * 2. First field filled, second NULL
+ * 3. First field NULL, second filled
+ * 4. Both fields "filled" with empty or zero values
+ * 5. Both fields filled with non-empty or non-zero values
+ * 6. First field "filled" with empty or zero value, second filled with non-empty or non-zero value
+ * 7. First field filled with non-empty or non-zero value, second "filled" with empty or zero value
+ *
+ * @var array
+ */
 	public $records = array(
 		array('id' => 1,
 			'integer1' => null, 'integer2' => null,

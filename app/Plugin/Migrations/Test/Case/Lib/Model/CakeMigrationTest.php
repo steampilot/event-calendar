@@ -18,11 +18,11 @@ App::uses('MigrationVersion', 'Migrations.Lib');
  */
 class TestCakeMigration extends CakeMigration {
 
-	/**
-	 * Connection used
-	 *
-	 * @var string
-	 */
+/**
+ * Connection used
+ *
+ * @var string
+ */
 	public $connection = 'test';
 }
 
@@ -32,55 +32,55 @@ class TestCakeMigration extends CakeMigration {
  */
 class TestCallbackCakeMigration {
 
-	/**
-	 * Calls property
-	 *
-	 * @var array
-	 */
+/**
+ * Calls property
+ *
+ * @var array
+ */
 	public $calls = array();
 
-	/**
-	 * BeforeMigration method
-	 *
-	 * @param $Migration
-	 * @param $type
-	 * @return void
-	 */
+/**
+ * BeforeMigration method
+ *
+ * @param $Migration
+ * @param $type
+ * @return void
+ */
 	public function beforeMigration(&$Migration, $type) {
 		$this->calls[$Migration->direction]['beforeMigration'] = $type;
 	}
 
-	/**
-	 * AfterMigration method
-	 *
-	 * @param $Migration
-	 * @param $type
-	 * @return void
-	 */
+/**
+ * AfterMigration method
+ *
+ * @param $Migration
+ * @param $type
+ * @return void
+ */
 	public function afterMigration(&$Migration, $type) {
 		$this->calls[$Migration->direction]['afterMigration'] = $type;
 	}
 
-	/**
-	 * BeforeAction method
-	 *
-	 * @param $Migration
-	 * @param $type
-	 * @param $data
-	 * @return void
-	 */
+/**
+ * BeforeAction method
+ *
+ * @param $Migration
+ * @param $type
+ * @param $data
+ * @return void
+ */
 	public function beforeAction(&$Migration, $type, $data) {
 		$this->calls[$Migration->direction]['beforeAction'][] = array('type' => $type, 'data' => $data);
 	}
 
-	/**
-	 * AfterAction method
-	 *
-	 * @param $Migration
-	 * @param $type
-	 * @param $data
-	 * @return void
-	 */
+/**
+ * AfterAction method
+ *
+ * @param $Migration
+ * @param $type
+ * @param $data
+ * @return void
+ */
 	public function afterAction(&$Migration, $type, $data) {
 		$this->calls[$Migration->direction]['afterAction'][] = array('type' => $type, 'data' => $data);
 	}
@@ -93,26 +93,26 @@ class TestCallbackCakeMigration {
  */
 class CakeMigrationTest extends CakeTestCase {
 
-	/**
-	 * Fixtures property
-	 *
-	 * @var array
-	 */
+/**
+ * Fixtures property
+ *
+ * @var array
+ */
 	public $fixtures = array(
 		'core.user', 'core.post');
 
-	/**
-	 * AutoFixtures property
-	 *
-	 * @var array
-	 */
+/**
+ * AutoFixtures property
+ *
+ * @var array
+ */
 	public $autoFixtures = false;
 
-	/**
-	 * Tables property
-	 *
-	 * @var array
-	 */
+/**
+ * Tables property
+ *
+ * @var array
+ */
 	public $tables = array(
 		'users' => array(
 			'id' => array('type' => 'integer', 'key' => 'primary'),
@@ -132,27 +132,27 @@ class CakeMigrationTest extends CakeTestCase {
 		)
 	);
 
-	/**
-	 * @var DboSource
-	 */
+/**
+ * @var DboSource
+ */
 	public $db;
 
-	/**
-	 * Start test
-	 *
-	 * @return void
-	 */
+/**
+ * Start test
+ *
+ * @return void
+ */
 	public function setUp() {
 		parent::setUp();
 
 		Configure::write('Config.language', 'en');
 	}
 
-	/**
-	 * TestCreateTable method
-	 *
-	 * @return void
-	 */
+/**
+ * TestCreateTable method
+ *
+ * @return void
+ */
 	public function testCreateDropTable() {
 		$migration = new TestCakeMigration(array(
 			'up' => array('create_table' => array('migration_posts' => $this->tables['posts'], 'migration_users' => $this->tables['users'])),
@@ -180,11 +180,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertFalse(in_array($this->db->fullTableName('migration_posts', false, false), $sources));
 	}
 
-	/**
-	 * Test create and drop tables with a prefix
-	 *
-	 * @return void
-	 */
+/**
+ * Test create and drop tables with a prefix
+ *
+ * @return void
+ */
 	public function testRunDownWithPrefix() {
 		$options = ConnectionManager::getDataSource('test')->config;
 		$prefix = 'prefix_';
@@ -211,11 +211,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertFalse(in_array($this->db->fullTableName($prefix . 'migration_posts', false, false), $sources));
 	}
 
-	/**
-	 * TestRenameTable method
-	 *
-	 * @return void
-	 */
+/**
+ * TestRenameTable method
+ *
+ * @return void
+ */
 	public function testRenameTable() {
 		$this->loadFixtures('User', 'Post');
 
@@ -246,11 +246,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertFalse(in_array($this->db->fullTableName('renamed_posts', false, false), $sources));
 	}
 
-	/**
-	 * TestCreateDropField method
-	 *
-	 * @return void
-	 */
+/**
+ * TestCreateDropField method
+ *
+ * @return void
+ */
 	public function testCreateDropField() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -292,11 +292,11 @@ class CakeMigrationTest extends CakeTestCase {
 		}
 	}
 
-	/**
-	 * TestCreateDropIndex method
-	 *
-	 * @return void
-	 */
+/**
+ * TestCreateDropIndex method
+ *
+ * @return void
+ */
 	public function testCreateDropIndex() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -349,10 +349,10 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertFalse(isset($fields['views']));
 	}
 
-	/**
-	 * Test alter index (changing column of an index). Issue #26
-	 * @return void
-	 */
+/**
+ * Test alter index (changing column of an index). Issue #26
+ * @return void
+ */
 	public function testAlterIndex() {
 		$this->loadFixtures('Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -363,26 +363,26 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertFalse(array_key_exists('key', $fields['published']));
 		$this->assertFalse(array_key_exists('key', $fields['title']));
 		$migration = new TestCakeMigration(array(
-				'up' => array(
-					'drop_field' => array(
-						'posts' => array('title')
-					),
-					'create_field' => array(
-						'posts' => array(
-							'title' => array('type' => 'string', 'null' => false, 'length' => 255),
-							'indexes' => array('NEW_INDEX' => array('column' => 'title', 'unique' => false))
-						)
-					)
+			'up' => array(
+				'drop_field' => array(
+					'posts' => array('title')
 				),
-				'down' => array(
-					'drop_field' => array(
-						'posts' => array('title', 'indexes' => array('NEW_INDEX'))
-					),
-					'create_field' => array(
-						'posts' => array(
-							'title' => array('type' => 'string', 'null' => false, 'length' => 255, 'after' => 'author_id'),
-						)
+				'create_field' => array(
+					'posts' => array(
+						'title' => array('type' => 'string', 'null' => false, 'length' => 255),
+						'indexes' => array('NEW_INDEX' => array('column' => 'title', 'unique' => false))
 					)
+				)
+			),
+			'down' => array(
+				'drop_field' => array(
+					'posts' => array('title', 'indexes' => array('NEW_INDEX'))
+				),
+				'create_field' => array(
+					'posts' => array(
+						'title' => array('type' => 'string', 'null' => false, 'length' => 255, 'after' => 'author_id'),
+					)
+				)
 				)
 			)
 		);
@@ -394,29 +394,29 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertEquals($indexes['NEW_INDEX']['unique'], 0);
 
 		$migration2 = new TestCakeMigration(array(
-				'up' => array(
-					'drop_field' => array(
-						'posts' => array('published', 'title', 'indexes' => array('NEW_INDEX'))
-					),
-					'create_field' => array(
-						'posts' => array(
-							'published' => array('type' => 'string', 'null' => true, 'length' => 1, 'default' => 'N'),
-							'title' => array('type' => 'string', 'null' => false, 'length' => 255),
-							'indexes' => array('NEW_INDEX' => array('column' => 'published', 'unique' => false))
-						)
-					)
+			'up' => array(
+				'drop_field' => array(
+					'posts' => array('published', 'title', 'indexes' => array('NEW_INDEX'))
 				),
-				'down' => array(
-					'drop_field' => array(
-						'posts' => array('published', 'title', 'indexes' => array('NEW_INDEX'))
-					),
-					'create_field' => array(
-						'posts' => array(
-							'title' => array('type' => 'string', 'null' => false, 'length' => 255),
-							'published' => array('type' => 'string', 'null' => true, 'length' => 1, 'default' => 'N', 'after' => 'body'),
-							'indexes' => array('NEW_INDEX' => array('column' => 'title', 'unique' => false))
-						)
+				'create_field' => array(
+					'posts' => array(
+						'published' => array('type' => 'string', 'null' => true, 'length' => 1, 'default' => 'N'),
+						'title' => array('type' => 'string', 'null' => false, 'length' => 255),
+						'indexes' => array('NEW_INDEX' => array('column' => 'published', 'unique' => false))
 					)
+				)
+			),
+			'down' => array(
+				'drop_field' => array(
+					'posts' => array('published', 'title', 'indexes' => array('NEW_INDEX'))
+				),
+				'create_field' => array(
+					'posts' => array(
+						'title' => array('type' => 'string', 'null' => false, 'length' => 255),
+						'published' => array('type' => 'string', 'null' => true, 'length' => 1, 'default' => 'N', 'after' => 'body'),
+						'indexes' => array('NEW_INDEX' => array('column' => 'title', 'unique' => false))
+					)
+				)
 				)
 			)
 		);
@@ -446,10 +446,10 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertFalse(array_key_exists('key', $fields['title']));
 	}
 
-	/**
-	 * TestAlterField method
-	 * @return void
-	 */
+/**
+ * TestAlterField method
+ * @return void
+ */
 	public function testAlterField() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -488,9 +488,9 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertEquals($fields['published']['default'], 'N');
 	}
 
-	/**
-	 * Test the change of fields type.
-	 */
+/**
+ * Test the change of fields type.
+ */
 	public function testAlterFieldType() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -516,11 +516,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertEquals($fields['published']['type'], 'string');
 	}
 
-	/**
-	 * TestAlterFieldLength method
-	 *
-	 * @return void
-	 */
+/**
+ * TestAlterFieldLength method
+ *
+ * @return void
+ */
 	public function testAlterFieldLength() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -553,11 +553,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertNull($fields['created']['length']);
 	}
 
-	/**
-	 * TestAlterAndRenameField method
-	 *
-	 * @return void
-	 */
+/**
+ * TestAlterAndRenameField method
+ *
+ * @return void
+ */
 	public function testAlterAndRenameField() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -593,11 +593,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertEquals($fields['published']['default'], 'N');
 	}
 
-	/**
-	 * TestRenameField method
-	 *
-	 * @return void
-	 */
+/**
+ * TestRenameField method
+ *
+ * @return void
+ */
 	public function testRenameField() {
 		$this->loadFixtures('User', 'Post');
 		$model = new Model(array('table' => 'posts', 'ds' => 'test'));
@@ -638,11 +638,11 @@ class CakeMigrationTest extends CakeTestCase {
 		}
 	}
 
-	/**
-	 * TestCallbacks method
-	 *
-	 * @return void
-	 */
+/**
+ * TestCallbacks method
+ *
+ * @return void
+ */
 	public function testCallbacks() {
 		$this->loadFixtures('User');
 
@@ -743,11 +743,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertFalse(in_array($this->db->fullTableName('migration_categories', false, false), $sources));
 	}
 
-	/**
-	 * TestGenerateModel method
-	 *
-	 * @return void
-	 */
+/**
+ * TestGenerateModel method
+ *
+ * @return void
+ */
 	public function testGenerateModel() {
 		$migration = new TestCakeMigration();
 
@@ -762,11 +762,11 @@ class CakeMigrationTest extends CakeTestCase {
 		$this->assertEquals($return->table, 'users');
 	}
 
-	/**
-	 * Test run method with invalid syntaxes
-	 *
-	 * @return void
-	 */
+/**
+ * Test run method with invalid syntaxes
+ *
+ * @return void
+ */
 	public function testRunInvalidSyntaxes() {
 		$migration = new TestCakeMigration(array(
 			'up' => array('do_something' => array('posts' => array('updated' => 'renamed_updated'))),

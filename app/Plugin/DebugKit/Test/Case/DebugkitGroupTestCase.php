@@ -21,21 +21,21 @@
  */
 class DebugKitGroupTestCase extends PHPUnit_Framework_TestSuite {
 
-	/**
-	 * Constructor
-	 */
+/**
+ * Constructor
+ */
 	public function __construct() {
 		$label = Inflector::humanize(Inflector::underscore(get_class($this)));
 		parent::__construct($label);
 	}
 
-	/**
-	 * Get Test Files
-	 *
-	 * @param null $directory
-	 * @param null $excludes
-	 * @return array
-	 */
+/**
+ * Get Test Files
+ *
+ * @param null $directory
+ * @param null $excludes
+ * @return array
+ */
 	public static function getTestFiles($directory = null, $excludes = null) {
 		if (is_array($directory)) {
 			$files = array();

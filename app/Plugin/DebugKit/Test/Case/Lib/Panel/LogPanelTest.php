@@ -24,32 +24,32 @@ App::uses('Controller', 'Controller');
  */
 class LogPanelTest extends CakeTestCase {
 
-	/**
-	 * set up
-	 *
-	 * @return void
-	 */
+/**
+ * set up
+ *
+ * @return void
+ */
 	public function setUp() {
 		parent::setUp();
 		$this->panel = new LogPanel();
 	}
 
-	/**
-	 * Test that logging configs are created.
-	 *
-	 * @return void
-	 */
+/**
+ * Test that logging configs are created.
+ *
+ * @return void
+ */
 	public function testConstructor() {
 		$result = CakeLog::configured();
 		$this->assertContains('debug_kit_log_panel', $result);
 		$this->assertTrue(count($result) > 1, 'Default loggers were not added.');
 	}
 
-	/**
-	 * testBeforeRender
-	 *
-	 * @return void
-	 */
+/**
+ * testBeforeRender
+ *
+ * @return void
+ */
 	public function testBeforeRender() {
 		$controller = new Controller();
 

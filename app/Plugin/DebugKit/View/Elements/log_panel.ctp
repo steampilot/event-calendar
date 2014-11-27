@@ -18,10 +18,10 @@
 ?>
 <h2><?php echo __d('debug_kit', 'Logs') ?></h2>
 <div class="code-table">
-	<?php if ($content instanceof DebugKitLog): ?>
-		<?php foreach ($content->logs as $logName => $logs): ?>
-			<h3><?php echo $logName ?></h3>
-			<?php
+<?php if ($content instanceof DebugKitLog): ?>
+	<?php foreach ($content->logs as $logName => $logs): ?>
+		<h3><?php echo $logName ?></h3>
+		<?php
 			$len = count($logs);
 			if ($len > 0):
 				$headers = array(__d('debug_kit', 'Time'), __d('debug_kit', 'Message'));
@@ -33,9 +33,9 @@
 				endfor;
 				echo $this->Toolbar->table($rows, $headers, array('title' => $logName));
 			endif; ?>
-		<?php endforeach; ?>
-		<?php if (empty($content->logs)): ?>
-			<p class="info"><?php echo __d('debug_kit', 'There were no log entries made this request'); ?></p>
-		<?php endif; ?>
+	<?php endforeach; ?>
+	<?php if (empty($content->logs)): ?>
+		<p class="info"><?php echo __d('debug_kit', 'There were no log entries made this request'); ?></p>
 	<?php endif; ?>
+<?php endif; ?>
 </div>

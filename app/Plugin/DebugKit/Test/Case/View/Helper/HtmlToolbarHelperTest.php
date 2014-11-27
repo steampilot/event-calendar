@@ -32,9 +32,9 @@ App::uses('FormHelper', 'View/Helper');
  */
 class HtmlToolbarHelperTestCase extends CakeTestCase {
 
-	/**
-	 * Setup Test Case
-	 */
+/**
+ * Setup Test Case
+ */
 	public static function setupBeforeClass() {
 		App::build(array(
 			'View' => array(
@@ -45,18 +45,18 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		), true);
 	}
 
-	/**
-	 * Tear Down Test Case
-	 */
+/**
+ * Tear Down Test Case
+ */
 	public static function tearDownAfterClass() {
 		App::build();
 	}
 
-	/**
-	 * Setup
-	 *
-	 * @return void
-	 */
+/**
+ * Setup
+ *
+ * @return void
+ */
 	public function setUp() {
 		parent::setUp();
 
@@ -73,27 +73,27 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->Toolbar->HtmlToolbar->Form = new FormHelper($this->View);
 	}
 
-	/**
-	 * Tear Down
-	 *
-	 * @return void
-	 */
+/**
+ * Tear Down
+ *
+ * @return void
+ */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Toolbar, $this->Controller);
 	}
 
-	/**
-	 * Test makeNeatArray with basic types.
-	 *
-	 * @return void
-	 */
+/**
+ * Test makeNeatArray with basic types.
+ *
+ * @return void
+ */
 	public function testMakeNeatArrayBasic() {
 		$in = false;
 		$result = $this->Toolbar->makeNeatArray($in);
 		$expected = array(
 			'ul' => array('class' => 'neat-array depth-0'),
-			'<li', '<strong', '0', '/strong', '(false)', '/li',
+			'<li', '<strong', '0' , '/strong', '(false)', '/li',
 			'/ul'
 		);
 		$this->assertTags($result, $expected);
@@ -102,7 +102,7 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$result = $this->Toolbar->makeNeatArray($in);
 		$expected = array(
 			'ul' => array('class' => 'neat-array depth-0'),
-			'<li', '<strong', '0', '/strong', '(null)', '/li',
+			'<li', '<strong', '0' , '/strong', '(null)', '/li',
 			'/ul'
 		);
 		$this->assertTags($result, $expected);
@@ -111,7 +111,7 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$result = $this->Toolbar->makeNeatArray($in);
 		$expected = array(
 			'ul' => array('class' => 'neat-array depth-0'),
-			'<li', '<strong', '0', '/strong', '(true)', '/li',
+			'<li', '<strong', '0' , '/strong', '(true)', '/li',
 			'/ul'
 		);
 		$this->assertTags($result, $expected);
@@ -120,17 +120,17 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$result = $this->Toolbar->makeNeatArray($in);
 		$expected = array(
 			'ul' => array('class' => 'neat-array depth-0'),
-			'<li', '<strong', '0', '/strong', '(empty)', '/li',
+			'<li', '<strong', '0' , '/strong', '(empty)', '/li',
 			'/ul'
 		);
 		$this->assertTags($result, $expected);
 	}
 
-	/**
-	 * Test that cyclic references can be printed.
-	 *
-	 * @return void
-	 */
+/**
+ * Test that cyclic references can be printed.
+ *
+ * @return void
+ */
 	public function testMakeNeatArrayCyclicObjects() {
 		$a = new StdClass;
 		$b = new StdClass;
@@ -157,11 +157,11 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-	/**
-	 * Test Neat Array formatting
-	 *
-	 * @return void
-	 */
+/**
+ * Test Neat Array formatting
+ *
+ * @return void
+ */
 	public function testMakeNeatArray() {
 		$in = array('key' => 'value');
 		$result = $this->Toolbar->makeNeatArray($in);
@@ -203,11 +203,11 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 			'ul' => array('class' => 'neat-array depth-0'),
 			'<li', '<strong', 'key', '/strong', 'value', '/li',
 			'<li', '<strong', 'foo', '/strong',
-			'(array)',
-			array('ul' => array('class' => 'neat-array depth-1')),
-			'<li', '<strong', 'this', '/strong', 'deep', '/li',
-			'<li', '<strong', 'another', '/strong', 'value', '/li',
-			'/ul',
+				'(array)',
+				array('ul' => array('class' => 'neat-array depth-1')),
+				'<li', '<strong', 'this', '/strong', 'deep', '/li',
+				'<li', '<strong', 'another', '/strong', 'value', '/li',
+				'/ul',
 			'/li',
 			'/ul'
 		);
@@ -229,18 +229,18 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 			'ul' => array('class' => 'neat-array depth-0 expanded'),
 			'<li', '<strong', 'key', '/strong', 'value', '/li',
 			'<li', '<strong', 'foo', '/strong',
-			'(array)',
-			array('ul' => array('class' => 'neat-array depth-1')),
-			'<li', '<strong', 'this', '/strong', 'deep', '/li',
-			'<li', '<strong', 'another', '/strong', 'value', '/li',
-			'/ul',
+				'(array)',
+				array('ul' => array('class' => 'neat-array depth-1')),
+				'<li', '<strong', 'this', '/strong', 'deep', '/li',
+				'<li', '<strong', 'another', '/strong', 'value', '/li',
+				'/ul',
 			'/li',
 			'<li', '<strong', 'lotr', '/strong',
-			'(array)',
-			array('ul' => array('class' => 'neat-array depth-1')),
-			'<li', '<strong', 'gandalf', '/strong', 'wizard', '/li',
-			'<li', '<strong', 'bilbo', '/strong', 'hobbit', '/li',
-			'/ul',
+				'(array)',
+				array('ul' => array('class' => 'neat-array depth-1')),
+				'<li', '<strong', 'gandalf', '/strong', 'wizard', '/li',
+				'<li', '<strong', 'bilbo', '/strong', 'hobbit', '/li',
+				'/ul',
 			'/li',
 			'/ul'
 		);
@@ -251,18 +251,18 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 			'ul' => array('class' => 'neat-array depth-0 expanded'),
 			'<li', '<strong', 'key', '/strong', 'value', '/li',
 			'<li', '<strong', 'foo', '/strong',
-			'(array)',
-			array('ul' => array('class' => 'neat-array depth-1 expanded')),
-			'<li', '<strong', 'this', '/strong', 'deep', '/li',
-			'<li', '<strong', 'another', '/strong', 'value', '/li',
-			'/ul',
+				'(array)',
+				array('ul' => array('class' => 'neat-array depth-1 expanded')),
+				'<li', '<strong', 'this', '/strong', 'deep', '/li',
+				'<li', '<strong', 'another', '/strong', 'value', '/li',
+				'/ul',
 			'/li',
 			'<li', '<strong', 'lotr', '/strong',
-			'(array)',
-			array('ul' => array('class' => 'neat-array depth-1 expanded')),
-			'<li', '<strong', 'gandalf', '/strong', 'wizard', '/li',
-			'<li', '<strong', 'bilbo', '/strong', 'hobbit', '/li',
-			'/ul',
+				'(array)',
+				array('ul' => array('class' => 'neat-array depth-1 expanded')),
+				'<li', '<strong', 'gandalf', '/strong', 'wizard', '/li',
+				'<li', '<strong', 'bilbo', '/strong', 'hobbit', '/li',
+				'/ul',
 			'/li',
 			'/ul'
 		);
@@ -279,11 +279,11 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-	/**
-	 * Test makeNeatArray with object inputs.
-	 *
-	 * @return void
-	 */
+/**
+ * Test makeNeatArray with object inputs.
+ *
+ * @return void
+ */
 	public function testMakeNeatArrayObjects() {
 		$in = new StdClass();
 		$in->key = 'value';
@@ -305,11 +305,11 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-	/**
-	 * Test injection of toolbar
-	 *
-	 * @return void
-	 */
+/**
+ * Test injection of toolbar
+ *
+ * @return void
+ */
 	public function testInjectToolbar() {
 		$this->Controller->viewPath = 'Posts';
 		$request = new CakeRequest('/posts/index');
@@ -332,11 +332,11 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->assertPattern('#<div id\="debug-kit-toolbar">.+</div>.*</body>#', $result);
 	}
 
-	/**
-	 * test injection of javascript
-	 *
-	 * @return void
-	 */
+/**
+ * test injection of javascript
+ *
+ * @return void
+ */
 	public function testJavascriptInjection() {
 		$this->Controller->viewPath = 'Posts';
 		$this->Controller->uses = null;
@@ -359,31 +359,31 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->assertPattern('#<script\s*type="text/javascript"\s*src="/debug_kit/js/js_debug_toolbar.js(?:\?\d*?)?"\s*>\s?</script>#', $result);
 	}
 
-	/**
-	 * test message creation
-	 *
-	 * @return void
-	 */
+/**
+ * test message creation
+ *
+ * @return void
+ */
 	public function testMessage() {
 		$result = $this->Toolbar->message('test', 'one, two');
 		$expected = array(
 			'<p',
-			'<strong', 'test', '/strong',
-			' one, two',
+				'<strong', 'test', '/strong',
+				' one, two',
 			'/p',
 		);
 		$this->assertTags($result, $expected);
 	}
 
-	/**
-	 * Test Table generation
-	 *
-	 * @return void
-	 */
+/**
+ * Test Table generation
+ *
+ * @return void
+ */
 	public function testTable() {
 		$rows = array(
-			array(1, 2),
-			array(3, 4),
+			array(1,2),
+			array(3,4),
 		);
 		$result = $this->Toolbar->table($rows);
 		$expected = array(
@@ -401,11 +401,11 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-	/**
-	 * test starting a panel
-	 *
-	 * @return void
-	 */
+/**
+ * test starting a panel
+ *
+ * @return void
+ */
 	public function testStartPanel() {
 		$result = $this->Toolbar->panelStart('My Panel', 'my_panel');
 		$expected = array(
@@ -416,21 +416,21 @@ class HtmlToolbarHelperTestCase extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-	/**
-	 * test ending a panel
-	 *
-	 * @return void
-	 */
+/**
+ * test ending a panel
+ *
+ * @return void
+ */
 	public function testPanelEnd() {
 		$result = $this->Toolbar->panelEnd();
 		$this->assertNull($result);
 	}
 
-	/**
-	 * Test generating links for query explains.
-	 *
-	 * @return void
-	 */
+/**
+ * Test generating links for query explains.
+ *
+ * @return void
+ */
 	public function testExplainLink() {
 		$sql = 'SELECT * FROM tasks';
 		$result = $this->Toolbar->explainLink($sql, 'default');

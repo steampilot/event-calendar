@@ -24,42 +24,42 @@ App::uses('DebugKitAppController', 'DebugKit.Controller');
  */
 class ToolbarAccessController extends DebugKitAppController {
 
-	/**
-	 * name
-	 *
-	 * @var string
-	 */
+/**
+ * name
+ *
+ * @var string
+ */
 	public $name = 'ToolbarAccess';
 
-	/**
-	 * Helpers
-	 *
-	 * @var array
-	 */
+/**
+ * Helpers
+ *
+ * @var array
+ */
 	public $helpers = array(
 		'DebugKit.Toolbar' => array('output' => 'DebugKit.HtmlToolbar'),
 		'Js', 'Number', 'DebugKit.SimpleGraph'
 	);
 
-	/**
-	 * Components
-	 *
-	 * @var array
-	 */
+/**
+ * Components
+ *
+ * @var array
+ */
 	public $components = array('RequestHandler', 'DebugKit.Toolbar');
 
-	/**
-	 * Uses
-	 *
-	 * @var array
-	 */
+/**
+ * Uses
+ *
+ * @var array
+ */
 	public $uses = array('DebugKit.ToolbarAccess');
 
-	/**
-	 * beforeFilter callback
-	 *
-	 * @return void
-	 */
+/**
+ * beforeFilter callback
+ *
+ * @return void
+ */
 	public function beforeFilter() {
 		parent::beforeFilter();
 		if (isset($this->Toolbar)) {
@@ -75,12 +75,12 @@ class ToolbarAccessController extends DebugKitAppController {
 		}
 	}
 
-	/**
-	 * Get a stored history state from the toolbar cache.
-	 *
-	 * @param null $key
-	 * @return void
-	 */
+/**
+ * Get a stored history state from the toolbar cache.
+ *
+ * @param null $key
+ * @return void
+ */
 	public function history_state($key = null) {
 		if (Configure::read('debug') == 0) {
 			return $this->redirect($this->referer());
@@ -92,14 +92,14 @@ class ToolbarAccessController extends DebugKitAppController {
 		$this->layout = null;
 	}
 
-	/**
-	 * Run SQL explain/profiling on queries. Checks the hash + the hashed queries,
-	 * if there is mismatch a 404 will be rendered. If debug == 0 a 404 will also be
-	 * rendered. No explain will be run if a 404 is made.
-	 *
-	 * @throws BadRequestException
-	 * @return void
-	 */
+/**
+ * Run SQL explain/profiling on queries. Checks the hash + the hashed queries,
+ * if there is mismatch a 404 will be rendered. If debug == 0 a 404 will also be
+ * rendered. No explain will be run if a 404 is made.
+ *
+ * @throws BadRequestException
+ * @return void
+ */
 	public function sql_explain() {
 		if (
 			!$this->request->is('post') ||

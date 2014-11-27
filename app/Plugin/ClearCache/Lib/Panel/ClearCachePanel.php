@@ -25,47 +25,47 @@ App::uses('ClearCache', 'ClearCache.Lib');
  */
 class ClearCachePanel extends DebugPanel {
 
-	/**
-	 * Plugin name
-	 *
-	 * @var string
-	 */
+/**
+ * Plugin name
+ *
+ * @var string
+ */
 	public $plugin = 'ClearCache';
 
-	/**
-	 * Panel element name
-	 *
-	 * @var string
-	 */
+/**
+ * Panel element name
+ *
+ * @var string
+ */
 	public $elementName = 'clear_cache_panel';
 
-	/**
-	 * Allowed folder names
-	 *
-	 * @var array
-	 */
+/**
+ * Allowed folder names
+ *
+ * @var array
+ */
 	public $folders = array('_all_');
 
-	/**
-	 * Allowed cache engines
-	 *
-	 * @var array
-	 */
+/**
+ * Allowed cache engines
+ *
+ * @var array
+ */
 	public $engines = array('_all_');
 
-	/**
-	 * Allowed cache groups
-	 *
-	 * @var array
-	 */
+/**
+ * Allowed cache groups
+ *
+ * @var array
+ */
 	public $groups = array('_all_');
 
-	/**
-	 * Constructor
-	 *
-	 * @param array $settings Array of settings.
-	 * @return void
-	 */
+/**
+ * Constructor
+ *
+ * @param array $settings Array of settings.
+ * @return void
+ */
 	public function __construct($settings) {
 		parent::__construct();
 
@@ -84,16 +84,16 @@ class ClearCachePanel extends DebugPanel {
 
 		foreach (array('folders', 'engines', 'groups') as $property) {
 			if (isset($settings['clear_cache'][$property])) {
-				$this->{$property} = (array)$settings['clear_cache'][$property];
+				$this->{$property} = (array) $settings['clear_cache'][$property];
 			}
 		}
 	}
 
-	/**
-	 * beforeRender callback function
-	 *
-	 * @return array contents for panel
-	 */
+/**
+ * beforeRender callback function
+ *
+ * @return array contents for panel
+ */
 	public function beforeRender(Controller $controller) {
 		return array(
 			'folders' => $this->folders,

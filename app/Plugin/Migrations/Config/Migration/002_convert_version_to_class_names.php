@@ -1,19 +1,18 @@
 <?php
-
 class ConvertVersionToClassNames extends CakeMigration {
 
-	/**
-	 * Migration description
-	 *
-	 * @var string
-	 */
+/**
+ * Migration description
+ *
+ * @var string
+ */
 	public $description = 'Convert version to classNames';
 
-	/**
-	 * Actions to be performed
-	 *
-	 * @var array $migration
-	 */
+/**
+ * Actions to be performed
+ *
+ * @var array $migration
+ */
 	public $migration = array(
 		'up' => array(
 			'alter_field' => array(
@@ -31,27 +30,27 @@ class ConvertVersionToClassNames extends CakeMigration {
 		)
 	);
 
-	/**
-	 * Records to be migrated
-	 *
-	 * @var array
-	 */
+/**
+ * Records to be migrated
+ *
+ * @var array
+ */
 	public $records = array();
 
-	/**
-	 * Mappings to the records
-	 *
-	 * @var array
-	 */
+/**
+ * Mappings to the records
+ *
+ * @var array
+ */
 	public $mappings = array();
 
-	/**
-	 * Before migration callback
-	 *
-	 * @param string $direction Direction of migration process (up or down)
-	 * @return bool Should process continue
-	 * @throws InternalErrorException
-	 */
+/**
+ * Before migration callback
+ *
+ * @param string $direction Direction of migration process (up or down)
+ * @return bool Should process continue
+ * @throws InternalErrorException
+ */
 	public function before($direction) {
 		if ($direction === 'down') {
 			throw new InternalErrorException(__d('migrations', 'Sorry, I can\'t downgrade. Why would you want that anyways?'));
@@ -66,23 +65,23 @@ class ConvertVersionToClassNames extends CakeMigration {
 		return true;
 	}
 
-	/**
-	 * After migration callback
-	 *
-	 * @param string $direction Direction of migration process (up or down)
-	 * @return bool Should process continue
-	 */
+/**
+ * After migration callback
+ *
+ * @param string $direction Direction of migration process (up or down)
+ * @return bool Should process continue
+ */
 	public function after($direction) {
 		$this->upgradeRecords();
 
 		return true;
 	}
 
-	/**
-	 * Check if it needs upgrade or not
-	 *
-	 * @return void
-	 */
+/**
+ * Check if it needs upgrade or not
+ *
+ * @return void
+ */
 	public function needsUpgrade() {
 		$schema = $this->Version->Version->schema();
 
@@ -101,12 +100,12 @@ class ConvertVersionToClassNames extends CakeMigration {
 		$this->mappings = array();
 	}
 
-	/**
-	 * Check if every plugin is loaded/reachable, we need access to them
-	 *
-	 * @throws MissingPluginException
-	 * @return void
-	 */
+/**
+ * Check if every plugin is loaded/reachable, we need access to them
+ *
+ * @throws MissingPluginException
+ * @return void
+ */
 	public function checkPlugins() {
 		$types = Hash::extract($this->records, '{n}.' . $this->Version->Version->alias . '.type');
 		$types = $plugins = array_unique($types);
@@ -121,12 +120,12 @@ class ConvertVersionToClassNames extends CakeMigration {
 		CakePlugin::load($plugins);
 	}
 
-	/**
-	 * Check if the version is present in the mappings
-	 *
-	 * @throws RuntimeException MigrationVersionException
-	 * @return void
-	 */
+/**
+ * Check if the version is present in the mappings
+ *
+ * @throws RuntimeException MigrationVersionException
+ * @return void
+ */
 	public function checkRecords() {
 		foreach ($this->records as $record) {
 			$type = $record[$this->Version->Version->alias]['type'];
@@ -151,11 +150,11 @@ class ConvertVersionToClassNames extends CakeMigration {
 		}
 	}
 
-	/**
-	 * Upgrade records, setting version as class name
-	 *
-	 * @return void
-	 */
+/**
+ * Upgrade records, setting version as class name
+ *
+ * @return void
+ */
 	public function upgradeRecords() {
 		foreach ($this->records as $record) {
 			$type = $record[$this->Version->Version->alias]['type'];

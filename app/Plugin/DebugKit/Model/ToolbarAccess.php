@@ -21,14 +21,14 @@ App::uses('ConnectionManager', 'Model');
  */
 class ToolbarAccess extends Object {
 
-	/**
-	 * Runs an explain on a query if the connection supports EXPLAIN.
-	 * currently only PostgreSQL and MySQL are supported.
-	 *
-	 * @param string $connection Connection name
-	 * @param string $query SQL query to explain / find query plan for.
-	 * @return array Array of explain information or empty array if connection is unsupported.
-	 */
+/**
+ * Runs an explain on a query if the connection supports EXPLAIN.
+ * currently only PostgreSQL and MySQL are supported.
+ *
+ * @param string $connection Connection name
+ * @param string $query SQL query to explain / find query plan for.
+ * @return array Array of explain information or empty array if connection is unsupported.
+ */
 	public function explainQuery($connection, $query) {
 		$db = ConnectionManager::getDataSource($connection);
 		$datasource = $db->config['datasource'];

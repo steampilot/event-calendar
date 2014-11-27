@@ -2,10 +2,7 @@
 	"name": "cakedc/migrations",
 	"description": "Migrations Plugin for CakePHP",
 	"type": "cakephp-plugin",
-	"keywords": [
-		"cakephp",
-		"migrations"
-	],
+	"keywords": ["cakephp","migrations"],
 	"homepage": "http://cakedc.com",
 	"license": "MIT",
 	"authors": [

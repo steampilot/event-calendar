@@ -18,4 +18,4 @@
 	$headers = array(__d('clear_cache', 'Group Name'), __d('clear_cache', 'Cleared Engines'), __d('clear_cache', 'Failed Engines'));
 	echo $this->Html->tableHeaders($headers);
 	echo $this->Html->tableCells($groups);
-	?></table>
+?></table>

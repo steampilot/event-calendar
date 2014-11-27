@@ -19,12 +19,12 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class VariablesPanel extends DebugPanel {
 
-	/**
-	 * beforeRender callback
-	 *
-	 * @param Controller $controller
-	 * @return array
-	 */
+/**
+ * beforeRender callback
+ *
+ * @param Controller $controller
+ * @return array
+ */
 	public function beforeRender(Controller $controller) {
 		return array_merge($controller->viewVars, array('$request->data' => $controller->request->data));
 	}

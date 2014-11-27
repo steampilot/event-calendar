@@ -22,25 +22,25 @@ App::uses('MultiColumnUniquenessBehavior', 'MultiColumnUniqueness.Model/Behavior
  */
 class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 
-	/**
-	 * Model for tests
-	 *
-	 * @var
-	 */
+/**
+ * Model for tests
+ *
+ * @var
+ */
 	protected $_model;
 
-	/**
-	 * Fixtures
-	 *
-	 * @var array
-	 */
+/**
+ * Fixtures
+ *
+ * @var array
+ */
 	public $fixtures = array('plugin.multi_column_uniqueness.multi_column_unique_model');
 
-	/**
-	 * An array of totally unique data
-	 *
-	 * @var array
-	 */
+/**
+ * An array of totally unique data
+ *
+ * @var array
+ */
 	protected $_uniqueData = array(
 		'integer1' => 9, 'integer2' => 90,
 		'string1' => 'nine', 'string2' => 'ninety',
@@ -49,11 +49,11 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		'float1' => 9.0, 'float2' => 99.0
 	);
 
-	/**
-	 * An array of non-unique data
-	 *
-	 * @var array
-	 */
+/**
+ * An array of non-unique data
+ *
+ * @var array
+ */
 	protected $_nonUniqueData = array(
 		'integer1' => 6, 'integer2' => 60,
 		'string1' => 'six', 'string2' => 'sixty',
@@ -62,33 +62,33 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		'float1' => 6.0, 'float2' => 66.0
 	);
 
-	/**
-	 * setUp method
-	 *
-	 * @return void
-	 */
+/**
+ * setUp method
+ *
+ * @return void
+ */
 	public function setUp() {
 		parent::setUp();
 		$this->_model = ClassRegistry::init('MultiColumnUniqueModel');
 	}
 
-	/**
-	 * tearDown method
-	 *
-	 * @return void
-	 */
+/**
+ * tearDown method
+ *
+ * @return void
+ */
 	public function tearDown() {
 		unset($this->_model);
 
 		parent::tearDown();
 	}
 
-	/**
-	 * Tests the default config (no config given)
-	 *
-	 * @return void
-	 * @coversNothing
-	 */
+/**
+ * Tests the default config (no config given)
+ *
+ * @return void
+ * @coversNothing
+ */
 	public function testDefaultConfig() {
 		$this->_loadBehavior();
 
@@ -101,12 +101,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertSame($expected, $settings);
 	}
 
-	/**
-	 * Tests the config "One field group set, without error message set (most simple and shortest way)"
-	 *
-	 * @return void
-	 * @covers ::setup
-	 */
+/**
+ * Tests the config "One field group set, without error message set (most simple and shortest way)"
+ *
+ * @return void
+ * @covers ::setup
+ */
 	public function testOneGroupSimplestNoErrMsg() {
 		$this->_loadBehavior(
 			array('fields' => array('integer1', 'integer2'))
@@ -121,12 +121,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertSame($expected, $settings);
 	}
 
-	/**
-	 * Tests the config "One field group set, without error message set (array in array)"
-	 *
-	 * @return void
-	 * @covers ::setup
-	 */
+/**
+ * Tests the config "One field group set, without error message set (array in array)"
+ *
+ * @return void
+ * @covers ::setup
+ */
 	public function testOneGroupNoErrMsg() {
 		$this->_loadBehavior(
 			array('fields' => array(array('integer1', 'integer2')))
@@ -141,12 +141,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertSame($expected, $settings);
 	}
 
-	/**
-	 * Tests the config "One field group and its error message set"
-	 *
-	 * @return void
-	 * @covers ::setup
-	 */
+/**
+ * Tests the config "One field group and its error message set"
+ *
+ * @return void
+ * @covers ::setup
+ */
 	public function testOneGroupOneErrMsg() {
 		$this->_loadBehavior(
 			array(
@@ -164,12 +164,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertSame($expected, $settings);
 	}
 
-	/**
-	 * Tests the config "Two field groups and their corresponding error message set"
-	 *
-	 * @return void
-	 * @covers ::setup
-	 */
+/**
+ * Tests the config "Two field groups and their corresponding error message set"
+ *
+ * @return void
+ * @covers ::setup
+ */
 	public function testTwoGroupsAndErrMsgs() {
 		$this->_loadBehavior(
 			array(
@@ -187,12 +187,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertSame($expected, $settings);
 	}
 
-	/**
-	 * Tests the config "Two field groups set but only the error message of the first group set"
-	 *
-	 * @return void
-	 * @covers ::setup
-	 */
+/**
+ * Tests the config "Two field groups set but only the error message of the first group set"
+ *
+ * @return void
+ * @covers ::setup
+ */
 	public function testTwoGroupsOneErrMsg() {
 		$this->_loadBehavior(
 			array(
@@ -210,12 +210,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertSame($expected, $settings);
 	}
 
-	/**
-	 * Tests when the onlyOnce option is set to true (default)
-	 *
-	 * @return void
-	 * @covers ::beforeValidate
-	 */
+/**
+ * Tests when the onlyOnce option is set to true (default)
+ *
+ * @return void
+ * @covers ::beforeValidate
+ */
 	public function testOnlyOnceTrue() {
 		$this->_loadBehavior(
 			array(
@@ -295,12 +295,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertNull($this->_model->validator()->getField('float2'));
 	}
 
-	/**
-	 * Tests when the onlyOnce option is set to false
-	 *
-	 * @return void
-	 * @covers ::beforeValidate
-	 */
+/**
+ * Tests when the onlyOnce option is set to false
+ *
+ * @return void
+ * @covers ::beforeValidate
+ */
 	public function testOnlyOnceFalse() {
 		$this->_loadBehavior(
 			array(
@@ -384,14 +384,14 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->assertNull($this->_model->validator()->getField('float2'));
 	}
 
-	/**
-	 * Tests with no fields
-	 *
-	 * Should never generate an error.
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with no fields
+ *
+ * Should never generate an error.
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testNoFields() {
 		$this->_loadBehavior();
 
@@ -406,14 +406,14 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with a group containing only one field
-	 *
-	 * Should work just fine, even though for just one field.
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with a group containing only one field
+ *
+ * Should work just fine, even though for just one field.
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testOneField() {
 		$this->_loadBehavior(
 			array(
@@ -438,12 +438,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with a group of integer fields
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with a group of integer fields
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testIntegerFields() {
 		$this->_loadBehavior(
 			array(
@@ -478,12 +478,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with a group of string fields
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with a group of string fields
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testStringFields() {
 		$this->_loadBehavior(
 			array(
@@ -518,12 +518,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with a group of boolean fields
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with a group of boolean fields
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testBooleanFields() {
 		$this->_loadBehavior(
 			array(
@@ -556,12 +556,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with a group of datetime fields
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with a group of datetime fields
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testDatetimeFields() {
 		$this->_loadBehavior(
 			array(
@@ -596,12 +596,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with a group of float fields
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with a group of float fields
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testFloatFields() {
 		$this->_loadBehavior(
 			array(
@@ -636,12 +636,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with a group of mixed fields
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with a group of mixed fields
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testMixedFields() {
 		$this->_loadBehavior(
 			array(
@@ -676,14 +676,14 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests when not all fields are set when adding a record
-	 *
-	 * Should treat the missing field(s) as null
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests when not all fields are set when adding a record
+ *
+ * Should treat the missing field(s) as null
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testNotAllFieldsSetOnAdd() {
 		$this->_loadBehavior(
 			array(
@@ -732,14 +732,14 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests when not all fields are set when editing a record
-	 *
-	 * Should try tro fetch the value of the missing field(s)
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests when not all fields are set when editing a record
+ *
+ * Should try tro fetch the value of the missing field(s)
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testNotAllFieldsSetOnEdit() {
 		$this->_loadBehavior(
 			array(
@@ -786,12 +786,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected, 123456789);
 	}
 
-	/**
-	 * Tests with two field groups.
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with two field groups.
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testTwoGroups() {
 		$this->_loadBehavior(
 			array(
@@ -850,12 +850,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with two field groups with overlapping fields.
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with two field groups with overlapping fields.
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testTwoGroupsOverlappingFields() {
 		$this->_loadBehavior(
 			array(
@@ -908,12 +908,12 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Tests with two field groups with overlapping fields and same first field
-	 *
-	 * @return void
-	 * @covers ::multiColumnUniqueness
-	 */
+/**
+ * Tests with two field groups with overlapping fields and same first field
+ *
+ * @return void
+ * @covers ::multiColumnUniqueness
+ */
 	public function testTwoGroupsOverlappingFieldsSameFirstField() {
 		$this->_loadBehavior(
 			array(
@@ -964,14 +964,14 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		$this->_assertValidate($data, $expected);
 	}
 
-	/**
-	 * Loads the behavior with the given config
-	 *
-	 * Specifically handles the case of setting no config at all.
-	 *
-	 * @param null|array $config Optional Behavior config to set.
-	 * @return void
-	 */
+/**
+ * Loads the behavior with the given config
+ *
+ * Specifically handles the case of setting no config at all.
+ *
+ * @param null|array $config Optional Behavior config to set.
+ * @return void
+ */
 	protected function _loadBehavior($config = null) {
 		if ($config === null) {
 			$this->_model->Behaviors->load('MultiColumnUniqueness.MultiColumnUniqueness');
@@ -980,29 +980,29 @@ class MultiColumnUniquenessBehaviorTest extends CakeTestCase {
 		}
 	}
 
-	/**
-	 * Creates a new record from given data and validates it.
-	 *
-	 * Does the repetitive work for the tests above.
-	 *
-	 * @param array $data The data array to validate.
-	 * @return array The invalid fields.
-	 */
+/**
+ * Creates a new record from given data and validates it.
+ *
+ * Does the repetitive work for the tests above.
+ *
+ * @param array $data The data array to validate.
+ * @return array The invalid fields.
+ */
 	protected function _validateData($data) {
 		$this->_model->create($data);
 		return $this->_model->invalidFields();
 	}
 
-	/**
-	 * Assert the validated data.
-	 *
-	 * Does the repetitive work for the tests above.
-	 *
-	 * @param array $data The data array to validate.
-	 * @param array $expected The expected validation error array.
-	 * @param int|bool $id The ID of the record (optional).
-	 * @return void
-	 */
+/**
+ * Assert the validated data.
+ *
+ * Does the repetitive work for the tests above.
+ *
+ * @param array $data The data array to validate.
+ * @param array $expected The expected validation error array.
+ * @param int|bool $id The ID of the record (optional).
+ * @return void
+ */
 	protected function _assertValidate($data, $expected, $id = false) {
 		$this->_model->create($data);
 		$this->_model->id = $id;

@@ -23,11 +23,11 @@ App::uses('DebugMemory', 'DebugKit.Lib');
  */
 class DebugMemoryTest extends CakeTestCase {
 
-	/**
-	 * test memory usage
-	 *
-	 * @return void
-	 */
+/**
+ * test memory usage
+ *
+ * @return void
+ */
 	public function testMemoryUsage() {
 		$result = DebugMemory::getCurrent();
 		$this->assertTrue(is_int($result));
@@ -36,11 +36,11 @@ class DebugMemoryTest extends CakeTestCase {
 		$this->assertTrue(is_int($result));
 	}
 
-	/**
-	 * test making memory use markers.
-	 *
-	 * @return void
-	 */
+/**
+ * test making memory use markers.
+ *
+ * @return void
+ */
 	public function testMemorySettingAndGetting() {
 		DebugMemory::clear();
 		$result = DebugMemory::record('test marker');

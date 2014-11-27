@@ -27,11 +27,11 @@ App::uses('String', 'Utility');
  */
 class BenchmarkShell extends Shell {
 
-	/**
-	 * Main execution of shell
-	 *
-	 * @return void
-	 */
+/**
+ * Main execution of shell
+ *
+ * @return void
+ */
 	public function main() {
 		$url = $this->args[0];
 		$defaults = array('t' => 100, 'n' => 10);
@@ -54,12 +54,12 @@ class BenchmarkShell extends Shell {
 		$this->_results($times);
 	}
 
-	/**
-	 * Prints calculated results
-	 *
-	 * @param array $times Array of time values
-	 * @return void
-	 */
+/**
+ * Prints calculated results
+ *
+ * @param array $times Array of time values
+ * @return void
+ */
 	protected function _results($times) {
 		$duration = array_sum($times);
 		$requests = count($times);
@@ -70,37 +70,37 @@ class BenchmarkShell extends Shell {
 		$this->out("");
 
 		$this->out(String::insert(__d('debug_kit', 'Requests/Second: :rps req/sec'), array(
-			'rps' => round($requests / $duration, 3)
+				'rps' => round($requests / $duration, 3)
 		)));
 
 		$this->out(String::insert(__d('debug_kit', 'Average request time: :average-time seconds'), array(
-			'average-time' => round($duration / $requests, 3)
+				'average-time' => round($duration / $requests, 3)
 		)));
 
 		$this->out(String::insert(__d('debug_kit', 'Standard deviation of average request time: :std-dev'), array(
-			'std-dev' => round($this->_deviation($times, true), 3)
+				'std-dev' => round($this->_deviation($times, true), 3)
 		)));
 
 		$this->out(String::insert(__d('debug_kit', 'Longest/shortest request: :longest sec/:shortest sec'), array(
-			'longest' => round(max($times), 3),
-			'shortest' => round(min($times), 3)
+				'longest' => round(max($times), 3),
+				'shortest' => round(min($times), 3)
 		)));
 
 		$this->out("");
 	}
 
-	/**
-	 * One-pass, numerically stable calculation of population variance.
-	 *
-	 * Donald E. Knuth (1998).
-	 * The Art of Computer Programming, volume 2: Seminumerical Algorithms, 3rd edn.,
-	 * p. 232. Boston: Addison-Wesley.
-	 *
-	 * @param array $times Array of values
-	 * @param boolean $sample If true, calculates an unbiased estimate of the population
-	 *                          variance from a finite sample.
-	 * @return float Variance
-	 */
+/**
+ * One-pass, numerically stable calculation of population variance.
+ *
+ * Donald E. Knuth (1998).
+ * The Art of Computer Programming, volume 2: Seminumerical Algorithms, 3rd edn.,
+ * p. 232. Boston: Addison-Wesley.
+ *
+ * @param array $times Array of values
+ * @param boolean $sample If true, calculates an unbiased estimate of the population
+ * 						  variance from a finite sample.
+ * @return float Variance
+ */
 	protected function _variance($times, $sample = true) {
 		$n = $mean = $M2 = 0;
 
@@ -118,13 +118,13 @@ class BenchmarkShell extends Shell {
 		return $M2 / $n;
 	}
 
-	/**
-	 * Calculate the standard deviation.
-	 *
-	 * @param array $times Array of values
-	 * @param boolean $sample
-	 * @return float Standard deviation
-	 */
+/**
+ * Calculate the standard deviation.
+ *
+ * @param array $times Array of values
+ * @param boolean $sample
+ * @return float Standard deviation
+ */
 	protected function _deviation($times, $sample = true) {
 		return sqrt($this->_variance($times, $sample));
 	}
@@ -135,24 +135,24 @@ class BenchmarkShell extends Shell {
 			'Allows you to obtain some rough benchmarking statistics' .
 			'about a fully qualified URL.'
 		))
-			->addArgument('url', array(
-				'help' => __d('debug_kit', 'The URL to request.'),
-				'required' => true
-			))
-			->addOption('n', array(
-				'default' => 10,
-				'help' => __d('debug_kit', 'Number of iterations to perform.')
-			))
-			->addOption('t', array(
-				'default' => 100,
-				'help' => __d('debug_kit', 'Maximum total time for all iterations, in seconds.' .
-					'If a single iteration takes more than the timeout, only one request will be made'
-				)
-			))
-			->epilog(__d('debug_kit',
-				'Example Use: `cake benchmark --n 10 --t 100 http://localhost/testsite`. ' .
-				'<info>Note:</info> this benchmark does not include browser render times.'
-			));
+		->addArgument('url', array(
+			'help' => __d('debug_kit', 'The URL to request.'),
+			'required' => true
+		))
+		->addOption('n', array(
+			'default' => 10,
+			'help' => __d('debug_kit', 'Number of iterations to perform.')
+		))
+		->addOption('t', array(
+			'default' => 100,
+			'help' => __d('debug_kit', 'Maximum total time for all iterations, in seconds.' .
+				'If a single iteration takes more than the timeout, only one request will be made'
+			)
+		))
+		->epilog(__d('debug_kit',
+			'Example Use: `cake benchmark --n 10 --t 100 http://localhost/testsite`. ' .
+			'<info>Note:</info> this benchmark does not include browser render times.'
+		));
 		return $parser;
 	}
 }

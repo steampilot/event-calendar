@@ -24,28 +24,28 @@ App::uses('Controller', 'Controller');
  */
 class SqlLogPanelTest extends CakeTestCase {
 
-	/**
-	 * fixtures.
-	 *
-	 * @var array
-	 */
+/**
+ * fixtures.
+ *
+ * @var array
+ */
 	public $fixtures = array('core.article');
 
-	/**
-	 * Setup
-	 *
-	 * @return void
-	 */
+/**
+ * Setup
+ *
+ * @return void
+ */
 	public function setUp() {
 		parent::setUp();
 		$this->panel = new SqlLogPanel();
 	}
 
-	/**
-	 * test the parsing of source list.
-	 *
-	 * @return void
-	 */
+/**
+ * test the parsing of source list.
+ *
+ * @return void
+ */
 	public function testBeforeRender() {
 		$Article = ClassRegistry::init('Article');
 		$Article->find('first', array('conditions' => array('Article.id' => 1)));

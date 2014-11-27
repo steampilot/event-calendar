@@ -24,42 +24,42 @@ App::uses('ClearCache', 'ClearCache.Lib');
  */
 class ClearCacheShell extends AppShell {
 
-	/**
-	 * Disables cache and constructs this Shell instance.
-	 *
-	 * @param ConsoleOutput $stdout
-	 * @param ConsoleOutput $stderr
-	 * @param ConsoleInput $stdin
-	 */
+/**
+ * Disables cache and constructs this Shell instance.
+ *
+ * @param ConsoleOutput $stdout
+ * @param ConsoleOutput $stderr
+ * @param ConsoleInput $stdin
+ */
 	public function __construct($stdout = null, $stderr = null, $stdin = null) {
-		Configure::write('Cache.disable', true);
+		Configure::write('Cache.disable', true); 
 		parent::__construct($stdout, $stderr, $stdin);
 	}
-
-	/**
-	 * ClearCache instance
-	 *
-	 * @var ClearCache
-	 */
+	
+/**
+ * ClearCache instance
+ *
+ * @var ClearCache
+ */
 	protected $_Cleaner;
 
-	/**
-	 * Main shell method
-	 *
-	 * Clears content of CACHE subfolders and configured cache engines
-	 *
-	 * @return array associative array with cleanup results
-	 */
+/**
+ * Main shell method
+ *
+ * Clears content of CACHE subfolders and configured cache engines
+ *
+ * @return array associative array with cleanup results
+ */
 	public function main() {
 		$this->files();
 		$this->engines();
 	}
 
-	/**
-	 * Clears content of cache engines
-	 *
-	 * @return void
-	 */
+/**
+ * Clears content of cache engines
+ *
+ * @return void
+ */
 	public function engines() {
 		$output = call_user_func_array(array($this->_Cleaner, 'engines'), $this->args);
 
@@ -68,11 +68,11 @@ class ClearCacheShell extends AppShell {
 		}
 	}
 
-	/**
-	 * Clears content of CACHE subfolders
-	 *
-	 * @return void
-	 */
+/**
+ * Clears content of CACHE subfolders
+ *
+ * @return void
+ */
 	public function files() {
 		$output = call_user_func_array(array($this->_Cleaner, 'files'), $this->args);
 
@@ -83,11 +83,11 @@ class ClearCacheShell extends AppShell {
 		}
 	}
 
-	/**
-	 * Clears groups of cache engines
-	 *
-	 * @return void
-	 */
+/**
+ * Clears groups of cache engines
+ *
+ * @return void
+ */
 	public function groups() {
 		$output = call_user_func_array(array($this->_Cleaner, 'groups'), $this->args);
 
@@ -99,13 +99,13 @@ class ClearCacheShell extends AppShell {
 		}
 	}
 
-	/**
-	 * Shell startup
-	 *
-	 * Initializes $_Cleaner property
-	 *
-	 * @return void
-	 */
+/**
+ * Shell startup
+ *
+ * Initializes $_Cleaner property
+ *
+ * @return void
+ */
 	public function startup() {
 		$this->_Cleaner = new ClearCache();
 	}

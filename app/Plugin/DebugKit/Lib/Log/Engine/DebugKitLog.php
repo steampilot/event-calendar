@@ -17,30 +17,30 @@
  */
 class DebugKitLog implements CakeLogInterface {
 
-	/**
-	 * logs
-	 *
-	 * @var array
-	 */
+/**
+ * logs
+ *
+ * @var array
+ */
 	public $logs = array();
 
-	/**
-	 * Makes the reverse link needed to get the logs later.
-	 *
-	 * @param $options
-	 * @return \DebugKitLog
-	 */
+/**
+ * Makes the reverse link needed to get the logs later.
+ *
+ * @param $options
+ * @return \DebugKitLog
+ */
 	public function __construct($options) {
 		$options['panel']->logger = $this;
 	}
 
-	/**
-	 * Captures log messages in memory
-	 *
-	 * @param $type
-	 * @param $message
-	 * @return void
-	 */
+/**
+ * Captures log messages in memory
+ *
+ * @param $type
+ * @param $message
+ * @return void
+ */
 	public function write($type, $message) {
 		if (!isset($this->logs[$type])) {
 			$this->logs[$type] = array();

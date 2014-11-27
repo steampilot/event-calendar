@@ -24,27 +24,27 @@ App::uses('ConnectionManager', 'Model');
  */
 class ToolbarHelper extends AppHelper {
 
-	/**
-	 * settings property to be overloaded. Subclasses should specify a format
-	 *
-	 * @var array
-	 */
+/**
+ * settings property to be overloaded. Subclasses should specify a format
+ *
+ * @var array
+ */
 	public $settings = array();
 
-	/**
-	 * flag for whether or not cache is enabled.
-	 *
-	 * @var boolean
-	 */
+/**
+ * flag for whether or not cache is enabled.
+ *
+ * @var boolean
+ */
 	protected $_cacheEnabled = false;
 
-	/**
-	 * Construct the helper and make the backend helper.
-	 *
-	 * @param $View
-	 * @param array|string $options
-	 * @return \ToolbarHelper
-	 */
+/**
+ * Construct the helper and make the backend helper.
+ *
+ * @param $View
+ * @param array|string $options
+ * @return \ToolbarHelper
+ */
 	public function __construct($View, $options = array()) {
 		$this->_myName = strtolower(get_class($this));
 		$this->settings = array_merge($this->settings, $options);
@@ -72,53 +72,53 @@ class ToolbarHelper extends AppHelper {
 		parent::__construct($View, $options);
 	}
 
-	/**
-	 * afterLayout callback
-	 *
-	 * @param string $layoutFile
-	 * @return void
-	 */
+/**
+ * afterLayout callback
+ *
+ * @param string $layoutFile
+ * @return void
+ */
 	public function afterLayout($layoutFile) {
 		if (!$this->request->is('requested')) {
 			$this->send();
 		}
 	}
 
-	/**
-	 * Get the name of the backend Helper
-	 * used to conditionally trigger toolbar output
-	 *
-	 * @return string
-	 */
+/**
+ * Get the name of the backend Helper
+ * used to conditionally trigger toolbar output
+ *
+ * @return string
+ */
 	public function getName() {
 		return $this->_backEndClassName;
 	}
 
-	/**
-	 * call__
-	 *
-	 * Allows method calls on backend helper
-	 *
-	 * @param string $method
-	 * @param mixed $params
-	 * @return mixed|void
-	 */
+/**
+ * call__
+ *
+ * Allows method calls on backend helper
+ *
+ * @param string $method
+ * @param mixed $params
+ * @return mixed|void
+ */
 	public function __call($method, $params) {
 		if (method_exists($this->{$this->_backEndClassName}, $method)) {
 			return $this->{$this->_backEndClassName}->dispatchMethod($method, $params);
 		}
 	}
 
-	/**
-	 * Allows for writing to panel cache from view.
-	 * Some panels generate all variables in the view by
-	 * necessity ie. Timer. Using this method, will allow you to replace in full
-	 * the content for a panel.
-	 *
-	 * @param string $name Name of the panel you are replacing.
-	 * @param string $content Content to write to the panel.
-	 * @return boolean Success of write.
-	 */
+/**
+ * Allows for writing to panel cache from view.
+ * Some panels generate all variables in the view by
+ * necessity ie. Timer. Using this method, will allow you to replace in full
+ * the content for a panel.
+ *
+ * @param string $name Name of the panel you are replacing.
+ * @param string $content Content to write to the panel.
+ * @return boolean Success of write.
+ */
 	public function writeCache($name, $content) {
 		if (!$this->_cacheEnabled) {
 			return false;
@@ -128,13 +128,13 @@ class ToolbarHelper extends AppHelper {
 		return Cache::write($this->_cacheKey, $existing, $this->_cacheConfig);
 	}
 
-	/**
-	 * Read the toolbar
-	 *
-	 * @param string $name Name of the panel you want cached data for
-	 * @param integer $index
-	 * @return mixed Boolean false on failure, array of data otherwise.
-	 */
+/**
+ * Read the toolbar
+ *
+ * @param string $name Name of the panel you want cached data for
+ * @param integer $index
+ * @return mixed Boolean false on failure, array of data otherwise.
+ */
 	public function readCache($name, $index = 0) {
 		if (!$this->_cacheEnabled) {
 			return false;
@@ -146,20 +146,20 @@ class ToolbarHelper extends AppHelper {
 		return $existing[$index][$name]['content'];
 	}
 
-	/**
-	 * Gets the query logs for the given connection names.
-	 *
-	 * ### Options
-	 *
-	 * - explain - Whether explain links should be generated for this connection.
-	 * - cache - Whether the toolbar_state Cache should be updated.
-	 * - threshold - The threshold at which a visual 'maybe slow' flag should be added.
-	 *   results with rows/ms lower than $threshold will be marked.
-	 *
-	 * @param string $connection Connection name to get logs for.
-	 * @param array $options Options for the query log retrieval.
-	 * @return array Array of data to be converted into a table.
-	 */
+/**
+ * Gets the query logs for the given connection names.
+ *
+ * ### Options
+ *
+ * - explain - Whether explain links should be generated for this connection.
+ * - cache - Whether the toolbar_state Cache should be updated.
+ * - threshold - The threshold at which a visual 'maybe slow' flag should be added.
+ *   results with rows/ms lower than $threshold will be marked.
+ *
+ * @param string $connection Connection name to get logs for.
+ * @param array $options Options for the query log retrieval.
+ * @return array Array of data to be converted into a table.
+ */
 	public function getQueryLogs($connection, $options = array()) {
 		$options += array('explain' => false, 'cache' => true, 'threshold' => 20);
 		$db = ConnectionManager::getDataSource($connection);

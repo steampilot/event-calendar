@@ -19,31 +19,31 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class HistoryPanel extends DebugPanel {
 
-	/**
-	 * Number of history elements to keep
-	 *
-	 * @var string
-	 */
+/**
+ * Number of history elements to keep
+ *
+ * @var string
+ */
 	public $history = 5;
 
-	/**
-	 * Constructor
-	 *
-	 * @param array $settings Array of settings.
-	 * @return \HistoryPanel
-	 */
+/**
+ * Constructor
+ *
+ * @param array $settings Array of settings.
+ * @return \HistoryPanel
+ */
 	public function __construct($settings) {
 		if (isset($settings['history'])) {
 			$this->history = $settings['history'];
 		}
 	}
 
-	/**
-	 * beforeRender callback function
-	 *
-	 * @param Controller $controller
-	 * @return array contents for panel
-	 */
+/**
+ * beforeRender callback function
+ *
+ * @param Controller $controller
+ * @return array contents for panel
+ */
 	public function beforeRender(Controller $controller) {
 		$cacheKey = $controller->Toolbar->cacheKey;
 		$toolbarHistory = Cache::read($cacheKey, 'debug_kit');

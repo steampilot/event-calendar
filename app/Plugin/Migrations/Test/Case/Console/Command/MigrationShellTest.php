@@ -18,44 +18,44 @@ App::uses('MigrationShell', 'Migrations.Console/Command');
  */
 class TestMigrationShell extends MigrationShell {
 
-	/**
-	 * Output property
-	 *
-	 * @var string
-	 */
+/**
+ * Output property
+ *
+ * @var string
+ */
 	public $output = '';
 
-	/**
-	 * Out method
-	 *
-	 * @param $string
-	 * @return void
-	 */
+/**
+ * Out method
+ *
+ * @param $string
+ * @return void
+ */
 	public function out($message = null, $newlines = 1, $level = 1) {
 		$this->output .= $message . "\n";
 	}
 
-	/**
-	 * FromComparison method
-	 *
-	 * @param $migration
-	 * @param $comparison
-	 * @param $oldTables
-	 * @param $currentTables
-	 * @return void
-	 */
+/**
+ * FromComparison method
+ *
+ * @param $migration
+ * @param $comparison
+ * @param $oldTables
+ * @param $currentTables
+ * @return void
+ */
 	public function fromComparison($migration, $comparison, $oldTables, $currentTables) {
 		return $this->_fromComparison($migration, $comparison, $oldTables, $currentTables);
 	}
 
-	/**
-	 * WriteMigration method
-	 *
-	 * @param $name
-	 * @param $class
-	 * @param $migration
-	 * @return void
-	 */
+/**
+ * WriteMigration method
+ *
+ * @param $name
+ * @param $class
+ * @param $migration
+ * @return void
+ */
 	public function writeMigration($name, $class, $migration) {
 		return $this->_writeMigration($name, $class, $migration);
 	}
@@ -68,18 +68,18 @@ class TestMigrationShell extends MigrationShell {
  */
 class MigrationShellTest extends CakeTestCase {
 
-	/**
-	 * Fixtures property
-	 *
-	 * @var array
-	 */
+/**
+ * Fixtures property
+ *
+ * @var array
+ */
 	public $fixtures = array('plugin.migrations.schema_migrations', 'core.article', 'core.post', 'core.user');
 
-	/**
-	 * SetUp method
-	 *
-	 * @return void
-	 */
+/**
+ * SetUp method
+ *
+ * @return void
+ */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
@@ -111,11 +111,11 @@ class MigrationShellTest extends CakeTestCase {
 		Configure::write('Config.language', 'en');
 	}
 
-	/**
-	 * TearDown method
-	 *
-	 * @return void
-	 */
+/**
+ * TearDown method
+ *
+ * @return void
+ */
 	public function tearDown() {
 		parent::tearDown();
 		CakePlugin::unload('TestMigrationPlugin');
@@ -129,11 +129,11 @@ class MigrationShellTest extends CakeTestCase {
 		}
 	}
 
-	/**
-	 * Tables property
-	 *
-	 * @var array
-	 */
+/**
+ * Tables property
+ *
+ * @var array
+ */
 	public $tables = array(
 		'users' => array(
 			'id' => array('type' => 'integer', 'key' => 'primary'),
@@ -153,11 +153,11 @@ class MigrationShellTest extends CakeTestCase {
 		)
 	);
 
-	/**
-	 * TestStartup method
-	 *
-	 * @return void
-	 */
+/**
+ * TestStartup method
+ *
+ * @return void
+ */
 	public function testStartup() {
 		$this->Shell->connection = 'default';
 		$this->assertEquals($this->Shell->type, 'TestMigrationPlugin');
@@ -173,11 +173,11 @@ class MigrationShellTest extends CakeTestCase {
 		$this->assertEquals($this->Shell->type, 'Migrations');
 	}
 
-	/**
-	 * TestRun method
-	 *
-	 * @return void
-	 */
+/**
+ * TestRun method
+ *
+ * @return void
+ */
 	public function testRun() {
 		$mapping = array();
 		for ($i = 1; $i <= 10; $i++) {
@@ -295,11 +295,11 @@ class MigrationShellTest extends CakeTestCase {
 		$this->assertFalse($this->Shell->run());
 	}
 
-	/**
-	 * TestRunWithFailuresOnce method
-	 *
-	 * @return void
-	 */
+/**
+ * TestRunWithFailuresOnce method
+ *
+ * @return void
+ */
 	public function testRunWithFailuresOnce() {
 		$this->Shell->expects($this->any())->method('_stop')->will($this->returnValue(false));
 
@@ -331,11 +331,11 @@ TEXT;
 		$this->assertRegExp(str_replace("\r\n", "\n", $pattern), str_replace("\r\n", "\n", $result));
 	}
 
-	/**
-	 * TestRunWithFailuresNotOnce method
-	 *
-	 * @return void
-	 */
+/**
+ * TestRunWithFailuresNotOnce method
+ *
+ * @return void
+ */
 	public function testRunWithFailuresNotOnce() {
 		$this->Shell->expects($this->any())->method('_stop')->will($this->returnValue(false));
 
@@ -366,11 +366,11 @@ TEXT;
 		$this->assertRegExp(str_replace("\r\n", "\n", $pattern), str_replace("\n\n", "\n", $result));
 	}
 
-	/**
-	 * TestFromComparisonTableActions method
-	 *
-	 * @return void
-	 */
+/**
+ * TestFromComparisonTableActions method
+ *
+ * @return void
+ */
 	public function testFromComparisonTableActions() {
 		$comparison = array(
 			'users' => array('add' => $this->tables['users']),
@@ -412,11 +412,11 @@ TEXT;
 		$this->assertEquals($result, $expected);
 	}
 
-	/**
-	 * TestFromComparisonFieldActions method
-	 *
-	 * @return void
-	 */
+/**
+ * TestFromComparisonFieldActions method
+ *
+ * @return void
+ */
 	public function testFromComparisonFieldActions() {
 		// Add field/index
 		$oldTables = array('posts' => $this->tables['posts']);
@@ -611,11 +611,11 @@ TEXT;
 		$this->assertEquals($result, $expected);
 	}
 
-	/**
-	 * TestWriteMigration method
-	 *
-	 * @return void
-	 */
+/**
+ * TestWriteMigration method
+ *
+ * @return void
+ */
 	public function testWriteMigration() {
 		// Remove if exists
 		$this->_unlink('12345_migration_test_file.php');
@@ -683,12 +683,12 @@ TEXT;
 		$this->_unlink('12345_migration_test_file.php');
 	}
 
-	/**
-	 * Test writing migration that only contains index changes
-	 *
-	 * @return void
-	 * @link https://github.com/CakeDC/migrations/issues/189
-	 */
+/**
+ * Test writing migration that only contains index changes
+ *
+ * @return void
+ * @link https://github.com/CakeDC/migrations/issues/189
+ */
 	public function testWriteMigrationIndexesOnly() {
 		$this->_unlink('12345_migration_test_file.php');
 
@@ -740,11 +740,11 @@ TEXT;
 		$this->_unlink('12345_migration_test_file.php');
 	}
 
-	/**
-	 * TestGenerate method
-	 *
-	 * @return void
-	 */
+/**
+ * TestGenerate method
+ *
+ * @return void
+ */
 	public function testGenerate() {
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('n'));
 		$this->Shell->expects($this->at(1))->method('in')->will($this->returnValue('n'));
@@ -758,11 +758,11 @@ TEXT;
 		$this->assertNotEmpty(preg_grep('/([0-9])+_initial_schema\.php$/i', $files));
 	}
 
-	/**
-	 * TestGenerate2 method
-	 *
-	 * @return void
-	 */
+/**
+ * TestGenerate2 method
+ *
+ * @return void
+ */
 	public function testGenerate2() {
 		$this->Shell->expects($this->atLeastOnce())->method('err');
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('n'));
@@ -779,11 +779,11 @@ TEXT;
 		$this->assertNotEmpty(preg_grep('/([0-9])+_create_some_sample_data\.php$/i', $files));
 	}
 
-	/**
-	 * TestGenerateComparison method
-	 *
-	 * @return void
-	 */
+/**
+ * TestGenerateComparison method
+ *
+ * @return void
+ */
 	public function testGenerateComparison() {
 		$this->Shell->type = 'TestMigrationPlugin4';
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('y'));
@@ -829,13 +829,13 @@ TEXT;
 		);
 	}
 
-	/**
-	 * testGenerateFromCliParamsCreateTable method
-	 * test the case of using a command such as:
-	 * app/Console/cake Migrations.migration generate create_products id created modified name description:text in_stock:boolean price:float stock_count:integer
-	 *
-	 * @return void
-	 */
+/**
+ * testGenerateFromCliParamsCreateTable method
+ * test the case of using a command such as:
+ * app/Console/cake Migrations.migration generate create_products id created modified name description:text in_stock:boolean price:float stock_count:integer
+ *
+ * @return void
+ */
 	public function testGenerateFromCliParamsCreateTable() {
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('n'));
 		$this->assertEmpty(glob(TMP . 'tests' . DS . '*create_products.php'));
@@ -854,13 +854,13 @@ TEXT;
 		$this->assertEquals($expected, $result);
 	}
 
-	/**
-	 * testGenerateFromCliParamsDropTable method
-	 * test the case of using a command such as:
-	 * app/Console/cake Migrations.migration generate drop_products
-	 *
-	 * @return void
-	 */
+/**
+ * testGenerateFromCliParamsDropTable method
+ * test the case of using a command such as:
+ * app/Console/cake Migrations.migration generate drop_products
+ *
+ * @return void
+ */
 	public function testGenerateFromCliParamsDropTable() {
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('n'));
 		$this->assertEmpty(glob(TMP . 'tests' . DS . '*drop_products.php'));
@@ -879,13 +879,13 @@ TEXT;
 		$this->assertEquals($expected, $result);
 	}
 
-	/**
-	 * testGenerateFromCliParamsAddFields method
-	 * test the case of using a command such as:
-	 * app/Console/cake Migrations.migration generate add_all_fields_to_products id created modified name description:text in_stock:boolean price:float stock_count:integer
-	 *
-	 * @return void
-	 */
+/**
+ * testGenerateFromCliParamsAddFields method
+ * test the case of using a command such as:
+ * app/Console/cake Migrations.migration generate add_all_fields_to_products id created modified name description:text in_stock:boolean price:float stock_count:integer
+ *
+ * @return void
+ */
 	public function testGenerateFromCliParamsAddFields() {
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('n'));
 		$this->assertEmpty(glob(TMP . 'tests' . DS . '*add_all_fields_to_products.php'));
@@ -904,13 +904,13 @@ TEXT;
 		$this->assertEquals($expected, $result);
 	}
 
-	/**
-	 * testGenerateFromCliParamsRemoveFields method
-	 * test the case of using a command such as:
-	 * app/Console/cake Migrations.migration generate remove_name_and_desc_from_products name description
-	 *
-	 * @return void
-	 */
+/**
+ * testGenerateFromCliParamsRemoveFields method
+ * test the case of using a command such as:
+ * app/Console/cake Migrations.migration generate remove_name_and_desc_from_products name description
+ *
+ * @return void
+ */
 	public function testGenerateFromCliParamsRemoveFields() {
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('n'));
 		$this->assertEmpty(glob(TMP . 'tests' . DS . '*remove_name_and_desc_from_products.php'));
@@ -929,11 +929,11 @@ TEXT;
 		$this->assertEquals($expected, $result);
 	}
 
-	/**
-	 * TestGenerateDump method
-	 *
-	 * @return void
-	 */
+/**
+ * TestGenerateDump method
+ *
+ * @return void
+ */
 	public function testGenerateDump() {
 		$this->Shell->expects($this->at(0))->method('in')->will($this->returnValue('y'));
 		$this->Shell->expects($this->at(2))->method('in')->will($this->returnValue('n'));
@@ -960,11 +960,11 @@ TEXT;
 		$this->assertEquals($expected, $result);
 	}
 
-	/**
-	 * TestStatus method
-	 *
-	 * @return void
-	 */
+/**
+ * TestStatus method
+ *
+ * @return void
+ */
 	public function testMigrationStatus() {
 		$this->Shell->Version = new MigrationVersion(array('connection' => 'test'));
 		$this->Shell->status();
@@ -994,12 +994,12 @@ TEXT;
 		$this->assertRegExp(str_replace("\r\n", "\n", $pattern), $result);
 	}
 
-	/**
-	 * Strip all the content surrounding the $migration variable
-	 *
-	 * @param string $file
-	 * @return string
-	 */
+/**
+ * Strip all the content surrounding the $migration variable
+ *
+ * @param string $file
+ * @return string
+ */
 	protected function _getMigrationVariable($file) {
 		$result = array();
 		$array = explode("\n", str_replace("\r\n", "\n", file_get_contents($file)));
@@ -1016,12 +1016,12 @@ TEXT;
 		return implode("\n", $result);
 	}
 
-	/**
-	 * Unlink test files from filesystem
-	 *
-	 * @param mixed files
-	 * @return void
-	 */
+/**
+ * Unlink test files from filesystem
+ *
+ * @param mixed files
+ * @return void
+ */
 	protected function _unlink() {
 		$files = func_get_args();
 		foreach ($files as $file) {

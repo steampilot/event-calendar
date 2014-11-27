@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2009 - 2014, Cake Development Corporation (http://cakedc.com)
  *
@@ -9,66 +8,67 @@
  * @copyright Copyright 2009 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 abstract class PrecheckBase {
 
-	/**
-	 * @var CakeMigration
-	 */
+/**
+ * @var CakeMigration
+ */
 	protected $_migration;
 
-	/**
-	 * Perform check before field create.
-	 *
-	 * @param string $table
-	 * @param string $field
-	 * @return bool
-	 */
+/**
+ * Perform check before field create.
+ *
+ * @param string $table
+ * @param string $field
+ * @return bool
+ */
 	abstract public function checkAddField($table, $field);
 
-	/**
-	 * Perform check before table create.
-	 *
-	 * @param string $table
-	 * @return bool
-	 */
+/**
+ * Perform check before table create.
+ *
+ * @param string $table
+ * @return bool
+ */
 	abstract public function checkCreateTable($table);
 
-	/**
-	 * Perform check before table drop.
-	 *
-	 * @param string $table
-	 * @return bool
-	 */
+/**
+ * Perform check before table drop.
+ *
+ * @param string $table
+ * @return bool
+ */
 	abstract public function checkDropTable($table);
 
-	/**
-	 * Perform check before field drop.
-	 *
-	 * @param string $table
-	 * @param string $field
-	 * @return bool
-	 */
+/**
+ * Perform check before field drop.
+ *
+ * @param string $table
+ * @param string $field
+ * @return bool
+ */
 	abstract public function checkDropField($table, $field);
 
-	/**
-	 * Check that table exists.
-	 *
-	 * @param string $table
-	 * @return bool
-	 */
+/**
+ * Check that table exists.
+ *
+ * @param string $table
+ * @return bool
+ */
 	public function tableExists($table) {
 		$this->_migration->db->cacheSources = false;
 		$tables = $this->_migration->db->listSources();
 		return in_array($this->_migration->db->fullTableName($table, false, false), $tables);
 	}
 
-	/**
-	 * Check that field exists.
-	 *
-	 * @param string $table
-	 * @param string $field
-	 * @return bool
-	 */
+/**
+ * Check that field exists.
+ *
+ * @param string $table
+ * @param string $field
+ * @return bool
+ */
 	public function fieldExists($table, $field) {
 		if (!$this->tableExists($table)) {
 			return false;
@@ -77,15 +77,15 @@ abstract class PrecheckBase {
 		return !empty($fields[$field]);
 	}
 
-	/**
-	 * Before action precheck callback.
-	 *
-	 * @param $migration
-	 * @param string $type
-	 * @param array $data
-	 * @throws MigrationException
-	 * @return bool
-	 */
+/**
+ * Before action precheck callback.
+ *
+ * @param $migration
+ * @param string $type
+ * @param array $data
+ * @throws MigrationException
+ * @return bool
+ */
 	public function beforeAction($migration, $type, $data) {
 		$this->_migration = $migration;
 		switch ($type) {

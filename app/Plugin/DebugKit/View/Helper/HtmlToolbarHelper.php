@@ -25,29 +25,29 @@ App::uses('Security', 'Utility');
  */
 class HtmlToolbarHelper extends ToolbarHelper {
 
-	/**
-	 * helpers property
-	 *
-	 * @var array
-	 */
+/**
+ * helpers property
+ *
+ * @var array
+ */
 	public $helpers = array('Html', 'Form');
 
-	/**
-	 * settings property
-	 *
-	 * @var array
-	 */
+/**
+ * settings property
+ *
+ * @var array
+ */
 	public $settings = array('format' => 'html', 'forceEnable' => false);
 
-	/**
-	 * Recursively goes through an array and makes neat HTML out of it.
-	 *
-	 * @param mixed $values Array to make pretty.
-	 * @param integer $openDepth Depth to add open class
-	 * @param integer $currentDepth current depth.
-	 * @param boolean $doubleEncode
-	 * @return string
-	 */
+/**
+ * Recursively goes through an array and makes neat HTML out of it.
+ *
+ * @param mixed $values Array to make pretty.
+ * @param integer $openDepth Depth to add open class
+ * @param integer $currentDepth current depth.
+ * @param boolean $doubleEncode
+ * @return string
+ */
 	public function makeNeatArray($values, $openDepth = 0, $currentDepth = 0, $doubleEncode = false) {
 		static $printedObjects = null;
 		if ($currentDepth === 0) {
@@ -105,10 +105,10 @@ class HtmlToolbarHelper extends ToolbarHelper {
 
 			if (
 				(
-					$value instanceof ArrayAccess ||
-					$value instanceof Iterator ||
-					is_array($value) ||
-					$isObject
+				$value instanceof ArrayAccess ||
+				$value instanceof Iterator ||
+				is_array($value) ||
+				$isObject
 				) && !empty($value)
 			) {
 				$out .= $this->makeNeatArray($value, $openDepth, $nextDepth, $doubleEncode);
@@ -121,37 +121,37 @@ class HtmlToolbarHelper extends ToolbarHelper {
 		return $out;
 	}
 
-	/**
-	 * Create an HTML message
-	 *
-	 * @param string $label label content
-	 * @param string $message message content
-	 * @return string
-	 */
+/**
+ * Create an HTML message
+ *
+ * @param string $label label content
+ * @param string $message message content
+ * @return string
+ */
 	public function message($label, $message) {
 		return sprintf('<p><strong>%s</strong> %s</p>', $label, $message);
 	}
 
-	/**
-	 * Start a panel.
-	 * Make a link and anchor.
-	 *
-	 * @param $title
-	 * @param $anchor
-	 * @return string
-	 */
+/**
+ * Start a panel.
+ * Make a link and anchor.
+ *
+ * @param $title
+ * @param $anchor
+ * @return string
+ */
 	public function panelStart($title, $anchor) {
 		$link = $this->Html->link($title, '#' . $anchor);
 		return $link;
 	}
 
-	/**
-	 * Create a table.
-	 *
-	 * @param array $rows Rows to make.
-	 * @param array $headers Optional header row.
-	 * @return string
-	 */
+/**
+ * Create a table.
+ *
+ * @param array $rows Rows to make.
+ * @param array $headers Optional header row.
+ * @return string
+ */
 	public function table($rows, $headers = array()) {
 		$out = '<table class="debug-table">';
 		if (!empty($headers)) {
@@ -162,11 +162,11 @@ class HtmlToolbarHelper extends ToolbarHelper {
 		return $out;
 	}
 
-	/**
-	 * Send method
-	 *
-	 * @return void
-	 */
+/**
+ * Send method
+ *
+ * @return void
+ */
 	public function send() {
 		if (!$this->settings['forceEnable'] && Configure::read('debug') == 0) {
 			return;
@@ -196,13 +196,13 @@ class HtmlToolbarHelper extends ToolbarHelper {
 		}
 	}
 
-	/**
-	 * Generates a SQL explain link for a given query
-	 *
-	 * @param string $sql SQL query string you want an explain link for.
-	 * @param $connection
-	 * @return string Rendered Html link or '' if the query is not a select/describe
-	 */
+/**
+ * Generates a SQL explain link for a given query
+ *
+ * @param string $sql SQL query string you want an explain link for.
+ * @param $connection
+ * @return string Rendered Html link or '' if the query is not a select/describe
+ */
 	public function explainLink($sql, $connection) {
 		if (!preg_match('/^[\s()]*SELECT/i', $sql)) {
 			return '';

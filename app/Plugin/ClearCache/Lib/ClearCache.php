@@ -21,14 +21,14 @@
  */
 class ClearCache {
 
-	/**
-	 * Clears content of cache engines
-	 *
-	 * @param mixed any amount of strings - keys of configured cache engines
-	 * @return array associative array with cleanup results
-	 */
+/**
+ * Clears content of cache engines
+ *
+ * @param mixed any amount of strings - keys of configured cache engines
+ * @return array associative array with cleanup results
+ */
 	public function engines() {
-		if ($cacheDisabled = (bool)Configure::read('Cache.disable')) {
+		if ($cacheDisabled = (bool) Configure::read('Cache.disable')) {
 			Configure::write('Cache.disable', false);
 		}
 
@@ -51,12 +51,12 @@ class ClearCache {
 		return $result;
 	}
 
-	/**
-	 * Clears content of CACHE subfolders
-	 *
-	 * @param mixed any amount of strings - names of CACHE subfolders or '.' (dot) for CACHE folder itself
-	 * @return array associative array with cleanup results
-	 */
+/**
+ * Clears content of CACHE subfolders
+ *
+ * @param mixed any amount of strings - names of CACHE subfolders or '.' (dot) for CACHE folder itself
+ * @return array associative array with cleanup results
+ */
 	public function files() {
 		$deleted = $error = array();
 
@@ -83,14 +83,14 @@ class ClearCache {
 		return compact('deleted', 'error');
 	}
 
-	/**
-	 * Clears groups of cache engines
-	 *
-	 * @param mixed any amount of strings - keys of configured cache groups
-	 * @return array associative array with cleanup results
-	 */
+/**
+ * Clears groups of cache engines
+ *
+ * @param mixed any amount of strings - keys of configured cache groups
+ * @return array associative array with cleanup results
+ */
 	public function groups() {
-		if ($cacheDisabled = (bool)Configure::read('Cache.disable')) {
+		if ($cacheDisabled = (bool) Configure::read('Cache.disable')) {
 			Configure::write('Cache.disable', false);
 		}
 
@@ -117,11 +117,11 @@ class ClearCache {
 		return $result;
 	}
 
-	/**
-	 * Clears content of CACHE subfolders and configured cache engines
-	 *
-	 * @return array associative array with cleanup results
-	 */
+/**
+ * Clears content of CACHE subfolders and configured cache engines
+ *
+ * @return array associative array with cleanup results
+ */
 	public function run() {
 		$files = $this->files();
 		$engines = $this->engines();
@@ -129,11 +129,11 @@ class ClearCache {
 		return compact('files', 'engines');
 	}
 
-	/**
-	 * Get list of groups with their associated cache configurations
-	 *
-	 * @return array
-	 */
+/**
+ * Get list of groups with their associated cache configurations
+ *
+ * @return array
+ */
 	public static function getGroups() {
 		$groups = array();
 		$keys = Cache::configured();

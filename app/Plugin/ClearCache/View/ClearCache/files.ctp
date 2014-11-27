@@ -22,4 +22,4 @@
 	}
 	echo $this->Html->tableHeaders($headers);
 	echo $this->Html->tableCells($files);
-	?></table>
+?></table>
