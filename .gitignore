@@ -3,6 +3,11 @@
 /app/Config/database.php
 /app/tmp
 /lib/Cake/Console/Templates/skel/tmp/
+/app/plugin
+/app/plugin
+/app/Plugin
+/app/vendor
+/app/Vendor
 /plugins
 /vendors
 /build
