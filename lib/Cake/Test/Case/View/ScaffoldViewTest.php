@@ -118,7 +118,7 @@ class ScaffoldViewTest extends CakeTestCase {
 		$this->Controller->request->params['action'] = 'index';
 		$ScaffoldView = new TestScaffoldView($this->Controller);
 		$result = $ScaffoldView->testGetFilename('index');
-		$expected = CAKE . 'View' . DS . 'Scaffolds' . DS . 'index.ctp';
+		$expected = CAKE . 'View' . DS . 'Scaffolds' . DS . 'admin_dashboard.ctp';
 		$this->assertEquals($expected, $result);
 
 		$result = $ScaffoldView->testGetFilename('edit');
@@ -134,7 +134,7 @@ class ScaffoldViewTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 
 		$result = $ScaffoldView->testGetFilename('admin_index');
-		$expected = CAKE . 'View' . DS . 'Scaffolds' . DS . 'index.ctp';
+		$expected = CAKE . 'View' . DS . 'Scaffolds' . DS . 'admin_dashboard.ctp';
 		$this->assertEquals($expected, $result);
 
 		$result = $ScaffoldView->testGetFilename('admin_view');
@@ -204,7 +204,7 @@ class ScaffoldViewTest extends CakeTestCase {
 
 		$result = $ScaffoldView->testGetFilename('index');
 		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS .
-			'Themed' . DS . 'TestTheme' . DS . 'Posts' . DS . 'scaffold.index.ctp';
+			'Themed' . DS . 'TestTheme' . DS . 'Posts' . DS . 'scaffold.admin_dashboard.ctp';
 		$this->assertEquals($expected, $result);
 	}
 

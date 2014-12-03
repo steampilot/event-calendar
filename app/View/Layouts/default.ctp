@@ -24,7 +24,7 @@ if (!empty($arrAssets['js'])) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<base href="<?php echo $this->webroot; ?>">
 	<?php echo $this->fetch('meta'); ?>
-	<?php echo $this->Html->meta('icon', $strFavicon); ?>
+	<?php //echo $this->Html->meta('icon', $strFavicon); ?>
 	<?php echo $this->Html->script('jquery.min'); ?>
 	<?php echo $this->Html->script('bootstrap.min'); ?>
 	<?php echo $this->Html->css('bootstrap.min'); ?>
