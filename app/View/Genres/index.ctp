@@ -15,28 +15,12 @@
 			</button>
 		</div>
 	</div>
+	<p></p>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
 				<div class="panel panel-body">
-					<!--Nav tabs-->
-					<ul class="nav nav-tabs" role="tablist" id="customer_add_nav_tabs">
-						<li class="active">
-							<a href="#genre_tab_pane" data-filter="active" role="tab" data-toggle="tab">
-								<?php wh(__('Active')); ?></a>
-						</li>
-						<li>
-							<a href="#genre_tab_pane" data-filter="inactive" role="tab" data-toggle="tab">
-								<?php wh(__('Inactive/Deleted')); ?></a>
-						</li>
-						<li>
-							<a href="#genre_tab_pane" data-filter="all" role="tab" data-toggle="tab">
-								<?php wh(__('All')); ?></a>
-						</li>
-					</ul>
-					<!--Tab panes -->
-					<div class="tab-content">
-						<div class="tab-pane active" id="genre_tab_pane">
+
 							<table id="genre_table"
 							       class="table table-bordered table-hover table-striped table-condensed">
 								<thead>
@@ -53,8 +37,7 @@
 
 								</tbody>
 							</table>
-						</div>
-					</div>
+
 				</div>
 			</div>
 		</div>
@@ -71,7 +54,7 @@
 				<span class="fa fa-edit"></span>
 				<?php wh(__('Edit')); ?>
 			</button>
-			<button type="button" name="genre_remove" data-href="{id}" class="btn btn-danger">
+			<button type="button" name="genre_remove" data-id="{id}" class="btn btn-danger">
 				<span class="fa fa-remove"></span>
 				<?php wh(__('Delete')); ?>
 			</button>

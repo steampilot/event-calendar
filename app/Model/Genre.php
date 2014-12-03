@@ -10,23 +10,8 @@ App::uses('AppModel', 'Model');
 class Genre extends AppModel {
 	public function getAll(){
 		$return = array();
-		$conditions = array();
-		$rows =$this->queryFind('all', array(
-			'fields' => array('id'),
-			'conditions' => $conditions,
-			'order' => array('title')
-		));
-		if (!empty($rows)){
-			foreach ($rows as $row) {
-				$return[] = $this->getById($row['id']);
-			}
-		}
-		return $return;
-	}
-	public function getAllActive(){
-		$return = array();
 		$conditions = array(
-			'active' => 1,
+			'deleted' => 0,
 		);
 		$rows =$this->queryFind('all', array(
 			'fields' => array('id'),
@@ -60,19 +45,15 @@ class Genre extends AppModel {
 	public function saveGenre($params){
 		$return = array();
 		if(empty($params['data']['id'])) {
-			$return = $this->insertrow($this->name, $params['data']);
+			$return = $this->insertRow($this->name, $params['data']);
 		} else {
 			$return = $this->save($params['data'],false);
+
 		}
 		return $return;
 	}
-	public function insertGenre($row){
-		$return = array(
-			'status' => 0
-		);
-	}
 
-	public function disableById($id){
+	public function deleteById($id){
 		$return = array(
 			'status' => 0
 		);
@@ -81,7 +62,7 @@ class Genre extends AppModel {
 		}
 		$this->id = $id;
 		$row = array(
-			'active' => 0
+			'deleted' => 1
 		);
 		$data = $this->save($row, false);
 		$return['status'] = 1;

@@ -4,7 +4,7 @@
 if (!app.genres) {
 	app.genres = {};
 }
-app.genres.index = function(config){
+app.genres.Index = function(config){
 	//this Class Object
 	var $this = this;
 	//class and member variables
@@ -37,20 +37,14 @@ app.genres.index = function(config){
 		var html = '';
 		for(var i in result.genres) {
 			var row = result.genres[i];
-			var token = row['token'];
-			var id = row['id'];
-			row.href = 'genres/edit?id='+id+'&token='+token;
-			if (row.enabled === true) {
-				row.filter = 'active';
-			} else {
-				row.filter = 'inactive';
-			}
+			var id = row.id;
+			row.href = 'genres/edit?'+ $.param({id:id});
 			html = $d.template(tpl, row);
 			tbody.append(html);
 		}
 		//register action button events
-		$(tbody).find('buton[name=genre_edit').on('click', $this.genreEdit_onClick);
-		$(tbody).find('button[name=genre_remove').on('click',$this.genreRemove_onClick);
+		$(tbody).find('button[name=genre_edit]').on('click', $this.genreEdit_onClick);
+		$(tbody).find('button[name=genre_remove]').on('click',$this.genreRemove_onClick);
 		// hide delete button for deleted genres
 		$(tbody).find("tr[data-filter='inactive'] button[name=genre_remove]").hide();
 		// enable tooltips
@@ -136,7 +130,7 @@ app.genres.index = function(config){
 			};
 
 			$d.showLoad();
-			app.rpc('Articles.disableGenre', params, function(res) {
+			app.rpc('Genres.deleteGenre', params, function(res) {
 				if (!$d.handleResponse(res)) {
 					return;
 				}

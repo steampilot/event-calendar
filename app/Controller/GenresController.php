@@ -40,11 +40,13 @@ class GenresController extends AppController {
 		return $arrReturn;
 	}
 	public function loadEdit($params = array()) {
-		$return = array(
-			'status' => 1,
-			'genre' => $this->Genre->getById($params['id'])
-		);
-		return $return;
+		$arrReturn = array();
+		$numGenreId = $params['id'];
+		$arrGenre = $this->Genre->getById($numGenreId);
+
+		$arrReturn['status'] = '1';
+		$arrReturn['genre'] = $arrGenre;
+		return $arrReturn;
 	}
 	public function getText(){
 		$return = array(
@@ -54,17 +56,17 @@ class GenresController extends AppController {
 		);
 		return $return;
 	}
-	public function disableGenre($params = array()){
-		$return = $this->Genre->disableById($params['id']);
+	public function deleteGenre($params = array()){
+		$return = $this->Genre->deleteById($params['id']);
 		return $return;
 	}
 
 	public function saveGenre($params){
 		$return = array();
 		$result = $this->Genre->saveGenre($params);
-		if(isset($result['genre']['id'])){
+		if(isset($result['Genre']['id'])){
 			$load = array();
-			$load['id'] = $result['genre']['id'];
+			$load['id'] = $result['Genre']['id'];
 			//$load['token'] = $result['genre']['token'];
 			$return = $this->loadEdit($load);
 		} else {
@@ -73,21 +75,34 @@ class GenresController extends AppController {
 		return $return;
 	}
 	public function add(){
-		$this->View = 'edit';
+		$this->view = 'edit';
 		$this->setAssetsEdit();
 		$this->setAssets();
 		$this->set('title_for_layout',__('Create new genre'));
 	}
+
+	/**
+	 * Edit action
+	 *
+	 * @return void
+	 * @throws NotFoundException
+	 */
 	public function edit() {
 		$this->setAssetsEdit();
 		$this->setAssets();
-		$id = $this->request->query('id');
-		$token = $this->request->query('token');
-		if(!$this->Genre->checkToken($id, $token)){
-			throw new NotFoundException(__('Invalid security foken'));
-		}
-		$this->set('title_for_layout', __('Edit genre'));
+
+		$numId = $this->request->query('id');
+		//$strToken = $this->request->query('token');
+
+
+		//$arrCustomer = $this->Customer->getById($numId);
+		//$this->set('customer', $arrCustomer);
+		$this->set('title_for_layout', __('Edit article'));
 	}
+
+	/**
+	 *
+	 */
 	public function setAssetsEdit(){
 		$assets = array();
 		$assets['js'][] = array(
