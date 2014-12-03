@@ -58,11 +58,7 @@ class UsersController extends AppController {
 	 * @return void
 	 */
 	public function logout() {
-		//$this->log("Destroying session", 'debug');
-		$this->model('User')->logout();
-		//$strUrl = $this->Auth->logout();
-		$strUrl = $this->Auth->redirect();
-		$this->redirect($strUrl);
+		return $this->redirect($this->Auth->logout());
 	}
 
 	/**

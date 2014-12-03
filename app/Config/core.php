@@ -411,3 +411,4 @@ if (file_exists(APP . DS . 'Config' . DS . 'core.local.php')) {
 	require APP . DS . 'Config' . DS . 'core.local.php';
 }
 
+Configure::write('Routing.prefixes', array('admin'));

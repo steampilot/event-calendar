@@ -98,7 +98,8 @@
 				<ul class="nav navbar-nav">
 					<li<?php echo ($strActiveNavbar == 'setting') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/settings'); ?>"><i class="fa fa-gear"></i> </a></li>
 					<li<?php echo ($strActiveNavbar == 'help') ? ' class="active"' : '' ?>><a href="<?php echo $this->Html->url('/help'); ?>"><i class="fa fa-question-circle"></i> </a></li>
-					<li><a href="<?php echo $this->Html->url('/users/login'); ?>"><i class="fa fa-power-off"></i> </a></li>
+					<li><a href="<?php echo $this->Html->url('/users/logout'); ?>"><i class="fa fa-power-off"></i>
+						</a></li>
 				</ul>
 			</ul>
 		</div><!--/.nav-collapse -->

@@ -35,10 +35,13 @@ class AppController extends Controller {
 	public $components = array(
 		'Session',
 		'Auth' => array(
-			//'loginRedirect' => array('controller' => 'contact', 'action' => 'index'),
-			'loginRedirect' => array('controller' => 'pages', 'action' => 'index'),
-			//'logoutRedirect' => array('controller' => 'users', 'action' => 'logout'),
-			'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
+			'loginAction' => array(
+				'controller' => 'users',
+				'action' => 'login',
+				'admin' => false
+			),
+			'loginRedirect' => array('controller' => 'events', 'action'=> 'dashboard', 'admin' => true),
+			'logoutRedirect' => '/'
 		)
 	);
 
@@ -233,7 +236,7 @@ class AppController extends Controller {
 	 * @return string
 	 */
 	public function getFavicon($strCi = 'default') {
-		$strReturn = sprintf('favicon.ico', $strCi);
+		$strReturn = 'favicon.ico';
 		return $strReturn;
 	}
 
