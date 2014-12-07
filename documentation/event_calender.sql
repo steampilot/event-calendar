@@ -51,7 +51,7 @@ LOCK TABLES `events` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `genres`
+-- Table structure for table `Genres`
 --
 
 DROP TABLE IF EXISTS `genres`;
@@ -70,13 +70,13 @@ CREATE TABLE `genres` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `genres`
+-- Dumping data for table `Genres`
 --
 
 LOCK TABLES `genres` WRITE;
-/*!40000 ALTER TABLE `genres` DISABLE KEYS */;
-INSERT INTO `genres` VALUES (1,'Rock',0,'2014-12-07 13:19:08',1,'2014-12-07 13:19:08',NULL),(2,'Blues',0,'2014-12-07 13:19:20',1,'2014-12-07 13:19:20',NULL);
-/*!40000 ALTER TABLE `genres` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Genres` DISABLE KEYS */;
+INSERT INTO `genres` VALUES (1,'Rock',0,'2014-12-07 13:19:08',1,'2014-12-07 13:19:08',NULL),(2,'Blues',1,'2014-12-07 13:19:20',1,'2014-12-07 13:19:20',NULL);
+/*!40000 ALTER TABLE `Genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -111,32 +111,33 @@ LOCK TABLES `links` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `price_groups`
+-- Table structure for table `price_categories`
 --
 
-DROP TABLE IF EXISTS `price_groups`;
+DROP TABLE IF EXISTS `price_categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `price_groups` (
+CREATE TABLE `price_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `price` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+  `price` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modified_by` int(11) DEFAULT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `price_groups`
+-- Dumping data for table `price_categories`
 --
 
-LOCK TABLES `price_groups` WRITE;
-/*!40000 ALTER TABLE `price_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `price_groups` ENABLE KEYS */;
+LOCK TABLES `price_categories` WRITE;
+/*!40000 ALTER TABLE `price_categories` DISABLE KEYS */;
+INSERT INTO `price_categories` VALUES (1,'Front Row',12.45,0,NULL,NULL,NULL,NULL),(2,'Left Tribune',25.25,0,NULL,NULL,NULL,NULL),(3,'Seated Back Row',100.00,1,NULL,NULL,NULL,NULL),(4,'Backstage Ticket',450.15,0,NULL,NULL,'2014-12-07 16:25:38',1),(5,'Guest Sector Alpha 3',45.00,0,'2014-12-07 16:32:00',1,'2014-12-07 16:32:00',NULL);
+/*!40000 ALTER TABLE `price_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -158,7 +159,7 @@ CREATE TABLE `prices` (
   KEY `fk_Prices_events1_idx` (`event_id`),
   KEY `fk_Prices_price_groups1_idx` (`price_group_id`),
   CONSTRAINT `fk_prices_events` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_prices_price_groups` FOREIGN KEY (`price_group_id`) REFERENCES `price_groups` (`id`) ON UPDATE NO ACTION
+  CONSTRAINT `fk_prices_price_groups` FOREIGN KEY (`price_group_id`) REFERENCES `price_categories` (`id`) ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -241,4 +242,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-07 13:31:07
+-- Dump completed on 2014-12-07 17:12:14
