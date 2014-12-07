@@ -24,7 +24,7 @@ class GenresController extends AppController {
 	public function setAssetsIndex() {
 		$arrAssets = array();
 		$arrAssets['js'][] = array(
-			'path' => 'pages/genres/index',
+			'path' => 'pages/Genres/index',
 			'options' => array(
 				'block' => 'script',
 				'inline' => 'true'
@@ -35,19 +35,11 @@ class GenresController extends AppController {
 
 	public function loadIndex($params = array()) {
 		$arrReturn = array(
-			'genres' => $this->Genre->getAll()
+			'Genres' => $this->Genre->getAll()
 		);
 		return $arrReturn;
 	}
-	public function loadEdit($params = array()) {
-		$arrReturn = array();
-		$numGenreId = $params['id'];
-		$arrGenre = $this->Genre->getById($numGenreId);
 
-		$arrReturn['status'] = '1';
-		$arrReturn['genre'] = $arrGenre;
-		return $arrReturn;
-	}
 	public function getText(){
 		$return = array(
 			'Genre'=> __('Genre'),
@@ -56,6 +48,7 @@ class GenresController extends AppController {
 		);
 		return $return;
 	}
+
 	public function deleteGenre($params = array()){
 		$return = $this->Genre->deleteById($params['id']);
 		return $return;
@@ -74,6 +67,18 @@ class GenresController extends AppController {
 		}
 		return $return;
 	}
+
+	public function loadEdit($params = array())
+	{
+		$arrReturn = array();
+		$numGenreId = $params['id'];
+		$arrGenre = $this->Genre->getById($numGenreId);
+
+		$arrReturn['status'] = '1';
+		$arrReturn['genre'] = $arrGenre;
+		return $arrReturn;
+	}
+
 	public function add(){
 		$this->view = 'edit';
 		$this->setAssetsEdit();
@@ -82,12 +87,29 @@ class GenresController extends AppController {
 	}
 
 	/**
+	 *
+	 */
+	public function setAssetsEdit()
+	{
+		$assets = array();
+		$assets['js'][] = array(
+			'path' => 'pages/Genres/edit',
+			'options' => array(
+				'block' => 'script',
+				'inline' => true
+			)
+		);
+		$this->addAssets($assets);
+	}
+
+	/**
 	 * Edit action
 	 *
 	 * @return void
 	 * @throws NotFoundException
 	 */
-	public function edit() {
+	public function edit()
+	{
 		$this->setAssetsEdit();
 		$this->setAssets();
 
@@ -98,21 +120,6 @@ class GenresController extends AppController {
 		//$arrCustomer = $this->Customer->getById($numId);
 		//$this->set('customer', $arrCustomer);
 		$this->set('title_for_layout', __('Edit article'));
-	}
-
-	/**
-	 *
-	 */
-	public function setAssetsEdit(){
-		$assets = array();
-		$assets['js'][] = array(
-			'path' => 'pages/genres/edit',
-			'options' => array(
-				'block' => 'script',
-				'inline' => true
-			)
-		);
-		$this->addAssets($assets);
 	}
 
 }
