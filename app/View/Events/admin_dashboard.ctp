@@ -2,7 +2,9 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-md-12">
-				<h1><?php wh(__('Dashboard')); ?> <small><?php wh(__('Home')); ?></small></h1>
+				<h1><?php wh(__('Dashboard')); ?>
+					<small><?php wh(__('Home')); ?></small>
+				</h1>
 				<?php echo $this->Session->flash(); ?>
 				<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -15,7 +17,8 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> <?php wh(__('List of all the up coming events')); ?></h3>
+						<h3 class="panel-title"><i
+								class="fa fa-bar-chart-o"></i> <?php wh(__('List of all the up coming events')); ?></h3>
 					</div>
 					<div class="panel-body center">
 						<canvas id="sales_chart" height="98"></canvas>
@@ -37,7 +40,8 @@
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> <?php wh(__('Listed Price Categories')); ?></h3>
+						<h3 class="panel-title"><i
+								class="fa fa-bar-chart-o"></i> <?php wh(__('Listed Price Categories')); ?></h3>
 					</div>
 					<div class="panel-body center">
 						<canvas id="article_year_chart" height="200"/>

@@ -13,4 +13,4 @@
 	</div>
 </div>
 <?php
-echo $this->Html->link('Admin', array('action'=> 'dashboard', 'admin' => 'true'));
+echo $this->Html->link('Admin', array('action' => 'dashboard', 'admin' => 'true'));

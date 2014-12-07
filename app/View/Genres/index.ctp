@@ -16,27 +16,28 @@
 		</div>
 	</div>
 	<p></p>
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">
 				<div class="panel panel-body">
 
-							<table id="genre_table"
-							       class="table table-bordered table-hover table-striped table-condensed">
-								<thead>
-									<tr>
-										<th>
-											<?php wh(__('Title')); ?>
-										</th>
-										<th>
-											<?php wh(__('Action')); ?>
-										</th>
-									</tr>
-								</thead>
-								<tbody>
+					<table id="genre_table"
+					       class="table table-bordered table-hover table-striped table-condensed">
+						<thead>
+						<tr>
+							<th>
+								<?php wh(__('Title')); ?>
+							</th>
+							<th>
+								<?php wh(__('Action')); ?>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
 
-								</tbody>
-							</table>
+						</tbody>
+					</table>
 
 				</div>
 			</div>
