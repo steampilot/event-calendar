@@ -12,14 +12,16 @@ App::uses('AppController', 'Controller');
 /**
  * Events Controller
  */
-class EventsController extends AppController{
+class EventsController extends AppController
+{
 
 	/**
 	 * Allows unauthenticated access to program and archive
 	 *
 	 * @return void
 	 */
-	public function beforeFilter() {
+	public function beforeFilter()
+	{
 		parent::beforeFilter();
 		$this->Auth->allow('program', 'archive');
 	}
@@ -30,14 +32,16 @@ class EventsController extends AppController{
 	 *
 	 * @return void
 	 */
-	public function program(){
+	public function program()
+	{
 
 	}
 
 	/**
 	 * Shows the admin dashboard
 	 */
-	public function admin_dashboard() {
+	public function admin_dashboard()
+	{
 		$this->setAssetsAdminDashboard();
 		$this->setAssets();
 	}
@@ -47,7 +51,8 @@ class EventsController extends AppController{
 	 *
 	 * @return void
 	 */
-	public function setAssetsAdminDashboard() {
+	public function setAssetsAdminDashboard()
+	{
 		$arrAssets = array();
 
 		$arrAssets['js'][] = array(

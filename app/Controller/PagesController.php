@@ -28,7 +28,8 @@ App::uses('AppController', 'Controller');
  * @package       app.Controller
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
-class PagesController extends AppController {
+class PagesController extends AppController
+{
 
 	/**
 	 * This controller does not use a model
@@ -44,7 +45,8 @@ class PagesController extends AppController {
 	 * @throws NotFoundException When the view file could not be found
 	 *    or MissingViewException in debug mode.
 	 */
-	public function display() {
+	public function display()
+	{
 		$path = func_get_args();
 
 		$count = count($path);
