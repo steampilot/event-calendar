@@ -14,7 +14,7 @@
 /dist
 /tags
 *.mo
-
+*/Plugin/*
 # IDE and editor specific files #
 #################################
 atlassian-ide-plugin.xml
