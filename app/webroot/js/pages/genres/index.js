@@ -1,5 +1,5 @@
 /**
- * Created by Jerome Roethlisberger on 30.11.2014.
+ * Created by ShinKenDo on 07.12.2014.
  */
 if (!app.genres) {
 	app.genres = {};
@@ -12,7 +12,7 @@ app.genres.Index = function(config){
 	this.init = function() {
 		$('#genre_add').on('click', this.btnGenreAdd_onClick);
 		$('#genre_table tbody').hide();
-		$('#genre_add_nav_tabs > li > a').on('show.bs.tab', this.navTabs_onShos);
+		$('#genre_add_nav_tabs > li > a').on('show.bs.tab', this.navTabs_onShow);
 		$this.filterTable('active');
 	};
 
@@ -38,14 +38,14 @@ app.genres.Index = function(config){
 		for(var i in result.genres) {
 			var row = result.genres[i];
 			var id = row.id;
-			row.href = 'genres/edit?'+ $.param({id:id});
+			row.href = 'Genres/edit?'+ $.param({id:id});
 			html = $d.template(tpl, row);
 			tbody.append(html);
 		}
 		//register action button events
 		$(tbody).find('button[name=genre_edit]').on('click', $this.genreEdit_onClick);
 		$(tbody).find('button[name=genre_remove]').on('click',$this.genreRemove_onClick);
-		// hide delete button for deleted genres
+		// hide delete button for deleted Genres
 		$(tbody).find("tr[data-filter='inactive'] button[name=genre_remove]").hide();
 		// enable tooltips
 		$(tbody).find('[data-toggle=tooltip]').tooltip();
@@ -97,7 +97,7 @@ app.genres.Index = function(config){
 	 * @returns {undefined}
 	 */
 	this.btnGenreAdd_onClick = function() {
-		app.redirect('genres/add');
+		app.redirect('Genres/add');
 	};
 
 	/**
