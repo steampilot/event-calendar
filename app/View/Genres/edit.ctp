@@ -8,7 +8,7 @@
 	<p></p>
 	<div class="row">
 		<div class="col-md-8">
-			<div class="panel panel-default" id="customer_overview_panel">
+			<div class="panel panel-default" id="genre_overview_panel">
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa-bus"></i> <?php wh(__('Genre')); ?></h3>
 				</div>
