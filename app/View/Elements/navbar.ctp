@@ -20,52 +20,23 @@
 							<div class='col-md-4'>
 								<form id="customer_search" role="form">
 									<div class="form-group">
-										<label><?php wh(__('TNW-Number')); ?></label>
-										<input class="form-control" name="data[tnw_id]" id="customer_search_tnw_id"
-										       type="text" autocomplete="off" maxlength="255">
-
-										<p class="help-block"></p>
-									</div>
-									<hr>
-									<div class="form-group">
-										<label><?php wh(__('Lastname*')); ?></label>
-										<input type="text" name="data[lastname]" class="form-control" autocomplete="off"
-										       required="required" maxlength="255">
-
-										<p class="help-block"></p>
-									</div>
-									<div class="form-group">
-										<label><?php wh(__('Firstname')); ?></label>
-										<input type="text" name="data[firstname]" class="form-control"
+										<label><?php wh(__('Event Title')); ?></label>
+										<input type="text" name="data[title]" class="form-control"
 										       autocomplete="off" maxlength="255">
 
 										<p class="help-block"></p>
 									</div>
-									<div class="form-group">
-										<label><?php wh(__('Date of Birth / Year')); ?></label>
-										<input type="text" name="data[date_of_birth]" class="form-control"
-										       autocomplete="off" required="required" maxlength="10">
-
-										<p class="help-block"></p>
-									</div>
-									<div class="form-group">
-										<label><?php wh(__('ZIP')); ?></label>
-										<input type="text" name="data[postal_code]" class="form-control"
-										       required="required" pattern="\d{4,5}" maxlength="5">
-
-										<p class="help-block"></p>
-									</div>
-									<br>
-									<button type="submit" id="customer_search_submit" class="btn btn-primary"><span
+																		<br>
+									<button type="submit" id="event_search_submit" class="btn btn-primary"><span
 											class="fa fa-search"></span> <?php wh(__('Search')); ?></button>
-									<button type="button" id="customer_search_reset" class="btn btn-default"><span
+									<button type="button" id="event_search_reset" class="btn btn-default"><span
 											class="fa fa-remove"></span> <?php wh(__('New Search')); ?></button>
 									<hr>
 									<div id="customer_search_alert">
 										<div class="alert alert-danger" role="alert"></div>
 									</div>
-									<button type="button" id="customer_search_new_customer" class="btn btn-success">
-										<span class="fa fa-plus"></span> <?php wh(__('New Customer')); ?>
+									<button type="button" id="event_search_new_event" class="btn btn-success">
+										<span class="fa fa-plus"></span> <?php wh(__('New Event')); ?>
 									</button>
 								</form>
 							</div>
@@ -76,10 +47,7 @@
 									       class="table table-bordered table-hover table-striped table-condensed">
 										<thead>
 										<tr>
-											<th><?php wh(__('Lastname')); ?></th>
-											<th><?php wh(__('Firstname')); ?></th>
-											<th><?php wh(__('Date of birth')); ?></th>
-											<th><?php wh(__('ZIP')); ?></th>
+											<th><?php wh(__('Event Title')); ?></th>
 										</tr>
 										</thead>
 										<tbody>
