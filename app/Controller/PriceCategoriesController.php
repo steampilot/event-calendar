@@ -11,6 +11,7 @@ App::uses('AppController', 'Controller');
 
 /**
  * Class GenresController
+ * @property PriceCategory PriceCategory
  *
  */
 class PriceCategoriesController extends AppController
@@ -49,10 +50,10 @@ class PriceCategoriesController extends AppController
 	{
 		$return = array();
 		$id = $params['id'];
-		$priceCategory = $this->PriceCategory->getById($id);
+		$result = $this->PriceCategory->getById($id);
 
 		$return['status'] = '1';
-		$return['priceCategory'] = $priceCategory;
+		$return['priceCategory'] = $result;
 		return $return;
 	}
 
@@ -68,7 +69,7 @@ class PriceCategoriesController extends AppController
 
 	public function deletePriceCategory($params = array())
 	{
-		$return = $this->PricCategory->deleteById($params['id']);
+		$return = $this->PriceCategory->deleteById($params['id']);
 		return $return;
 	}
 

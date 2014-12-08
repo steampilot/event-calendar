@@ -1,9 +1,9 @@
 
-if (!app.genres) {
-	app.genres = {};
+if (!app.priceCategories) {
+	app.priceCategories = {};
 }
 
-app.genres.Edit = function(config) {
+app.priceCategories.Edit = function(config) {
 	// this object
 	var $this = this;
 
@@ -18,8 +18,8 @@ app.genres.Edit = function(config) {
 	 */
 	this.init = function() {
 		this.form().on('submit', this.form_onSubmit);
-		$('#genre_save').on('click', this.save_onClick);
-		$('#genre_cancel').on('click', this.cancel_onClick);
+		$('#priceCategory_save').on('click', this.save_onClick);
+		$('#priceCategory_cancel').on('click', this.cancel_onClick);
 
 		$('#title').focus();
 
@@ -44,11 +44,11 @@ app.genres.Edit = function(config) {
 		form.find(":input[type!='hidden']").prop("deleted", false);
 
 		var params = $this.config;
-		app.rpc('Genres.loadEdit', params, function(res) {
+		app.rpc('PriceCategories.loadEdit', params, function(res) {
 			if (!$d.handleResponse(res)) {
 				return;
 			}
-			if (res.result.genre) {
+			if (res.result.priceCategory) {
 				$this.loadForm(res.result);
 			}
 			if (res.result.message) {
@@ -63,7 +63,7 @@ app.genres.Edit = function(config) {
 	 * @returns {jQuery}
 	 */
 	this.form = function() {
-		return $('#genre_form');
+		return $('#priceCategory_form');
 	};
 
 	/**
@@ -75,7 +75,7 @@ app.genres.Edit = function(config) {
 	this.loadForm = function(data) {
 		//debugger;
 		//$d.log(data);
-		var genre = data.genre;
+		var priceCategory = data.priceCategory;
 		var form = $this.form();
 
 		// reset form
@@ -84,7 +84,7 @@ app.genres.Edit = function(config) {
 		// load form
 		$d.loadForm({
 			form: form,
-			data: genre
+			data: priceCategory
 		});
 	};
 
@@ -94,7 +94,7 @@ app.genres.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.cancel_onClick = function() {
-		app.redirect('genres');
+		app.redirect('priceCategories');
 	};
 
 	/**
@@ -120,7 +120,7 @@ app.genres.Edit = function(config) {
 		}
 
 		$d.showLoad();
-		app.rpc('genres.saveGenre', data, function(res) {
+		app.rpc('priceCategories.savePriceCategory', data, function(res) {
 			if (!$d.handleResponse(res)) {
 				return;
 			}
@@ -139,7 +139,7 @@ app.genres.Edit = function(config) {
 					msg: __('Saved successfully'),
 					type: 'success'
 				});
-				app.redirect('genres');
+				app.redirect('priceCategories');
 			} else {
 				$d.notify({
 					msg: __('Unknown error occurred'),
@@ -186,5 +186,5 @@ app.genres.Edit = function(config) {
 };
 
 $(function() {
-	var page = new app.genres.Edit($d.urlParams());
+	var page = new app.priceCategories.Edit($d.urlParams());
 });
