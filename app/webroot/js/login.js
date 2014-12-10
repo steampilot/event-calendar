@@ -1,6 +1,5 @@
-
-app.Login = function() {
-	this.setRandomBackground = function() {
+app.Login = function () {
+	this.setRandomBackground = function () {
 		var strImg = $('#js_login').attr('data-img');
 		if (!strImg) {
 			return;
@@ -9,7 +8,7 @@ app.Login = function() {
 	};
 };
 
-$(function() {
+$(function () {
 	var login = new app.Login();
 	login.setRandomBackground();
 });

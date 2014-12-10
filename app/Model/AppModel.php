@@ -31,8 +31,7 @@ App::uses('CakeTime', 'Utility');
  *
  * @package       app.Model
  */
-class AppModel extends Model
-{
+class AppModel extends Model {
 	public $useDbConfig = G_DB_CONFIG;
 	public $cacheQueries = false;
 	protected $arrCache = null;
@@ -47,8 +46,7 @@ class AppModel extends Model
 	 * @param string $table Name of database table to use.
 	 * @param string $ds DataSource connection name.
 	 */
-	public function __construct($id = false, $table = null, $ds = null)
-	{
+	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
 		$this->User = $this->model('User');
 	}
@@ -59,8 +57,7 @@ class AppModel extends Model
 	 * @param null $id
 	 * @return bool
 	 */
-	public function exists($id = null)
-	{
+	public function exists($id = null) {
 		if ($id === null) {
 			$id = $this->getID();
 		}
@@ -71,8 +68,7 @@ class AppModel extends Model
 		}
 	}
 
-	public function delete($id = null, $cascade = true)
-	{
+	public function delete($id = null, $cascade = true) {
 		if ($id === null) {
 			$id = $this->getID();
 		}
@@ -91,8 +87,7 @@ class AppModel extends Model
 	 * @param bool $primary primary
 	 * @return array
 	 */
-	public function afterFind($results, $primary = false)
-	{
+	public function afterFind($results, $primary = false) {
 		if (empty($results)) {
 			return $results;
 		}
@@ -129,8 +124,7 @@ class AppModel extends Model
 	 * @param array $options options
 	 * @return boolean
 	 */
-	public function beforeSave($options = array())
-	{
+	public function beforeSave($options = array()) {
 		parent::beforeSave($options);
 
 		App::uses('CakeSession', 'Model/Datasource');
@@ -161,8 +155,7 @@ class AppModel extends Model
 	 * @param string $strType type default is 'log'
 	 * @return void
 	 */
-	public function logFile($strMsg, $strType = 'log')
-	{
+	public function logFile($strMsg, $strType = 'log') {
 		$strLogfile = LOGS . date('Y-m-d') . '_' . $strType . '.txt';
 		$strMsg = date('Y-m-d H:i:s') . ' ' . $strMsg . "\n";
 		file_put_contents($strLogfile, $strMsg, FILE_APPEND);
@@ -175,8 +168,7 @@ class AppModel extends Model
 	 * @param array $query query
 	 * @return array resultset
 	 */
-	public function queryFind($type = 'first', $query = array())
-	{
+	public function queryFind($type = 'first', $query = array()) {
 		$result = parent::find($type, $query);
 		$return = $this->toArray($result);
 		return $return;
@@ -189,8 +181,7 @@ class AppModel extends Model
 	 * @param array $query query
 	 * @return array resultset
 	 */
-	public function queryFindRow($type = 'first', $query = array())
-	{
+	public function queryFindRow($type = 'first', $query = array()) {
 		$arrReturn = null;
 		$result = parent::find($type, $query);
 		if (!empty($result)) {
@@ -205,8 +196,7 @@ class AppModel extends Model
 	 * @param string $sql sql query
 	 * @return array resultset
 	 */
-	public function queryAll($sql)
-	{
+	public function queryAll($sql) {
 		$result = parent::query($sql);
 		$return = $this->toArray($result);
 		return $return;
@@ -218,8 +208,7 @@ class AppModel extends Model
 	 * @param array &$results results
 	 * @return array normalised array
 	 */
-	public function toArray(&$results)
-	{
+	public function toArray(&$results) {
 		if (empty($results)) {
 			return array();
 		}
@@ -242,8 +231,7 @@ class AppModel extends Model
 	 * @param null $mixDefault
 	 * @return null
 	 */
-	public function getFieldById($strField, $strId, $mixDefault = null)
-	{
+	public function getFieldById($strField, $strId, $mixDefault = null) {
 		$strReturn = $mixDefault;
 		$arrRow = $this->queryFindRow('all', array(
 			'fields' => array('id', $strField),
@@ -263,8 +251,7 @@ class AppModel extends Model
 	 * @param array $arrRows rows
 	 * @return void
 	 */
-	public function insertRows($strModel, $arrRows)
-	{
+	public function insertRows($strModel, $arrRows) {
 		if (empty($arrRows)) {
 			return;
 		}
@@ -280,8 +267,7 @@ class AppModel extends Model
 	 * @param array $arrRow row
 	 * @return array last insert row
 	 */
-	public function insertRow($strModel, $arrRow)
-	{
+	public function insertRow($strModel, $arrRow) {
 		$model = $this->model($strModel);
 		$model->create();
 		$arrData = array($model->alias => $arrRow);
@@ -297,8 +283,7 @@ class AppModel extends Model
 	 * @param string $strFormat format (d.m.Y)
 	 * @return boolean
 	 */
-	public function validateTime($strTime, $strFormat = 'd.m.Y')
-	{
+	public function validateTime($strTime, $strFormat = 'd.m.Y') {
 		$d = DateTime::createFromFormat($strFormat, $strTime);
 		$boolReturn = $d && $d->format($strFormat) == $strTime;
 		return $boolReturn;
@@ -310,8 +295,7 @@ class AppModel extends Model
 	 * @param string $strDate date
 	 * @return boolean
 	 */
-	public function isDate($strDate)
-	{
+	public function isDate($strDate) {
 		if (!$this->validateTime($strDate, 'd.m.Y')) {
 			return false;
 		}
@@ -327,8 +311,7 @@ class AppModel extends Model
 	 * @param string $strModel model name
 	 * @return AppModel
 	 */
-	public function model($strModel)
-	{
+	public function model($strModel) {
 		return ClassRegistry::init($strModel);
 	}
 
@@ -340,8 +323,7 @@ class AppModel extends Model
 	 * @param string $default default value = ''
 	 * @return string
 	 */
-	public function formatDate($strDate, $strFormat = 'd.m.Y', $default = '')
-	{
+	public function formatDate($strDate, $strFormat = 'd.m.Y', $default = '') {
 		//return CakeTime::format($strDate, $strFormat, $default);
 		return format_time($strDate, $strFormat, $default);
 	}
@@ -352,8 +334,7 @@ class AppModel extends Model
 	 * @param string $strDate date
 	 * @return string
 	 */
-	public function formatDateTime($strDate)
-	{
+	public function formatDateTime($strDate) {
 		return format_time($strDate, 'Y-m-d H:i:s');
 	}
 
@@ -363,8 +344,7 @@ class AppModel extends Model
 	 * @param string $strNumber number
 	 * @return string
 	 */
-	public function formatCurrency($strNumber)
-	{
+	public function formatCurrency($strNumber) {
 		$strReturn = number_format($strNumber, 2, ".", "'");
 		return $strReturn;
 	}
@@ -376,8 +356,7 @@ class AppModel extends Model
 	 * @param string $strColname default is primaryKey (id)
 	 * @return bool
 	 */
-	public function existValue($strValue, $strColname = null)
-	{
+	public function existValue($strValue, $strColname = null) {
 
 		if ($strColname === null) {
 			$strColname = $this->primaryKey;

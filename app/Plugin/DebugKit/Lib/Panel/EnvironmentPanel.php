@@ -20,12 +20,12 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class EnvironmentPanel extends DebugPanel {
 
-/**
- * beforeRender - Get necessary data about environment to pass back to controller
- *
- * @param Controller $controller
- * @return array
- */
+	/**
+	 * beforeRender - Get necessary data about environment to pass back to controller
+	 *
+	 * @param Controller $controller
+	 * @return array
+	 */
 	public function beforeRender(Controller $controller) {
 		parent::beforeRender($controller);
 

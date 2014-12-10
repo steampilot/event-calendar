@@ -4,10 +4,16 @@
 root = true
 
 [*]
+indent_size = 4
 indent_style = tab
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+curly_bracket_next_line = false
+spaces_around_operators = true
+spaces_around_brackets = outside
+spaces_around_operators = true
+charset = utf-8
 
 [*.bat]
 end_of_line = crlf

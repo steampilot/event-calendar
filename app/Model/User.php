@@ -5,8 +5,7 @@ App::uses('AppModel', 'Model');
  * User Model
  *
  */
-class User extends AppModel
-{
+class User extends AppModel {
 
 	/**
 	 * Display field
@@ -29,8 +28,7 @@ class User extends AppModel
 	 * @param string $strPassword
 	 * @return bool
 	 */
-	public function login($strUsername, $strPassword)
-	{
+	public function login($strUsername, $strPassword) {
 		// user lookup in user table
 		$arrUser = $this->getUserByLogin($strUsername, $strPassword);
 
@@ -53,8 +51,7 @@ class User extends AppModel
 	 *
 	 * @return void
 	 */
-	public function logout()
-	{
+	public function logout() {
 		CakeSession::write('Auth.User.id', null);
 		CakeSession::write('Auth.User.username', null);
 		CakeSession::write('Auth.User.title', null);
@@ -69,8 +66,7 @@ class User extends AppModel
 	 * @param string $strPassword
 	 * @return array
 	 */
-	public function getUserByLogin($strUsername, $strPassword)
-	{
+	public function getUserByLogin($strUsername, $strPassword) {
 		$arrConditions = array('AND' => array(
 			'username' => $strUsername,
 		));
@@ -92,8 +88,7 @@ class User extends AppModel
 	 * @param string $strHash
 	 * @return bool
 	 */
-	function verifyHash($strPassword, $strHash)
-	{
+	function verifyHash($strPassword, $strHash) {
 		if (function_exists('password_verify')) {
 			// php >= 5.5
 			$boolReturn = password_verify($strPassword, $strHash);

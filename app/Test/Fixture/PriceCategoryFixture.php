@@ -1,10 +1,10 @@
 <?php
+
 /**
  * PriceCategoryFixture
  *
  */
-class PriceCategoryFixture extends CakeTestFixture
-{
+class PriceCategoryFixture extends CakeTestFixture {
 
 	/**
 	 * Fields

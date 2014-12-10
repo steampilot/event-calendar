@@ -7,8 +7,7 @@ App::uses('AppModel', 'Model');
  * @property Event $Event
  * @property PriceGroup $PriceGroup
  */
-class Price extends AppModel
-{
+class Price extends AppModel {
 
 	/**
 	 * Display field

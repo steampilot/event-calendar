@@ -175,7 +175,7 @@ $d.fn = {};
  * @param {string} msg
  * @returns {void}
  */
-$d.log = function(msg) {
+$d.log = function (msg) {
 	try {
 		if (!console) {
 			return;
@@ -193,7 +193,7 @@ $d.log = function(msg) {
  * @param {function} fncError | void
  * @returns {void}
  */
-$d.rpc = function(method, params, fncDone, fncError) {
+$d.rpc = function (method, params, fncDone, fncError) {
 	var parts = method.split('.');
 	//var strBaseUrl = $('head base').attr('href');
 	//var strUrl = strBaseUrl + parts[0] + '/rpc';
@@ -230,12 +230,12 @@ $d.rpc = function(method, params, fncDone, fncError) {
 		processData: false,
 		dataType: 'json',
 		contentType: 'application/json',
-		success: function(data) {
+		success: function (data) {
 			if (typeof fncDone === 'function') {
 				fncDone(data);
 			}
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function (jqXHR, textStatus, errorThrown) {
 			if (typeof fncError === 'function') {
 				fncError(jqXHR, textStatus, errorThrown);
 			} else {
@@ -250,7 +250,7 @@ $d.rpc = function(method, params, fncDone, fncError) {
  * @param {object} response
  * @returns {boolean}
  */
-$d.handleResponse = function(response) {
+$d.handleResponse = function (response) {
 	var boolReturn = true;
 
 	if (!response || (!response.error && !response.result)) {
@@ -295,7 +295,7 @@ $d.handleResponse = function(response) {
  * @param {object} obj
  * @returns {obj|Date}
  */
-$d.copyObject = function(obj) {
+$d.copyObject = function (obj) {
 	// Handle the 3 simple types, and null or undefined
 	if (obj === null || typeof obj !== 'object') {
 		return obj;
@@ -342,7 +342,7 @@ $d.copyObject = function(obj) {
  * @param {string} str
  * @returns {number}
  */
-$d.ord = function(str) {
+$d.ord = function (str) {
 
 	if (!isset(str)) {
 		return 0;
@@ -369,7 +369,7 @@ $d.ord = function(str) {
  * @param {string} code
  * @returns {string}
  */
-$d.chr = function(code) {
+$d.chr = function (code) {
 	if (!isset(code)) {
 		return null;
 	}
@@ -389,7 +389,7 @@ $d.chr = function(code) {
  * @param {number} base
  * @returns {number}
  */
-$d.getInt = function(obj, base) {
+$d.getInt = function (obj, base) {
 	var tmp;
 	var type = typeof (obj);
 
@@ -410,7 +410,7 @@ $d.getInt = function(obj, base) {
  * @param {number} num
  * @returns {boolean}
  */
-$d.isInt = function(num) {
+$d.isInt = function (num) {
 	if (!isset(num)) {
 		return false;
 	}
@@ -422,7 +422,7 @@ $d.isInt = function(num) {
  * @param {number} num
  * @returns {boolean}
  */
-$d.isInteger = function(num) {
+$d.isInteger = function (num) {
 	if (!isset(num)) {
 		return false;
 	}
@@ -439,7 +439,7 @@ $d.isInteger = function(num) {
  * @param {number} num
  * @returns {boolean}
  */
-$d.isFloat = function(num) {
+$d.isFloat = function (num) {
 	if (!isset(num)) {
 		return false;
 	}
@@ -451,7 +451,7 @@ $d.isFloat = function(num) {
  * @param {number} num
  * @returns {boolean}
  */
-$d.isNumeric = function(num) {
+$d.isNumeric = function (num) {
 	if (!isset(num)) {
 		return false;
 	}
@@ -464,7 +464,7 @@ $d.isNumeric = function(num) {
  * @param {string} str
  * @returns {boolean}
  */
-$d.isDate = function(str) {
+$d.isDate = function (str) {
 	if (typeof str !== 'string') {
 		return false;
 	}
@@ -483,7 +483,7 @@ $d.isDate = function(str) {
  * @param {string} email
  * @returns {boolean}
  */
-$d.isEmail = function(email) {
+$d.isEmail = function (email) {
 	if (!isset(email)) {
 		return false;
 	}
@@ -497,7 +497,7 @@ $d.isEmail = function(email) {
  * @param {string} string
  * @return {string}
  */
-$d.encodeUrl = function(str) {
+$d.encodeUrl = function (str) {
 	str = (str + '').toString();
 	str = encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
 		replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
@@ -510,7 +510,7 @@ $d.encodeUrl = function(str) {
  * @param {String} str
  * @returns {String}
  */
-$d.encodeAttr = function(str) {
+$d.encodeAttr = function (str) {
 	if (!isset(str)) {
 		return '';
 	}
@@ -523,7 +523,7 @@ $d.encodeAttr = function(str) {
 		"'": '&#039;'
 	};
 
-	str = str.toString().replace(/[&<>"']/g, function(m) {
+	str = str.toString().replace(/[&<>"']/g, function (m) {
 		return map[m];
 	});
 
@@ -535,7 +535,7 @@ $d.encodeAttr = function(str) {
  * @param {string} s
  * @returns {string}
  */
-$d.decodeUrl = function(s) {
+$d.decodeUrl = function (s) {
 	s = decodeURIComponent((s + '').replace(/\+/g, '%20'));
 	return s;
 };
@@ -546,12 +546,12 @@ $d.decodeUrl = function(s) {
  * @param {string} str
  * @returns {string}
  */
-$d.encodeHtml = function(str) {
+$d.encodeHtml = function (str) {
 	if (!isset(str)) {
 		return '';
 	}
 	str = gs(str);
-	str = str.replace(/[^a-z0-9A-Z ]/g, function(c) {
+	str = str.replace(/[^a-z0-9A-Z ]/g, function (c) {
 		return '&#' + c.charCodeAt() + ';';
 	});
 	return str;
@@ -562,7 +562,7 @@ $d.encodeHtml = function(str) {
  * @param {string} s
  * @returns {string}
  */
-$d.removeHtml = function(s) {
+$d.removeHtml = function (s) {
 	if (!isset(s)) {
 		return '';
 	}
@@ -570,31 +570,32 @@ $d.removeHtml = function(s) {
 };
 
 
-$d.uuid = function() {
+$d.uuid = function () {
 	function s4() {
 		return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 	}
+
 	var str = s4() + '' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 	return str;
 };
 
 // native btoa with native utf-8 encoding
-$d.encodeBase64 = function(s) {
+$d.encodeBase64 = function (s) {
 	s = (s + '').toString();
 	return window.btoa(unescape(encodeURIComponent(s)));
 };
 
-$d.decodeBase64 = function(s) {
+$d.decodeBase64 = function (s) {
 	s = (s + '').toString();
 	return decodeURIComponent(escape(window.atob(s)));
 };
 
-$d.encodeUtf8 = function(s) {
+$d.encodeUtf8 = function (s) {
 	s = (s + '').toString();
 	return unescape(encodeURIComponent(s));
 };
 
-$d.decodeUtf8 = function(s) {
+$d.decodeUtf8 = function (s) {
 	s = (s + '').toString();
 	return decodeURIComponent(escape(s));
 };
@@ -604,7 +605,7 @@ $d.decodeUtf8 = function(s) {
  * @param {object} obj
  * @returns {string}
  */
-$d.encodeJson = function(obj) {
+$d.encodeJson = function (obj) {
 	try {
 		if ($.isArray(obj)) {
 			throw new Error('Array is not supported');
@@ -622,7 +623,7 @@ $d.encodeJson = function(obj) {
  * @param {string} str
  * @returns {object}
  */
-$d.decodeJson = function(str) {
+$d.decodeJson = function (str) {
 	try {
 		var obj = JSON.parse(str);
 		return obj;
@@ -637,7 +638,7 @@ $d.decodeJson = function(str) {
  * @param {Array} a
  * @returns {string}
  */
-$d.arrayToUri = function(a) {
+$d.arrayToUri = function (a) {
 	if (!isset(a)) {
 		return '';
 	}
@@ -656,7 +657,7 @@ $d.arrayToUri = function(a) {
  * @param {object} replacePairs
  * @returns {string}
  */
-$d.interpolate = function(str, replacePairs) {
+$d.interpolate = function (str, replacePairs) {
 	var key, re;
 	for (key in replacePairs) {
 		if (replacePairs.hasOwnProperty(key)) {
@@ -674,7 +675,7 @@ $d.interpolate = function(str, replacePairs) {
  * @param {string} sChar
  * @returns {string}
  */
-$d.padLeft = function(str, nLen, sChar) {
+$d.padLeft = function (str, nLen, sChar) {
 	str = String(str);
 	sChar = sChar || ' ';
 	while (str.length < nLen) {
@@ -695,7 +696,7 @@ $d.cfg.uniqueid = Math.random() * 0x80000000 | 0;
  * @param {string} strPrefix optional
  * @return {string} A unique id.
  */
-$d.createId = function(strPrefix) {
+$d.createId = function (strPrefix) {
 	strPrefix = strPrefix || '';
 	var strReturn = strPrefix + $d.cfg.uniqueid++;
 	return strReturn;
@@ -706,7 +707,7 @@ $d.createId = function(strPrefix) {
  * @param {string} str
  * @returns {string}
  */
-$d.jq = function(str) {
+$d.jq = function (str) {
 	str = gs(str);
 	// str = str.replace(/(:|\.|\[|\])/g, "\\$1" );
 	// whitelist
@@ -721,7 +722,7 @@ $d.jq = function(str) {
  * @param {boolean} boolReplace
  * @returns {undefined}
  */
-$d.redirect = function(strUrl, boolReplace) {
+$d.redirect = function (strUrl, boolReplace) {
 	if (boolReplace === true) {
 		// similar behavior as an HTTP redirect
 		window.location.replace(strUrl);
@@ -742,7 +743,7 @@ $d.redirect = function(strUrl, boolReplace) {
  * @param {String} sPath
  * @returns {String}
  */
-$d.getBaseUrl = function(sPath) {
+$d.getBaseUrl = function (sPath) {
 
 	var sUrl = '';
 
@@ -778,10 +779,10 @@ $d.getBaseUrl = function(sPath) {
  *
  * @returns {Object}
  */
-$d.urlParams = function() {
+$d.urlParams = function () {
 	var search = location.search.substring(1);
 	var query = search ? JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-		function(key, value) {
+		function (key, value) {
 			return key === "" ? value : decodeURIComponent(value);
 		}) : {};
 	return query;
@@ -793,7 +794,7 @@ $d.urlParams = function() {
  * @param {string} name
  * @returns {string}
  */
-$d.urlParam = function(name) {
+$d.urlParam = function (name) {
 	name = name.replace(/[\[]/g, "\\[").replace(/[\]]/g, "\\]");
 	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
 	var results = regex.exec(window.location.search);
@@ -807,7 +808,7 @@ $d.urlParam = function(name) {
  * @param {Date} date
  * @returns {string|null}
  */
-$d.getDate = function(date) {
+$d.getDate = function (date) {
 	if (!$d.isValidDateObject(date)) {
 		return null;
 	}
@@ -828,7 +829,7 @@ $d.getDate = function(date) {
  * @param {Date} date
  * @returns {string|null}
  */
-$d.getTime = function(date) {
+$d.getTime = function (date) {
 	if (!$d.isValidDateObject(date)) {
 		return null;
 	}
@@ -845,7 +846,7 @@ $d.getTime = function(date) {
  * @param {Date} date
  * @returns {String|null}
  */
-$d.getDateTimeIso = function(date) {
+$d.getDateTimeIso = function (date) {
 	if (!$d.isValidDateObject(date)) {
 		return null;
 	}
@@ -869,7 +870,7 @@ $d.getDateTimeIso = function(date) {
  * @param {Date} date
  * @returns {Boolean}
  */
-$d.isValidDateObject = function(date) {
+$d.isValidDateObject = function (date) {
 	var boolReturn = (Object.prototype.toString.call(date) === "[object Date]"
 	&& isNaN(date.getTime()) === false);
 	return boolReturn;
@@ -884,7 +885,7 @@ $d.cache.text = {};
  * set text array
  * @param {object} o
  */
-$d.setText = function(o) {
+$d.setText = function (o) {
 	$d.cache.text = o;
 };
 
@@ -893,7 +894,7 @@ $d.setText = function(o) {
  * @param {string} strKey
  * @param {string} strValue
  */
-$d.setTextValue = function(strKey, strValue) {
+$d.setTextValue = function (strKey, strValue) {
 	$d.cache.text[strKey] = strValue;
 };
 
@@ -901,14 +902,14 @@ $d.setTextValue = function(strKey, strValue) {
  * set text array
  * @param {object} o
  */
-$d.addText = function(o) {
+$d.addText = function (o) {
 	$.extend($d.cache.text, o);
 };
 
 /**
  * Clear all text variables
  */
-$d.clearText = function() {
+$d.clearText = function () {
 	$d.setText({});
 };
 
@@ -918,7 +919,7 @@ $d.clearText = function() {
  * @param {object} objReplace
  * @returns {string}
  */
-$d.getText = function(strMessage, objReplace) {
+$d.getText = function (strMessage, objReplace) {
 	var strReturn = strMessage;
 	if (empty($d.cache.text)) {
 		// Placeholder
@@ -944,7 +945,7 @@ $d.getText = function(strMessage, objReplace) {
  * detect browser language
  * @returns {string}
  */
-$d.getLanguage = function() {
+$d.getLanguage = function () {
 	var l = 'en';
 	// Firefox, Chrome,...
 	if (navigator.language) {
@@ -968,7 +969,7 @@ $d.getLanguage = function() {
  * Detect User Agent
  * @returns {string} chrome,ie,firefox,safari,opera or '' (another browser)
  */
-$d.getBrowser = function() {
+$d.getBrowser = function () {
 
 	var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
 	var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
@@ -999,7 +1000,7 @@ $d.getBrowser = function() {
 	return '';
 };
 
-$d.isBrowser = function(browser) {
+$d.isBrowser = function (browser) {
 	return $d.getBrowser() === browser;
 };
 
@@ -1008,7 +1009,7 @@ $d.isBrowser = function(browser) {
  * (indicating the use of another browser).
  * @returns {float}
  */
-$d.getIeVersion = function() {
+$d.getIeVersion = function () {
 	var num = -1;
 	if (navigator.appName === 'Microsoft Internet Explorer') {
 		var ua = navigator.userAgent;
@@ -1025,7 +1026,7 @@ $d.getIeVersion = function() {
  * (indicating the use of another browser).
  * @returns {float}
  */
-$d.getFirefoxVersion = function() {
+$d.getFirefoxVersion = function () {
 	var num = -1;
 	var strAgent = navigator.userAgent.toLowerCase();
 	if (strAgent.indexOf('firefox') > -1) {
@@ -1039,7 +1040,7 @@ $d.getFirefoxVersion = function() {
  * (indicating the use of another browser).
  * @returns {float}
  */
-$d.getChromeVersion = function() {
+$d.getChromeVersion = function () {
 	var num = -1;
 	var strAgent = navigator.userAgent.toLowerCase();
 	if (strAgent.indexOf('chrome') > -1) {
@@ -1053,7 +1054,7 @@ $d.getChromeVersion = function() {
  * (indicating the use of another browser).
  * @returns {float}
  */
-$d.getBrowserVersion = function() {
+$d.getBrowserVersion = function () {
 	var num = -1;
 	var browser = $d.getBrowser();
 	if (browser === 'chrome') {
@@ -1073,7 +1074,7 @@ $d.getBrowserVersion = function() {
  *
  * @param {string} strUrl
  */
-$d.downloadUrl = function(strUrl) {
+$d.downloadUrl = function (strUrl) {
 	$('<iframe>', {
 		src: strUrl
 	}).hide().appendTo('body').remove();
@@ -1084,7 +1085,7 @@ $d.downloadUrl = function(strUrl) {
  *
  * @param {string} strKey
  */
-$d.downloadFile = function(strKey) {
+$d.downloadFile = function (strKey) {
 	var strUrl = 'file.php?download=1&key=' + strKey;
 	window.location.href = strUrl;
 };
@@ -1094,7 +1095,7 @@ $d.downloadFile = function(strKey) {
  *
  * @param {string} strKey
  */
-$d.openFile = function(strKey) {
+$d.openFile = function (strKey) {
 	var strUrl = 'file.php?download=0&key=' + strKey;
 	window.location.href = strUrl;
 };
@@ -1134,9 +1135,9 @@ $d.openFile = function(strKey) {
  * @param {object} data
  * @returns {string}
  */
-$d.template = function(strHtml, data) {
+$d.template = function (strHtml, data) {
 	// interpolate replacement values into the string and return
-	strHtml = strHtml.replace(/\{([\w\.]+)\|?(raw|html|url|attr)?}/g, function(match, key, encoding) {
+	strHtml = strHtml.replace(/\{([\w\.]+)\|?(raw|html|url|attr)?}/g, function (match, key, encoding) {
 		encoding = encoding || 'html';
 		var v = gv(data, key, '');
 		if (v === '' || encoding === 'raw') {
@@ -1185,7 +1186,7 @@ $d.template = function(strHtml, data) {
  * from the user (will wait for css transitions to complete).
  *
  */
-$d.window = function(config) {
+$d.window = function (config) {
 
 	config = $.extend({
 			'title': false,
@@ -1310,12 +1311,12 @@ $d.window = function(config) {
 	// append modal content
 	$(modal).find('#modal_content_div_' + strId).append(config.body);
 
-	$(modal).on('show.bs.modal', function() {
+	$(modal).on('show.bs.modal', function () {
 		// append button events
-		$(this).find('button').each(function() {
+		$(this).find('button').each(function () {
 			var strBtnId = $(this).attr('id');
 			if (strBtnId in objBtnCallbacks) {
-				$(this).on('click', function(e) {
+				$(this).on('click', function (e) {
 					e.preventDefault();
 					objBtnCallbacks[strBtnId](e, this);
 				});
@@ -1324,11 +1325,11 @@ $d.window = function(config) {
 	});
 
 	// init window
-	$(modal).on('shown.bs.modal', function() {
+	$(modal).on('shown.bs.modal', function () {
 
 		// focus the first field in modal forms
 		if (config.focus === 'first') {
-			$(modal).find(':text,:radio,:checkbox,select,textarea', modal).each(function() {
+			$(modal).find(':text,:radio,:checkbox,select,textarea', modal).each(function () {
 				if (!this.readOnly && !this.disabled && $(this).css('display') !== 'none') {
 					this.focus(); // Dom method
 					//this.select(); // Dom method
@@ -1339,7 +1340,7 @@ $d.window = function(config) {
 
 	});
 
-	$(modal).on('hidden.bs.modal', function() {
+	$(modal).on('hidden.bs.modal', function () {
 
 		// remove window from dom
 		$(modal).remove();
@@ -1378,7 +1379,7 @@ $d.window = function(config) {
  * });
  *
  */
-$d.alert = function(config, callback) {
+$d.alert = function (config, callback) {
 
 	var strText = '';
 	if (typeof config === 'string') {
@@ -1409,7 +1410,7 @@ $d.alert = function(config, callback) {
 
 	if (typeof callback === 'function') {
 		// hidden
-		$(wnd).on('hidden.bs.modal', function(event) {
+		$(wnd).on('hidden.bs.modal', function (event) {
 			callback(event, wnd);
 			callback = null;
 		});
@@ -1436,7 +1437,7 @@ $d.alert = function(config, callback) {
  * });
  *
  */
-$d.confirm = function(config, callback) {
+$d.confirm = function (config, callback) {
 
 	var strText = '';
 	if (typeof config === 'string') {
@@ -1453,7 +1454,7 @@ $d.confirm = function(config, callback) {
 				'text': __('OK'),
 				'class': 'btn btn-primary',
 				'dismiss': 'modal',
-				'callback': function(e) {
+				'callback': function (e) {
 					if (typeof callback === 'function') {
 						boolCallbackFlag = false;
 						callback(true);
@@ -1463,7 +1464,7 @@ $d.confirm = function(config, callback) {
 				'text': __('Cancel'),
 				'class': 'btn',
 				'dismiss': 'modal',
-				'callback': function(e) {
+				'callback': function (e) {
 					if (typeof callback === 'function') {
 						boolCallbackFlag = false;
 						callback(false);
@@ -1485,7 +1486,7 @@ $d.confirm = function(config, callback) {
 		'buttons': config.buttons
 	});
 
-	$(wnd).on('hidden.bs.modal', function() {
+	$(wnd).on('hidden.bs.modal', function () {
 		if (boolCallbackFlag === true && typeof callback === 'function') {
 			callback(false, wnd);
 		}
@@ -1494,14 +1495,14 @@ $d.confirm = function(config, callback) {
 	return $(wnd).modal(config.modal);
 };
 
-$d.showLoad = function() {
+$d.showLoad = function () {
 	$d.hideLoad();
 	var strHtml = '<div class="d-overlay"></div><div id="d_csspinner">';
 	strHtml += '<div class="csspinner no-overlay traditional"></div></div>';
 	$('body').append(strHtml);
 };
 
-$d.hideLoad = function() {
+$d.hideLoad = function () {
 	$('#d_csspinner').remove();
 	$('.d-overlay').remove();
 	$('.csspinner').remove();
@@ -1531,7 +1532,7 @@ $d.hideLoad = function() {
  * $d.downloadFile(data.result.key);
  *
  */
-$d.showFile = function(config, callback) {
+$d.showFile = function (config, callback) {
 
 	var boolIsChrome = $d.isBrowser('chrome');
 
@@ -1606,7 +1607,7 @@ $d.showFile = function(config, callback) {
 		arrButtons.push({
 			'text': __('Drucken'),
 			'class': 'btn btn-primary',
-			'callback': function(event) {
+			'callback': function (event) {
 				var iframe = document.getElementById('iframe_print');
 				if ($d.getIeVersion() >= 9) {
 					iframe.focus();
@@ -1636,7 +1637,7 @@ $d.showFile = function(config, callback) {
 	});
 
 	if (typeof callback === 'function') {
-		$(wnd).on('hidden.bs.modal', function(event) {
+		$(wnd).on('hidden.bs.modal', function (event) {
 			callback(event, wnd);
 			callback = null;
 		});
@@ -1653,14 +1654,14 @@ $d.showFile = function(config, callback) {
  * @param {object} id
  * @returns {unresolved}
  */
-$d.getForm = function(id) {
+$d.getForm = function (id) {
 	// get form elements as array
 	var arr = $(id).serializeArray();
 
 	// Because serializeArray() ignores unset checkboxes and radio buttons
 	arr = arr.concat(
 		$(id).find('input[type=checkbox]:not(:checked)').map(
-			function() {
+			function () {
 				var ret = {
 					name: this.name,
 					value: 0
@@ -1678,8 +1679,8 @@ $d.getForm = function(id) {
  * @param {object} selector
  * @returns {object}
  */
-$d.getFormText = function(selector) {
-	var arr = $(selector).find('select option:selected').map(function() {
+$d.getFormText = function (selector) {
+	var arr = $(selector).find('select option:selected').map(function () {
 		var ret = {
 			name: $(this).parent().attr('name'),
 			value: $(this).text()
@@ -1696,10 +1697,10 @@ $d.getFormText = function(selector) {
  * @param {array} arr
  * @returns {object}
  */
-$d.serializeObject = function(arr) {
+$d.serializeObject = function (arr) {
 	var o = {};
 	var keyBreaker = /[^\[\]]+/g;
-	$(arr).each(function(n, el) {
+	$(arr).each(function (n, el) {
 
 		var current;
 		var key = el.name;
@@ -1744,7 +1745,7 @@ $d.serializeObject = function(arr) {
  * @param strFieldName name of field to look for
  * @returns objEl jquery element object
  */
-$d.getField = function(objForm, strFieldName) {
+$d.getField = function (objForm, strFieldName) {
 	var sel = "input[name=data\\[{s}\\]],select[name=data\\[{s}\\]],textarea[name=data\\[{s}\\]]";
 	var strFieldEl = $d.interpolate(sel, {
 		's': strFieldName
@@ -1752,7 +1753,7 @@ $d.getField = function(objForm, strFieldName) {
 	return $(objForm).find(strFieldEl);
 };
 
-$d.getFieldName = function(el) {
+$d.getFieldName = function (el) {
 	var strName = $(el).attr('name');
 	var strFieldName = '';
 	strFieldName = strName.replace(/^(field\[)(.*)(\])$/g, '$2');
@@ -1767,7 +1768,7 @@ $d.getFieldName = function(el) {
  * options.form - A DOM Element, Document, or jQuery to use as context
  * @returns {unresolved}
  */
-$d.loadForm = function(options) {
+$d.loadForm = function (options) {
 
 	// overwrite default options
 	options = $.extend({
@@ -1834,7 +1835,7 @@ $d.loadForm = function(options) {
 	return $(options.form);
 };
 
-$d.loadTable = function(options) {
+$d.loadTable = function (options) {
 
 	// overwrite default settings
 	options = $.extend({
@@ -1903,7 +1904,7 @@ $d.loadTable = function(options) {
  * @param {object} dropdown
  * @returns {unresolved}
  */
-$d.loadDropdown = function(dropdown) {
+$d.loadDropdown = function (dropdown) {
 
 	// overwrite default settings
 	dropdown = $.extend({
@@ -1984,7 +1985,7 @@ $d.loadDropdown = function(dropdown) {
  * @param {boolean} boolChecked
  * @returns {object}
  */
-$d.setCheckedByValue = function(selector, strValue, boolChecked) {
+$d.setCheckedByValue = function (selector, strValue, boolChecked) {
 	boolChecked = typeof boolChecked === 'undefined' ? true : boolChecked;
 	if (typeof strValue === 'boolean') {
 		strValue = strValue ? '1' : '0';
@@ -1996,15 +1997,15 @@ $d.setCheckedByValue = function(selector, strValue, boolChecked) {
 };
 
 // return all form values as json string
-$d.getFormJson = function(id) {
+$d.getFormJson = function (id) {
 	var o = $d.getForm(id);
 	var s = $d.encodeJson(o);
 	return s;
 };
 
 // form and validation reset
-$d.resetForm = function(id) {
-	$(id).each(function() {
+$d.resetForm = function (id) {
+	$(id).each(function () {
 
 		// reset form inputs
 		this.reset();
@@ -2015,9 +2016,9 @@ $d.resetForm = function(id) {
 };
 
 // reset validation
-$d.resetValidation = function(element) {
-	$(element).parent().each(function() {
-		$(this).find(":input").not(":button, :submit, :reset, :hidden").each(function() {
+$d.resetValidation = function (element) {
+	$(element).parent().each(function () {
+		$(this).find(":input").not(":button, :submit, :reset, :hidden").each(function () {
 
 			// remove tooltip
 			$(this).parent().find('.tooltip').remove();
@@ -2040,7 +2041,7 @@ $d.resetValidation = function(element) {
  * @param {string} type '' or tooltip
  * @returns {undefined}
  */
-$d.setValidation = function(selector, style, msg, type) {
+$d.setValidation = function (selector, style, msg, type) {
 	var obj = $(selector).closest("div[class*='col-']");
 	if (!obj.length) {
 		return;
@@ -2070,7 +2071,7 @@ $d.setValidation = function(selector, style, msg, type) {
  * @param {object} form
  * @returns {undefined}
  */
-$d.showValidation = function(form, validation) {
+$d.showValidation = function (form, validation) {
 	if (!validation) {
 		return;
 	}
@@ -2089,9 +2090,9 @@ $d.showValidation = function(form, validation) {
  * @param {Object} form
  * @returns {Boolean}
  */
-$d.validateRequiredFields = function(form) {
+$d.validateRequiredFields = function (form) {
 	var boolValid = true;
-	$(form).find("[required='required']").each(function() {
+	$(form).find("[required='required']").each(function () {
 		var elField = $(this);
 		var v = '';
 		var strType = elField[0].type;
@@ -2124,7 +2125,7 @@ $d.validateRequiredFields = function(form) {
  * @param {object} regex
  * @returns {boolean}
  */
-$d.validateField = function(form, strFieldName, regex) {
+$d.validateField = function (form, strFieldName, regex) {
 	var boolReturn = true;
 	var elField = $d.getField(form, strFieldName);
 	if (elField.val().match(regex) === null) {
@@ -2155,7 +2156,7 @@ $d.cfg.cookie.raw = false;
  * @param {*} value
  * @param {object} options
  */
-$d.setCookie = function(key, value, options) {
+$d.setCookie = function (key, value, options) {
 
 	options = $.extend({}, options);
 
@@ -2187,11 +2188,11 @@ $d.setCookie = function(key, value, options) {
  * @param {object} options
  * @returns {*}
  */
-$d.getCookie = function(key, defaultValue, options) {
+$d.getCookie = function (key, defaultValue, options) {
 
 	options = options || {};
 	var decode = options.raw ?
-		function(s) {
+		function (s) {
 			return s;
 		} : decodeURIComponent;
 
@@ -2211,7 +2212,7 @@ $d.getCookie = function(key, defaultValue, options) {
  * Delete cookie
  * @param {string} key
  */
-$d.deleteCookie = function(key) {
+$d.deleteCookie = function (key) {
 	$d.setCookie.set(key, '', {
 		expires: -1
 	});
@@ -2230,7 +2231,7 @@ $d.deleteCookie = function(key) {
  * @param {Object} pageParams page parameter (optional)
  * @returns {Boolean}
  */
-$d.setPage = function(selector, strPage, pageParams) {
+$d.setPage = function (selector, strPage, pageParams) {
 
 	$d.showLoad();
 
@@ -2264,7 +2265,7 @@ $d.setPage = function(selector, strPage, pageParams) {
 	};
 
 	// load page content
-	$d.rpc(strPage + '.getPageContent', nextPage, function(response) {
+	$d.rpc(strPage + '.getPageContent', nextPage, function (response) {
 		if (response && response.result) {
 
 			// set html,css and js content into dom
@@ -2290,14 +2291,14 @@ $d.setPage = function(selector, strPage, pageParams) {
  * @param {boolean} boolClear default=true (optional)
  * @returns {undefined}
  */
-$d.setPageContent = function(selector, content, params, boolClear) {
+$d.setPageContent = function (selector, content, params, boolClear) {
 
 	var el = $(selector);
 	boolClear = (isset(boolClear)) ? boolClear : true;
 
 	if (boolClear === true) {
 		// remove page elements
-		$('*[data-page="1"]').each(function() {
+		$('*[data-page="1"]').each(function () {
 			$(this).remove();
 		});
 	}
@@ -2309,7 +2310,7 @@ $d.setPageContent = function(selector, content, params, boolClear) {
 	$(el).html(content.html);
 
 	if (content.elements) {
-		$d.loadElements(content.elements, function() {
+		$d.loadElements(content.elements, function () {
 			// trigger event if everything is loaded
 			$(el).trigger('page.init', params);
 		});
@@ -2324,8 +2325,8 @@ $d.setPageContent = function(selector, content, params, boolClear) {
  * @param {string} strEvent
  * @param {function} callback
  */
-$d.onPage = function(selector, strEvent, callback) {
-	$(selector).on(strEvent, function(e, p) {
+$d.onPage = function (selector, strEvent, callback) {
+	$(selector).on(strEvent, function (e, p) {
 		$(this).off(strEvent);
 		if (callback) {
 			callback(p, e);
@@ -2338,9 +2339,9 @@ $d.onPage = function(selector, strEvent, callback) {
  * @param {array} array
  * @param {callback} callback
  */
-$d.loadElements = function(array, callback) {
+$d.loadElements = function (array, callback) {
 
-	var loader = function(element, handler) {
+	var loader = function (element, handler) {
 
 		var el = document.createElement(element.tag);
 
@@ -2373,7 +2374,7 @@ $d.loadElements = function(array, callback) {
 
 	};
 
-	(function() {
+	(function () {
 		if (array.length !== 0) {
 			loader(array.shift(), arguments.callee);
 		} else {
@@ -2387,22 +2388,22 @@ $d.loadElements = function(array, callback) {
  *
  * @param {object} options
  *
- * Variable name	Type	Posible values	Default
+ * Variable name    Type    Posible values    Default
  *
- * type	String	success, error, warning, info	default
- * msg	String	Message
- * position	String	left, center, right, bottom	center
- * width	Integer-String	Number > 0, 'all'	400
- * height	Integer	Number between 0 and 100	60
- * autohide	Boolean	true, false	true
- * opacity	Float	From 0 to 1	1
- * multiline	Boolean	true, false	false
- * fade	Boolean	true, false	false
- * bgcolor	String	HEX color	#444
- * color	String	HEX color	#EEE
- * timeout	Integer	Miliseconds	5000
- * zindex	Integer	The z-index of the notification	null (ignored)
- * offset	Integer	The offset in pixels from the edge of the screen	0
+ * type    String    success, error, warning, info    default
+ * msg    String    Message
+ * position    String    left, center, right, bottom    center
+ * width    Integer-String    Number > 0, 'all'    400
+ * height    Integer    Number between 0 and 100    60
+ * autohide    Boolean    true, false    true
+ * opacity    Float    From 0 to 1    1
+ * multiline    Boolean    true, false    false
+ * fade    Boolean    true, false    false
+ * bgcolor    String    HEX color    #444
+ * color    String    HEX color    #EEE
+ * timeout    Integer    Miliseconds    5000
+ * zindex    Integer    The z-index of the notification    null (ignored)
+ * offset    Integer    The offset in pixels from the edge of the screen    0
  *
  * @returns {undefined}
  *
@@ -2416,7 +2417,7 @@ $d.loadElements = function(array, callback) {
  * });
  * </code>
  */
-$d.notify = function(options) {
+$d.notify = function (options) {
 	options = $.extend({
 		position: 'center',
 		multiline: true,
@@ -2429,6 +2430,6 @@ $d.notify = function(options) {
 /**
  * Fix for open modal is shifting body content to the left #9855
  */
-$.fn.modal.Constructor.prototype.setScrollbar = function() {
+$.fn.modal.Constructor.prototype.setScrollbar = function () {
 	// nada
 };

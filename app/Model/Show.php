@@ -6,8 +6,7 @@ App::uses('AppModel', 'Model');
  *
  * @property Event $Event
  */
-class Show extends AppModel
-{
+class Show extends AppModel {
 
 	/**
 	 * Display field

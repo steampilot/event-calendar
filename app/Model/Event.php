@@ -9,8 +9,7 @@ App::uses('AppModel', 'Model');
  * @property Price $Price
  * @property Show $Show
  */
-class Event extends AppModel
-{
+class Event extends AppModel {
 
 	/**
 	 * Display field

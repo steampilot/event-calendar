@@ -6,8 +6,7 @@ App::uses('AppModel', 'Model');
  *
  * @property Event $Event
  */
-class Link extends AppModel
-{
+class Link extends AppModel {
 
 	/**
 	 * Display field

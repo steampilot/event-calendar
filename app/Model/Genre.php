@@ -7,10 +7,8 @@ App::uses('AppModel', 'Model');
  *
  * @property Event $Event
  */
-class Genre extends AppModel
-{
-	public function getAll()
-	{
+class Genre extends AppModel {
+	public function getAll() {
 		$return = array();
 		$conditions = array(
 			'deleted' => 0,
@@ -28,8 +26,7 @@ class Genre extends AppModel
 		return $return;
 	}
 
-	public function getById($id)
-	{
+	public function getById($id) {
 		if (!$this->existValue($id)) {
 			throw new Exception(__('Not found'));
 		}
@@ -46,8 +43,7 @@ class Genre extends AppModel
 		return $row;
 	}
 
-	public function saveGenre($params)
-	{
+	public function saveGenre($params) {
 		$return = array();
 		if (empty($params['data']['id'])) {
 			$return = $this->insertRow($this->name, $params['data']);
@@ -58,8 +54,7 @@ class Genre extends AppModel
 		return $return;
 	}
 
-	public function deleteById($id)
-	{
+	public function deleteById($id) {
 		$return = array(
 			'status' => 0
 		);
@@ -76,20 +71,17 @@ class Genre extends AppModel
 		return $return;
 	}
 
-	public function searchGenres($arrPararms)
-	{
+	public function searchGenres($arrPararms) {
 		$return = null;
 		return $return;
 	}
 
-	public function validateGenreUpdate($row)
-	{
+	public function validateGenreUpdate($row) {
 		$return = null;
 		return $return;
 	}
 
-	public function validateGenreInsert($row)
-	{
+	public function validateGenreInsert($row) {
 		$return = null;
 		return $return;
 	}

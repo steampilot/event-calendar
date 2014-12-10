@@ -4,8 +4,7 @@
  * LinkFixture
  *
  */
-class LinkFixture extends CakeTestFixture
-{
+class LinkFixture extends CakeTestFixture {
 
 	/**
 	 * Fields

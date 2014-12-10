@@ -19,11 +19,11 @@ App::uses('DebugPanel', 'DebugKit.Lib');
  */
 class LogPanel extends DebugPanel {
 
-/**
- * Constructor - sets up the log listener.
- *
- * @return \LogPanel
- */
+	/**
+	 * Constructor - sets up the log listener.
+	 *
+	 * @return \LogPanel
+	 */
 	public function __construct() {
 		parent::__construct();
 		$existing = CakeLog::configured();
@@ -38,12 +38,12 @@ class LogPanel extends DebugPanel {
 		));
 	}
 
-/**
- * beforeRender Callback
- *
- * @param Controller $controller
- * @return array
- */
+	/**
+	 * beforeRender Callback
+	 *
+	 * @param Controller $controller
+	 * @return array
+	 */
 	public function beforeRender(Controller $controller) {
 		$logger = $this->logger;
 		return $logger;

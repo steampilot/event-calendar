@@ -21,27 +21,27 @@ App::uses('DebugKitDebugger', 'DebugKit.Lib');
  */
 class TimedBehavior extends ModelBehavior {
 
-/**
- * Behavior settings
- *
- * @var array
- */
+	/**
+	 * Behavior settings
+	 *
+	 * @var array
+	 */
 	public $settings = array();
 
-/**
- * Default setting values
- *
- * @var array
- */
+	/**
+	 * Default setting values
+	 *
+	 * @var array
+	 */
 	protected $_defaults = array();
 
-/**
- * Setup the behavior and import required classes.
- *
- * @param \Model|object $Model Model using the behavior
- * @param array $settings Settings to override for model.
- * @return void
- */
+	/**
+	 * Setup the behavior and import required classes.
+	 *
+	 * @param \Model|object $Model Model using the behavior
+	 * @param array $settings Settings to override for model.
+	 * @return void
+	 */
 	public function setup(Model $Model, $settings = null) {
 		if (is_array($settings)) {
 			$this->settings[$Model->alias] = array_merge($this->_defaults, $settings);
@@ -50,50 +50,50 @@ class TimedBehavior extends ModelBehavior {
 		}
 	}
 
-/**
- * beforeFind, starts a timer for a find operation.
- *
- * @param Model $Model
- * @param array $queryData Array of query data (not modified)
- * @return boolean true
- */
+	/**
+	 * beforeFind, starts a timer for a find operation.
+	 *
+	 * @param Model $Model
+	 * @param array $queryData Array of query data (not modified)
+	 * @return boolean true
+	 */
 	public function beforeFind(Model $Model, $queryData) {
 		DebugKitDebugger::startTimer($Model->alias . '_find', $Model->alias . '->find()');
 		return true;
 	}
 
-/**
- * afterFind, stops a timer for a find operation.
- *
- * @param Model $Model
- * @param array $results Array of results
- * @param $primary
- * @return boolean true.
- */
+	/**
+	 * afterFind, stops a timer for a find operation.
+	 *
+	 * @param Model $Model
+	 * @param array $results Array of results
+	 * @param $primary
+	 * @return boolean true.
+	 */
 	public function afterFind(Model $Model, $results, $primary = false) {
 		DebugKitDebugger::stopTimer($Model->alias . '_find');
 		return true;
 	}
 
-/**
- * beforeSave, starts a time before a save is initiated.
- *
- * @param Model $Model
- * @param array $options
- * @return boolean true
- */
+	/**
+	 * beforeSave, starts a time before a save is initiated.
+	 *
+	 * @param Model $Model
+	 * @param array $options
+	 * @return boolean true
+	 */
 	public function beforeSave(Model $Model, $options = array()) {
 		DebugKitDebugger::startTimer($Model->alias . '_save', $Model->alias . '->save()');
 		return true;
 	}
 
-/**
- * afterSave, stop the timer started from a save.
- *
- * @param \Model $Model
- * @param string $created
- * @return boolean Always true
- */
+	/**
+	 * afterSave, stop the timer started from a save.
+	 *
+	 * @param \Model $Model
+	 * @param string $created
+	 * @return boolean Always true
+	 */
 	public function afterSave(Model $Model, $created, $options = array()) {
 		DebugKitDebugger::stopTimer($Model->alias . '_save');
 		return true;

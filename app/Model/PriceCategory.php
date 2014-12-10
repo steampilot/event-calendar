@@ -6,10 +6,8 @@ App::uses('AppModel', 'Model');
  * Price Category Model
  *
  */
-class PriceCategory extends AppModel
-{
-	public function getAll()
-	{
+class PriceCategory extends AppModel {
+	public function getAll() {
 		$return = array();
 		$conditions = array(
 			'deleted' => 0,
@@ -27,8 +25,7 @@ class PriceCategory extends AppModel
 		return $return;
 	}
 
-	public function getById($id)
-	{
+	public function getById($id) {
 		if (!$this->existValue($id)) {
 			throw new Exception(__('Not found'));
 		}
@@ -44,8 +41,7 @@ class PriceCategory extends AppModel
 		return $row;
 	}
 
-	public function savePriceCategory($params)
-	{
+	public function savePriceCategory($params) {
 		$return = array();
 		if (empty($params['data']['id'])) {
 			$return = $this->insertRow($this->name, $params['data']);
@@ -56,8 +52,7 @@ class PriceCategory extends AppModel
 		return $return;
 	}
 
-	public function deleteById($id)
-	{
+	public function deleteById($id) {
 		$return = array(
 			'status' => 0
 		);
@@ -74,20 +69,17 @@ class PriceCategory extends AppModel
 		return $return;
 	}
 
-	public function searchPriceCategories($arrPararms)
-	{
+	public function searchPriceCategories($arrPararms) {
 		$return = null;
 		return $return;
 	}
 
-	public function validatePriceCategoryUpdate($row)
-	{
+	public function validatePriceCategoryUpdate($row) {
 		$return = null;
 		return $return;
 	}
 
-	public function validatePriceCategoryInsert($row)
-	{
+	public function validatePriceCategoryInsert($row) {
 		$return = null;
 		return $return;
 	}

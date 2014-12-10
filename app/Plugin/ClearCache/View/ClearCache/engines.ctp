@@ -18,4 +18,4 @@
 	$headers = array(__d('clear_cache', 'Engine Name'), __d('clear_cache', 'Result'));
 	echo $this->Html->tableHeaders($headers);
 	echo $this->Html->tableCells($engines);
-?></table>
+	?></table>

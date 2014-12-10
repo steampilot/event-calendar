@@ -40,7 +40,7 @@ class AppController extends Controller {
 				'action' => 'login',
 				'admin' => false
 			),
-			'loginRedirect' => array('controller' => 'events', 'action'=> 'dashboard', 'admin' => true),
+			'loginRedirect' => array('controller' => 'events', 'action' => 'dashboard', 'admin' => true),
 			'logoutRedirect' => '/'
 		)
 	);

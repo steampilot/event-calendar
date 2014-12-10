@@ -107,13 +107,13 @@ function notif(config) {
 			break;
 	}
 
-	$("#ui_notifIt").click(function() {
+	$("#ui_notifIt").click(function () {
 		notifit_dismiss(to, defaults);
 	});
 
 	if (defaults.autohide) {
 		if (!isNaN(defaults.timeout)) { // Take the timeout if is a number
-			to = setTimeout(function() {
+			to = setTimeout(function () {
 				$("#ui_notifIt").click();
 			}, defaults.timeout);
 		}
@@ -128,10 +128,10 @@ function notifit_dismiss(to, config) {
 			case "center":
 				$("#ui_notifIt").animate({
 					top: parseInt(config.height - (config.height / 2))
-				}, 100, function() {
+				}, 100, function () {
 					$("#ui_notifIt").animate({
 						top: parseInt(0 - (config.height * 2))
-					}, 100, function() {
+					}, 100, function () {
 						$("#ui_notifIt").remove();
 					});
 				});
@@ -139,10 +139,10 @@ function notifit_dismiss(to, config) {
 			case "bottom":
 				$("#ui_notifIt").animate({
 					bottom: parseInt(config.height - (config.height / 2))
-				}, 100, function() {
+				}, 100, function () {
 					$("#ui_notifIt").animate({
 						bottom: parseInt(0 - (config.height * 2))
-					}, 100, function() {
+					}, 100, function () {
 						$("#ui_notifIt").remove();
 					});
 				});
@@ -150,10 +150,10 @@ function notifit_dismiss(to, config) {
 			case "right":
 				$("#ui_notifIt").animate({
 					right: parseFloat(config.width - (config.width * 0.9))
-				}, 100, function() {
+				}, 100, function () {
 					$("#ui_notifIt").animate({
 						right: parseInt(0 - (config.width * 2))
-					}, 100, function() {
+					}, 100, function () {
 						$("#ui_notifIt").remove();
 					});
 				});
@@ -161,17 +161,17 @@ function notifit_dismiss(to, config) {
 			case "left":
 				$("#ui_notifIt").animate({
 					left: parseFloat(config.width - (config.width * 0.9))
-				}, 100, function() {
+				}, 100, function () {
 					$("#ui_notifIt").animate({
 						left: parseInt(0 - (config.width * 2))
-					}, 100, function() {
+					}, 100, function () {
 						$("#ui_notifIt").remove();
 					});
 				});
 				break;
 		}
 	} else {
-		$("#ui_notifIt").fadeOut("slow", function() {
+		$("#ui_notifIt").fadeOut("slow", function () {
 			$("#ui_notifIt").remove();
 		});
 	}

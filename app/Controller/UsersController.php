@@ -1,8 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class UsersController extends AppController
-{
+class UsersController extends AppController {
 
 	public $name = 'Users';
 
@@ -11,8 +10,7 @@ class UsersController extends AppController
 	 *
 	 * @return void
 	 */
-	public function beforeFilter()
-	{
+	public function beforeFilter() {
 		//$this->Auth->allow('usernameExists', 'forgotPassword', 'signup', 'login', 'logout');
 		$this->Auth->allow('login', 'logout');
 		parent::beforeFilter();
@@ -24,8 +22,7 @@ class UsersController extends AppController
 	 *
 	 * @return void
 	 */
-	public function login()
-	{
+	public function login() {
 		$this->layout = 'default';
 		$user = $this->model('User');
 		$user->logout();
@@ -60,8 +57,7 @@ class UsersController extends AppController
 	 *
 	 * @return void
 	 */
-	public function logout()
-	{
+	public function logout() {
 		return $this->redirect($this->Auth->logout());
 	}
 
@@ -70,8 +66,7 @@ class UsersController extends AppController
 	 *
 	 * @return array
 	 */
-	public function setAssetsLogin()
-	{
+	public function setAssetsLogin() {
 		$arrAssets = array();
 
 		$strCi = $this->getCi();
@@ -111,8 +106,7 @@ class UsersController extends AppController
 	 *
 	 * @return void
 	 */
-	public function setAssets()
-	{
+	public function setAssets() {
 		parent::setAssets();
 		$this->set('strNavbar', 'navbar_empty');
 	}

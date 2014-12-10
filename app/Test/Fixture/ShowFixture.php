@@ -4,8 +4,7 @@
  * ShowFixture
  *
  */
-class ShowFixture extends CakeTestFixture
-{
+class ShowFixture extends CakeTestFixture {
 
 	/**
 	 * Fields

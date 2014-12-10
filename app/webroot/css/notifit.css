@@ -1,4 +1,4 @@
-#ui_notifIt{
+#ui_notifIt {
     position: fixed;
     top: 10px;
     right: 10px;
@@ -13,10 +13,12 @@
     -o-border-radius: 5px;
     border-radius: 5px;*/
 }
-#ui_notifIt:hover{
+
+#ui_notifIt:hover {
     opacity: 1 !important;
 }
-#ui_notifIt p{
+
+#ui_notifIt p {
     text-align: center;
     font-family: sans-serif;
     font-size: 14px;
@@ -26,29 +28,33 @@
 
 /* Color setup */
 /* You are free to change all of this */
-#ui_notifIt.success{
+#ui_notifIt.success {
     /* background-color: yellowgreen; */
-	background-color: #449d44;
+    background-color: #449d44;
     color: white;
 }
-#ui_notifIt.error{
+
+#ui_notifIt.error {
     /* background-color: orangered; */
-	background-color: #c9302c;
+    background-color: #c9302c;
     color: white;
 }
-#ui_notifIt.warning{
+
+#ui_notifIt.warning {
     /* background-color: orange; */
-	background-color: #ec971f;
+    background-color: #ec971f;
     color: white;
 }
-#ui_notifIt.info{
+
+#ui_notifIt.info {
     /* background-color: deepskyblue; */
-	background-color: #31b0d5;
+    background-color: #31b0d5;
     color: white;
 }
-#ui_notifIt.default{
+
+#ui_notifIt.default {
     /* background-color: #EEE; */
-	/* color: #444; */
-	background-color: #e6e6e6;
-	color: #333;
+    /* color: #444; */
+    background-color: #e6e6e6;
+    color: #333;
 }

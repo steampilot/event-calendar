@@ -22,67 +22,67 @@ App::uses('MigrationVersionException', 'Migrations.Lib');
  */
 class MigrationVersion {
 
-/**
- * Connection used for the migration_schema table of the migration versions
- *
- * @var string
- */
+	/**
+	 * Connection used for the migration_schema table of the migration versions
+	 *
+	 * @var string
+	 */
 	public $connection = 'default';
 
-/**
- * Connection used for the migration
- *
- * This can be used to override the connection of migration file
- *
- * @var null|string
- */
+	/**
+	 * Connection used for the migration
+	 *
+	 * This can be used to override the connection of migration file
+	 *
+	 * @var null|string
+	 */
 	public $migrationConnection = null;
 
-/**
- * Instance of SchemaMigrations model
- *
- * @var Model
- */
+	/**
+	 * Instance of SchemaMigrations model
+	 *
+	 * @var Model
+	 */
 	public $Version;
 
-/**
- * Mapping cache
- *
- * @var array
- */
+	/**
+	 * Mapping cache
+	 *
+	 * @var array
+	 */
 	protected $_mapping = array();
 
-/**
- * Precheck mode
- *
- * @var string
- */
+	/**
+	 * Precheck mode
+	 *
+	 * @var string
+	 */
 	public $precheck = 'Migrations.PrecheckException';
 
-/**
- * Should the run be dry or not.
- *
- * If try, the SQL will be outputted to screen rather than
- * applied to the database
- *
- * @var bool
- */
+	/**
+	 * Should the run be dry or not.
+	 *
+	 * If try, the SQL will be outputted to screen rather than
+	 * applied to the database
+	 *
+	 * @var bool
+	 */
 	public $dry = false;
 
-/**
- * Log of SQL queries generated
- *
- * This is used for dry run
- *
- * @var array
- */
+	/**
+	 * Log of SQL queries generated
+	 *
+	 * This is used for dry run
+	 *
+	 * @var array
+	 */
 	public $log = array();
 
-/**
- * Constructor
- *
- * @param array $options optional load object properties
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $options optional load object properties
+	 */
 	public function __construct($options = array()) {
 		if (!empty($options['connection'])) {
 			$this->connection = $options['connection'];
@@ -108,11 +108,11 @@ class MigrationVersion {
 		}
 	}
 
-/**
- * Get a new SchemaMigration instance
- *
- * @return void
- */
+	/**
+	 * Get a new SchemaMigration instance
+	 *
+	 * @return void
+	 */
 
 	public function initVersion() {
 		$this->Version = ClassRegistry::init(array(
@@ -122,12 +122,12 @@ class MigrationVersion {
 		$this->Version->setDataSource($this->connection);
 	}
 
-/**
- * Get last version for given type
- *
- * @param string $type Can be 'app' or a plugin name
- * @return integer Last version migrated
- */
+	/**
+	 * Get last version for given type
+	 *
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return integer Last version migrated
+	 */
 	public function getVersion($type) {
 		$mapping = $this->getMapping($type);
 		if ($mapping !== false) {
@@ -142,15 +142,15 @@ class MigrationVersion {
 		return 0;
 	}
 
-/**
- * Set current version for given type
- *
- * @param integer $version Current version
- * @param string $type Can be 'app' or a plugin name
- * @param bool $migrated If true, will add the record to the database
- * 		If false, will remove the record from the database
- * @return bool
- */
+	/**
+	 * Set current version for given type
+	 *
+	 * @param integer $version Current version
+	 * @param string $type Can be 'app' or a plugin name
+	 * @param bool $migrated If true, will add the record to the database
+	 *        If false, will remove the record from the database
+	 * @return bool
+	 */
 	public function setVersion($version, $type, $migrated = true) {
 		if ($this->dry) {
 			return true;
@@ -185,13 +185,13 @@ class MigrationVersion {
 		return $result;
 	}
 
-/**
- * Get mapping for the given type
- *
- * @param string $type Can be 'app' or a plugin name
- * @param bool   $cache
- * @return mixed False in case of no file found or empty mapping, array with mapping
- */
+	/**
+	 * Get mapping for the given type
+	 *
+	 * @param string $type Can be 'app' or a plugin name
+	 * @param bool $cache
+	 * @return mixed False in case of no file found or empty mapping, array with mapping
+	 */
 	public function getMapping($type, $cache = true) {
 		if ($type !== 'app') {
 			$type = Inflector::camelize($type);
@@ -257,16 +257,16 @@ class MigrationVersion {
 		return $mapping;
 	}
 
-/**
- * Load and make a instance of the migration
- *
- * @param string $name File name where migration resides
- * @param string $class Migration class name
- * @param string $type Can be 'app' or a plugin name
- * @param array $options Extra options to send to CakeMigration class
- * @return bool|CakeMigration False in case of no file found, instance of the migration
- * @throws MigrationVersionException
- */
+	/**
+	 * Load and make a instance of the migration
+	 *
+	 * @param string $name File name where migration resides
+	 * @param string $class Migration class name
+	 * @param string $type Can be 'app' or a plugin name
+	 * @param array $options Extra options to send to CakeMigration class
+	 * @return bool|CakeMigration False in case of no file found, instance of the migration
+	 * @throws MigrationVersionException
+	 */
 	public function getMigration($name, $class, $type, $options = array()) {
 		if (!class_exists($class) && (!$this->_loadFile($name, $type) || !class_exists($class))) {
 			throw new MigrationVersionException(sprintf(
@@ -286,17 +286,17 @@ class MigrationVersion {
 		return new $class($options);
 	}
 
-/**
- * Run the migrations
- *
- * Options:
- * - `direction` - Direction to run
- * - `version` - Until what version want migrate to
- *
- * @param array $options An array with options.
- * @return bool
- * @throws Exception
- */
+	/**
+	 * Run the migrations
+	 *
+	 * Options:
+	 * - `direction` - Direction to run
+	 * - `version` - Until what version want migrate to
+	 *
+	 * @param array $options An array with options.
+	 * @return bool
+	 * @throws Exception
+	 */
 	public function run($options) {
 		$targetVersion = $latestVersion = $this->getVersion($options['type']);
 		$mapping = $this->getMapping($options['type'], false);
@@ -326,10 +326,12 @@ class MigrationVersion {
 
 		foreach ($mapping as $version => $info) {
 			if (($direction === 'up' && $version > $targetVersion)
-				|| ($direction === 'down' && $version < $targetVersion)) {
+				|| ($direction === 'down' && $version < $targetVersion)
+			) {
 				break;
 			} elseif (($direction === 'up' && $info['migrated'] === null)
-				|| ($direction === 'down' && $info['migrated'] !== null)) {
+				|| ($direction === 'down' && $info['migrated'] !== null)
+			) {
 
 				$migration = $this->getMigration($info['name'], $info['class'], $info['type'], $options);
 				$migration->Version = $this;
@@ -362,11 +364,11 @@ class MigrationVersion {
 		return true;
 	}
 
-/**
- * Initialize the migrations schema and keep it up-to-date
- *
- * @return void
- */
+	/**
+	 * Initialize the migrations schema and keep it up-to-date
+	 *
+	 * @return void
+	 */
 	protected function _initMigrations() {
 		/** @var DboSource $db */
 		$db = ConnectionManager::getDataSource($this->connection);
@@ -389,14 +391,14 @@ class MigrationVersion {
 		}
 	}
 
-/**
- * Load a file based on name and type
- *
- * @param string $name File name to be loaded
- * @param string $type Can be 'app' or a plugin name
- * @return mixed Throw an exception in case of no file found, array with mapping
- * @throws MigrationVersionException
- */
+	/**
+	 * Load a file based on name and type
+	 *
+	 * @param string $name File name to be loaded
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return mixed Throw an exception in case of no file found, array with mapping
+	 * @throws MigrationVersionException
+	 */
 	protected function _loadFile($name, $type) {
 		$path = APP . 'Config' . DS . 'Migration' . DS;
 		if ($type !== 'app') {
@@ -414,12 +416,12 @@ class MigrationVersion {
 		return true;
 	}
 
-/**
- * Returns a map of all available migrations for a type (app or plugin)
- *
- * @param string $type Can be 'app' or a plugin name
- * @return array containing a list of migration versions ordered by filename
- */
+	/**
+	 * Returns a map of all available migrations for a type (app or plugin)
+	 *
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return array containing a list of migration versions ordered by filename
+	 */
 	protected function _enumerateMigrations($type) {
 		$map = $this->_enumerateNewMigrations($type);
 		$oldMap = $this->_enumerateOldMigrations($type);
@@ -429,12 +431,12 @@ class MigrationVersion {
 		return $map;
 	}
 
-/**
- * Returns a map of all available migrations for a type (app or plugin) using inflection
- *
- * @param string $type Can be 'app' or a plugin name
- * @return array containing a list of migration versions ordered by filename
- */
+	/**
+	 * Returns a map of all available migrations for a type (app or plugin) using inflection
+	 *
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return array containing a list of migration versions ordered by filename
+	 */
 	protected function _enumerateNewMigrations($type) {
 		$mapping = array();
 		$path = APP . 'Config' . DS . 'Migration' . DS;
@@ -456,12 +458,12 @@ class MigrationVersion {
 		return $mapping;
 	}
 
-/**
- * Returns a map of all available migrations for a type (app or plugin) using regular expressions
- *
- * @param string $type Can be 'app' or a plugin name
- * @return array containing a list of migration versions ordered by filename
- */
+	/**
+	 * Returns a map of all available migrations for a type (app or plugin) using regular expressions
+	 *
+	 * @param string $type Can be 'app' or a plugin name
+	 * @return array containing a list of migration versions ordered by filename
+	 */
 	protected function _enumerateOldMigrations($type) {
 		$mapping = array();
 		$path = APP . 'Config' . DS . 'Migration' . DS;

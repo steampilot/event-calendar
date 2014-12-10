@@ -23,161 +23,161 @@
  */
 
 if (!$d) {
-    $d = {};
+	$d = {};
 }
 
-$d.Upload = function() {
+$d.Upload = function () {
 
-    var $this = this;
+	var $this = this;
 
-    /**
-     * Image uploader
-     * http://hayageek.com/drag-and-drop-file-upload-jquery/
-     *
-     * @param {object} options
-     * options.image {object} the image html elemen
-     * options.onupload	{object} callback function
-     * options.onimageload {object} callback function
-     * options.input {object} the htlm input upload elemement
-     * options.global {boolean}
-     *
-     * @returns {undefined}
-     */
-    this.uploadImage = function(options) {
+	/**
+	 * Image uploader
+	 * http://hayageek.com/drag-and-drop-file-upload-jquery/
+	 *
+	 * @param {object} options
+	 * options.image {object} the image html elemen
+	 * options.onupload    {object} callback function
+	 * options.onimageload {object} callback function
+	 * options.input {object} the htlm input upload elemement
+	 * options.global {boolean}
+	 *
+	 * @returns {undefined}
+	 */
+	this.uploadImage = function (options) {
 
-        // allowed filetypes
-        var fileTypes = {
-            'image/jpeg': 'jpg',
-            'image/jpg': 'jpg',
-            'image/gif': 'gif',
-            'image/png': 'png'
-        };
+		// allowed filetypes
+		var fileTypes = {
+			'image/jpeg': 'jpg',
+			'image/jpg': 'jpg',
+			'image/gif': 'gif',
+			'image/png': 'png'
+		};
 
-        options = $.extend({
-            image: null,
-            onupload: $this.onImageUpload,
-            onimageload: $this.onImageLoad,
-            maxfilesize: 3 * 1024 * 1024,
-            global: false,
-            filetype: fileTypes
-        }, options);
+		options = $.extend({
+			image: null,
+			onupload: $this.onImageUpload,
+			onimageload: $this.onImageLoad,
+			maxfilesize: 3 * 1024 * 1024,
+			global: false,
+			filetype: fileTypes
+		}, options);
 
-        // Handle drag and drop events
-        options.image.on('dragenter', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).css('border', '2px solid #0B85A1');
-        });
+		// Handle drag and drop events
+		options.image.on('dragenter', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).css('border', '2px solid #0B85A1');
+		});
 
-        options.image.on('dragover', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-        });
+		options.image.on('dragover', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+		});
 
-        options.image.on('dragleave', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).css('border', '');
-        });
+		options.image.on('dragleave', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).css('border', '');
+		});
 
-        options.image.on('drop', function(e) {
-            e.preventDefault();
-            //$(this).css('border', '2px dotted #0B85A1');
-            $(this).css('border', '');
+		options.image.on('drop', function (e) {
+			e.preventDefault();
+			//$(this).css('border', '2px dotted #0B85A1');
+			$(this).css('border', '');
 
-            var files = e.originalEvent.dataTransfer.files;
-            options.onupload(files, options);
-        });
+			var files = e.originalEvent.dataTransfer.files;
+			options.onupload(files, options);
+		});
 
-        // Handle click event with file open dialog
-        options.image.on('click', function() {
-            $(options.input).trigger('click');
-        });
+		// Handle click event with file open dialog
+		options.image.on('click', function () {
+			$(options.input).trigger('click');
+		});
 
-        options.input.on('change', function(e) {
-            var files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-            options.onupload(files, options);
-            // reset
+		options.input.on('change', function (e) {
+			var files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+			options.onupload(files, options);
+			// reset
 			$(options.input).val('');
-        });
+		});
 
-        // If the files are dropped outside the div, file is opened in the
-        // browser window. To avoid that we can prevent ‘drop’ event on document.
-        if (options.global === true) {
-            $(document).on('dragenter', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-            });
+		// If the files are dropped outside the div, file is opened in the
+		// browser window. To avoid that we can prevent ‘drop’ event on document.
+		if (options.global === true) {
+			$(document).on('dragenter', function (e) {
+				e.stopPropagation();
+				e.preventDefault();
+			});
 
-            $(document).on('dragover', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                //elImage.css('border', '2px dotted #0B85A1');
-            });
+			$(document).on('dragover', function (e) {
+				e.stopPropagation();
+				e.preventDefault();
+				//elImage.css('border', '2px dotted #0B85A1');
+			});
 
-            $(document).on('drop', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
+			$(document).on('drop', function (e) {
+				e.stopPropagation();
+				e.preventDefault();
 
-                var files = e.originalEvent.dataTransfer.files;
-                options.onupload(files, options);
+				var files = e.originalEvent.dataTransfer.files;
+				options.onupload(files, options);
 
-                // Prevent double handler
-                e.preventDefault();
-            });
-        }
-    };
+				// Prevent double handler
+				e.preventDefault();
+			});
+		}
+	};
 
-    /**
-     * Event onImageUpload
-     *
-     * @param {object} files
-     * @param {object} obj
-     * @returns {undefined}
-     */
-    this.onImageUpload = function(files, options) {
+	/**
+	 * Event onImageUpload
+	 *
+	 * @param {object} files
+	 * @param {object} obj
+	 * @returns {undefined}
+	 */
+	this.onImageUpload = function (files, options) {
 
-        if (!files || files.length < 1) {
-            return;
-        }
+		if (!files || files.length < 1) {
+			return;
+		}
 
-        var reader = new FileReader();
-        var file = files[0];
+		var reader = new FileReader();
+		var file = files[0];
 
-        //var strFileName = file.name;
-        var strFileType = file.type;
+		//var strFileName = file.name;
+		var strFileType = file.type;
 
-        if (!(strFileType in options.filetype)) {
-            $d.alert(__('The filetype is invalid'));
-            return;
-        }
+		if (!(strFileType in options.filetype)) {
+			$d.alert(__('The filetype is invalid'));
+			return;
+		}
 
-        if (file.size > options.maxfilesize) {
-            $d.alert(__('The file size exceeds the limit allowed'));
-            return;
-        }
+		if (file.size > options.maxfilesize) {
+			$d.alert(__('The file size exceeds the limit allowed'));
+			return;
+		}
 
-        reader.onerror = function(event) {
-            $d.alert(__("The file could not be opened.") + ' ' + event.target.error.code);
-        };
+		reader.onerror = function (event) {
+			$d.alert(__("The file could not be opened.") + ' ' + event.target.error.code);
+		};
 
-        reader.onload = function(e) {
-            options.onimageload(e, options);
-        };
-        reader.readAsDataURL(file);
+		reader.onload = function (e) {
+			options.onimageload(e, options);
+		};
+		reader.readAsDataURL(file);
 
-    };
+	};
 
-    /**
-     * If image is loaded
-     *
-     * @param {object} e
-     * @returns {undefined}
-     */
-    this.onImageLoad = function(e, options) {
-        var strData = e.target.result;
-        // change image
-        $(options.image).attr('src', strData);
-    };
+	/**
+	 * If image is loaded
+	 *
+	 * @param {object} e
+	 * @returns {undefined}
+	 */
+	this.onImageLoad = function (e, options) {
+		var strData = e.target.result;
+		// change image
+		$(options.image).attr('src', strData);
+	};
 
 };

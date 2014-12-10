@@ -4,8 +4,7 @@
  * EventFixture
  *
  */
-class EventFixture extends CakeTestFixture
-{
+class EventFixture extends CakeTestFixture {
 
 	/**
 	 * Fields

@@ -14,19 +14,16 @@ App::uses('AppController', 'Controller');
  * @property PriceCategory PriceCategory
  *
  */
-class PriceCategoriesController extends AppController
-{
+class PriceCategoriesController extends AppController {
 	public $strActiveNavbar = 'price_category';
 
-	public function index()
-	{
+	public function index() {
 		$this->setAssetsIndex();
 		$this->setAssets();
 		$this->set('title_for_layout', __('Price Category'));
 	}
 
-	public function setAssetsIndex()
-	{
+	public function setAssetsIndex() {
 		$assets = array();
 		$assets['js'][] = array(
 			'path' => 'pages/PriceCategories/index',
@@ -38,27 +35,14 @@ class PriceCategoriesController extends AppController
 		$this->addAssets($assets);
 	}
 
-	public function loadIndex($params = array())
-	{
+	public function loadIndex($params = array()) {
 		$arrReturn = array(
 			'priceCategories' => $this->PriceCategory->getAll()
 		);
 		return $arrReturn;
 	}
 
-	public function loadEdit($params = array())
-	{
-		$return = array();
-		$id = $params['id'];
-		$result = $this->PriceCategory->getById($id);
-
-		$return['status'] = '1';
-		$return['priceCategory'] = $result;
-		return $return;
-	}
-
-	public function getText()
-	{
+	public function getText() {
 		$return = array(
 			'Price Category' => __('Price Category'),
 			'Price Categories' => __('Price Categories'),
@@ -67,14 +51,12 @@ class PriceCategoriesController extends AppController
 		return $return;
 	}
 
-	public function deletePriceCategory($params = array())
-	{
+	public function deletePriceCategory($params = array()) {
 		$return = $this->PriceCategory->deleteById($params['id']);
 		return $return;
 	}
 
-	public function savePriceCategory($params)
-	{
+	public function savePriceCategory($params) {
 		$return = array();
 		$result = $this->PriceCategory->savePriceCategory($params);
 		if (isset($result['PriceCategory']['id'])) {
@@ -87,35 +69,27 @@ class PriceCategoriesController extends AppController
 		return $return;
 	}
 
-	public function add()
-	{
+	public function loadEdit($params = array()) {
+		$return = array();
+		$id = $params['id'];
+		$result = $this->PriceCategory->getById($id);
+
+		$return['status'] = '1';
+		$return['priceCategory'] = $result;
+		return $return;
+	}
+
+	public function add() {
 		$this->view = 'edit';
 		$this->setAssetsEdit();
 		$this->setAssets();
 		$this->set('title_for_layout', __('Create new price category'));
 	}
 
-
-	/**
-	 * Edit action
-	 *
-	 * @return void
-	 * @throws NotFoundException
-	 */
-	public function edit()
-	{
-		$this->setAssetsEdit();
-		$this->setAssets();
-
-		$id = $this->request->query('id');
-		$this->set('title_for_layout', __('Edit Price Category'));
-	}
-
 	/**
 	 *
 	 */
-	public function setAssetsEdit()
-	{
+	public function setAssetsEdit() {
 		$assets = array();
 		$assets['js'][] = array(
 			'path' => 'pages/PriceCategories/edit',
@@ -125,6 +99,20 @@ class PriceCategoriesController extends AppController
 			)
 		);
 		$this->addAssets($assets);
+	}
+
+	/**
+	 * Edit action
+	 *
+	 * @return void
+	 * @throws NotFoundException
+	 */
+	public function edit() {
+		$this->setAssetsEdit();
+		$this->setAssets();
+
+		$id = $this->request->query('id');
+		$this->set('title_for_layout', __('Edit Price Category'));
 	}
 
 }

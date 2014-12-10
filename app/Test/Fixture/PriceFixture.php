@@ -4,8 +4,7 @@
  * PriceFixture
  *
  */
-class PriceFixture extends CakeTestFixture
-{
+class PriceFixture extends CakeTestFixture {
 
 	/**
 	 * Fields

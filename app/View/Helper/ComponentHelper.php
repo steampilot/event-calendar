@@ -5,8 +5,7 @@ App::uses('AppHelper', 'View/Helper');
 /**
  * Data bound web controls
  */
-class ComponentHelper extends AppHelper
-{
+class ComponentHelper extends AppHelper {
 
 	var $helpers = array('Form');
 
@@ -16,8 +15,7 @@ class ComponentHelper extends AppHelper
 	 * @param array $arrParams
 	 * @return string
 	 */
-	public function select($arrParams)
-	{
+	public function select($arrParams) {
 		$strReturn = '';
 		$attributes = array('class' => 'form-control');
 
@@ -44,8 +42,7 @@ class ComponentHelper extends AppHelper
 		return $strReturn;
 	}
 
-	public function title($strMethod, $strKey)
-	{
+	public function title($strMethod, $strKey) {
 		$strReturn = null;
 		$arrRows = $this->data($strMethod);
 		if (isset($arrRows[$strKey])) {
@@ -61,8 +58,7 @@ class ComponentHelper extends AppHelper
 	 * @param array $arrParams
 	 * @return mixed
 	 */
-	public function data($strMethod, $arrParams = null)
-	{
+	public function data($strMethod, $arrParams = null) {
 		list($strModel, $strMethod) = explode('.', $strMethod);
 		$model = ClassRegistry::init($strModel);
 		if ($arrParams === null) {
