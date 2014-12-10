@@ -42,12 +42,9 @@ app.genres.Index = function(config){
 			html = $d.template(tpl, row);
 			tbody.append(html);
 		}
-		//register action button events
 		$(tbody).find('button[name=genre_edit]').on('click', $this.genreEdit_onClick);
 		$(tbody).find('button[name=genre_remove]').on('click',$this.genreRemove_onClick);
-		// hide delete button for deleted Genres
 		$(tbody).find("tr[data-filter='inactive'] button[name=genre_remove]").hide();
-		// enable tooltips
 		$(tbody).find('[data-toggle=tooltip]').tooltip();
 		$this.reloadTable;
 	};
