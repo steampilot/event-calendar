@@ -12,6 +12,8 @@ App::uses('AppController', 'Controller');
 /**
  * Events Controller
  *
+ * @property Event Event
+ *
  */
 class EventsController extends AppController {
 	public $strActiveNavbar = 'Event';

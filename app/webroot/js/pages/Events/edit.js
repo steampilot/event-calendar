@@ -115,7 +115,7 @@ app.events.Edit = function(config) {
 		}
 
 		$d.showLoad();
-		app.rpc('Events.saveGenre', data, function(res) {
+		app.rpc('Events.saveEvent', data, function(res) {
 			if (!$d.handleResponse(res)) {
 				return;
 			}
