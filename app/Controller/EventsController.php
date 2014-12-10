@@ -11,8 +11,10 @@ App::uses('AppController', 'Controller');
 
 /**
  * Events Controller
+ *
  */
 class EventsController extends AppController {
+	public $strActiveNavbar = 'Event';
 
 	/**
 	 * Allows unauthenticated access to program and archive
@@ -22,6 +24,98 @@ class EventsController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('program', 'archive');
+	}
+	public function index() {
+		$this->setAssetsIndex();
+		$this->setAssets();
+		$this->set('title_for_layout', __('Event'));
+	}
+	public function setAssetsIndex() {
+		$arrAssets = array();
+		$arrAssets['js'][] = array(
+			'path' => 'pages/Events/index',
+			'options' => array(
+				'block' => 'script',
+				'inline' => 'true'
+			)
+		);
+		$this->addAssets($arrAssets);
+	}
+	public function loadIndex($params = array()) {
+		$arrReturn = array(
+			'events' => $this->Event->getAll()
+		);
+		return $arrReturn;
+	}
+	public function loadEdit($params = array()) {
+		$return = array();
+		$eventId = $params['id'];
+		$event = $this->Event->getById($eventId);
+
+		$return['status'] = '1';
+		$return['event'] = $event;
+		return $return;
+	}
+
+	public function getText() {
+		$return = array(
+			'event' => __('Event'),
+			'events' => __('Events'),
+			'Do you really want to delete this event?' => __('Do you really want to delete this event?')
+		);
+		return $return;
+	}
+
+	public function deleteEvent($params = array()) {
+		$return = $this->Event->deleteById($params['id']);
+		return $return;
+	}
+
+	public function saveEvent($params) {
+		$return = array();
+		$result = $this->Event->saveEvent($params);
+		if (isset($result['Event']['id'])) {
+			$load = array();
+			$load['id'] = $result['Event']['id'];
+			$return = $this->loadEdit($load);
+		} else {
+			throw new Exception(__('Error: Object could not be saved'));
+		}
+		return $return;
+	}
+
+	public function add() {
+		$this->view = 'edit';
+		$this->setAssetsEdit();
+		$this->setAssets();
+		$this->set('title_for_layout', __('Create new event'));
+	}
+
+
+	/**
+	 * Edit action
+	 *
+	 * @return void
+	 * @throws NotFoundException
+	 */
+	public function edit() {
+		$this->setAssetsEdit();
+		$this->setAssets();
+
+		$numId = $this->request->query('id');
+		$this->set('title_for_layout', __('Edit article'));
+	}
+
+	public function setAssetsEdit() {
+		$assets = array();
+		$assets['js'][] = array(
+			'path' => 'pages/Events/edit',
+			'options' => array(
+				'block' => 'script',
+				'inline' => true
+			)
+		);
+		$this->addAssets($assets);
 	}
 
 

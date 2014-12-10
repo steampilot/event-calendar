@@ -58,18 +58,18 @@
 						</div>
 					</div>
 				</li>
-				<li<?php echo ($strActiveNavbar == 'dashbaord') ? ' class="active"' : '' ?>><a
+				<li<?php echo ($strActiveNavbar == 'Front Site') ? ' class="active"' : '' ?>><a
 						href="<?php echo $this->Html->url('/'); ?>"><i
-							class="fa fa-home"></i> <?php wh(__('Dashboard')); ?></a></li>
+							class="fa fa-home"></i> <?php wh(__('Front Site')); ?></a></li>
 				<li<?php echo ($strActiveNavbar == 'Events') ? ' class="active"' : '' ?>><a
 						href="<?php echo $this->Html->url('/events'); ?>"><i
-							class="fa fa-user"></i> <?php wh(__('Events')); ?></a></li>
+							class="fa fa-calendar"></i> <?php wh(__('Events')); ?></a></li>
 				<li<?php echo ($strActiveNavbar == 'Genres') ? ' class="active"' : '' ?>><a
 						href="<?php echo $this->Html->url('/genres'); ?>"><i
-							class="fa fa-money"></i> <?php wh(__('Genres')); ?></a></li>
+							class="fa fa-music"></i> <?php wh(__('Genres')); ?></a></li>
 				<li<?php echo ($strActiveNavbar == 'Price Categories') ? ' class="active"' : '' ?>><a
 						href="<?php echo $this->Html->url('/price_categories'); ?>"><i
-							class="fa fa-bus"></i> <?php wh(__('Price Categories')); ?></a></li>
+							class="fa fa-money"></i> <?php wh(__('Price Categories')); ?></a></li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right navbar-user">
