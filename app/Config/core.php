@@ -402,7 +402,7 @@ require_once APPLIBS . 'odan/autoload.php';
 
 
 // app version
-Configure::write('App.version', '0.1.0 (Boing)');
+Configure::write('App.version', '0.3.0 (Lockheed Martin)');
 
 /**
  * Overwrite default config settings by environment specific local settings
