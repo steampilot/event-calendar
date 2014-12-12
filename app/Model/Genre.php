@@ -39,7 +39,7 @@ class Genre extends AppModel {
 		if (empty($row)) {
 			return array();
 		}
-		// Convert boolean if neccessary
+		// Convert boolean if necessary
 		return $row;
 	}
 
