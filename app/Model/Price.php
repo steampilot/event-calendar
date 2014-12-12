@@ -10,135 +10,52 @@ App::uses('AppModel', 'Model');
 class Price extends AppModel {
 
 	/**
-	 * Display field
-	 *
-	 * @var string
+	 * gets the prices by event id
+	 * @param $numEventId
+	 * @return array
+	 * @throws Exception
 	 */
-	public $displayField = 'id';
+	public function getByEventId($numEventId) {
+		$return = array();
+		$conditions = array(
+			'deleted' => 0,
+			'event_id' => $numEventId
+		);
+		$rows = $this->queryFind('all', array(
+			'fields' => array('id'),
+			'conditions' => $conditions,
+			//'order' => array('title')
+		));
+		if (!empty($rows)) {
+			foreach ($rows as $row) {
+				$return[] = $this->getById($row['id']);
+			}
+		}
+		return $return;
+	}
 
 	/**
-	 * Validation rules
+	 * gets the price by id
 	 *
-	 * @var array
+	 * @param $id
+	 * @return array
+	 * @throws Exception
 	 */
-	public $validate = array(
-		'id' => array(
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'event_id' => array(
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'price_group_id' => array(
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'created' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'created_by' => array(
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'modified' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'modified_by' => array(
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
+	public function getById($id) {
+		if (!$this->existValue($id)) {
+			throw new Exception(__('Not found'));
+		}
+		$conditions = array('AND' => array(
+			array('id' => $id),
+		));
+		$row = $this->queryFindRow('all', array(
+			'conditions' => $conditions,
+		));
+		if (empty($row)) {
+			return array();
+		}
+		// Convert date format or boolean to yes and no if necessary
+		return $row;
+	}
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-	/**
-	 * belongsTo associations
-	 *
-	 * @var array
-	 */
-	public $belongsTo = array(
-		'Event' => array(
-			'className' => 'Event',
-			'foreignKey' => 'event_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'PriceGroup' => array(
-			'className' => 'PriceGroup',
-			'foreignKey' => 'price_group_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
 }
