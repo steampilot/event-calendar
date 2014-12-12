@@ -53,9 +53,10 @@ class EventsController extends AppController {
 		$return = array();
 		$eventId = $params['id'];
 		$event = $this->Event->getById($eventId);
-
+		$prices = $this->model('Price')->getByEventId($eventId);
 		$return['status'] = '1';
 		$return['event'] = $event;
+		$return['prices'] = $prices;
 		return $return;
 	}
 
