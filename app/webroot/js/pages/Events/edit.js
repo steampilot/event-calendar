@@ -134,7 +134,11 @@ app.events.Edit = function(config) {
 					msg: __('Saved successfully'),
 					type: 'success'
 				});
-				app.redirect('events');
+				var strParams = $.param({
+					id: res.result.event.id
+				});
+				var strUrl = 'events/edit?' + strParams;
+				app.redirect(strUrl, true);
 			} else {
 				$d.notify({
 					msg: __('Unknown error occurred'),
