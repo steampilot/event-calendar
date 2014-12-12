@@ -223,6 +223,30 @@ class AppModel extends Model {
 		return $arrReturn;
 	}
 
+	/**
+	 * Returns codelist for type tables
+	 *
+	 * @return array
+	 */
+	public function getCodelist() {
+		$arrReturn = array();
+
+		$strTitleColname = 'title';
+		$arrRows = $this->queryFind('all', array(
+			'fields' => array('id', $strTitleColname),
+			'conditions' => array('deleted' => '0'),
+			//'order' => array('sortkey')
+		));
+
+		if (!empty($arrRows)) {
+			foreach ($arrRows as $arrRow) {
+				$strTitle = $arrRow[$strTitleColname];
+				$arrReturn[$arrRow['id']] = $strTitle;
+			}
+		}
+
+		return $arrReturn;
+	}
 
 	/**
 	 *
