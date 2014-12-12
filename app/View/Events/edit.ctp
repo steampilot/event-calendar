@@ -32,8 +32,18 @@
 							<label class="col-md-3 control-label"><?php wh(__('Genre ID*')); ?></label>
 
 							<div class="col-md-9">
-								<input type="text" id="genre_id" name="data[genre_id]" class="form-control"
-								       maxlength="255" required="required">
+								<?php
+								echo $this->Component->select(array(
+									'name' => 'genre_id',
+									'datasource' => 'Genre.getCodelist',
+									'attr' => array(
+										//'default' => $customer['customer_status_type_id'],
+										'required' => 'required',
+										//'disabled' => 'disabled'
+									)
+								));
+								?>
+
 								<p class="help-block"></p>
 							</div>
 						</div>
