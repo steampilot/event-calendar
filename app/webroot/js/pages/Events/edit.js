@@ -17,10 +17,12 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.init = function() {
+		debugger;
 		$('#show_add').on('click', this.btnShowAdd_onClick);
 		this.form().on('submit', this.form_onSubmit);
 		$('#event_save').on('click', this.save_onClick);
 		$('#event_cancel').on('click', this.cancel_onClick);
+
 
 		$('#title').focus();
 
@@ -28,6 +30,7 @@ app.events.Edit = function(config) {
 			// edit
 			$this.load();
 		} else {
+			$('#event_show_container').hide();
 		}
 	};
 
@@ -37,6 +40,7 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.load = function() {
+		debugger;
 
 		$d.showLoad();
 
@@ -94,9 +98,10 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.reloadTable = function() {
-		var strFilter = $('#genre_add_nav_tabs li.active a').attr('data-filter');
+		var strFilter = $('#show_add_nav_tabs li.active a').attr('data-filter');
 		$this.filterTable(strFilter);
 	};
+
 
 	/**
 	 * Returns form
