@@ -102,7 +102,7 @@ class GenresController extends AppController {
 
 		//$arrCustomer = $this->Customer->getById($numId);
 		//$this->set('customer', $arrCustomer);
-		$this->set('title_for_layout', __('Edit article'));
+		$this->set('title_for_layout', __('Edit event'));
 	}
 
 	public function setAssetsEdit() {
