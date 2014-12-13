@@ -50,14 +50,16 @@ class EventsController extends AppController {
 		return $arrReturn;
 	}
 	public function loadEdit($params = array()) {
-		$return = array();
+		$result = array();
 		$eventId = $params['id'];
 		$event = $this->Event->getById($eventId);
 		$prices = $this->model('Price')->getByEventId($eventId);
-		$return['status'] = '1';
-		$return['event'] = $event;
-		$return['prices'] = $prices;
-		return $return;
+		$shows = $this->model('Show')->getByEventId($eventId);
+		$result['status'] = '1';
+		$result['event'] = $event;
+		$result['prices'] = $prices;
+		$result['shows'] = $shows;
+		return $result;
 	}
 
 	public function getText() {
@@ -106,7 +108,7 @@ class EventsController extends AppController {
 		$this->setAssets();
 
 		$numId = $this->request->query('id');
-		$this->set('title_for_layout', __('Edit article'));
+		$this->set('title_for_layout', __('Edit Event'));
 	}
 
 	public function setAssetsEdit() {

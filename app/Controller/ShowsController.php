@@ -43,34 +43,34 @@ class ShowsController extends AppController {
 
 	public function loadEdit($params = array()) {
 		$return = array();
-		$genreId = $params['id'];
-		$genre = $this->Show->getById($genreId);
+		$showId = $params['id'];
+		$show = $this->Show->getById($showId);
 
 		$return['status'] = '1';
-		$return['genre'] = $genre;
+		$return['show'] = $show;
 		return $return;
 	}
 
 	public function getText() {
 		$return = array(
-			'genre' => __('Genre'),
-			'genres' => __('Genres'),
-			'Do you really want to delete this genre?' => __('Do you really want to delete this genre?')
+			'show' => __('Show'),
+			'shows' => __('Shows'),
+			'Do you really want to delete this show?' => __('Do you really want to delete this show?')
 		);
 		return $return;
 	}
 
-	public function deleteGenre($params = array()) {
-		$return = $this->Genre->deleteById($params['id']);
+	public function deleteShow($params = array()) {
+		$return = $this->Show->deleteById($params['id']);
 		return $return;
 	}
 
-	public function saveGenre($params) {
+	public function saveShow($params) {
 		$return = array();
-		$result = $this->Genre->saveGenre($params);
-		if (isset($result['Genre']['id'])) {
+		$result = $this->Show->saveShow($params);
+		if (isset($result['Show']['id'])) {
 			$load = array();
-			$load['id'] = $result['Genre']['id'];
+			$load['id'] = $result['Show']['id'];
 			$return = $this->loadEdit($load);
 		} else {
 			throw new Exception(__('Error: Object could not be saved'));
@@ -97,12 +97,7 @@ class ShowsController extends AppController {
 		$this->setAssets();
 
 		$numId = $this->request->query('id');
-		//$strToken = $this->request->query('token');
-
-
-		//$arrCustomer = $this->Customer->getById($numId);
-		//$this->set('customer', $arrCustomer);
-		$this->set('title_for_layout', __('Edit article'));
+		$this->set('title_for_layout', __('Edit Show'));
 	}
 
 	public function setAssetsEdit() {

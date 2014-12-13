@@ -17,6 +17,7 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.init = function() {
+		$('#show_add').on('click', this.btnShowAdd_onClick);
 		this.form().on('submit', this.form_onSubmit);
 		$('#event_save').on('click', this.save_onClick);
 		$('#event_cancel').on('click', this.cancel_onClick);
@@ -36,6 +37,7 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.load = function() {
+
 		$d.showLoad();
 
 		var form = $this.form();
@@ -52,7 +54,48 @@ app.events.Edit = function(config) {
 			if (res.result.message) {
 				alert(res.result.message);
 			}
+			$this.loadTable(res.result);
 		});
+
+	};
+
+	this.loadTable = function(data) {
+		console.log('loadTable_input', data.shows);
+		debugger;
+		var table = $('#event_show_table');
+		var tbody = table.find('tbody');
+		tbody.html('');
+		if(!data){
+			return;
+		}
+		var row = $('#event_show_table_row_tpl').clone();
+		var tpl = row.html();
+		var html = '';
+		for(var i in data.shows) {
+			var row = data.shows[i];
+			var id = row.id;
+			row.href = 'Show/edit?'+ $.param({id:id});
+			html = $d.template(tpl, row);
+			tbody.append(html);
+		}
+
+		$(tbody).find('button[name=show_edit]').on('click', $this.showEdit_onClick);
+		$(tbody).find('button[name=show_remove]').on('click',$this.showRemove_onClick);
+		$(tbody).find("tr[data-filter='inactive'] button[name=show_remove]").hide();
+		$(tbody).find('[data-toggle=tooltip]').tooltip();
+		$this.reloadTable;
+	};
+	this.btnShowAdd_onClick = function(){
+		alert("Adding a show is not yet implemented");
+	};
+	/**
+	 * Refresh current tab filter
+	 *
+	 * @returns {undefined}
+	 */
+	this.reloadTable = function() {
+		var strFilter = $('#genre_add_nav_tabs li.active a').attr('data-filter');
+		$this.filterTable(strFilter);
 	};
 
 	/**
@@ -62,6 +105,7 @@ app.events.Edit = function(config) {
 	 */
 	this.form = function() {
 		return $('#event_form');
+
 	};
 
 	/**

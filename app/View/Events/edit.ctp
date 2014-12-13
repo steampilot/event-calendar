@@ -10,7 +10,7 @@
 	<p></p>
 
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-9">
 			<div class="panel panel-default" id="event_overview_panel">
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa-calendar"></i> <?php wh(__('Event')); ?></h3>
@@ -83,9 +83,65 @@
 								</button>
 							</div>
 						</div>
+
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h1>
+				List All Corresponding Shows
+			</h1>
+			<button type="submit" id="show_add" class="btn btn-primary">
+				<span fa fa-plus></span><?php wh(__('Add a new show')); ?></span>
+			</button>
+		</div>
+	</div>
+	<p></p>
+
+	<div class="row">
+		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel panel-body">
+
+					<table id="event_show_table"
+					       class="table table-bordered table-hover table-striped table-condensed">
+						<thead>
+						<tr>
+							<th>
+								<?php wh(__('Date and Time of Begin')); ?>
+							</th>
+							<th>
+								<?php wh(__('Action')); ?>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<script type="text/html" id="event_show_table_row_tpl">
+	<tr data-fitler="{filter}">
+		<td>
+			{begin}
+		</td>
+		<td>
+			<button type="button" name="show_edit" data-href="{href}" class="btn btn-default">
+				<span class="fa fa-edit"></span>
+				<?php wh(__('Edit')); ?>
+			</button>
+			<button type="button" name="show_remove" data-id="{id}" class="btn btn-danger">
+				<span class="fa fa-remove"></span>
+				<?php wh(__('Delete')); ?>
+			</button>
+		</td>
+	</tr>
+</script>
