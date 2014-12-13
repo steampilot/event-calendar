@@ -1,8 +1,18 @@
 <div class="footer">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#"><?php wh(__('Steampilot') . ' | ' . __('Version') . ' ' . Configure::read
-					('App.version') . ' | ' . CakeSession::read('Auth.User.title')); ?></a>
+			<?php
+			$currentUser = CakeSession::read('Auth.User.title');
+			if ($currentUser == '') {
+				$currentUser = 'LOGIN';
+			}
+			$linkText = 'Steampilot | Version | '.
+				Configure::read('App.version').
+				' | '. $currentUser;
+			$linkUrl = array('action' => 'dashboard', 'admin' => 'true');
+			$options = array('class' => 'navbar-brand');
+			echo $this->Html->link($linkText, $linkUrl,$options);
+			?>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -12,5 +22,3 @@
 		</div>
 	</div>
 </div>
-<?php
-echo $this->Html->link('Admin', array('action' => 'dashboard', 'admin' => 'true'));
