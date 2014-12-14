@@ -95,7 +95,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h1>
-				List All Corresponding Shows
+				List all corresponding Shows
 			</h1>
 			<button type="submit" id="show_add" class="btn btn-primary">
 				<span fa fa-plus></span><?php wh(__('Add a new show')); ?></span>
@@ -135,7 +135,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h1>
-				List All Corresponding ticket prices
+				List all corresponding ticket prices
 			</h1>
 			<button type="submit" id="price_add" class="btn btn-primary">
 				<span fa fa-plus></span><?php wh(__('Add a new ticket price category')); ?></span>
