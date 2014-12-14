@@ -39,7 +39,6 @@ app.priceCategories.Edit = function(config) {
 	this.load = function() {
 		$d.showLoad();
 
-		// allow olny adding price
 		var form = $this.form();
 		form.find(":input[type!='hidden']").prop("deleted", false);
 

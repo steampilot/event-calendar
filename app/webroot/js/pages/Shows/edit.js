@@ -27,7 +27,11 @@ app.shows.Edit = function(config) {
 			// edit
 			$this.load();
 		} else {
-			// new: set default values
+			var data = {};
+			var show = {};
+			data.show = show;
+			data.show = $this.config;
+			$this.loadForm(data);
 		}
 	};
 
@@ -73,8 +77,6 @@ app.shows.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.loadForm = function(data) {
-		//debugger;
-		//$d.log(data);
 		var show = data.show;
 		var form = $this.form();
 
@@ -104,12 +106,9 @@ app.shows.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.save_onClick = function(e) {
-
 		e.preventDefault();
 		var form = $this.form();
 		var data = $d.getForm(form);
-
-		// input validation
 		var boolValid = $this.validateForm();
 		if (!boolValid) {
 			$d.notify({
@@ -134,12 +133,17 @@ app.shows.Edit = function(config) {
 				return;
 			}
 
+			console.log(res.result.show.event_id);
+			var strParams = $.param({
+				id: res.result.show.event_id
+			});
 			if (res.result.status == 1) {
 				$d.notify({
 					msg: __('Saved successfully'),
 					type: 'success'
 				});
-				app.redirect('events');
+				var strUrl = 'events/edit?' + strParams;
+				app.redirect(strUrl, true);
 			} else {
 				$d.notify({
 					msg: __('Unknown error occurred'),

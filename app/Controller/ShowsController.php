@@ -10,7 +10,7 @@
 App::uses('AppController', 'Controller');
 
 /**
- * Class GenresController
+ * Class ShowsController
  *
  */
 class ShowsController extends AppController {
@@ -104,7 +104,7 @@ class ShowsController extends AppController {
 	public function setAssetsEdit() {
 		$assets = array();
 		$assets['js'][] = array(
-			'path' => 'pages/Genres/edit',
+			'path' => 'pages/Shows/edit',
 			'options' => array(
 				'block' => 'script',
 				'inline' => true

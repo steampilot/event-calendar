@@ -17,7 +17,6 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.init = function() {
-		debugger;
 		$('#show_add').on('click', this.btnShowAdd_onClick);
 		this.form().on('submit', this.form_onSubmit);
 		$('#event_save').on('click', this.save_onClick);
@@ -40,7 +39,6 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.load = function() {
-		debugger;
 
 		$d.showLoad();
 
@@ -93,8 +91,10 @@ app.events.Edit = function(config) {
 		$(tbody).find('[data-toggle=tooltip]').tooltip();
 		$this.reloadTable;
 	};
-	this.btnShowAdd_onClick = function(eventId){
-		app.redirect('Shows/add?'+ $.param({eventId:eventId}));
+	this.btnShowAdd_onClick = function(){
+		var event_id = $this.config.id;
+		console.log('btnShowAdd_onClick params', event_id);
+		app.redirect('Shows/add?'+ $.param({event_id:event_id}));
 	};
 	/**
 	 * Handle click
@@ -199,7 +199,6 @@ app.events.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.save_onClick = function(e) {
-		debugger;
 		e.preventDefault();
 		var form = $this.form();
 		var data = $d.getForm(form);
