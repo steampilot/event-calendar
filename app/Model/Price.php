@@ -58,4 +58,47 @@ class Price extends AppModel {
 		return $row;
 	}
 
+	public function savePrice($params) {
+		$return = array();
+		if (empty($params['data']['id'])) {
+			$return = $this->insertRow($this->name, $params['data']);
+		} else {
+			$return = $this->save($params['data'], false);
+
+		}
+		return $return;
+	}
+
+	public function deleteById($id) {
+		$return = array(
+			'status' => 0
+		);
+		if (!$this->exists($id)) {
+			throw new Exception(__('Not found'));
+		}
+		$this->id = $id;
+		$row = array(
+			'deleted' => 1
+		);
+		$data = $this->save($row, false);
+		$return['status'] = 1;
+		$return['data'] = $data;
+		return $return;
+	}
+
+	public function searchGenres($arrPararms) {
+		$return = null;
+		return $return;
+	}
+
+	public function validateGenreUpdate($row) {
+		$return = null;
+		return $return;
+	}
+
+	public function validateGenreInsert($row) {
+		$return = null;
+		return $return;
+	}
+
 }
