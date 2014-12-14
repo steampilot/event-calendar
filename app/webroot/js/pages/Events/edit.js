@@ -18,6 +18,7 @@ app.events.Edit = function(config) {
 	 */
 	this.init = function() {
 		$('#show_add').on('click', this.btnShowAdd_onClick);
+		$('#price_add').on('click', this.btnPriceAdd_onClick);
 		this.form().on('submit', this.form_onSubmit);
 		$('#event_save').on('click', this.save_onClick);
 		$('#event_cancel').on('click', this.cancel_onClick);
@@ -30,6 +31,7 @@ app.events.Edit = function(config) {
 			$this.load();
 		} else {
 			$('#event_show_container').hide();
+			$('#event_price_container').hide();
 		}
 	};
 
@@ -56,16 +58,14 @@ app.events.Edit = function(config) {
 			if (res.result.message) {
 				alert(res.result.message);
 			}
-			$this.loadTable(res.result);
+			$this.loadTableShows(res.result);
+			$this.loadTablePrices(res.result);
 		});
 
 	};
 
-	this.loadTable = function(data) {
-		console.log('loadTable_input', data.shows);
-		console.log('loadTable_input event')
+	this.loadTableShows = function(data) {
 		var eventId = data.event.id;
-		console.log('eventId',eventId);
 		var btn_show_add = $('#show_add');
 		btn_show_add.href = 'Shows/add?'+ $.param({eventId:eventId})
 		var table = $('#event_show_table');
@@ -91,28 +91,55 @@ app.events.Edit = function(config) {
 		$(tbody).find('[data-toggle=tooltip]').tooltip();
 		$this.reloadTable;
 	};
+
+	this.loadTablePrices = function(data) {
+		var eventId = data.event.id;
+		var btn_price_add = $('#price_add');
+		btn_price_add.href = 'Prices/add?'+ $.param({eventId:eventId})
+		var table = $('#event_price_table');
+		var tbody = table.find('tbody');
+		tbody.html('');
+		if(!data){
+			return;
+		}
+		var row = $('#event_price_table_row_tpl').clone();
+		var tpl = row.html();
+		var html = '';
+		for(var i in data.prices) {
+			var row = data.prices[i];
+			var id = row.id;
+			row.href = 'Prices/edit?'+ $.param({id:id});
+			html = $d.template(tpl, row);
+			tbody.append(html);
+		}
+
+		$(tbody).find('button[name=price_edit]').on('click', $this.priceEdit_onClick);
+		$(tbody).find('button[name=price_remove]').on('click',$this.priceRemove_onClick);
+		$(tbody).find("tr[data-filter='inactive'] button[name=price_remove]").hide();
+		$(tbody).find('[data-toggle=tooltip]').tooltip();
+		$this.reloadTable;
+	};
+
 	this.btnShowAdd_onClick = function(){
 		var event_id = $this.config.id;
-		console.log('btnShowAdd_onClick params', event_id);
 		app.redirect('Shows/add?'+ $.param({event_id:event_id}));
 	};
-	/**
-	 * Handle click
-	 *
-	 * @returns {undefined}
-	 */
+
+	this.btnPriceAdd_onClick = function(){
+		var event_id = $this.config.id;
+		app.redirect('Prices/add?'+ $.param({event_id:event_id}));
+	};
+
 	this.showEdit_onClick = function() {
 		var strUrl = $(this).attr('data-href');
-		console.log(strUrl);
 		app.redirect(strUrl);
 	};
 
+	this.priceEdit_onClick = function() {
+		var strUrl = $(this).attr('data-href');
+		app.redirect(strUrl);
+	};
 
-	/**
-	 * Handle click
-	 *
-	 * @returns {undefined}
-	 */
 	this.showRemove_onClick = function() {
 
 		var id = $(this).attr('data-id');
@@ -129,6 +156,36 @@ app.events.Edit = function(config) {
 
 			$d.showLoad();
 			app.rpc('Shows.deleteShow', params, function(res) {
+				if (!$d.handleResponse(res)) {
+					return;
+				}
+
+				if (res.result.message) {
+					$d.alert(res.result.message);
+					return;
+				}
+
+				$this.load();
+			});
+		});
+	};
+
+	this.priceRemove_onClick = function() {
+
+		var id = $(this).attr('data-id');
+
+		$d.confirm(__('Do you really want to delete this price?'), function(status) {
+
+			if (!status) {
+				return;
+			}
+
+			var params = {
+				id: id
+			};
+
+			$d.showLoad();
+			app.rpc('Prices.deletePrice', params, function(res) {
 				if (!$d.handleResponse(res)) {
 					return;
 				}

@@ -130,6 +130,49 @@
 		</div>
 	</div>
 </div>
+<div class="container" id="event_price_container">
+
+	<div class="row">
+		<div class="col-md-12">
+			<h1>
+				List All Corresponding ticket prices
+			</h1>
+			<button type="submit" id="price_add" class="btn btn-primary">
+				<span fa fa-plus></span><?php wh(__('Add a new ticket price category')); ?></span>
+			</button>
+		</div>
+	</div>
+	<p></p>
+	<div class="row">
+
+		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel panel-body">
+
+					<table id="event_price_table"
+					       class="table table-bordered table-hover table-striped table-condensed">
+						<thead>
+						<tr>
+							<th>
+								<?php wh(__('Price tag of the ticket')); ?>
+							</th>
+							<th>
+								<?php wh(__('Price category')); ?>
+							</th>
+							<th>
+								<?php wh(__('Action')); ?>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <script type="text/html" id="event_show_table_row_tpl">
@@ -143,6 +186,27 @@
 				<?php wh(__('Edit')); ?>
 			</button>
 			<button type="button" name="show_remove" data-id="{id}" class="btn btn-danger">
+				<span class="fa fa-remove"></span>
+				<?php wh(__('Delete')); ?>
+			</button>
+		</td>
+	</tr>
+</script>
+
+<script type="text/html" id="event_price_table_row_tpl">
+	<tr data-fitler="{filter}">
+		<td>
+			{price}
+		</td>
+		<td>
+			{price_category_id}
+		</td>
+		<td>
+			<button type="button" name="price_edit" data-href="{href}" class="btn btn-default">
+				<span class="fa fa-edit"></span>
+				<?php wh(__('Edit')); ?>
+			</button>
+			<button type="button" name="price_remove" data-id="{id}" class="btn btn-danger">
 				<span class="fa fa-remove"></span>
 				<?php wh(__('Delete')); ?>
 			</button>
