@@ -55,10 +55,12 @@ class EventsController extends AppController {
 		$event = $this->Event->getById($eventId);
 		$prices = $this->model('Price')->getByEventId($eventId);
 		$shows = $this->model('Show')->getByEventId($eventId);
+		$links = $this->model('Link')->getByEventId($eventId);
 		$result['status'] = '1';
 		$result['event'] = $event;
 		$result['prices'] = $prices;
 		$result['shows'] = $shows;
+		$result['links'] =$links;
 		return $result;
 	}
 

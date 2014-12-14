@@ -19,6 +19,7 @@ app.events.Edit = function(config) {
 	this.init = function() {
 		$('#show_add').on('click', this.btnShowAdd_onClick);
 		$('#price_add').on('click', this.btnPriceAdd_onClick);
+		$('#link_add').on('click', this.btnLinkAdd_onClick);
 		this.form().on('submit', this.form_onSubmit);
 		$('#event_save').on('click', this.save_onClick);
 		$('#event_cancel').on('click', this.cancel_onClick);
@@ -32,6 +33,7 @@ app.events.Edit = function(config) {
 		} else {
 			$('#event_show_container').hide();
 			$('#event_price_container').hide();
+			$('#event_link_container').hide();
 		}
 	};
 
@@ -60,6 +62,7 @@ app.events.Edit = function(config) {
 			}
 			$this.loadTableShows(res.result);
 			$this.loadTablePrices(res.result);
+			$this.loadTableLinks(res.result);
 		});
 
 	};
@@ -120,6 +123,34 @@ app.events.Edit = function(config) {
 		$this.reloadTable;
 	};
 
+	this.loadTableLinks = function(data) {
+		var eventId = data.event.id;
+		var btn_link_add = $('#link_add');
+		btn_link_add.href = 'Links/add?'+ $.param({eventId:eventId})
+		var table = $('#event_link_table');
+		var tbody = table.find('tbody');
+		tbody.html('');
+		if(!data){
+			return;
+		}
+		var row = $('#event_link_table_row_tpl').clone();
+		var tpl = row.html();
+		var html = '';
+		for(var i in data.links) {
+			var row = data.links[i];
+			var id = row.id;
+			row.href = 'Links/edit?'+ $.param({id:id});
+			html = $d.template(tpl, row);
+			tbody.append(html);
+		}
+
+		$(tbody).find('button[name=link_edit]').on('click', $this.linkEdit_onClick);
+		$(tbody).find('button[name=link_remove]').on('click',$this.linkRemove_onClick);
+		$(tbody).find("tr[data-filter='inactive'] button[name=link_remove]").hide();
+		$(tbody).find('[data-toggle=tooltip]').tooltip();
+		$this.reloadTable;
+	};
+
 	this.btnShowAdd_onClick = function(){
 		var event_id = $this.config.id;
 		app.redirect('Shows/add?'+ $.param({event_id:event_id}));
@@ -129,6 +160,10 @@ app.events.Edit = function(config) {
 		var event_id = $this.config.id;
 		app.redirect('Prices/add?'+ $.param({event_id:event_id}));
 	};
+	this.btnLinkAdd_onClick = function(){
+		var event_id = $this.config.id;
+		app.redirect('Links/add?'+ $.param({event_id:event_id}));
+	};
 
 	this.showEdit_onClick = function() {
 		var strUrl = $(this).attr('data-href');
@@ -136,6 +171,10 @@ app.events.Edit = function(config) {
 	};
 
 	this.priceEdit_onClick = function() {
+		var strUrl = $(this).attr('data-href');
+		app.redirect(strUrl);
+	};
+	this.linkEdit_onClick = function() {
 		var strUrl = $(this).attr('data-href');
 		app.redirect(strUrl);
 	};
@@ -185,7 +224,36 @@ app.events.Edit = function(config) {
 			};
 
 			$d.showLoad();
-			app.rpc('Prices.deletePrice', params, function(res) {
+			app.rpc('Prices.deleteShow', params, function(res) {
+				if (!$d.handleResponse(res)) {
+					return;
+				}
+
+				if (res.result.message) {
+					$d.alert(res.result.message);
+					return;
+				}
+
+				$this.load();
+			});
+		});
+	};
+	this.linkRemove_onClick = function() {
+
+		var id = $(this).attr('data-id');
+
+		$d.confirm(__('Do you really want to delete this web link?'), function(status) {
+
+			if (!status) {
+				return;
+			}
+
+			var params = {
+				id: id
+			};
+
+			$d.showLoad();
+			app.rpc('Links.deleteLink', params, function(res) {
 				if (!$d.handleResponse(res)) {
 					return;
 				}
@@ -259,8 +327,6 @@ app.events.Edit = function(config) {
 		e.preventDefault();
 		var form = $this.form();
 		var data = $d.getForm(form);
-
-		// input validation
 		var boolValid = $this.validateForm();
 		if (!boolValid) {
 			$d.notify({
@@ -269,13 +335,11 @@ app.events.Edit = function(config) {
 			});
 			return;
 		}
-
 		$d.showLoad();
 		app.rpc('Events.saveEvent', data, function(res) {
 			if (!$d.handleResponse(res)) {
 				return;
 			}
-
 			if (res.result.validation) {
 				$d.showValidation(form, res.result.validation);
 				return;
@@ -284,7 +348,6 @@ app.events.Edit = function(config) {
 				$d.alert(res.result.message);
 				return;
 			}
-
 			if (res.result.status == 1) {
 				$d.notify({
 					msg: __('Saved successfully'),
@@ -302,7 +365,6 @@ app.events.Edit = function(config) {
 				});
 			}
 		});
-
 	};
 
 	/**

@@ -17,6 +17,7 @@ app.links.Edit = function(config) {
 	 * @returns {undefined}
 	 */
 	this.init = function() {
+		debugger;
 		this.form().on('submit', this.form_onSubmit);
 		$('#link_save').on('click', this.save_onClick);
 		$('#link_cancel').on('click', this.cancel_onClick);
@@ -140,7 +141,7 @@ app.links.Edit = function(config) {
 					msg: __('Saved successfully'),
 					type: 'success'
 				});
-				var strUrl = 'links/edit?' + strParams;
+				var strUrl = 'events/edit?' + strParams;
 				app.redirect(strUrl, true);
 			} else {
 				$d.notify({

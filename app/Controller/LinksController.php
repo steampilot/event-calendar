@@ -44,8 +44,8 @@ class LinksController extends AppController {
 
 	public function loadEdit($params = array()) {
 		$return = array();
-		$showId = $params['id'];
-		$link = $this->Link->getById($showId);
+		$linkId = $params['id'];
+		$link = $this->Link->getById($linkId);
 
 		$return['status'] = '1';
 		$return['link'] = $link;
@@ -55,7 +55,7 @@ class LinksController extends AppController {
 	public function getText() {
 		$return = array(
 			'link' => __('Link'),
-			'link' => __('Link'),
+			'links' => __('Links'),
 			'Do you really want to delete this link?' => __('Do you really want to delete this link?')
 		);
 		return $return;
@@ -68,7 +68,7 @@ class LinksController extends AppController {
 
 	public function saveLink($params) {
 		$return = array();
-		$result = $this->Link->saveShow($params);
+		$result = $this->Link->saveLink($params);
 		if (isset($result['Link']['id'])) {
 			$load = array();
 			$load['id'] = $result['Link']['id'];
@@ -105,7 +105,7 @@ class LinksController extends AppController {
 	public function setAssetsEdit() {
 		$assets = array();
 		$assets['js'][] = array(
-			'path' => 'pages/Link/edit',
+			'path' => 'pages/Links/edit',
 			'options' => array(
 				'block' => 'script',
 				'inline' => true
