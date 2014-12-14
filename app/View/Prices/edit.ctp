@@ -16,7 +16,7 @@
 					<h3 class="panel-title"><i class="fa fa-money"></i> <?php wh(__('Price')); ?></h3>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" id="price_form">
+					<form class="form-horizontal" role="form" id="prices_form">
 						<input type="hidden" name="data[id]">
 						<input type="hidden" name="data[event_id]">
 
@@ -24,7 +24,7 @@
 							<label class="col-md-3 control-label"><?php wh(__('Price of a Ticket*')); ?></label>
 
 							<div class="col-md-9">
-								<input type="number" id="price" name="data[price]" class="form-control"
+								<input type="text" id="price" name="data[price]" class="form-control"
 								       maxlength="255" required="required">
 
 								<p class="help-block"></p>

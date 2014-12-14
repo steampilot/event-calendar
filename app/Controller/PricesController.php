@@ -44,7 +44,7 @@ class PricesController extends AppController {
 	public function loadEdit($params = array()) {
 		$return = array();
 		$priceId = $params['id'];
-		$show = $this->Price->getById($priceId);
+		$price = $this->Price->getById($priceId);
 
 		$return['status'] = '1';
 		$return['price'] = $price;
