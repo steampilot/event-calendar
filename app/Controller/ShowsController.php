@@ -78,11 +78,12 @@ class ShowsController extends AppController {
 		return $return;
 	}
 
-	public function add() {
+	public function add($eventId = 0) {
 		$this->view = 'edit';
 		$this->setAssetsEdit();
 		$this->setAssets();
-		$this->set('title_for_layout', __('Create new genre'));
+		$numEventId = $this->request->query('eventId');
+		$this->set('title_for_layout', __('Create new show'));
 	}
 
 

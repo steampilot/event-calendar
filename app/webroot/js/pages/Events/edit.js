@@ -65,7 +65,11 @@ app.events.Edit = function(config) {
 
 	this.loadTable = function(data) {
 		console.log('loadTable_input', data.shows);
-		debugger;
+		console.log('loadTable_input event')
+		var eventId = data.event.id;
+		console.log('eventId',eventId);
+		var btn_show_add = $('#show_add');
+		btn_show_add.href = 'Shows/add?'+ $.param({eventId:eventId})
 		var table = $('#event_show_table');
 		var tbody = table.find('tbody');
 		tbody.html('');
@@ -78,7 +82,7 @@ app.events.Edit = function(config) {
 		for(var i in data.shows) {
 			var row = data.shows[i];
 			var id = row.id;
-			row.href = 'Show/edit?'+ $.param({id:id});
+			row.href = 'Shows/edit?'+ $.param({id:id});
 			html = $d.template(tpl, row);
 			tbody.append(html);
 		}
@@ -89,9 +93,56 @@ app.events.Edit = function(config) {
 		$(tbody).find('[data-toggle=tooltip]').tooltip();
 		$this.reloadTable;
 	};
-	this.btnShowAdd_onClick = function(){
-		alert("Adding a show is not yet implemented");
+	this.btnShowAdd_onClick = function(eventId){
+		app.redirect('Shows/add?'+ $.param({eventId:eventId}));
 	};
+	/**
+	 * Handle click
+	 *
+	 * @returns {undefined}
+	 */
+	this.showEdit_onClick = function() {
+		var strUrl = $(this).attr('data-href');
+		console.log(strUrl);
+		app.redirect(strUrl);
+	};
+
+
+	/**
+	 * Handle click
+	 *
+	 * @returns {undefined}
+	 */
+	this.showRemove_onClick = function() {
+
+		var id = $(this).attr('data-id');
+
+		$d.confirm(__('Do you really want to delete this show?'), function(status) {
+
+			if (!status) {
+				return;
+			}
+
+			var params = {
+				id: id
+			};
+
+			$d.showLoad();
+			app.rpc('Shows.deleteShow', params, function(res) {
+				if (!$d.handleResponse(res)) {
+					return;
+				}
+
+				if (res.result.message) {
+					$d.alert(res.result.message);
+					return;
+				}
+
+				$this.load();
+			});
+		});
+	};
+
 	/**
 	 * Refresh current tab filter
 	 *
