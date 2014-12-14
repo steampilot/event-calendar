@@ -18,24 +18,11 @@
 				<div class="panel-body">
 					<form class="form-horizontal" role="form" id="priceCategory_form">
 						<input type="hidden" name="data[id]">
-
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?php wh(__('Title*')); ?></label>
-
 							<div class="col-md-9">
 								<input type="text" id="title" name="data[title]" class="form-control"
 								       maxlength="255" required="required">
-
-								<p class="help-block"></p>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label"><?php wh(__('Price*')); ?></label>
-
-							<div class="col-md-9">
-								<input type="number" id="price" name="data[price]" class="form-control"
-								       required="required">
-
 								<p class="help-block"></p>
 							</div>
 						</div>
