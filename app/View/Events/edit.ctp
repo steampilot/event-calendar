@@ -8,7 +8,6 @@
 		</div>
 	</div>
 	<p></p>
-
 	<div class="row">
 		<div class="col-md-9">
 			<div class="panel panel-default" id="event_overview_panel">
@@ -90,8 +89,8 @@
 		</div>
 	</div>
 </div>
-<div class="container" id="event_show_container">
 
+<div class="container" id="event_show_container">
 	<div class="row">
 		<div class="col-md-12">
 			<h1>
@@ -131,7 +130,6 @@
 	</div>
 </div>
 <div class="container" id="event_price_container">
-
 	<div class="row">
 		<div class="col-md-12">
 			<h1>
@@ -144,11 +142,9 @@
 	</div>
 	<p></p>
 	<div class="row">
-
 		<div class="col-md-9">
 			<div class="panel panel-default">
 				<div class="panel panel-body">
-
 					<table id="event_price_table"
 					       class="table table-bordered table-hover table-striped table-condensed">
 						<thead>
@@ -165,7 +161,42 @@
 						</tr>
 						</thead>
 						<tbody>
-
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container" id="event_link_container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>
+				List all corresponding Web Links
+			</h1>
+			<button type="submit" id="link_add" class="btn btn-primary">
+				<span fa fa-plus></span><?php wh(__('Add a new Web Link')); ?></span>
+			</button>
+		</div>
+	</div>
+	<p></p>
+	<div class="row">
+		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel panel-body">
+					<table id="event_link_table"
+					       class="table table-bordered table-hover table-striped table-condensed">
+						<thead>
+						<tr>
+							<th>
+								<?php wh(__('Title')); ?>
+							</th>
+							<th>
+								<?php wh(__('Web Link Url')); ?>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
 						</tbody>
 					</table>
 				</div>
@@ -207,6 +238,27 @@
 				<?php wh(__('Edit')); ?>
 			</button>
 			<button type="button" name="price_remove" data-id="{id}" class="btn btn-danger">
+				<span class="fa fa-remove"></span>
+				<?php wh(__('Delete')); ?>
+			</button>
+		</td>
+	</tr>
+</script>
+
+<script type="text/html" id="event_link_table_row_tpl">
+	<tr data-fitler="{filter}">
+		<td>
+			{title}
+		</td>
+		<td>
+			{link}
+		</td>
+		<td>
+			<button type="button" name="link_edit" data-href="{href}" class="btn btn-default">
+				<span class="fa fa-edit"></span>
+				<?php wh(__('Edit')); ?>
+			</button>
+			<button type="button" name="link_remove" data-id="{id}" class="btn btn-danger">
 				<span class="fa fa-remove"></span>
 				<?php wh(__('Delete')); ?>
 			</button>
