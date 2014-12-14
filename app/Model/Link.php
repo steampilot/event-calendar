@@ -1,23 +1,22 @@
 <?php
-App::uses('AppModel', 'Model');
 App::uses('EventInterfaceModel', 'Model');
 
 /**
  * Link Model
  *
- * @property Event $Event
+ * @property Link $Link
  */
 class Link extends EventInterfaceModel {
 
+	/**
+	 * Saves the Link to the database
+	 *
+	 * @deprecated deprecated use saveRow of AppModel instead.
+	 * @param $params
+	 * @return array|mixed
+	 */
 	public function saveLink($params) {
-		$return = array();
-		if (empty($params['data']['id'])) {
-			$return = $this->insertRow($this->name, $params['data']);
-		} else {
-			$return = $this->save($params['data'], false);
-
-		}
-		return $return;
+		return $this->saveRow($params);
 	}
 
 }

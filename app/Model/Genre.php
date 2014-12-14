@@ -9,15 +9,15 @@ App::uses('AppModel', 'Model');
  */
 class Genre extends AppModel {
 
+	/**
+	 * Saves the genre to the database
+	 *
+	 * @deprecated deprecated use saveRow of AppModel instead.
+	 * @param $params
+	 * @return array|mixed
+	 */
 	public function saveGenre($params) {
-		$return = array();
-		if (empty($params['data']['id'])) {
-			$return = $this->insertRow($this->name, $params['data']);
-		} else {
-			$return = $this->save($params['data'], false);
-
-		}
-		return $return;
+		return $this->saveRow($params);
 	}
 
 }

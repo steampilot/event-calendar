@@ -11,15 +11,14 @@ App::uses('AppModel', 'Model');
  */
 class Event extends AppModel {
 
-
+	/**
+	 * Saves the event to the database
+	 *
+	 * @param $params
+	 * @return array|mixed
+	 * @deprecated deprecated use saveRow of AppModel instead.
+	 */
 	public function saveEvent($params) {
-		$return = array();
-		if (empty($params['data']['id'])) {
-			$return = $this->insertRow($this->name, $params['data']);
-		} else {
-			$return = $this->save($params['data'], false);
-
-		}
-		return $return;
+		return $this->saveRow($params);
 	}
 }

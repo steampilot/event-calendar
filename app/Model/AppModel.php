@@ -289,6 +289,16 @@ class AppModel extends Model {
 		return $row;
 	}
 
+	public function saveRow($params) {
+		$return = array();
+		if (empty($params['data']['id'])) {
+			$return = $this->insertRow($this->name, $params['data']);
+		} else {
+			$return = $this->save($params['data'], false);
+
+		}
+		return $return;
+	}
 	/**
 	 *
 	 * @param $strField
