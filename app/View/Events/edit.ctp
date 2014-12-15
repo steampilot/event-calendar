@@ -70,6 +70,21 @@
 								<input type="datetime" id="duration" name="data[duration]" class="form-control">
 								<p class="help-block"></p>
 							</div>
+						</div><div class="form-group">
+							<label class="col-md-3 control-label"><?php wh(__('Image File Name')); ?></label>
+
+							<div class="col-md-9">
+								<input type="text" id="image_file_name" name="data[image_file_name]"
+								       class="form-control">
+								<p class="help-block"></p>
+							</div>
+						</div><div class="form-group">
+							<label class="col-md-3 control-label"><?php wh(__('Image description')); ?></label>
+
+							<div class="col-md-9">
+								<input type="datetime" id="image_title" name="data[image_title]" class="form-control">
+								<p class="help-block"></p>
+							</div>
 						</div>
 						<hr>
 						<div class="form-group">

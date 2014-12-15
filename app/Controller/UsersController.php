@@ -53,7 +53,7 @@ class UsersController extends AppController {
 
 	/**
 	 * Logout
-	 * - Detroy user sesion
+	 * - Destroy user session
 	 *
 	 * @return void
 	 */
