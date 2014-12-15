@@ -132,6 +132,8 @@ class EventsController extends AppController {
 	 * @return void
 	 */
 	public function program() {
+		$events = $this->Event->find('all');
+		$this->set('events' , $events);
 
 	}
 
